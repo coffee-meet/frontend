@@ -4,6 +4,7 @@ import AdminPage from '@/pages/admin'
 import AdminLoginPage from '@/pages/admin/AdminLogin'
 import ChatListPage from '@/pages/chatList'
 import ChattingPage from '@/pages/chatting'
+import ExamplePage from '@/pages/example'
 import HomePage from '@/pages/home'
 import LandingPage from '@/pages/landing'
 import LoginPage from '@/pages/login'
@@ -21,6 +22,7 @@ const App = () => {
         <Route path={'/profile/*'} element={<ProfilePage />} />
         <Route path={'/chatting'} element={<ChattingPage />} />
         <Route path={'/chat-list'} element={<ChatListPage />} />
+        <Route path={'/example'} element={<ExamplePage />}></Route>
         <Route path={'*'} element={<NotFoundPage />}></Route>
       </Route>
 
@@ -29,6 +31,7 @@ const App = () => {
         <Route path={'/login'} element={<LoginPage />} />
         <Route path={'/register/*'} element={<RegisterPage />} />
         <Route path={'/admin-login'} element={<AdminLoginPage />} />
+        <Route path={'/example'} element={<ExamplePage />}></Route>
         <Route path={'*'} element={<NotFoundPage />}></Route>
       </Route>
 

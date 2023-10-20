@@ -5,13 +5,15 @@ type PrivateRouteProps = {
   superAuth?: boolean
 }
 
+type LoginStatus = 'true' | 'false'
+
 const PrivateRoute = ({ auth }: PrivateRouteProps) => {
-  const isLogin = localStorage.getItem('isLogin')
+  const isLogin: LoginStatus = 'true'
 
   if (auth) {
-    return isLogin === null || isLogin == 'false' ? <Navigate to={'/login'} /> : <Outlet />
+    return isLogin !== 'true' ? <Navigate to={'/login'} /> : <Outlet />
   } else {
-    return isLogin === null || isLogin == 'false' ? <Outlet /> : <Navigate to={'/'} />
+    return isLogin !== 'true' ? <Outlet /> : <Navigate to={'/'} />
   }
 }
 
