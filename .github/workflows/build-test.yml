@@ -2,9 +2,9 @@ name: Build Test
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
   workflow_dispatch:
 
 jobs:
@@ -12,15 +12,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v3
+        with:
+          # cache의 대상을 정합니다. npm에서 의존성이 설치되는 디렉터리인 node_modules를 대상으로 합니다.
+          path: '**/node_modules'
+          # cache를 무효화하를 결정하는 기준은 의존성이 변경되면 함께 변경되는 파일인 package-lock.json을 기준으로 합니다.
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          # key가 유효하지 않은 경우 runner의 운영체제 값과 node라는 suffix를 key로 복구합니다.
+          # 결과적으로 package-lock.json이 변경되지 않았다면 캐싱된 node_modules를 사용합니다.
+          # 만약 복구될 캐시가 없다면 아래에서 사용할 cache-hit는 false가 됩니다.
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install Dependencies
+        # 이전의 cache가 없다면 의존성을 설치합니다.
+        if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
       - name: Build React app
