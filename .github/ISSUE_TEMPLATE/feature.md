@@ -12,4 +12,4 @@ assignees: ''
 ## 작업 중인 브랜치
 
 ## ☑ Implement TODO
-- [x] 작업
+- [ ] 작업

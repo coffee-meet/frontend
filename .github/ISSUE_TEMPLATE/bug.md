@@ -12,4 +12,4 @@ assignees: ''
 ## 버그 작업 브랜치
 
 ## ☑ Bug Fix TODOS
-- [x] 작업
+- [ ] 작업
