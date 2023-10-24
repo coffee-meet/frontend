@@ -13,4 +13,4 @@ assignees: ''
 ## 리팩토링 작업 브랜치
 
 ## ☑ Refactoring TODO
-- [x] 작업
+- [ ] 작업
