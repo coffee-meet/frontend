@@ -8,11 +8,13 @@ import {
   ParticularTopicButton,
   RandomMatchingButton,
 } from './IconButton'
+import RandomMatchingJoinButton from './IconButton/RandomMatchingJoin'
 import NormalButton from './NormalButton/NormalButton'
 
 const Button = () => {
   return (
     <>
+      {/* 버튼 사용법입니다! */}
       <div>
         <NormalButton normalButtonType={'form-submit'} onClick={() => alert('hi!')}>
           {'이메일 인증?!'}
@@ -80,6 +82,12 @@ const Button = () => {
       </div>
       <div>
         <RandomMatchingButton date={'2023-10-25T01:01:39.590Z'} isDarkMode={true} />
+      </div>
+      <div>
+        <RandomMatchingJoinButton />
+      </div>
+      <div>
+        <RandomMatchingJoinButton isDarkMode={true} />
       </div>
       <div>
         <NaverIcon width={53} height={53} iconWidth={20} iconHeight={20} borderRadius={10} />
