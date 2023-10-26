@@ -29,28 +29,35 @@ const Input = ({
 }: InputProps) => {
   return (
     <>
-      <StyleInput
-        placeholder={placeholder}
-        placeholderSize={placeholderSize}
-        placeholderColor={placeholderColor}
-        width={width}
-        height={height}
-        borderColor={borderColor}
-        borderWidth={borderWidth}
-        inputTextColor={inputTextColor}
-        inputTextSize={inputTextSize}
-        inputBackgroundColor={inputBackgroundColor}
-        borderRadius={borderRadius}
-      ></StyleInput>
+      <InputWrapper>
+        <StyleInput
+          placeholder={placeholder}
+          placeholderSize={placeholderSize}
+          placeholderColor={placeholderColor}
+          width={width}
+          height={height}
+          borderColor={borderColor}
+          borderWidth={borderWidth}
+          inputTextColor={inputTextColor}
+          inputTextSize={inputTextSize}
+          inputBackgroundColor={inputBackgroundColor}
+          borderRadius={borderRadius}
+        ></StyleInput>
+      </InputWrapper>
     </>
   )
 }
+
+const InputWrapper = styled.div`
+  position: relative;
+`
 
 const StyleInput = styled.input<InputProps>`
   ::placeholder {
     font-size: ${(props) => props.placeholderSize};
     color: ${(props) => props.placeholderColor};
   }
+  position: relative;
   placeholder: ${(props) => props.placeholder};
   width: ${(props) => props.width};
   height: ${(props) => props.height};
