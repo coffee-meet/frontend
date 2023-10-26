@@ -6,7 +6,7 @@ import { palette } from '@/styles/palette'
 import { IconButtonWrapper, IconWrapper } from '.'
 
 type ParticularTopicButtonProps = {
-  isDarkMode?: boolean
+  isDarkMode: boolean
 }
 
 const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {

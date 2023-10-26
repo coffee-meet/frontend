@@ -10,7 +10,7 @@ import { IconButtonWrapper, IconWrapper } from '.'
 type InterestButtonProps = {
   nickName: string
   interests: string[]
-  isDarkMode?: boolean
+  isDarkMode: boolean
 }
 
 const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps) => {
