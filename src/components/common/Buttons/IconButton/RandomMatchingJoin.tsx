@@ -5,10 +5,14 @@ import { Text, TextWrapper } from '@/components/common/Text'
 import { IconButtonWrapper, IconWrapper } from '.'
 
 type RandomMatchingJoinButtonProps = {
-  isDarkMode?: boolean
+  isDarkMode: boolean
+  moveToRandomMatching: () => void
 }
 
-const RandomMatchingJoinButton = ({ isDarkMode }: RandomMatchingJoinButtonProps) => {
+const RandomMatchingJoinButton = ({
+  isDarkMode,
+  moveToRandomMatching,
+}: RandomMatchingJoinButtonProps) => {
   const setButtonType = isDarkMode ? 'random-matching-join-dark' : 'random-matching-join'
 
   return (
@@ -19,6 +23,7 @@ const RandomMatchingJoinButton = ({ isDarkMode }: RandomMatchingJoinButtonProps)
         justifyContent: 'space-between',
         alignItems: 'center',
       }}
+      onClick={moveToRandomMatching}
     >
       <TextWrapper
         style={{

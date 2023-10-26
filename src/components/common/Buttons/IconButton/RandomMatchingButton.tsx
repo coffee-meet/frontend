@@ -9,7 +9,7 @@ import { IconButtonWrapper, IconWrapper } from '.'
 
 type RandomMatchingButtonProps = {
   date: string
-  isDarkMode?: boolean
+  isDarkMode: boolean
 }
 
 const RandomMatchingButton = ({ date, isDarkMode }: RandomMatchingButtonProps) => {
