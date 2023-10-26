@@ -4,6 +4,7 @@ import { MdHome } from 'react-icons/md'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import defaultProfileImage from '@/assets/images/defaultProfileImage.png'
+import Avatar from '@/components/common/Avatar'
 import { FlexBox } from '@/components/common/Flexbox'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
@@ -31,7 +32,7 @@ const NavigationBar = () => {
         <StyleNavigationItem onClick={() => moveFromNavigationBar('profile/edit')}>
           <FlexBox direction={'column'} gap={5}>
             <StyleProfileImageWrapper>
-              <StyleProfileImage src={defaultProfileImage}></StyleProfileImage>
+              <Avatar width={30} height={30} imgUrl={defaultProfileImage} margin={0} />
             </StyleProfileImageWrapper>
             <StyleNavigationText>{'프로필'}</StyleNavigationText>
           </FlexBox>
@@ -64,10 +65,5 @@ const StyleProfileImageWrapper = styled.div`
   height: 100%;
   object-fit: cover;
 `
-const StyleProfileImage = styled.img`
-  width: 30px;
-  height: 30px;
-  border-radius: 70px;
-  overflow: 'hidden';
-`
+
 export default NavigationBar
