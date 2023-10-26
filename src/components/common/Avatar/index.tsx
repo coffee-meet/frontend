@@ -1,4 +1,3 @@
-// Avatar.tsx
 import styled from '@emotion/styled'
 
 type AvatarProps = {
@@ -17,11 +16,11 @@ const StyledAvatar = styled.div<AvatarProps>`
   background-repeat: no-repeat;
   background-position: center center;
   border-radius: 50%; // 원 형태로 만들기 위함
-  margin: ${(props) => props.margin};
+  margin: ${(props) => `${props.margin}px`};
   box-shadow: ${(props) => (props.shadow ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none')};
 `
 
-const Avatar: React.FC<AvatarProps> = ({ width, height, imgUrl, margin, shadow = false }) => {
+const Avatar: React.FC<AvatarProps> = ({ width, height, imgUrl, margin = '0', shadow = false }) => {
   return (
     <StyledAvatar width={width} height={height} imgUrl={imgUrl} shadow={shadow} margin={margin} />
   )
