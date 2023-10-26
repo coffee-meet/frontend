@@ -2,7 +2,7 @@ import { BiChevronRight } from 'react-icons/bi'
 
 import { Text, TextWrapper } from '@/components/common/Text'
 
-import { IconButtonWrapper, IconWrapper } from '.'
+import { StyleIconButtonWrapper, StyleIconWrapper } from '.'
 
 type RandomMatchingJoinButtonProps = {
   isDarkMode?: boolean
@@ -12,7 +12,7 @@ const RandomMatchingJoinButton = ({ isDarkMode }: RandomMatchingJoinButtonProps)
   const setButtonType = isDarkMode ? 'random-matching-join-dark' : 'random-matching-join'
 
   return (
-    <IconButtonWrapper
+    <StyleIconButtonWrapper
       iconButtonType={setButtonType}
       style={{
         display: 'flex',
@@ -37,7 +37,7 @@ const RandomMatchingJoinButton = ({ isDarkMode }: RandomMatchingJoinButtonProps)
           {'매칭방에 접속해주세요!'}
         </Text>
       </TextWrapper>
-      <IconWrapper
+      <StyleIconWrapper
         style={{
           margin: '18px 5px 18px 40px',
         }}
@@ -48,8 +48,8 @@ const RandomMatchingJoinButton = ({ isDarkMode }: RandomMatchingJoinButtonProps)
             height: 30,
           }}
         />
-      </IconWrapper>
-    </IconButtonWrapper>
+      </StyleIconWrapper>
+    </StyleIconButtonWrapper>
   )
 }
 

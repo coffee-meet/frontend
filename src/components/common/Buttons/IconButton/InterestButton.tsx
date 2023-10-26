@@ -5,19 +5,19 @@ import { Divider } from '@/components/common/Divider'
 import { Text, TextWrapper } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import { IconButtonWrapper, IconWrapper } from '.'
+import { StyleIconButtonWrapper, StyleIconWrapper } from '.'
 
 type InterestButtonProps = {
   nickName: string
   interests: string[]
-  isDarkMode?: boolean
+  isDarkMode: boolean
 }
 
 const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps) => {
   const setButtonType = isDarkMode ? 'interest-dark' : 'interest'
 
   return (
-    <IconButtonWrapper
+    <StyleIconButtonWrapper
       iconButtonType={setButtonType}
       style={{
         display: 'flex',
@@ -25,7 +25,7 @@ const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps
         alignItems: 'center',
       }}
     >
-      <IconWrapper
+      <StyleIconWrapper
         borderRadius={'12px'}
         backgroundColor={palette.WHITE}
         style={{
@@ -42,7 +42,7 @@ const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps
             height: 23,
           }}
         />
-      </IconWrapper>
+      </StyleIconWrapper>
       <TextWrapper>
         <Text font={'Body_18'} fontWeight={500} letterSpacing={-2} style={{ marginBottom: 4 }}>
           {`${nickName}의 관심사`}
@@ -61,12 +61,14 @@ const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps
           {interests.map((interest, index) => (
             <Fragment key={interest}>
               {interest}
-              {index !== interests.length - 1 && <Divider />}
+              {index !== interests.length - 1 && (
+                <Divider width={1} height={12} margin={'0 12px'} isDarkMode={isDarkMode} />
+              )}
             </Fragment>
           ))}
         </Text>
       </TextWrapper>
-    </IconButtonWrapper>
+    </StyleIconButtonWrapper>
   )
 }
 
