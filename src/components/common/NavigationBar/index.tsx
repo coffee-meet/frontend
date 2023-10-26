@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { IoChatbox } from 'react-icons/io5'
 import { MdHome } from 'react-icons/md'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import defaultProfileImage from '@/assets/images/defaultProfileImage.png'
 import Avatar from '@/components/common/Avatar'
@@ -10,7 +10,6 @@ import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
 const NavigationBar = () => {
   const navigate = useNavigate()
-  const location = useLocation()
   const moveFromNavigationBar = (path: string) => {
     navigate(`/${path}`)
   }
@@ -32,7 +31,7 @@ const NavigationBar = () => {
         <StyleNavigationItem onClick={() => moveFromNavigationBar('profile/edit')}>
           <FlexBox direction={'column'} gap={5}>
             <StyleProfileImageWrapper>
-              <Avatar width={30} height={30} imgUrl={defaultProfileImage} margin={0} />
+              <Avatar width={30} height={30} imgUrl={defaultProfileImage} margin={'0'} />
             </StyleProfileImageWrapper>
             <StyleNavigationText>{'프로필'}</StyleNavigationText>
           </FlexBox>

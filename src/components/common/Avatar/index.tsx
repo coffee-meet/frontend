@@ -1,11 +1,10 @@
-// Avatar.tsx
 import styled from '@emotion/styled'
 
 type AvatarProps = {
   width: number
   height: number
   imgUrl: string
-  margin: number
+  margin: string
   shadow?: boolean
 }
 
@@ -21,7 +20,7 @@ const StyledAvatar = styled.div<AvatarProps>`
   box-shadow: ${(props) => (props.shadow ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none')};
 `
 
-const Avatar: React.FC<AvatarProps> = ({ width, height, imgUrl, margin = 0, shadow = false }) => {
+const Avatar: React.FC<AvatarProps> = ({ width, height, imgUrl, margin = '0', shadow = false }) => {
   return (
     <StyledAvatar width={width} height={height} imgUrl={imgUrl} shadow={shadow} margin={margin} />
   )
