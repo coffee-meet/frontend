@@ -1,11 +1,5 @@
-import NavigationBar from '@/components/common/NavigationBar'
 const Home = () => {
-  return (
-    <div>
-      {'Home'}
-      <NavigationBar></NavigationBar>
-    </div>
-  )
+  return <div>{'Home'}</div>
 }
 
 export default Home
