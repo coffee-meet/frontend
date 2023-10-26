@@ -60,9 +60,16 @@ const BottomContent = styled.div<{
 type RandomMatchingSheetProps = {
   title: string
   isDarkMode: boolean
+  moveToRandomMatching: () => void
+  cancelRandomMatching: () => void
 }
 
-const RandomMatchingSheet = ({ title, isDarkMode }: RandomMatchingSheetProps) => {
+const RandomMatchingSheet = ({
+  title,
+  isDarkMode,
+  moveToRandomMatching,
+  cancelRandomMatching,
+}: RandomMatchingSheetProps) => {
   const [isOpen, setIsOpen] = useState(true) // RandomMatchingSheet의 상태
 
   const handleWrapperClick = (e: MouseEvent) => {
@@ -72,7 +79,7 @@ const RandomMatchingSheet = ({ title, isDarkMode }: RandomMatchingSheetProps) =>
   const toggleRandomMatchingSheet = () => {
     // isOpen이 true일 때만 상태를 토글
     if (isOpen) {
-      console.log('매칭 참가 취소')
+      cancelRandomMatching()
       setIsOpen(!isOpen)
     }
   }
@@ -133,9 +140,7 @@ const RandomMatchingSheet = ({ title, isDarkMode }: RandomMatchingSheetProps) =>
             />
             <RandomMatchingJoinButton
               isDarkMode={isDarkMode}
-              moveToRandomMatching={() => {
-                console.log('랜덤 매칭 참가')
-              }}
+              moveToRandomMatching={moveToRandomMatching}
             />
             <Text
               font={'Body_12'}
