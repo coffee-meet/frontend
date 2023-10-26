@@ -58,10 +58,11 @@ const BottomContent = styled.div<{
 `
 
 type BottomSheetProps = {
+  title: string
   isDarkMode: boolean
 }
 
-const BottomSheet = ({ isDarkMode }: BottomSheetProps) => {
+const BottomSheet = ({ title, isDarkMode }: BottomSheetProps) => {
   const [isOpen, setIsOpen] = useState(true) // BottomSheet의 상태
 
   const handleWrapperClick = (e: MouseEvent) => {
@@ -110,7 +111,7 @@ const BottomSheet = ({ isDarkMode }: BottomSheetProps) => {
                   flex: 1,
                 }}
               >
-                {'매칭 참가하기'}
+                {title}
               </Text>
               <AiOutlineClose
                 style={{
