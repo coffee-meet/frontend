@@ -70,6 +70,8 @@ const StyledButton = styled.button<StyledButtonProps>`
   display: inline-block;
   vertical-align: middle;
   line-height: 1;
+  font-weight: 600
+  letter-spacing: -1px;
 `
 
 export default DarkSelectorButton
