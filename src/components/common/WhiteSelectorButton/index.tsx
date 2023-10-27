@@ -57,7 +57,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   vertical-align: middle;
   line-height: 1;
   letter-spacing: -1px;
-  font-weight: 600
+  font-weight: 600;
 `
 
 export default WhiteSelectorButton
