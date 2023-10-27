@@ -52,10 +52,10 @@ const StyledButton = styled.button<StyledButtonProps>`
   &:focus {
     outline: none;
   }
-  color: ${palette.WHITE}; // 텍스트의 기본 색상을 검은색으로 설정
-  display: inline-block; // 버튼의 크기를 내용물의 크기에 맞게 조절
-  vertical-align: middle; // 버튼의 텍스트를 버튼의 중앙에 위치시킴
-  line-height: 1; // 텍스트 높이를 폰트 크기에 맞게 조절
+  color: ${palette.WHITE};
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
 `
 
 export default WhiteSelectorButton
