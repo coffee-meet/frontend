@@ -1,15 +1,14 @@
 import styled from '@emotion/styled'
-import { HiOutlineExclamationCircle } from 'react-icons/hi'
 
+import ExclamationIcon from '@/assets/icons/Exclamation.svg'
+// import WarningIcon from '@/assets/icons/Warning.svg'
 import NormalButton from '@/components/common/Buttons/NormalButton/NormalButton'
-import { useModalStore } from '@/store/useModalStore'
+import useModalStore from '@/store/ModalStore'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
-//Modal컴포넌트 사용할 때 props로 받아야 할 것들
-//modalText,
 
 const Modal = () => {
-  const { modalState, setModalState, okFunc, setOkFunc } = useModalStore()
+  const { modalState, setModalState, okFunc, mainText, subText } = useModalStore()
   const OkAndClose = () => {
     okFunc()
     closeModal()
@@ -22,11 +21,10 @@ const Modal = () => {
       {modalState ? (
         <StyleModalWrapper>
           <StyleModal>
-            <HiOutlineExclamationCircle
-              size={50}
-              style={{ margin: 20 }}
-            ></HiOutlineExclamationCircle>
-            <StyleModalText>{'인증을 수락하시겠습니까?'}</StyleModalText>
+            <StyleIcon src={ExclamationIcon} />
+            {/* <StyleIcon src={WarningIcon} /> */}
+            <StyleMainText subTrue={subText == undefined ? false : true}>{mainText}</StyleMainText>
+            <StyleSubText>{subText}</StyleSubText>
             <StyleButtonWrapper>
               <NormalButton
                 normalButtonType={'modal-accept'}
@@ -82,13 +80,23 @@ const StyleModal = styled.div`
 
 const StyleButtonWrapper = styled.span`
   justify-content: center;
-  margin: 30px;
+  margin: 10px;
   display: flex;
 `
-const StyleModalText = styled.div`
+const StyleMainText = styled.div<{ subTrue: boolean }>`
   color: ${palette.BLACK};
   text-align: center;
   font-size: ${typo.Body_20()};
-  margin: 20px;
+  margin-top: ${({ subTrue }) => (subTrue ? '' : '10px')};
+  margin-bottom: ${({ subTrue }) => (subTrue ? '20px' : '30px')};
+`
+const StyleSubText = styled.span`
+  color: ${palette.GRAY500};
+  text-align: center;
+  font-size: ${typo.Body_14()};
+  margin-bottom: 10px;
+`
+const StyleIcon = styled.img`
+  margin: 22px;
 `
 export default Modal
