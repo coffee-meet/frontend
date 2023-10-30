@@ -10,7 +10,7 @@ import NaverButton from './NaverButton'
 import ParticularTopicButton from './ParticularTopicButton'
 import RandomMatchingButton from './RandomMatchingButton'
 
-export const IconButtonWrapper = styled.button<{
+export const StyleIconButtonWrapper = styled.button<{
   iconButtonType: IconButtonType
 }>`
   ${({ iconButtonType }) => {
@@ -35,7 +35,7 @@ export const IconButtonWrapper = styled.button<{
   }}
 `
 
-export const IconWrapper = styled.div<{
+export const StyleIconWrapper = styled.div<{
   borderRadius?: string
   backgroundColor?: string
 }>`

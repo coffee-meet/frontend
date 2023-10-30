@@ -4,7 +4,7 @@ import KakaoIcon from '@/assets/icons/KakaoIcon'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import { IconWrapper } from '.'
+import { StyleIconWrapper } from '.'
 
 export const ButtonWrapper = styled.button<{
   buttonTheme: 'kakao' | 'naver'
@@ -21,13 +21,13 @@ export const ButtonWrapper = styled.button<{
 
 const KakaoButton = () => (
   <ButtonWrapper buttonTheme={'kakao'}>
-    <IconWrapper
+    <StyleIconWrapper
       style={{
         margin: '4px 38px 4px 20px',
       }}
     >
       <KakaoIcon width={53} height={53} iconWidth={35} iconHeight={35} borderRadius={10} />
-    </IconWrapper>
+    </StyleIconWrapper>
     <Text
       font={'Body_18'}
       fontWeight={600}

@@ -145,7 +145,7 @@ export const NormalButtonStyles: Record<NormalButtonType, NormalButtonStyle> = {
     width: 85,
     height: 40,
     fontColor: palette.GRAY400,
-    backgroundColor: palette.GRAY100,
+    backgroundColor: palette.GRAY200,
     font: 'Body_14',
     fontWeight: 600,
     letterSpacing: -2,
