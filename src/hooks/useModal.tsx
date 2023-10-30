@@ -2,7 +2,7 @@ import Modal from '@/components/common/Modal'
 import useModalStore from '@/store/ModalStore'
 
 type ModalConfirmPropsType = {
-  type: string
+  type: 'warn' | 'confirm'
   okFunc: () => void
   mainText: string
   subText?: string | undefined
