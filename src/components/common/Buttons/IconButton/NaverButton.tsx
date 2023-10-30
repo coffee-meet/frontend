@@ -2,19 +2,19 @@ import NaverIcon from '@/assets/icons/NaverIcon'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import { IconWrapper } from '.'
+import { StyleIconWrapper } from '.'
 import { ButtonWrapper } from './KakaoButton'
 
 const NaverButton = () => {
   return (
     <ButtonWrapper buttonTheme={'naver'}>
-      <IconWrapper
+      <StyleIconWrapper
         style={{
           margin: '4px 53px 4px 20px',
         }}
       >
         <NaverIcon width={53} height={53} iconWidth={20} iconHeight={20} borderRadius={10} />
-      </IconWrapper>
+      </StyleIconWrapper>
       <Text
         font={'Body_18'}
         fontWeight={600}

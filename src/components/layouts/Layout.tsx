@@ -1,5 +1,8 @@
+import 'react-toastify/dist/ReactToastify.css'
+
 import styled from '@emotion/styled'
 import { Outlet } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 
 import Modal from '@/components/common/Modal'
 import { theme } from '@/styles/theme'
@@ -9,6 +12,7 @@ const Layout = () => {
     <MainContainer>
       <Modal />
       <Outlet />
+      <ToastContainer />
     </MainContainer>
   )
 }
