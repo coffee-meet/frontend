@@ -10,9 +10,17 @@ import { IconButtonWrapper, IconWrapper } from '.'
 type RandomMatchingButtonProps = {
   date: string
   isDarkMode: boolean
+  onClick: () => void
 }
 
-const RandomMatchingButton = ({ date, isDarkMode }: RandomMatchingButtonProps) => {
+/**
+ *
+ * @param date - 마지막 채팅 시간
+ * @param isDarkMode - 다크모드 여부
+ * @param onClick - 랜덤매칭 버튼 클릭 이벤트
+ */
+
+const RandomMatchingButton = ({ date, isDarkMode, onClick }: RandomMatchingButtonProps) => {
   const setButtonType = isDarkMode ? 'random-matching-dark' : 'random-matching'
 
   return (
@@ -23,6 +31,7 @@ const RandomMatchingButton = ({ date, isDarkMode }: RandomMatchingButtonProps) =
         justifyContent: 'space-between',
         alignItems: 'center',
       }}
+      onClick={onClick}
     >
       <IconWrapper
         backgroundColor={palette.GRAY100}
@@ -66,7 +75,7 @@ const RandomMatchingButton = ({ date, isDarkMode }: RandomMatchingButtonProps) =
       </TextWrapper>
       <IconWrapper
         style={{
-          margin: '18px 5px 18px 0',
+          margin: '18px 5px 18px 0px',
         }}
       >
         <BiChevronRight

@@ -9,6 +9,9 @@ type ParticularTopicButtonProps = {
   isDarkMode: boolean
 }
 
+/**
+ * @param isDarkMode - 다크모드 여부
+ */
 const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
   const getButtonType = isDarkMode ? 'particular-topic-dark' : 'particular-topic'
   const getIconColor = isDarkMode ? palette.DARK_WHITE : palette.GRAY600
