@@ -9,12 +9,12 @@ import { palette } from '@/styles/palette'
 
 import { FlexBox } from '../Flexbox'
 
-const StyleAppHeader = styled.div`
+const StyleAppHeader = styled.div<{ height?: string }>`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 23%;
+  height: ${({ height }) => height};
   text-align: center;
   padding: 6.5% 5% 7%;
 `
@@ -22,21 +22,23 @@ const StyleAppHeader = styled.div`
 type AppHeaderProps = {
   nickname: string
   isDarkMode: boolean
+  height?: string
 }
 
 /**
  * @param nickname - 유저 닉네임
  * @param isDarkMode - 다크모드 여부
+ * @param height - 컴포넌트 높이
  */
 
-const AppHeader = ({ nickname, isDarkMode }: AppHeaderProps) => {
+const AppHeader = ({ nickname, isDarkMode, height }: AppHeaderProps) => {
   const navigate = useNavigate()
   const moveFromAppHeader = (path: string) => {
     navigate(`/${path}`)
   }
 
   return (
-    <StyleAppHeader>
+    <StyleAppHeader height={height}>
       <FlexBox
         justify={'space-between'}
         style={{
