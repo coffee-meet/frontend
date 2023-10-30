@@ -30,7 +30,8 @@
       "@/hooks/*": ["src/hooks/*"],
       "@/assets/*": ["src/assets/*"],
       "@/styles/*": ["src/styles/*"],
-      "@/mocks/*": ["src/mocks/*"]
+      "@/mocks/*": ["src/mocks/*"],
+      "@/store/*": ["src/store/*"]
     }
   },
   "include": ["src"],
