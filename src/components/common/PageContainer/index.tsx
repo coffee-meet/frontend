@@ -21,6 +21,11 @@ type PageContainerProps = {
   height?: string
 }
 
+/**
+ *
+ * @param children - 자식 컴포넌트
+ * @param height - 높이
+ */
 const PageContainer = ({ children, height = '77%' }: PageContainerProps) => {
   return <StyledPageContainer height={height}>{children}</StyledPageContainer>
 }

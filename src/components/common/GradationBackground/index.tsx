@@ -10,6 +10,10 @@ const StyledGradationBackground = styled.div`
   flex-direction: column;
 `
 
+/**
+ *
+ * @param children - 자식 컴포넌트
+ */
 const GradationBackground = ({ children }: { children: React.ReactNode }) => {
   return <StyledGradationBackground>{children}</StyledGradationBackground>
 }
