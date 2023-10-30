@@ -7,9 +7,9 @@ import { NormalButtonStyles, NormalButtonType } from './NormalButtonStyles'
 
 const NormalButton = styled.button<{
   normalButtonType: NormalButtonType
-  isDarkMode: boolean
+  isDarkMode?: boolean
 }>`
-  ${({ normalButtonType, isDarkMode }) => {
+  ${({ normalButtonType, isDarkMode = false }) => {
     const processedTypeKey = isDarkMode ? `${normalButtonType}-dark` : normalButtonType
     const processedType = (
       NormalButtonStyles[processedTypeKey as NormalButtonType] ? processedTypeKey : normalButtonType
