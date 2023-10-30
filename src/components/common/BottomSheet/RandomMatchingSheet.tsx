@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { MouseEvent, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 
-import RandomMatchingJoinButton from '@/components/common/Buttons/IconButton/RandomMatchingJoin'
+import RandomMatchingJoinButton from '@/components/common/Buttons/IconButton/RandomMatchingJoinButton'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
