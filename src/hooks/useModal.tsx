@@ -5,7 +5,7 @@ type ModalConfirmPropsType = {
   type: 'warn' | 'confirm'
   okFunc: () => void
   mainText: string
-  subText?: string | undefined
+  subText?: string
 }
 export const useModal = () => {
   const { setModalState, setOkFunc, setMainText, setSubText, setType } = useModalStore()
@@ -17,11 +17,6 @@ export const useModal = () => {
     setSubText(subText)
     setOkFunc(okFunc)
   }
-  // const openWarningModal = ({ mainText, subText, okFunc }: ModalConfirmPropsType) => {
-  //   setModalState(true)
-  //   setMainText(mainText)
-  //   setSubText(subText)
-  //   setOkFunc(okFunc)
-  // }
+
   return { openModal, Modal }
 }

@@ -117,7 +117,6 @@ const StyleSubText = styled.span<{ type: string }>`
   color: ${palette.GRAY500};
   text-align: center;
   font-size: ${typo.Body_14()};
-  /* margin-top: ${({ type }) => (type == 'warn' ? '30px' : '10px')}; */
 `
 const StyleIcon = styled.img`
   margin: 22px;
