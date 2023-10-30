@@ -16,7 +16,7 @@ const NavigationBar = () => {
   return (
     <StyleWrapper fullWidth={true}>
       <StyleNavigation justify={'space-around'}>
-        <StyleNavigationItem onClick={() => moveFromNavigationBar('chatlist')}>
+        <StyleNavigationItem onClick={() => moveFromNavigationBar('chat-list')}>
           <FlexBox direction={'column'} gap={5}>
             <IoChatbox size={'24px'} />
             <StyleNavigationText>{'이전대화방'}</StyleNavigationText>
@@ -28,7 +28,7 @@ const NavigationBar = () => {
             <StyleNavigationText>{'홈'}</StyleNavigationText>
           </FlexBox>
         </StyleNavigationItem>
-        <StyleNavigationItem onClick={() => moveFromNavigationBar('profile/edit')}>
+        <StyleNavigationItem onClick={() => moveFromNavigationBar('profile')}>
           <FlexBox direction={'column'} gap={5}>
             <StyleProfileImageWrapper>
               <Avatar width={30} height={30} imgUrl={defaultProfileImage} margin={'0'} />
@@ -41,7 +41,7 @@ const NavigationBar = () => {
   )
 }
 const StyleWrapper = styled(FlexBox)`
-  position: absolute;
+  position: sticky;
   bottom: 0px;
 `
 const StyleNavigationText = styled.span`
@@ -53,8 +53,8 @@ const StyleNavigation = styled(FlexBox)`
   height: 71px;
   background-color: white;
   box-shadow:
-    0px 0px 2px 0px rgba(0, 0, 0, 0.24),
-    0px 4px 4px 0px rgba(0, 0, 0, 0.14);
+    0px 0px 10px 0px rgba(0, 0, 0, 0.24),
+    0px 4px 5px 0px rgba(0, 0, 0, 0.14);
 `
 const StyleNavigationItem = styled.button`
   cursor: pointer;
