@@ -16,7 +16,7 @@ const Background = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  overflow-y: hidden;
+  position: absolute;
 `
 
 const BottomContentWrapper = styled(motion.div)<{
@@ -25,7 +25,7 @@ const BottomContentWrapper = styled(motion.div)<{
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: 378px;
+  height: 400px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
@@ -86,13 +86,13 @@ const RandomMatchingSheet = ({
 
   const slideUp = {
     hidden: { y: '100%', opacity: 0 },
-    visible: { y: '0%', opacity: 1, transition: { type: 'spring', damping: 15, stiffness: 100 } },
+    visible: { y: '22px', opacity: 1, transition: { type: 'spring', damping: 15, stiffness: 100 } },
     partiallyVisible: {
       y: '85%',
       opacity: 1,
       transition: { type: 'spring', damping: 15, stiffness: 100 },
     },
-    exit: { y: '100%', opacity: 0, transition: { type: 'spring', damping: 20, stiffness: 100 } },
+    exit: { y: '100%', opacity: 0, transition: { type: 'spring', damping: 15, stiffness: 100 } },
   }
   return (
     <AnimatePresence>
