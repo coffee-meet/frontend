@@ -2,7 +2,7 @@ import { palette } from '@/styles/palette'
 import { KeyOfTypo } from '@/styles/theme'
 
 export type NormalButtonStyle = {
-  width: number
+  width: number | string
   height: number
   fontColor: string
   backgroundColor: string
@@ -12,6 +12,7 @@ export type NormalButtonStyle = {
   boxShadow?: string
   stroke?: string
   borderRadius: number
+  activeBackgroundColor?: string
 }
 
 export type NormalButtonType =
