@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 
 import { queryClient } from '@/apis/queryClient'
-
 import { worker } from '@/mocks/worker'
 import { globalStyle } from '@/styles/index.tsx'
 import { theme } from '@/styles/index.tsx'

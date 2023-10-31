@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 
 import ExclamationIcon from '@/assets/icons/Exclamation.svg'
 import WarningIcon from '@/assets/icons/Warning.svg'
-import NormalButton from '@/components/common/Buttons/NormalButton/NormalButton'
+import NormalButton from '@/components/common/Buttons/NormalButton'
 import useModalStore from '@/store/ModalStore'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
