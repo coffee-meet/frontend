@@ -1,15 +1,18 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
+import { TiDelete } from 'react-icons/ti'
 
-import businessCardDeleteBtn from '@/assets/images/businessCardDeleteBtn.png'
 import camera from '@/assets/images/camera.svg'
 import { palette } from '@/styles/palette'
 
+import Spacing from '../Spacing'
+import { Text } from '../Text'
+
 type BusinessCardContainerProps = {
-  textColor: string
+  isDarkMode: boolean
 }
 
-const BusinessCardContainer = ({ textColor }: BusinessCardContainerProps) => {
+const BusinessCardContainer = ({ isDarkMode }: BusinessCardContainerProps) => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null)
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,12 +36,31 @@ const BusinessCardContainer = ({ textColor }: BusinessCardContainerProps) => {
 
   return (
     <Wrapper>
-      <Title textColor={textColor}>{'명함사진 업로드'}</Title>
+      <Text
+        font={'Body_20'}
+        fontWeight={700}
+        letterSpacing={-1}
+        textColor={isDarkMode ? palette.WHITE : palette.BLACK}
+      >
+        {'명함사진 업로드'}
+      </Text>
+      <Spacing size={10} />
       <ImageContainer>
         {uploadedImage ? (
           <>
             <StyledImage src={uploadedImage} alt={'Uploaded'} />
-            <DeleteIcon src={businessCardDeleteBtn} onClick={handleRemoveImage} />
+            <TiDelete
+              style={{
+                position: 'absolute',
+                top: -10,
+                right: -15,
+                width: 24,
+                height: 24,
+                cursor: 'pointer',
+                color: isDarkMode ? palette.GRAY300 : palette.BLACK,
+              }}
+              onClick={handleRemoveImage}
+            />
           </>
         ) : (
           <label style={{ cursor: 'pointer' }}>
@@ -56,12 +78,6 @@ const BusinessCardContainer = ({ textColor }: BusinessCardContainerProps) => {
 const Wrapper = styled.div`
   position: relative;
   width: 300px;
-`
-
-const Title = styled.div<BusinessCardContainerProps>`
-  color: ${(props) => props.textColor};
-  font-size: 18px;
-  margin-bottom: 10px;
 `
 
 const Placeholder = styled.div`
@@ -85,13 +101,7 @@ const StyledImage = styled.img`
   height: 88px;
   object-fit: cover;
   position: relative;
-`
-
-const DeleteIcon = styled.img`
-  position: relative;
-  top: -100px;
-  right: -75px;
-  cursor: pointer;
+  border-radius: 10px;
 `
 
 const CameraIcon = styled.img`
