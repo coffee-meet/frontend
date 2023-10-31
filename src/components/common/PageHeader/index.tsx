@@ -14,8 +14,16 @@ const StylePageHeader = styled.div<{
   justify-content: space-between;
   align-items: center;
   border-radius: 20px 20px 0 0;
-  border-bottom: 1px solid ${({ isDarkMode }) => (isDarkMode ? palette.GRAY500 : palette.GRAY300)};
-  background-color: ${({ hasBackground, isDarkMode }) =>
+  border-bottom: 1px solid
+    ${({ isDarkMode, hasBackground }) =>
+      isDarkMode
+        ? hasBackground
+          ? palette.GRAY500
+          : 'none'
+        : hasBackground
+        ? palette.GRAY300
+        : 'none'};
+  background-color: ${({ isDarkMode, hasBackground }) =>
     isDarkMode
       ? hasBackground
         ? `${palette.DARK_BLUE}`
