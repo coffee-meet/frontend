@@ -1,5 +1,3 @@
-import { palette } from '@/styles/palette'
-
 export type IconProps = {
   isDarkMode?: boolean
   onClick?: () => void
