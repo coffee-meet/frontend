@@ -29,7 +29,9 @@
       "@/apis/*": ["src/apis/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/assets/*": ["src/assets/*"],
-      "@/styles/*": ["src/styles/*"]
+      "@/styles/*": ["src/styles/*"],
+      "@/mocks/*": ["src/mocks/*"],
+      "@/store/*": ["src/store/*"]
     }
   },
   "include": ["src"],
