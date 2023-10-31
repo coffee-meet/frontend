@@ -1,16 +1,21 @@
 export type IconProps = {
   isDarkMode?: boolean
-  onClick?: () => void
+  exitClick?: () => void
 }
 
-const ExitIcon = ({ isDarkMode, onClick }: IconProps) => (
+/**
+ * @param isDarkMode - (Optional) 다크모드 여부
+ * @param exitClick - (Optional) 나가기 클릭 이벤트
+ */
+
+const ExitIcon = ({ isDarkMode, exitClick }: IconProps) => (
   <span
     style={{
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
     }}
-    onClick={onClick}
+    onClick={exitClick}
   >
     {isDarkMode ? (
       <svg
