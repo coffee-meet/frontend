@@ -43,13 +43,11 @@ export const globalStyle = css`
   ::-webkit-scrollbar {
     display: none;
   }
-
   body,
   html {
     overflow: hidden;
     background-color: #000;
   }
-
   div {
     box-sizing: border-box;
   }

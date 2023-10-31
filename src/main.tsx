@@ -9,6 +9,10 @@ import { worker } from '@/mocks/worker'
 import { globalStyle } from '@/styles/index.tsx'
 import { theme } from '@/styles/index.tsx'
 
+import { worker } from '@/mocks/worker'
+import { globalStyle } from '@/styles/index.tsx'
+import { theme } from '@/styles/index.tsx'
+
 import App from './App.tsx'
 
 if (process.env.NODE_ENV === 'development') {

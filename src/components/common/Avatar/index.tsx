@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 
+
 import defaultProfileImage from '@/assets/images/defaultProfileImage.png' // 이미지 import
 
 type AvatarProps = {
