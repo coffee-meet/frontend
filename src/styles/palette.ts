@@ -23,4 +23,5 @@ export const palette = {
   GRAY200: '#E5E7EC',
   GRAY100: '#EFF0F2',
   SKY_BLUE: '#F0F4FF',
+  SHADOW: '0px 4px 20px rgba(0, 0, 0, 0.15)',
 }
