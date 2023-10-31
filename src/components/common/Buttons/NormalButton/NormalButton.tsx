@@ -7,20 +7,28 @@ import { NormalButtonStyles, NormalButtonType } from './NormalButtonStyles'
 
 const NormalButton = styled.button<{
   normalButtonType: NormalButtonType
+  isDarkMode?: boolean
 }>`
-  ${({ normalButtonType }) => {
-    const fontFunc = typo[NormalButtonStyles[normalButtonType].font]
+  ${({ normalButtonType, isDarkMode = false }) => {
+    const processedTypeKey = isDarkMode ? `${normalButtonType}-dark` : normalButtonType
+    const processedType = (
+      NormalButtonStyles[processedTypeKey as NormalButtonType] ? processedTypeKey : normalButtonType
+    ) as NormalButtonType
+
+    console.log(processedType)
+
+    const fontFunc = typo[NormalButtonStyles[processedType].font]
     return css`
       ${fontFunc(
-        NormalButtonStyles[normalButtonType].fontWeight,
-        NormalButtonStyles[normalButtonType].letterSpacing,
+        NormalButtonStyles[processedType].fontWeight,
+        NormalButtonStyles[processedType].letterSpacing,
       )}
-      width: ${NormalButtonStyles[normalButtonType].width}px;
-      height: ${NormalButtonStyles[normalButtonType].height}px;
-      color: ${NormalButtonStyles[normalButtonType].fontColor};
-      background-color: ${NormalButtonStyles[normalButtonType].backgroundColor};
-      box-shadow: ${NormalButtonStyles[normalButtonType].boxShadow};
-      border-radius: ${NormalButtonStyles[normalButtonType].borderRadius}px;
+      width: ${NormalButtonStyles[processedType].width}px;
+      height: ${NormalButtonStyles[processedType].height}px;
+      color: ${NormalButtonStyles[processedType].fontColor};
+      background-color: ${NormalButtonStyles[processedType].backgroundColor};
+      box-shadow: ${NormalButtonStyles[processedType].boxShadow};
+      border-radius: ${NormalButtonStyles[processedType].borderRadius}px;
     `
   }}
 `

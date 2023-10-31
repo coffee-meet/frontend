@@ -3,7 +3,7 @@ import { BiChevronRight, BiSolidConversation } from 'react-icons/bi'
 import { Text, TextWrapper } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import { IconButtonWrapper, IconWrapper } from '.'
+import { StyleIconButtonWrapper, StyleIconWrapper } from '.'
 
 type ParticularTopicButtonProps = {
   isDarkMode: boolean
@@ -16,7 +16,7 @@ const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
   const getSecondTextColor = isDarkMode ? palette.GRAY300 : palette.GRAY500
 
   return (
-    <IconButtonWrapper
+    <StyleIconButtonWrapper
       iconButtonType={getButtonType}
       style={{
         display: 'flex',
@@ -24,7 +24,7 @@ const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
         alignItems: 'center',
       }}
     >
-      <IconWrapper
+      <StyleIconWrapper
         backgroundColor={getIconBackgroundColor}
         borderRadius={'50%'}
         style={{
@@ -41,7 +41,7 @@ const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
             height: 20,
           }}
         />
-      </IconWrapper>
+      </StyleIconWrapper>
       <TextWrapper
         style={{
           flex: 1,
@@ -64,7 +64,7 @@ const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
           {'네트워크를 넓혀보세요!'}
         </Text>
       </TextWrapper>
-      <IconWrapper
+      <StyleIconWrapper
         style={{
           margin: '18px 27px 18px 0',
         }}
@@ -76,8 +76,8 @@ const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
             height: 30,
           }}
         />
-      </IconWrapper>
-    </IconButtonWrapper>
+      </StyleIconWrapper>
+    </StyleIconButtonWrapper>
   )
 }
 
