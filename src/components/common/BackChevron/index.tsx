@@ -37,6 +37,7 @@ type BackChevronProps = {
 /**
  * @param hasBackground - (Optional) 배경색 여부
  * @param isDarkMode - (Optional) 다크모드 여부
+ * @param prevClick - (Optional) 뒤로가기 클릭 이벤트
  */
 
 const BackChevron = ({ hasBackground, isDarkMode, prevClick }: BackChevronProps) => {
