@@ -56,7 +56,7 @@ const SelectorButton = ({
   )
 }
 
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button<SelectorButtonProps>`
   margin: 8px;
   height: 36px;
   padding: 10px 15px 10px 15px;
