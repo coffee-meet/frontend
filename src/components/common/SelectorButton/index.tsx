@@ -4,36 +4,43 @@ import { useState } from 'react'
 import { palette } from '@/styles/palette'
 
 type SelectorButtonProps = {
+  isDarkMode: boolean
   buttonName: string
-  selectedButtonColor: string
-  defaultButtonColor: string
-  textColor: string
   onClick?: (selected: boolean) => void
-  selected?: boolean
-}
-
-type StyledButtonProps = {
-  backgroundColor: string
-  textColor: string
+  isButtonselected?: boolean
 }
 
 const SelectorButton = ({
+  isDarkMode,
   buttonName,
-  selectedButtonColor,
-  defaultButtonColor = palette.TERTIARY,
-  textColor = palette.SECONDARY,
   onClick,
-  selected = false,
+  isButtonselected = false,
 }: SelectorButtonProps) => {
-  const initialBackgroundColor = selected ? selectedButtonColor : defaultButtonColor
+  const defaultSettings = isDarkMode
+    ? {
+        selectedButtonColor: palette.SECONDARY,
+        defaultButtonColor: palette.WHITE,
+        textColor: palette.SECONDARY,
+      }
+    : {
+        selectedButtonColor: palette.BLUE,
+        defaultButtonColor: palette.TERTIARY,
+        textColor: palette.WHITE,
+      }
+
+  const initialBackgroundColor = isButtonselected
+    ? defaultSettings.selectedButtonColor
+    : defaultSettings.defaultButtonColor
   const [backgroundColor, setBackgroundColor] = useState(initialBackgroundColor)
-  const [currentTextColor, setCurrentTextColor] = useState(textColor)
+  const [currentTextColor, setCurrentTextColor] = useState(defaultSettings.textColor)
 
   const handleButtonClick = () => {
-    const isSelected = backgroundColor !== selectedButtonColor
-    setBackgroundColor(isSelected ? selectedButtonColor : defaultButtonColor)
-    if (textColor !== palette.WHITE) {
-      setCurrentTextColor(isSelected ? palette.WHITE : textColor)
+    const isSelected = backgroundColor !== defaultSettings.selectedButtonColor
+    setBackgroundColor(
+      isSelected ? defaultSettings.selectedButtonColor : defaultSettings.defaultButtonColor,
+    )
+    if (defaultSettings.textColor !== palette.WHITE) {
+      setCurrentTextColor(isSelected ? palette.WHITE : defaultSettings.textColor)
     }
     if (onClick) onClick(isSelected)
   }
@@ -49,7 +56,7 @@ const SelectorButton = ({
   )
 }
 
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button<{ backgroundColor: string; textColor: string }>`
   margin: 8px;
   height: 36px;
   padding: 10px 15px 10px 15px;
