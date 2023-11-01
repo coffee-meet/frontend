@@ -14,11 +14,11 @@ type SelectorButtonContainerProps = {
   maxLength: number
 }
 
-const SelectorButtonContainer: React.FC<SelectorButtonContainerProps> = ({
+const SelectorButtonContainer = ({
   isDarkMode,
   buttonNames,
   maxLength,
-}) => {
+}: SelectorButtonContainerProps) => {
   const [selectedCount, setSelectedCount] = useState(0)
   const [showAlert, setShowAlert] = useState(false)
   const [customButtons, setCustomButtons] = useState<string[]>([])
