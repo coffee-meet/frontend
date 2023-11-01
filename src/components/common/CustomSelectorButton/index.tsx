@@ -7,8 +7,8 @@ import { palette } from '@/styles/palette'
 type CustomSelectorButtonProps = {
   isDarkMode: boolean
   buttonName: string
-  onClick?: (selected: boolean) => void
-  onRemove?: () => void
+  onClick: (selected: boolean) => void
+  onRemove: () => void
   isButtonselected: boolean
   maxLengthReached: boolean
 }
