@@ -49,6 +49,7 @@ export const globalStyle = css`
     overflow: hidden;
     background-color: #000;
   }
+
   div {
     box-sizing: border-box;
   }

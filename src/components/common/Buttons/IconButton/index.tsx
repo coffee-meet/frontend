@@ -20,7 +20,6 @@ export const StyleIconButtonWrapper = styled.button<{
         iconButtonStyles[iconButtonType].fontWeight,
         iconButtonStyles[iconButtonType].letterSpacing,
       )}
-      
       width: ${iconButtonStyles[iconButtonType].width};
       height: ${iconButtonStyles[iconButtonType].height}px;
       color: ${iconButtonStyles[iconButtonType].fontColor};
