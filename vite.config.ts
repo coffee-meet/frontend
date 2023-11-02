@@ -15,12 +15,12 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
-    port: 3000,
-    https: true,
-    hmr: {
-      host: process.env.VITE_BASE_URL,
-      port: 3001,
-      protocol: 'wss',
-    },
+    // port: 3000,
+    // https: true,
+    // hmr: {
+    //   host: process.env.VITE_BASE_URL,
+    //   port: 3001,
+    //   protocol: 'wss',
+    // },
   },
 })
