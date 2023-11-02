@@ -9,6 +9,12 @@ export default defineConfig({
     alias: { '@/': `${process.cwd()}/src/` },
   },
   server: {
+    proxy: {
+      '/api': {
+        target: 'http://13.125.194.230',
+        changeOrigin: true,
+      },
+    },
     port: 3000,
     https: true,
     hmr: {
