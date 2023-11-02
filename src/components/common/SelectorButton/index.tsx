@@ -44,6 +44,7 @@ const SelectorButton = ({
       return
     }
     setIsButtonselected(!isButtonselected)
+
     setBackgroundColor(
       isSelected ? defaultSettings.selectedButtonColor : defaultSettings.defaultButtonColor,
     )
