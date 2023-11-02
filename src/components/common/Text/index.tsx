@@ -15,11 +15,13 @@ export const Text = styled.div<{
   font: KeyOfTypo
   fontWeight: number
   letterSpacing: number
+  textColor?: string
 }>`
-  ${({ font, fontWeight, letterSpacing }) => {
+  ${({ font, fontWeight, letterSpacing, textColor }) => {
     const fontFunc = typo[font]
     return css`
       ${fontFunc(fontWeight, letterSpacing)}
+      color: ${textColor};
     `
   }}
 `

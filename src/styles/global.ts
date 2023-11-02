@@ -43,6 +43,7 @@ export const globalStyle = css`
   ::-webkit-scrollbar {
     display: none;
   }
+
   body,
   html {
     overflow: hidden;
