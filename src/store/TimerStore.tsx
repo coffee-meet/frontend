@@ -42,18 +42,6 @@ const useTimerStore = create(
   ),
 )
 
-window.onload = () => {
-  const navigationType = (
-    performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
-  ).type
-  if (navigationType === 'reload') {
-    console.log('Page is being reloaded')
-  } else {
-    timerWorker.postMessage({ type: 'RESET' })
-    console.log('reset')
-  }
-}
-
 timerWorker.onmessage = (event) => {
   const { type, time } = event.data
   if (type === 'TICK') {
