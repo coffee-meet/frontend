@@ -53,7 +53,9 @@ const Card = ({ isDarkMode }: CardProps) => {
   const { time, isRunning, startTimer, resetTimer } = useTimerStore()
 
   window.onload = () => {
-    const navigationType = performance.getEntriesByType('navigation')[0].type
+    const navigationType = (
+      performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
+    ).type
     if (navigationType !== 'reload') {
       resetTimer()
     }
@@ -94,7 +96,11 @@ const Card = ({ isDarkMode }: CardProps) => {
           >
             <CardHeader totalMemberLen={5} currentMemberLen={3} isDarkMode={isDarkMode} />
             <Spacing size={34} />
-            <CardMiddle time={time} handleResetClick={resetTimer} isDarkMode={isDarkMode} />
+            <CardMiddle
+              time={time ? time : 0}
+              handleResetClick={resetTimer}
+              isDarkMode={isDarkMode}
+            />
             <Spacing size={21} />
             <CardBottom isDarkMode={isDarkMode} />
           </StyleWatingWrapper>
