@@ -61,6 +61,7 @@ const AppHeader = ({ nickname, isDarkMode, height, toggleDarkMode }: AppHeaderPr
             size={'20px'}
             style={{
               color: palette.WHITE,
+              cursor: 'pointer',
             }}
             onClick={toggleDarkMode}
           />
@@ -69,6 +70,7 @@ const AppHeader = ({ nickname, isDarkMode, height, toggleDarkMode }: AppHeaderPr
             size={'20px'}
             style={{
               color: palette.DARK_WHITE,
+              cursor: 'pointer',
             }}
             onClick={toggleDarkMode}
           />
