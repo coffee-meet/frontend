@@ -7,12 +7,16 @@ import { StyleIconButtonWrapper, StyleIconWrapper } from '.'
 
 type ParticularTopicButtonProps = {
   isDarkMode: boolean
+  moveToParticularTopic?: () => void
 }
 
 /**
  * @param isDarkMode - 다크모드 여부
  */
-const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
+const ParticularTopicButton = ({
+  isDarkMode,
+  moveToParticularTopic,
+}: ParticularTopicButtonProps) => {
   const getButtonType = isDarkMode ? 'particular-topic-dark' : 'particular-topic'
   const getIconColor = isDarkMode ? palette.DARK_WHITE : palette.GRAY600
   const getIconBackgroundColor = isDarkMode ? palette.DARK_ICON : palette.GRAY100
@@ -26,6 +30,7 @@ const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
         justifyContent: 'space-between',
         alignItems: 'center',
       }}
+      onClick={moveToParticularTopic}
     >
       <StyleIconWrapper
         backgroundColor={getIconBackgroundColor}
