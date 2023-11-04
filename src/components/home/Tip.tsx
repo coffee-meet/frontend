@@ -1,8 +1,7 @@
 import styled from '@emotion/styled'
 
+import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
-
-import { Text } from '../common/Text'
 
 const StyleTipHeader = styled.div`
   flex: 1;
@@ -13,9 +12,6 @@ const StyleTipHeader = styled.div`
   border-top: 1px solid ${palette.GRAY200};
 `
 
-/**
- * 홈페이지에서 사용되는 `Tip` 컴포넌트.
- */
 const Tip = () => {
   return (
     <StyleTipHeader>
