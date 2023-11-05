@@ -10,7 +10,6 @@ import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import AvatarGroup from './AvatarGroup'
 import Tip from './Tip'
 
 const StyleCard = styled(motion.div)`
@@ -24,7 +23,7 @@ const StyleCard = styled(motion.div)`
   margin: 0 auto;
   justify-content: center;
   align-items: center;
-  padding: 19px 7px 15px;
+  padding: 5% 1% 5%;
 `
 
 const StyleWatingWrapper = styled(motion.div)`
@@ -41,7 +40,8 @@ const StyleWatingTopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 5%;
+  position: relative;
 `
 
 const StyleWatingTopTextWrapper = styled.div`
@@ -161,7 +161,6 @@ const Card = ({ isMatching, isDarkMode, onClick }: CardProps) => {
                   {'/5'}
                 </Text>
               </StyleWatingTopTextWrapper>
-              <AvatarGroup avatarList={['', '', '']} />
             </StyleWatingTopWrapper>
             <Spacing size={34} />
             <StyleWatingMidWrapper>
