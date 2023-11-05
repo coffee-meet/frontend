@@ -11,27 +11,19 @@ const Login = () => {
     <>
       <HeroImage />
 
-      <div
-        style={{
-          width: '100%',
-          height: '441px',
-          backgroundColor: palette.WHITE,
-          borderRadius: '20px',
-          textAlign: 'center',
-        }}
-      >
+      <StyledContainer>
         <Spacing size={45} />
-        <Text font={'Body_32'} fontWeight={30} letterSpacing={0}>
+        <Text font={'Body_32'} fontWeight={700} letterSpacing={-1}>
           {'☕️커피밋'}
         </Text>
         <Spacing size={50} />
 
-        <Text font={'Body_18'} fontWeight={0} letterSpacing={0}>
+        <Text font={'Body_18'} fontWeight={500} letterSpacing={-1}>
           {'회사의 경계를 넘어, '}
         </Text>
         <Spacing size={10} />
 
-        <Text font={'Body_18'} fontWeight={0} letterSpacing={0}>
+        <Text font={'Body_18'} fontWeight={500} letterSpacing={-1}>
           {' 새로운 대화의 세계를 탐험하세요!'}
         </Text>
         <Spacing size={80} />
@@ -41,15 +33,23 @@ const Login = () => {
           <Spacing size={16} />
           <KakaoButton />
         </OauthWrapper>
-      </div>
+      </StyledContainer>
     </>
   )
 }
 
 const OauthWrapper = styled.div`
   display: flex;
-  justify-content: center; // 수평 방향으로 가운데 정렬
-  align-items: center; // 수직 방향으로 가운데 정렬 (필요하면 추가)
-  flex-direction: column; // 버튼들을 수직으로 나열
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`
+
+const StyledContainer = styled.div`
+  width: 100%;
+  height: 441px;
+  background-color: ${palette.WHITE};
+  border-radius: 20px;
+  text-align: center;
 `
 export default Login
