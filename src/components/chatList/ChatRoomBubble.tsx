@@ -104,7 +104,6 @@ const ChatRoomBubble = ({ title, participants, createdAt, isDarkMode }: ChatRoom
         avatarList={['', '', '']}
         avatarWidth={17}
         avatarHeight={17}
-        isChatListPage={true}
         style={{
           position: 'absolute',
           top: '70px',
