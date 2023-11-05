@@ -35,8 +35,8 @@ const Input = React.forwardRef(
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
-      <InputWrapper>
-        <StyleInput
+      <StyledInputWrapper>
+        <StyledInput
           ref={ref}
           onChange={onChange}
           placeholder={placeholder}
@@ -51,17 +51,17 @@ const Input = React.forwardRef(
           inputBackgroundColor={inputBackgroundColor}
           borderRadius={borderRadius}
         />
-      </InputWrapper>
+      </StyledInputWrapper>
     )
   },
 )
 Input.displayName = 'Input'
 
-const InputWrapper = styled.div`
+const StyledInputWrapper = styled.div`
   position: relative;
 `
 
-const StyleInput = styled.input<InputProps>`
+const StyledInput = styled.input<InputProps>`
   ::placeholder {
     font-size: ${(props) => props.placeholderSize};
     color: ${(props) => props.placeholderColor};
@@ -74,7 +74,7 @@ const StyleInput = styled.input<InputProps>`
   background-color: ${(props) => props.inputBackgroundColor};
   border-radius: ${(props) => props.borderRadius};
   font-size: ${(props) => props.inputTextSize};
-  position: relative; // This should be adjusted if needed.
+  position: relative;
 `
 
 export default Input
