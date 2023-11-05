@@ -6,17 +6,17 @@ import { palette } from '@/styles/palette'
 type SelectorButtonProps = {
   isDarkMode: boolean
   buttonName: string
-  onClick?: (selected: boolean) => void
+  isButtonClicked?: (selected: boolean) => void
   isButtonselected?: boolean
-  maxLengthReached: boolean
+  isMaxLengthReached: boolean
 }
 
 const SelectorButton = ({
   isDarkMode,
   buttonName,
-  onClick,
+  isButtonClicked,
   isButtonselected: propIsButtonSelected = false,
-  maxLengthReached = false,
+  isMaxLengthReached = false,
 }: SelectorButtonProps) => {
   const defaultSettings = isDarkMode
     ? {
@@ -39,8 +39,8 @@ const SelectorButton = ({
   const handleButtonClick = () => {
     const isSelected = backgroundColor !== defaultSettings.selectedButtonColor
 
-    if (maxLengthReached && !isButtonselected) {
-      onClick && onClick(true)
+    if (isMaxLengthReached && !isButtonselected) {
+      isButtonClicked && isButtonClicked(true)
       return
     }
     setIsButtonselected(!isButtonselected)
@@ -50,7 +50,7 @@ const SelectorButton = ({
     if (defaultSettings.textColor !== palette.WHITE) {
       setCurrentTextColor(isSelected ? palette.WHITE : defaultSettings.textColor)
     }
-    if (onClick) onClick(isSelected)
+    if (isButtonClicked) isButtonClicked(isSelected)
   }
 
   return (
