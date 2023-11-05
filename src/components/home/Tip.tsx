@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-const StyleTipHeader = styled.div`
+const StyledTipHeader = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -14,7 +14,7 @@ const StyleTipHeader = styled.div`
 
 const Tip = () => {
   return (
-    <StyleTipHeader>
+    <StyledTipHeader>
       <Text
         font={'Body_14'}
         fontWeight={500}
@@ -37,7 +37,7 @@ const Tip = () => {
       >
         {'커피밋 채팅방은 3일이 지나면 사라집니다!'}
       </Text>
-    </StyleTipHeader>
+    </StyledTipHeader>
   )
 }
 

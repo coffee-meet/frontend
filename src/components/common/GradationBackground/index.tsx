@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 
 import { palette } from '@/styles/palette'
 
-const StyleGradationBackground = styled.div<{
+const StyledGradationBackground = styled.div<{
   isDarkMode: boolean
 }>`
   width: 100%;
@@ -25,7 +25,7 @@ type GradationBackgroundProps = {
  * @param isDarkMode - 다크모드 여부
  */
 const GradationBackground = ({ children, isDarkMode }: GradationBackgroundProps) => {
-  return <StyleGradationBackground isDarkMode={isDarkMode}>{children}</StyleGradationBackground>
+  return <StyledGradationBackground isDarkMode={isDarkMode}>{children}</StyledGradationBackground>
 }
 
 export default GradationBackground

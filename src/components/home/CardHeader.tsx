@@ -5,7 +5,7 @@ import { palette } from '@/styles/palette'
 
 import AvatarGroup from './AvatarGroup'
 
-const StyleWatingTopWrapper = styled.div`
+const StyledWatingTopWrapper = styled.div`
   width: 100%;
   height: 38px;
   display: flex;
@@ -14,7 +14,7 @@ const StyleWatingTopWrapper = styled.div`
   padding: 0 20px;
 `
 
-const StyleWatingTopTextWrapper = styled.div`
+const StyledWatingTopTextWrapper = styled.div`
   display: flex;
   height: inherit;
   justify-content: center;
@@ -29,8 +29,8 @@ type CardHeaderProps = {
 
 const CardHeader = ({ totalMemberLen, currentMemberLen, isDarkMode }: CardHeaderProps) => {
   return (
-    <StyleWatingTopWrapper>
-      <StyleWatingTopTextWrapper>
+    <StyledWatingTopWrapper>
+      <StyledWatingTopTextWrapper>
         <Text
           font={'Body_32'}
           fontWeight={400}
@@ -51,9 +51,9 @@ const CardHeader = ({ totalMemberLen, currentMemberLen, isDarkMode }: CardHeader
         >
           {`/${totalMemberLen}`}
         </Text>
-      </StyleWatingTopTextWrapper>
+      </StyledWatingTopTextWrapper>
       <AvatarGroup avatarList={['', '', '']} />
-    </StyleWatingTopWrapper>
+    </StyledWatingTopWrapper>
   )
 }
 

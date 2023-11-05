@@ -19,9 +19,9 @@ const NavigationBar = ({ isDarkMode }: NavigationBarProps) => {
     navigate(`/${path}`)
   }
   return (
-    <StyleWrapper fullWidth={true}>
-      <StyleNavigation isDarkMode={isDarkMode} justify={'space-around'}>
-        <StyleNavigationItem onClick={() => moveFromNavigationBar('chat-list')}>
+    <StyledWrapper fullWidth={true}>
+      <StyledNavigation isDarkMode={isDarkMode} justify={'space-around'}>
+        <StyledNavigationItem onClick={() => moveFromNavigationBar('chat-list')}>
           <FlexBox direction={'column'} gap={5}>
             <IoChatbox
               size={'24px'}
@@ -29,10 +29,10 @@ const NavigationBar = ({ isDarkMode }: NavigationBarProps) => {
                 color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
               }}
             />
-            <StyleNavigationText isDarkMode={isDarkMode}>{'이전대화방'}</StyleNavigationText>
+            <StyledNavigationText isDarkMode={isDarkMode}>{'이전대화방'}</StyledNavigationText>
           </FlexBox>
-        </StyleNavigationItem>
-        <StyleNavigationItem onClick={() => moveFromNavigationBar('')}>
+        </StyledNavigationItem>
+        <StyledNavigationItem onClick={() => moveFromNavigationBar('')}>
           <FlexBox direction={'column'} gap={5}>
             <MdHome
               size={'27px'}
@@ -40,32 +40,32 @@ const NavigationBar = ({ isDarkMode }: NavigationBarProps) => {
                 color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
               }}
             />
-            <StyleNavigationText isDarkMode={isDarkMode}>{'홈'}</StyleNavigationText>
+            <StyledNavigationText isDarkMode={isDarkMode}>{'홈'}</StyledNavigationText>
           </FlexBox>
-        </StyleNavigationItem>
-        <StyleNavigationItem onClick={() => moveFromNavigationBar('profile')}>
+        </StyledNavigationItem>
+        <StyledNavigationItem onClick={() => moveFromNavigationBar('profile')}>
           <FlexBox direction={'column'} gap={5}>
-            <StyleProfileImageWrapper>
+            <StyledProfileImageWrapper>
               <Avatar width={30} height={30} imgUrl={defaultProfileImage} margin={'0'} />
-            </StyleProfileImageWrapper>
-            <StyleNavigationText isDarkMode={isDarkMode}>{'프로필'}</StyleNavigationText>
+            </StyledProfileImageWrapper>
+            <StyledNavigationText isDarkMode={isDarkMode}>{'프로필'}</StyledNavigationText>
           </FlexBox>
-        </StyleNavigationItem>
-      </StyleNavigation>
-    </StyleWrapper>
+        </StyledNavigationItem>
+      </StyledNavigation>
+    </StyledWrapper>
   )
 }
-const StyleWrapper = styled(FlexBox)`
+const StyledWrapper = styled(FlexBox)`
   position: sticky;
   bottom: 0px;
 `
-const StyleNavigationText = styled.span<{
+const StyledNavigationText = styled.span<{
   isDarkMode: boolean
 }>`
   color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.DARK_BLUE)};
   font-size: ${typo.Body_10()};
 `
-const StyleNavigation = styled(FlexBox)<{
+const StyledNavigation = styled(FlexBox)<{
   isDarkMode: boolean
 }>`
   width: 100%;
@@ -75,10 +75,10 @@ const StyleNavigation = styled(FlexBox)<{
     0px 0px 10px 0px rgba(0, 0, 0, 0.24),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14);
 `
-const StyleNavigationItem = styled.button`
+const StyledNavigationItem = styled.button`
   cursor: pointer;
 `
-const StyleProfileImageWrapper = styled.div`
+const StyledProfileImageWrapper = styled.div`
   width: 100%;
   height: 100%;
   object-fit: cover;

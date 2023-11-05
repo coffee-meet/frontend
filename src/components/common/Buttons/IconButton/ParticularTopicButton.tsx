@@ -3,7 +3,7 @@ import { BiChevronRight, BiSolidConversation } from 'react-icons/bi'
 import { Text, TextWrapper } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import { StyleIconButtonWrapper, StyleIconWrapper } from '.'
+import { StyledIconButtonWrapper, StyledIconWrapper } from '.'
 
 type ParticularTopicButtonProps = {
   isDarkMode: boolean
@@ -23,7 +23,7 @@ const ParticularTopicButton = ({
   const getSecondTextColor = isDarkMode ? palette.GRAY300 : palette.GRAY500
 
   return (
-    <StyleIconButtonWrapper
+    <StyledIconButtonWrapper
       iconButtonType={getButtonType}
       style={{
         display: 'flex',
@@ -32,7 +32,7 @@ const ParticularTopicButton = ({
       }}
       onClick={moveToParticularTopic}
     >
-      <StyleIconWrapper
+      <StyledIconWrapper
         backgroundColor={getIconBackgroundColor}
         borderRadius={'50%'}
         style={{
@@ -49,7 +49,7 @@ const ParticularTopicButton = ({
             height: 20,
           }}
         />
-      </StyleIconWrapper>
+      </StyledIconWrapper>
       <TextWrapper
         style={{
           flex: 1,
@@ -72,7 +72,7 @@ const ParticularTopicButton = ({
           {'네트워크를 넓혀보세요!'}
         </Text>
       </TextWrapper>
-      <StyleIconWrapper
+      <StyledIconWrapper
         style={{
           margin: '18px 27px 18px 0',
         }}
@@ -84,8 +84,8 @@ const ParticularTopicButton = ({
             height: 30,
           }}
         />
-      </StyleIconWrapper>
-    </StyleIconButtonWrapper>
+      </StyledIconWrapper>
+    </StyledIconButtonWrapper>
   )
 }
 

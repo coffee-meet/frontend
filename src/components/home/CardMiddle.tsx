@@ -7,7 +7,7 @@ import NormalButton from '../common/Buttons/NormalButton'
 import Spacing from '../common/Spacing'
 import { Text } from '../common/Text'
 
-const StyleWatingMidWrapper = styled.div`
+const StyledWatingMidWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -33,7 +33,7 @@ type CardMiddleProps = {
 
 const CardMiddle = ({ time, handleResetClick, isDarkMode }: CardMiddleProps) => {
   return (
-    <StyleWatingMidWrapper>
+    <StyledWatingMidWrapper>
       <Text
         font={'Body_32'}
         fontWeight={600}
@@ -74,7 +74,7 @@ const CardMiddle = ({ time, handleResetClick, isDarkMode }: CardMiddleProps) => 
           }}
         />
       </Text>
-    </StyleWatingMidWrapper>
+    </StyledWatingMidWrapper>
   )
 }
 

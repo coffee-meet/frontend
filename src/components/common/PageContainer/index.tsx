@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 import { palette } from '@/styles/palette'
 
-const StylePageContainer = styled.div<{ height: string; isDarkMode: boolean }>`
+const StyledPageContainer = styled.div<{ height: string; isDarkMode: boolean }>`
   width: 100%;
   height: ${({ height }) => height};
   padding: 5% 5% 5%;
@@ -30,9 +30,9 @@ type PageContainerProps = {
  */
 const PageContainer = ({ children, height = '77%', isDarkMode }: PageContainerProps) => {
   return (
-    <StylePageContainer height={height} isDarkMode={isDarkMode}>
+    <StyledPageContainer height={height} isDarkMode={isDarkMode}>
       {children}
-    </StylePageContainer>
+    </StyledPageContainer>
   )
 }
 

@@ -4,7 +4,7 @@ import { palette } from '@/styles/palette'
 
 import { Text } from '../common/Text'
 
-const StyleBottomHeader = styled.div<{
+const StyledBottomHeader = styled.div<{
   isDarkMode: boolean
 }>`
   display: flex;
@@ -20,7 +20,7 @@ type CardBottomProps = {
 
 const CardBottom = ({ isDarkMode }: CardBottomProps) => {
   return (
-    <StyleBottomHeader isDarkMode={isDarkMode}>
+    <StyledBottomHeader isDarkMode={isDarkMode}>
       <Text
         font={'Body_14'}
         fontWeight={500}
@@ -47,7 +47,7 @@ const CardBottom = ({ isDarkMode }: CardBottomProps) => {
       >
         {'커피밋 채팅방은 3일이 지나면 사라집니다!'}
       </Text>
-    </StyleBottomHeader>
+    </StyledBottomHeader>
   )
 }
 

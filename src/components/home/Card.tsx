@@ -11,7 +11,7 @@ import CardBottom from './CardBottom'
 import CardHeader from './CardHeader'
 import CardMiddle from './CardMiddle'
 
-const StyleCard = styled(motion.div)<{
+const StyledCard = styled(motion.div)<{
   isDarkMode: boolean
 }>`
   width: 100%;
@@ -27,7 +27,7 @@ const StyleCard = styled(motion.div)<{
   background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
 `
 
-const StyleWatingWrapper = styled(motion.div)`
+const StyledWatingWrapper = styled(motion.div)`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -71,7 +71,7 @@ const Card = ({ isDarkMode }: CardProps) => {
 
   return (
     <AnimatePresence>
-      <StyleCard isDarkMode={isDarkMode}>
+      <StyledCard isDarkMode={isDarkMode}>
         {!isRunning ? (
           <motion.div
             key={'randomButton'}
@@ -87,7 +87,7 @@ const Card = ({ isDarkMode }: CardProps) => {
             />
           </motion.div>
         ) : (
-          <StyleWatingWrapper
+          <StyledWatingWrapper
             key={'wating'}
             initial={'hidden'}
             animate={'visible'}
@@ -103,9 +103,9 @@ const Card = ({ isDarkMode }: CardProps) => {
             />
             <Spacing size={21} />
             <CardBottom isDarkMode={isDarkMode} />
-          </StyleWatingWrapper>
+          </StyledWatingWrapper>
         )}
-      </StyleCard>
+      </StyledCard>
     </AnimatePresence>
   )
 }
