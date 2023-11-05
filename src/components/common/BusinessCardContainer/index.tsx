@@ -17,15 +17,15 @@ const BusinessCardContainer = ({ isDarkMode }: BusinessCardContainerProps) => {
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!uploadedImage) {
-      const file = event.target.files?.[0]
-      const reader = new FileReader()
+      const uploadedFile = event.target.files?.[0]
+      const uploadedFileReader = new FileReader()
 
-      reader.onloadend = () => {
-        setUploadedImage(reader.result as string)
+      uploadedFileReader.onloadend = () => {
+        setUploadedImage(uploadedFileReader.result as string)
       }
 
-      if (file) {
-        reader.readAsDataURL(file)
+      if (uploadedFile) {
+        uploadedFileReader.readAsDataURL(uploadedFile)
       }
     }
   }
@@ -35,7 +35,7 @@ const BusinessCardContainer = ({ isDarkMode }: BusinessCardContainerProps) => {
   }
 
   return (
-    <Wrapper>
+    <BusinessCardContainerWrapper>
       <Text
         font={'Body_20'}
         fontWeight={700}
@@ -65,22 +65,22 @@ const BusinessCardContainer = ({ isDarkMode }: BusinessCardContainerProps) => {
         ) : (
           <label style={{ cursor: 'pointer' }}>
             <input type={'file'} onChange={handleImageUpload} style={{ display: 'none' }} />
-            <Placeholder>
+            <CameraIconWrapper>
               <CameraIcon src={camera} alt={'Upload Placeholder'} />
-            </Placeholder>
+            </CameraIconWrapper>
           </label>
         )}
       </ImageContainer>
-    </Wrapper>
+    </BusinessCardContainerWrapper>
   )
 }
 
-const Wrapper = styled.div`
+const BusinessCardContainerWrapper = styled.div`
   position: relative;
   width: 300px;
 `
 
-const Placeholder = styled.div`
+const CameraIconWrapper = styled.div`
   width: 88px;
   height: 88px;
   background-color: ${palette.WHITE};
