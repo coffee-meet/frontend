@@ -63,12 +63,12 @@ const BusinessCardContainer = ({ isDarkMode }: BusinessCardContainerProps) => {
             />
           </>
         ) : (
-          <label style={{ cursor: 'pointer' }}>
-            <input type={'file'} onChange={handleImageUpload} style={{ display: 'none' }} />
+          <UploadLabel>
+            <HiddenInput type={'file'} onChange={handleImageUpload} />
             <CameraIconWrapper>
               <CameraIcon src={camera} alt={'Upload Placeholder'} />
             </CameraIconWrapper>
-          </label>
+          </UploadLabel>
         )}
       </ImageContainer>
     </BusinessCardContainerWrapper>
@@ -107,6 +107,12 @@ const StyledImage = styled.img`
 const CameraIcon = styled.img`
   width: 38px;
   height: 38px;
+`
+const UploadLabel = styled.label`
+  cursor: pointer;
+`
+const HiddenInput = styled.input`
+  display: none;
 `
 
 export default BusinessCardContainer
