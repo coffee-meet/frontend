@@ -1,15 +1,21 @@
 import styled from '@emotion/styled'
 
-import LoginImage from '../assets/LoginImage.svg'
+import LoginImage from '@/assets/LoginImage.svg'
 
 const HeroImage = () => {
   return (
     <>
-      <StyleHeroImage src={LoginImage} />
+      <ImageContainer>
+        <StyleHeroImage src={LoginImage} />
+      </ImageContainer>
     </>
   )
 }
 
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`
 const StyleHeroImage = styled.img`
   border-radius: 20px;
   width: 306px;
