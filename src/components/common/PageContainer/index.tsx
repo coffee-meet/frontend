@@ -3,11 +3,10 @@ import { ReactNode } from 'react'
 
 import { palette } from '@/styles/palette'
 
-const StyledPageContainer = styled.div<{ height: string }>`
+const StyledPageContainer = styled.div<{ height: string; isDarkMode: boolean }>`
   width: 100%;
   height: ${({ height }) => height};
-  padding: 5% 5% 5%;
-  background-color: ${palette.GRAY100};
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_BLUE : palette.GRAY100)};
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
   margin-top: auto;
@@ -18,16 +17,29 @@ const StyledPageContainer = styled.div<{ height: string }>`
 
 type PageContainerProps = {
   children: ReactNode
+  isDarkMode: boolean
   height?: string
+  style?: React.CSSProperties
 }
 
 /**
  *
  * @param children - 자식 컴포넌트
+ * @param isDarkMode - 다크 모드 여부
  * @param height - 높이
+ * @param style - (Optional) React.CSSProperties
  */
-const PageContainer = ({ children, height = '77%' }: PageContainerProps) => {
-  return <StyledPageContainer height={height}>{children}</StyledPageContainer>
+const PageContainer = ({
+  children,
+  height = '77%',
+  isDarkMode = false,
+  ...props
+}: PageContainerProps) => {
+  return (
+    <StyledPageContainer height={height} isDarkMode={isDarkMode} {...props}>
+      {children}
+    </StyledPageContainer>
+  )
 }
 
 export default PageContainer
