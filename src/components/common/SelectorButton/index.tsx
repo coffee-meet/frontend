@@ -8,15 +8,19 @@ type SelectorButtonProps = {
   buttonName: string
   isButtonClicked?: (selected: boolean) => void
   isButtonselected?: boolean
+
   isMaxLengthReached: boolean
+
 }
 
 const SelectorButton = ({
   isDarkMode,
   buttonName,
+
   isButtonClicked,
   isButtonselected: propIsButtonSelected = false,
   isMaxLengthReached = false,
+
 }: SelectorButtonProps) => {
   const defaultSettings = isDarkMode
     ? {
@@ -39,8 +43,10 @@ const SelectorButton = ({
   const handleButtonClick = () => {
     const isSelected = backgroundColor !== defaultSettings.selectedButtonColor
 
+
     if (isMaxLengthReached && !isButtonselected) {
       isButtonClicked && isButtonClicked(true)
+
       return
     }
     setIsButtonselected(!isButtonselected)
