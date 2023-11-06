@@ -8,7 +8,7 @@ import { palette } from '@/styles/palette'
 
 const Login = () => {
   return (
-    <>
+    <LoginOuterWrapper>
       <HeroImage />
 
       <StyledContainer>
@@ -34,9 +34,13 @@ const Login = () => {
           <KakaoButton />
         </OauthWrapper>
       </StyledContainer>
-    </>
+    </LoginOuterWrapper>
   )
 }
+
+const LoginOuterWrapper = styled.div`
+  background-color: ${palette.SKY_BLUE};
+`
 
 const OauthWrapper = styled.div`
   display: flex;
