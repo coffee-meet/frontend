@@ -108,6 +108,7 @@ const CameraIcon = styled.img`
   width: 38px;
   height: 38px;
 `
+
 const UploadLabel = styled.label`
   cursor: pointer;
 `
