@@ -7,7 +7,7 @@ type SelectorButtonProps = {
   isDarkMode: boolean
   buttonName: string
   isButtonClicked?: (selected: boolean) => void
-  isButtonselected?: boolean
+  isButtonSelected?: boolean
   isMaxLengthReached: boolean
 }
 
@@ -15,8 +15,8 @@ const SelectorButton = ({
   isDarkMode,
   buttonName,
   isButtonClicked,
-  isButtonselected: propIsButtonSelected = false,
-  isMaxLengthReached = false,
+  isButtonSelected: propIsButtonSelected = false,
+  isMaxLengthReached,
 }: SelectorButtonProps) => {
   const defaultSettings = isDarkMode
     ? {
@@ -29,21 +29,22 @@ const SelectorButton = ({
         defaultButtonColor: palette.TERTIARY,
         textColor: palette.WHITE,
       }
-  const [isButtonselected, setIsButtonselected] = useState(propIsButtonSelected)
-  const initialBackgroundColor = isButtonselected
+
+  const [buttonSelected, setButtonSelected] = useState(propIsButtonSelected)
+  const initialBackgroundColor = buttonSelected
     ? defaultSettings.selectedButtonColor
     : defaultSettings.defaultButtonColor
   const [backgroundColor, setBackgroundColor] = useState(initialBackgroundColor)
   const [currentTextColor, setCurrentTextColor] = useState(defaultSettings.textColor)
 
   const handleButtonClick = () => {
-    const isSelected = backgroundColor !== defaultSettings.selectedButtonColor
+    const isSelected = !buttonSelected
 
-    if (isMaxLengthReached && !isButtonselected) {
+    if (isMaxLengthReached && !buttonSelected) {
       isButtonClicked && isButtonClicked(true)
       return
     }
-    setIsButtonselected(!isButtonselected)
+    setButtonSelected(isSelected)
     setBackgroundColor(
       isSelected ? defaultSettings.selectedButtonColor : defaultSettings.defaultButtonColor,
     )
