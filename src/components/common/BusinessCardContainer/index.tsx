@@ -17,15 +17,16 @@ const BusinessCardContainer = ({ isDarkMode }: BusinessCardContainerProps) => {
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!uploadedImage) {
-      const file = event.target.files?.[0]
-      const reader = new FileReader()
 
-      reader.onloadend = () => {
-        setUploadedImage(reader.result as string)
+      const uploadedFile = event.target.files?.[0]
+      const uploadedFileReader = new FileReader()
+
+      uploadedFileReader.onloadend = () => {
+        setUploadedImage(uploadedFileReader.result as string)
       }
 
-      if (file) {
-        reader.readAsDataURL(file)
+      if (uploadedFile) {
+        uploadedFileReader.readAsDataURL(uploadedFile)
       }
     }
   }
@@ -35,7 +36,7 @@ const BusinessCardContainer = ({ isDarkMode }: BusinessCardContainerProps) => {
   }
 
   return (
-    <Wrapper>
+    <BusinessCardContainerWrapper>
       <Text
         font={'Body_20'}
         fontWeight={700}
@@ -63,24 +64,23 @@ const BusinessCardContainer = ({ isDarkMode }: BusinessCardContainerProps) => {
             />
           </>
         ) : (
-          <label style={{ cursor: 'pointer' }}>
-            <input type={'file'} onChange={handleImageUpload} style={{ display: 'none' }} />
-            <Placeholder>
+          <UploadLabel>
+            <HiddenInput type={'file'} onChange={handleImageUpload} />
+            <CameraIconWrapper>
               <CameraIcon src={camera} alt={'Upload Placeholder'} />
-            </Placeholder>
-          </label>
+            </CameraIconWrapper>
+          </UploadLabel>
         )}
       </ImageContainer>
-    </Wrapper>
+    </BusinessCardContainerWrapper>
   )
 }
 
-const Wrapper = styled.div`
+const BusinessCardContainerWrapper = styled.div`
   position: relative;
   width: 300px;
 `
-
-const Placeholder = styled.div`
+const CameraIconWrapper = styled.div`
   width: 88px;
   height: 88px;
   background-color: ${palette.WHITE};
@@ -107,6 +107,12 @@ const StyledImage = styled.img`
 const CameraIcon = styled.img`
   width: 38px;
   height: 38px;
+`
+const UploadLabel = styled.label`
+  cursor: pointer;
+`
+const HiddenInput = styled.input`
+  display: none;
 `
 
 export default BusinessCardContainer
