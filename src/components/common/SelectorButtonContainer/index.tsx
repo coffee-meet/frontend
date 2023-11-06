@@ -65,10 +65,10 @@ const SelectorButtonContainer = ({
             key={index}
             isDarkMode={isDarkMode}
             buttonName={name}
-            onClick={(isSelected) => handleCustomButtonClick(isSelected)}
+            isButtonClicked={(isSelected) => handleCustomButtonClick(isSelected)}
             onRemove={() => handleCustomButtonRemove(name)}
-            maxLengthReached={selectedCount >= maxLength}
-            isButtonselected={false}
+            isMaxLengthReached={selectedCount >= maxLength}
+            isButtonSelected={false}
           />
         ))}
         {showAlert && (
