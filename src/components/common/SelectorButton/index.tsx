@@ -40,9 +40,8 @@ const SelectorButton = ({
   const handleButtonClick = () => {
     const isSelected = !buttonSelected
 
-    if (isMaxLengthReached && !isButtonSelected) {
+    if (isMaxLengthReached && !buttonSelected) {
       isButtonClicked && isButtonClicked(true)
-
       return
     }
     setButtonSelected(isSelected)
