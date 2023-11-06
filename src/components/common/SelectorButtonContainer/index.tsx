@@ -55,9 +55,9 @@ const SelectorButtonContainer = ({
             key={index}
             isDarkMode={isDarkMode}
             buttonName={name}
-            onClick={handleButtonSelection}
-            maxLengthReached={selectedCount >= maxLength}
-            isButtonselected={false}
+            isButtonClicked={handleButtonSelection}
+            isMaxLengthReached={selectedCount >= maxLength}
+            isButtonSelected={false}
           />
         ))}
         {customButtons.map((name, index) => (
