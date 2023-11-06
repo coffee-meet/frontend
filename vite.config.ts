@@ -9,12 +9,18 @@ export default defineConfig({
     alias: { '@/': `${process.cwd()}/src/` },
   },
   server: {
-    port: 3000,
-    https: true,
-    hmr: {
-      host: process.env.VITE_BASE_URL,
-      port: 3001,
-      protocol: 'wss',
+    proxy: {
+      '/api': {
+        target: 'http://13.125.194.230',
+        changeOrigin: true,
+      },
     },
+    // port: 3000,
+    // https: true,
+    // hmr: {
+    //   host: process.env.VITE_BASE_URL,
+    //   port: 3001,
+    //   protocol: 'wss',
+    // },
   },
 })
