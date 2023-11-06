@@ -30,21 +30,21 @@ const SelectorButton = ({
         textColor: palette.WHITE,
       }
 
-  const [buttonSelected, setButtonSelected] = useState(propIsButtonSelected)
-  const initialBackgroundColor = buttonSelected
+  const [isButtonSelected, setIsButtonSelected] = useState(propIsButtonSelected)
+  const initialBackgroundColor = isButtonSelected
     ? defaultSettings.selectedButtonColor
     : defaultSettings.defaultButtonColor
   const [backgroundColor, setBackgroundColor] = useState(initialBackgroundColor)
   const [currentTextColor, setCurrentTextColor] = useState(defaultSettings.textColor)
 
   const handleButtonClick = () => {
-    const isSelected = !buttonSelected
+    const isSelected = backgroundColor !== defaultSettings.selectedButtonColor
 
-    if (isMaxLengthReached && !buttonSelected) {
+    if (isMaxLengthReached && !isButtonSelected) {
       isButtonClicked && isButtonClicked(true)
       return
     }
-    setButtonSelected(isSelected)
+    setIsButtonSelected(isSelected)
     setBackgroundColor(
       isSelected ? defaultSettings.selectedButtonColor : defaultSettings.defaultButtonColor,
     )
