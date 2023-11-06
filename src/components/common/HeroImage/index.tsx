@@ -4,11 +4,9 @@ import LoginImage from '@/assets/LoginImage.svg'
 
 const HeroImage = () => {
   return (
-    <>
-      <ImageContainer>
-        <StyleHeroImage src={LoginImage} />
-      </ImageContainer>
-    </>
+    <ImageContainer>
+      <StyleHeroImage src={LoginImage} />
+    </ImageContainer>
   )
 }
 
