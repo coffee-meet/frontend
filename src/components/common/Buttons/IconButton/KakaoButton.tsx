@@ -32,7 +32,7 @@ const KakaoButton = () => (
       font={'Body_18'}
       fontWeight={600}
       letterSpacing={-1}
-      style={{ flex: 1, textAlign: 'left' }}
+      style={{ flex: 1, textAlign: 'left', marginLeft: 20 }}
     >
       {'카카오톡으로 시작'}
     </Text>
