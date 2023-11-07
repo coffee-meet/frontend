@@ -1,8 +1,5 @@
 export type Messages = {
-  _id: string
-  message: string
-  sender: string
-  senderProfile: object
-  seen: boolean
+  content: string
+  nickname: string
   createdAt: string
 }
