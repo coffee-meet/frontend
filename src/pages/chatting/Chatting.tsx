@@ -5,13 +5,13 @@ import { FormEvent, useEffect, useRef, useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 
-import { ChattingApi } from '@/apis/chatting/chattingApi'
-import { Messages } from '@/apis/chatting/chattingType'
+// import { ChattingApi } from '@/apis/chatting/chattingApi'
+// import { Messages } from '@/apis/chatting/chattingType'
 import ExitIcon from '@/assets/icons/ExitIcon'
 import Send from '@/assets/icons/Send.svg'
 import { FlexBox } from '@/components/common/Flexbox'
 // import GradationBackground from '@/components/common/GradationBackground'
-import Input from '@/components/common/Input'
+// import Input from '@/components/common/Input'
 // import Loading from '@/components/common/Loading'
 // import PageContainer from '@/components/common/PageContainer'
 import PageHeader from '@/components/common/PageHeader'
@@ -24,20 +24,20 @@ const Chatting = () => {
   const { openModal } = useModal()
   const navigate = useNavigate()
   const chatroomId = ''
-  const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
+  // const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
   const [inputValue, setInputValue] = useState('')
   // const { data, isLoading } = useQuery(['messages'], () => getDetailMessages, {
   //   onSuccess: async (responseData: Messages[]) => {
   //     setMessages(responseData)
   //   },
   // })
-  const getDetailMessages = async () => {
-    try {
-      const response = await ChattingApi.GET_DETAIL_MESSAGES(chatroomId)
-    } catch (error) {
-      console.error('Message fetching error')
-    }
-  }
+  // const getDetailMessages = async () => {
+  //   try {
+  //     const response = await ChattingApi.GET_DETAIL_MESSAGES(chatroomId)
+  //   } catch (error) {
+  //     console.error('Message fetching error')
+  //   }
+  // }
 
   const client = useRef<Stomp.Client | null>(null)
 
@@ -63,7 +63,7 @@ const Chatting = () => {
         (response: { body: string }) => {
           const JsonBody = JSON.parse(response.body)
           console.log(JsonBody)
-          setMessages((_chatList) => [..._chatList, JsonBody])
+          // setMessages((_chatList) => [..._chatList, JsonBody])
         },
         {
           access_token: localStorage.getItem('jwt_accessToken') || '',
@@ -90,6 +90,7 @@ const Chatting = () => {
   const send = (message: string) => {
     if (client.current) {
       if (!client.current.connected) return
+      console.log(message)
       client.current.publish({
         destination: '/pub/chat',
         body: JSON.stringify({
@@ -150,7 +151,7 @@ const StyleTypingFlexBox = styled(FlexBox)`
   padding: 10px;
   border-radius: 10px;
 `
-const StyleTextArea = styled(Input)``
+
 const StyleInput = styled.input`
   width: 321px;
   height: 36px;
@@ -164,6 +165,6 @@ const StyleMessageWrapper = styled.div`
   overflow-y: auto;
   scroll-behavior: smooth;
 `
-const StyleForm = styled.form``
+
 const StyleSubmitButton = styled.button``
 export default Chatting
