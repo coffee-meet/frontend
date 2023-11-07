@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import * as Stomp from '@stomp/stompjs'
-import { useQuery } from '@tanstack/react-query'
+// import { useQuery } from '@tanstack/react-query'
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
@@ -10,13 +10,13 @@ import { Messages } from '@/apis/chatting/chattingType'
 import ExitIcon from '@/assets/icons/ExitIcon'
 import Send from '@/assets/icons/Send.svg'
 import { FlexBox } from '@/components/common/Flexbox'
-import GradationBackground from '@/components/common/GradationBackground'
+// import GradationBackground from '@/components/common/GradationBackground'
 import Input from '@/components/common/Input'
-import Loading from '@/components/common/Loading'
-import PageContainer from '@/components/common/PageContainer'
+// import Loading from '@/components/common/Loading'
+// import PageContainer from '@/components/common/PageContainer'
 import PageHeader from '@/components/common/PageHeader'
 import Spacing from '@/components/common/Spacing'
-import MessageArea from '@/components/messageArea'
+// import MessageArea from '@/components/messageArea'
 import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
 
@@ -115,29 +115,29 @@ const Chatting = () => {
 
   return (
     <>
-      <GradationBackground>
-        <Spacing size={46} />
-        <PageContainer>
-          <PageHeader
-            title={'Matching Room Name'}
-            hasBackground={true}
-            leftIcon={
-              <BsArrowLeftShort size={32} color={`${palette.GRAY500}`} onClick={navigateHome} />
-            }
-            rightIcon={<ExitIcon exitClick={deleteChattingRoom} />}
-          ></PageHeader>
-          <StyleMessageWrapper>
-            {/* {isLoading ? <Loading /> : data && <MessageArea messageData={data} />} */}
-          </StyleMessageWrapper>
-          <StyleTypingFlexBox gap={10}>
-            {/* <StyleTextArea width={'321px'} height={'36px'} borderRadius={'10px'} /> */}
-            <StyleInput onChange={(e) => setInputValue(e.target.value)} />
-            <StyleSubmitButton onClick={(e) => handleSubmit(e)}>
-              <StyleIcon src={Send} />
-            </StyleSubmitButton>
-          </StyleTypingFlexBox>
-        </PageContainer>
-      </GradationBackground>
+      {/* <GradationBackground> */}
+      <Spacing size={46} />
+      {/* <PageContainer> */}
+      <PageHeader
+        title={'Matching Room Name'}
+        hasBackground={true}
+        leftIcon={
+          <BsArrowLeftShort size={32} color={`${palette.GRAY500}`} onClick={navigateHome} />
+        }
+        rightIcon={<ExitIcon exitClick={deleteChattingRoom} />}
+      ></PageHeader>
+      <StyleMessageWrapper>
+        {/* {isLoading ? <Loading /> : data && <MessageArea messageData={data} />} */}
+      </StyleMessageWrapper>
+      <StyleTypingFlexBox gap={10}>
+        {/* <StyleTextArea width={'321px'} height={'36px'} borderRadius={'10px'} /> */}
+        <StyleInput onChange={(e) => setInputValue(e.target.value)} />
+        <StyleSubmitButton onClick={(e) => handleSubmit(e)}>
+          <StyleIcon src={Send} />
+        </StyleSubmitButton>
+      </StyleTypingFlexBox>
+      {/* </PageContainer> */}
+      {/* </GradationBackground> */}
     </>
   )
 }
