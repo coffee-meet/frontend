@@ -51,7 +51,7 @@ const StyledNavigation = styled(FlexBox)<{
 }>`
   width: 100%;
   height: 71px;
-  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.GRAY100)};
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
   box-shadow:
     0px 0px 10px 0px rgba(0, 0, 0, 0.24),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14);
