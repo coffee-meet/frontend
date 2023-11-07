@@ -1,10 +1,9 @@
 import styled from '@emotion/styled'
 
+import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import { Text } from '../common/Text'
-
-const StyleTipHeader = styled.div`
+const StyledTipHeader = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -13,12 +12,9 @@ const StyleTipHeader = styled.div`
   border-top: 1px solid ${palette.GRAY200};
 `
 
-/**
- * 홈페이지에서 사용되는 `Tip` 컴포넌트.
- */
 const Tip = () => {
   return (
-    <StyleTipHeader>
+    <StyledTipHeader>
       <Text
         font={'Body_14'}
         fontWeight={500}
@@ -41,7 +37,7 @@ const Tip = () => {
       >
         {'커피밋 채팅방은 3일이 지나면 사라집니다!'}
       </Text>
-    </StyleTipHeader>
+    </StyledTipHeader>
   )
 }
 

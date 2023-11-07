@@ -46,15 +46,17 @@ type AppHeaderProps = {
   nickname: string
   isDarkMode: boolean
   height?: string
+  toggleDarkMode: () => void
 }
 
 /**
  * @param nickname - 유저 닉네임
  * @param isDarkMode - 다크모드 여부
  * @param height - 컴포넌트 높이
+ * @param toggleDarkMode - 다크모드 토글 함수
  */
 
-const AppHeader = ({ nickname, isDarkMode, height }: AppHeaderProps) => {
+const AppHeader = ({ nickname, isDarkMode, height, toggleDarkMode }: AppHeaderProps) => {
   const navigate = useNavigate()
   const moveFromAppHeader = (path: string) => {
     navigate(`/${path}`)
@@ -82,14 +84,18 @@ const AppHeader = ({ nickname, isDarkMode, height }: AppHeaderProps) => {
             size={'20px'}
             style={{
               color: palette.WHITE,
+              cursor: 'pointer',
             }}
+            onClick={toggleDarkMode}
           />
         ) : (
           <BiSolidMoon
             size={'20px'}
             style={{
               color: palette.DARK_WHITE,
+              cursor: 'pointer',
             }}
+            onClick={toggleDarkMode}
           />
         )}
       </FlexBox>
@@ -100,7 +106,7 @@ const AppHeader = ({ nickname, isDarkMode, height }: AppHeaderProps) => {
           fontWeight={600}
           letterSpacing={-0.5}
           style={{
-            color: isDarkMode ? palette.WHITE : palette.DARK_WHITE,
+            color: isDarkMode ? palette.DARK_WHITE : palette.WHITE,
             marginRight: 5,
           }}
         >
@@ -112,7 +118,7 @@ const AppHeader = ({ nickname, isDarkMode, height }: AppHeaderProps) => {
           fontWeight={600}
           letterSpacing={-0.5}
           style={{
-            color: isDarkMode ? palette.WHITE : palette.DARK_WHITE,
+            color: isDarkMode ? palette.DARK_WHITE : palette.WHITE,
           }}
         >
           {'님, 안녕하세요! 오늘도 즐거운 커피밋! ☕️'}
