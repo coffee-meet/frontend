@@ -42,7 +42,7 @@ const ChatList = () => {
   ]
 
   return (
-    <GradationBackground>
+    <GradationBackground isDarkMode={isDarkMode}>
       <Spacing size={50} />
       <PageContainer height={'80%'} isDarkMode={isDarkMode}>
         <PageHeader
@@ -65,7 +65,7 @@ const ChatList = () => {
         />
         <ChatRoomBubbles chatRoomList={chatRoomList} isDarkMode={isDarkMode} />
       </PageContainer>
-      <NavigationBar />
+      <NavigationBar isDarkMode={isDarkMode} />
     </GradationBackground>
   )
 }
