@@ -12,57 +12,6 @@ import { palette } from '@/styles/palette'
 
 import Tip from './Tip'
 
-const StyleCard = styled(motion.div)<{
-  isDarkMode: boolean
-}>`
-  width: 100%;
-  height: 348px;
-  border-radius: 20px;
-  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
-  box-shadow: ${palette.SHADOW};
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  padding: 5% 1% 5%;
-`
-
-const StyleWatingWrapper = styled(motion.div)`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex: 1;
-`
-
-const StyleWatingTopWrapper = styled.div`
-  width: 100%;
-  height: 38px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 5%;
-  position: relative;
-`
-
-const StyleWatingTopTextWrapper = styled.div`
-  display: flex;
-  height: inherit;
-  justify-content: center;
-  align-items: flex-end;
-`
-
-const StyleWatingMidWrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-
-const StyleWatingBottomWrapper = styled.div``
-
 type TimerRefType = ReturnType<typeof timer> | null
 
 type CardProps = {
@@ -214,5 +163,56 @@ const Card = ({ isMatching, isDarkMode, onClick }: CardProps) => {
     </AnimatePresence>
   )
 }
+
+const StyleCard = styled(motion.div)<{
+  isDarkMode: boolean
+}>`
+  width: 100%;
+  height: 348px;
+  border-radius: 20px;
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
+  box-shadow: ${palette.SHADOW};
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  padding: 5% 1% 5%;
+`
+
+const StyleWatingWrapper = styled(motion.div)`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+`
+
+const StyleWatingTopWrapper = styled.div`
+  width: 100%;
+  height: 38px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5%;
+  position: relative;
+`
+
+const StyleWatingTopTextWrapper = styled.div`
+  display: flex;
+  height: inherit;
+  justify-content: center;
+  align-items: flex-end;
+`
+
+const StyleWatingMidWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+
+const StyleWatingBottomWrapper = styled.div``
 
 export default Card
