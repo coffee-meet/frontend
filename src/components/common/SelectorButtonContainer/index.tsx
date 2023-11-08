@@ -48,8 +48,8 @@ const SelectorButtonContainer = ({
   }
 
   return (
-    <OuterWrapper>
-      <Container isDarkMode={isDarkMode}>
+    <ButtonsContainerOuterWrapper>
+      <ButtonsContainer isDarkMode={isDarkMode}>
         {buttonNames.map((name, index) => (
           <SelectorButton
             key={index}
@@ -81,7 +81,7 @@ const SelectorButtonContainer = ({
             {`최대 ${maxLength}개까지만 설정할 수 있습니다!`}
           </AlertText>
         )}
-      </Container>
+      </ButtonsContainer>
       <CountNumber
         currentLength={selectedCount}
         maxLength={maxLength}
@@ -89,15 +89,15 @@ const SelectorButtonContainer = ({
         right={-320}
         color={isDarkMode ? palette.GRAY300 : palette.BLACK}
       />
-    </OuterWrapper>
+    </ButtonsContainerOuterWrapper>
   )
 }
 
-const OuterWrapper = styled.div`
+const ButtonsContainerOuterWrapper = styled.div`
   position: relative;
 `
 
-const Container = styled.div<{ isDarkMode: boolean }>`
+const ButtonsContainer = styled.div<{ isDarkMode: boolean }>`
   width: 348px;
   min-height: 235px;
   max-height: 400px;
