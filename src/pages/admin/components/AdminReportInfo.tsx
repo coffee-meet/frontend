@@ -6,8 +6,17 @@ import NormalButton from '@/components/common/Buttons/NormalButton'
 import AdminReportInfoListRow from '@/components/common/ListRow/AdminReportInfoListRow'
 import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
 import PageHeader from '@/components/common/PageHeader'
+import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
 const AdminReportInfo = () => {
+  const { openModal } = useModal()
+  const handleAccumulationAddBtn = () => {
+    openModal({
+      type: 'confirm',
+      mainText: '신고를 누적하시겠습니까?',
+      okFunc: () => console.log('okFunc'),
+    })
+  }
   return (
     <StyledAdminReportInfoOuterWrapper>
       <AdminAppHeader isDarkMode={false} nickname={'홍길동'} />
@@ -60,7 +69,9 @@ const AdminReportInfo = () => {
 
       <StyledAdminReportInfoContainer>
         <StyledButtonsWrapper>
-          <NormalButton normalButtonType={'admin-accept'}>{'누적 추가'}</NormalButton>
+          <NormalButton onClick={handleAccumulationAddBtn} normalButtonType={'admin-accept'}>
+            {'누적 추가'}
+          </NormalButton>
           <NormalButton normalButtonType={'admin-deny'}>{'무시'}</NormalButton>
         </StyledButtonsWrapper>
       </StyledAdminReportInfoContainer>
