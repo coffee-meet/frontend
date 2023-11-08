@@ -6,17 +6,17 @@ import { palette } from '@/styles/palette'
 type SelectorButtonProps = {
   isDarkMode: boolean
   buttonName: string
-  onClick?: (selected: boolean) => void
-  isButtonselected?: boolean
-  maxLengthReached: boolean
+  isButtonClicked?: (selected: boolean) => void
+  isButtonSelected?: boolean
+  isMaxLengthReached: boolean
 }
 
 const SelectorButton = ({
   isDarkMode,
   buttonName,
-  onClick,
-  isButtonselected: propIsButtonSelected = false,
-  maxLengthReached = false,
+  isButtonClicked,
+  isButtonSelected: propIsButtonSelected = false,
+  isMaxLengthReached = false,
 }: SelectorButtonProps) => {
   const defaultSettings = isDarkMode
     ? {
@@ -29,8 +29,9 @@ const SelectorButton = ({
         defaultButtonColor: palette.TERTIARY,
         textColor: palette.WHITE,
       }
-  const [isButtonselected, setIsButtonselected] = useState(propIsButtonSelected)
-  const initialBackgroundColor = isButtonselected
+
+  const [isButtonSelected, setIsButtonSelected] = useState(propIsButtonSelected)
+  const initialBackgroundColor = isButtonSelected
     ? defaultSettings.selectedButtonColor
     : defaultSettings.defaultButtonColor
   const [backgroundColor, setBackgroundColor] = useState(initialBackgroundColor)
@@ -39,18 +40,18 @@ const SelectorButton = ({
   const handleButtonClick = () => {
     const isSelected = backgroundColor !== defaultSettings.selectedButtonColor
 
-    if (maxLengthReached && !isButtonselected) {
-      onClick && onClick(true)
+    if (isMaxLengthReached && !isButtonSelected) {
+      isButtonClicked && isButtonClicked(true)
       return
     }
-    setIsButtonselected(!isButtonselected)
+    setIsButtonSelected(isSelected)
     setBackgroundColor(
       isSelected ? defaultSettings.selectedButtonColor : defaultSettings.defaultButtonColor,
     )
     if (defaultSettings.textColor !== palette.WHITE) {
       setCurrentTextColor(isSelected ? palette.WHITE : defaultSettings.textColor)
     }
-    if (onClick) onClick(isSelected)
+    if (isButtonClicked) isButtonClicked(isSelected)
   }
 
   return (
