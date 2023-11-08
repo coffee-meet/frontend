@@ -3,13 +3,18 @@ import { StyleList } from '@/components/common/ListRow/ProfileListRow'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-type ProfileListRowProps = {
+type AdminReportListRowProps = {
   height: number
   nickname: string
   infoMessage: string | number
   isDarkMode: boolean
 }
-const AdminReportListRow = ({ height, nickname, infoMessage, isDarkMode }: ProfileListRowProps) => {
+const AdminReportListRow = ({
+  height,
+  nickname,
+  infoMessage,
+  isDarkMode,
+}: AdminReportListRowProps) => {
   const renderInfoMessage = () => {
     if (typeof infoMessage === 'number') {
       return (
