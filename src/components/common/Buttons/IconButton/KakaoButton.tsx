@@ -1,13 +1,13 @@
 import styled from '@emotion/styled'
 
 import KakaoIcon from '@/assets/icons/KakaoIcon'
+import { OAuthButtonProps, StyledIconWrapper } from '@/components/common/Buttons/IconButton'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import { StyledIconWrapper } from '.'
-
 export const ButtonWrapper = styled.button<{
   buttonTheme: 'kakao' | 'naver'
+  onClick: () => void
 }>`
   width: 320px;
   height: 60px;
@@ -19,8 +19,8 @@ export const ButtonWrapper = styled.button<{
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
 `
 
-const KakaoButton = () => (
-  <ButtonWrapper buttonTheme={'kakao'}>
+const KakaoButton = ({ moveToOAuthProvider }: OAuthButtonProps) => (
+  <ButtonWrapper buttonTheme={'kakao'} onClick={moveToOAuthProvider}>
     <StyledIconWrapper
       style={{
         margin: '4px 38px 4px 20px',

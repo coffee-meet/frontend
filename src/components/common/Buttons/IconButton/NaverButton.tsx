@@ -1,13 +1,11 @@
 import NaverIcon from '@/assets/icons/NaverIcon'
+import { OAuthButtonProps, StyledIconWrapper } from '@/components/common/Buttons/IconButton'
+import { ButtonWrapper } from '@/components/common/Buttons/IconButton/KakaoButton'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
-
-import { StyledIconWrapper } from '.'
-import { ButtonWrapper } from './KakaoButton'
-
-const NaverButton = () => {
+const NaverButton = ({ moveToOAuthProvider }: OAuthButtonProps) => {
   return (
-    <ButtonWrapper buttonTheme={'naver'}>
+    <ButtonWrapper buttonTheme={'naver'} onClick={moveToOAuthProvider}>
       <StyledIconWrapper
         style={{
           margin: '4px 53px 4px 20px',
