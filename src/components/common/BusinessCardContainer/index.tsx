@@ -17,6 +17,7 @@ const BusinessCardContainer = ({ isDarkMode }: BusinessCardContainerProps) => {
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!uploadedImage) {
+
       const uploadedFile = event.target.files?.[0]
       const uploadedFileReader = new FileReader()
 
@@ -79,7 +80,6 @@ const BusinessCardContainerWrapper = styled.div`
   position: relative;
   width: 300px;
 `
-
 const CameraIconWrapper = styled.div`
   width: 88px;
   height: 88px;
@@ -108,6 +108,7 @@ const CameraIcon = styled.img`
   width: 38px;
   height: 38px;
 `
+
 const UploadLabel = styled.label`
   cursor: pointer;
 `
