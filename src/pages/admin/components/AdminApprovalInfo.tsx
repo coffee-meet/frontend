@@ -28,25 +28,36 @@ const AdminApprovalInfo = () => {
         }
       />
       <StyledAdminApproveFormContainer>
-        <Text font={'Body_20'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
-          {'이메일'}
-        </Text>
-        <Input
-          inputBackgroundColor={palette.SKY_BLUE}
-          width={'245px'}
-          height={'54px'}
-          borderRadius={'20px'}
-          inputTextSize={'18px'}
-          borderWidth={'0px'}
-          inputTextColor={palette.GRAY700}
-          inputTextFontWeight={900}
-        />
-        <Text font={'Body_20'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
+        <StyledEmailFormWrapper>
+          <Text font={'Body_18'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
+            {'이메일'}
+          </Text>
+          <Input
+            inputBackgroundColor={palette.SKY_BLUE}
+            width={'245px'}
+            height={'54px'}
+            borderRadius={'20px'}
+            inputTextSize={'18px'}
+            borderWidth={'0px'}
+            inputTextColor={palette.GRAY700}
+            inputTextFontWeight={900}
+          />
+        </StyledEmailFormWrapper>
+
+        <Text
+          style={{ marginLeft: '28px' }}
+          font={'Body_18'}
+          fontWeight={900}
+          letterSpacing={-0.5}
+          textColor={palette.GRAY300}
+        >
           {'명함 이미지'}
         </Text>
         <StyledImage src={businessCardExample} alt={'명함 이미지'} />
-        <NormalButton normalButtonType={'admin-accept'}>{'인증 수락'}</NormalButton>
-        <NormalButton normalButtonType={'admin-deny'}>{'거절'}</NormalButton>
+        <StyledButtonsWrapper>
+          <NormalButton normalButtonType={'admin-accept'}>{'인증 수락'}</NormalButton>
+          <NormalButton normalButtonType={'admin-deny'}>{'거절'}</NormalButton>
+        </StyledButtonsWrapper>
       </StyledAdminApproveFormContainer>
 
       <HomeNavigationBar isDarkMode={false} />
@@ -66,5 +77,16 @@ const StyledImage = styled.img`
 `
 const StyledAdminApproveFormContainer = styled.div`
   background-color: ${palette.WHITE};
+`
+const StyledEmailFormWrapper = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 40px 0;
+`
+const StyledButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  padding: 25px 0 25px 0;
 `
 export default AdminApprovalInfo
