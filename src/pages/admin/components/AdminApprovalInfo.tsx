@@ -8,10 +8,19 @@ import Input from '@/components/common/Input'
 import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
 import PageHeader from '@/components/common/PageHeader'
 import { Text } from '@/components/common/Text'
+import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
 const AdminApprovalInfo = () => {
+  const { openModal } = useModal()
+  const handleAcceptCertificationBtn = () => {
+    openModal({
+      type: 'confirm',
+      mainText: '인증을 수락하시겠습니까?',
+      okFunc: () => console.log('okFunc'),
+    })
+  }
   return (
-    <AdminLoginOuterWrapper>
+    <StyledAdminLoginOuterWrapper>
       <AdminAppHeader isDarkMode={false} nickname={'홍길동'} />
       <PageHeader
         isDarkMode={false}
@@ -55,17 +64,19 @@ const AdminApprovalInfo = () => {
         </Text>
         <StyledImage src={businessCardExample} alt={'명함 이미지'} />
         <StyledButtonsWrapper>
-          <NormalButton normalButtonType={'admin-accept'}>{'인증 수락'}</NormalButton>
+          <NormalButton onClick={handleAcceptCertificationBtn} normalButtonType={'admin-accept'}>
+            {'인증 수락'}
+          </NormalButton>
           <NormalButton normalButtonType={'admin-deny'}>{'거절'}</NormalButton>
         </StyledButtonsWrapper>
       </StyledAdminApproveFormContainer>
 
       <HomeNavigationBar isDarkMode={false} />
-    </AdminLoginOuterWrapper>
+    </StyledAdminLoginOuterWrapper>
   )
 }
 
-const AdminLoginOuterWrapper = styled.div`
+const StyledAdminLoginOuterWrapper = styled.div`
   background-color: ${palette.PRIMARY};
 `
 
