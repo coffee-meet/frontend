@@ -12,6 +12,7 @@ type InputProps = {
   inputTextColor?: string
   inputTextSize?: string
   inputBackgroundColor?: string
+  inputTextFontWeight?: number
   borderRadius?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
@@ -31,6 +32,7 @@ const Input = React.forwardRef(
       inputTextSize,
       inputBackgroundColor,
       onChange,
+      inputTextFontWeight,
     }: InputProps,
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
@@ -50,6 +52,7 @@ const Input = React.forwardRef(
           inputTextSize={inputTextSize}
           inputBackgroundColor={inputBackgroundColor}
           borderRadius={borderRadius}
+          inputTextFontWeight={inputTextFontWeight}
         />
       </StyledInputWrapper>
     )
@@ -74,6 +77,7 @@ const StyledInput = styled.input<InputProps>`
   background-color: ${(props) => props.inputBackgroundColor};
   border-radius: ${(props) => props.borderRadius};
   font-size: ${(props) => props.inputTextSize};
+  font-weight: ${(props) => props.inputTextFontWeight};
   position: relative;
 `
 
