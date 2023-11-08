@@ -23,6 +23,7 @@ const NaverButton = () => {
           flex: 1,
           textAlign: 'left',
           color: palette.WHITE,
+          marginLeft: 20,
         }}
       >
         {'네이버로 시작'}
