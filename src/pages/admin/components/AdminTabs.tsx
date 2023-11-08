@@ -1,8 +1,14 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
 
-const ApprovalList = () => <div>{'승인대기목록 내용'}</div>
-const ReportList = () => <div>{'사용자신고내역 내용'}</div>
+import { Text } from '@/components/common/Text'
+import { palette } from '@/styles/palette'
+
+import AdminApprovalList from './AdminApprovalList'
+import AdminReportList from './AdminReportList'
+
+const ApprovalList = () => <AdminApprovalList />
+const ReportList = () => <AdminReportList />
 // 탭에서 보여줄 컴포넌트 리스트
 
 interface TabProps {
@@ -14,38 +20,61 @@ const AdminTabs = () => {
 
   return (
     <>
-      <TabsContainer>
-        <Tab isActive={activeTab === 'approval'} onClick={() => setActiveTab('approval')}>
-          {'승인대기목록'}
-        </Tab>
-        <Tab isActive={activeTab === 'report'} onClick={() => setActiveTab('report')}>
-          {'사용자신고내역'}
-        </Tab>
-      </TabsContainer>
+      <StyledTabsContainer>
+        <StyledLeftTab isActive={activeTab === 'approval'} onClick={() => setActiveTab('approval')}>
+          <Text
+            font={'Body_20'}
+            fontWeight={600}
+            letterSpacing={-1}
+            textColor={activeTab === 'report' ? palette.GRAY300 : palette.BLACK}
+          >
+            {'승인 대기 목록'}
+          </Text>
+        </StyledLeftTab>
+        <StyledRightTab isActive={activeTab === 'report'} onClick={() => setActiveTab('report')}>
+          <Text
+            font={'Body_20'}
+            fontWeight={600}
+            letterSpacing={-1}
+            textColor={activeTab === 'approval' ? palette.GRAY300 : palette.BLACK}
+          >
+            {'사용자 신고 내역'}
+          </Text>
+        </StyledRightTab>
+      </StyledTabsContainer>
 
-      <ContentContainer>
+      <StyledListContainer>
         {activeTab === 'approval' && <ApprovalList />}
         {activeTab === 'report' && <ReportList />}
-      </ContentContainer>
+      </StyledListContainer>
     </>
   )
 }
 
-const TabsContainer = styled.div`
+const StyledTabsContainer = styled.div`
+  background-color: ${palette.PRIMARY};
   display: flex;
   width: 100%;
 `
 
-const ContentContainer = styled.div`
+const StyledListContainer = styled.div`
   width: 100%;
 `
-const Tab = styled.button<TabProps>`
+const StyledLeftTab = styled.button<TabProps>`
   flex: 1;
-  padding: 10px 20px;
+  padding: 30px 20px;
   cursor: pointer;
-  background: ${(props) => (props.isActive ? '#ccc' : 'transparent')};
+  background: ${(props) => (props.isActive ? palette.GRAY100 : palette.WHITE)};
   border: none;
-  border-bottom: ${(props) => (props.isActive ? '2px solid blue' : '1px solid #ccc')};
+  border-radius: 30px 0 0 0;
+`
+const StyledRightTab = styled.button<TabProps>`
+  flex: 1;
+  padding: 30px 20px;
+  cursor: pointer;
+  background: ${(props) => (props.isActive ? palette.GRAY100 : palette.WHITE)};
+  border: none;
+  border-radius: 0 30px 0 0;
 `
 
 export default AdminTabs
