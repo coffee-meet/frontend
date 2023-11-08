@@ -4,7 +4,7 @@ import KakaoIcon from '@/assets/icons/KakaoIcon'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import { StyleIconWrapper } from '.'
+import { StyledIconWrapper } from '.'
 
 export const ButtonWrapper = styled.button<{
   buttonTheme: 'kakao' | 'naver'
@@ -21,18 +21,18 @@ export const ButtonWrapper = styled.button<{
 
 const KakaoButton = () => (
   <ButtonWrapper buttonTheme={'kakao'}>
-    <StyleIconWrapper
+    <StyledIconWrapper
       style={{
         margin: '4px 38px 4px 20px',
       }}
     >
       <KakaoIcon width={53} height={53} iconWidth={35} iconHeight={35} borderRadius={10} />
-    </StyleIconWrapper>
+    </StyledIconWrapper>
     <Text
       font={'Body_18'}
       fontWeight={600}
       letterSpacing={-1}
-      style={{ flex: 1, textAlign: 'left' }}
+      style={{ flex: 1, textAlign: 'left', marginLeft: 20 }}
     >
       {'카카오톡으로 시작'}
     </Text>
