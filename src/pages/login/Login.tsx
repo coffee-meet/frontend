@@ -4,14 +4,32 @@ import { KakaoButton, NaverButton } from '@/components/common/Buttons/IconButton
 import HeroImage from '@/components/common/HeroImage'
 import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
+import useAuthStore from '@/store/AuthStore'
 import { palette } from '@/styles/palette'
 
-const Login = () => {
-  return (
-    <LoginOuterWrapper>
-      <HeroImage />
+export type Provider = 'naver' | 'kakao'
 
-      <StyledContainer>
+const BASE_URL = import.meta.env.VITE_BASE_URL
+
+const Login = () => {
+  const setProvider = useAuthStore((state) => state.setProvider)
+
+  const handleMoveToAuthProvider = async (provider: Provider) => {
+    window.location.assign(`${BASE_URL}/v1/oauth2.0/${provider}`)
+    setProvider(provider)
+  }
+
+  return (
+    <StyledLoginOuterWrapper>
+      <HeroImage
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flex: 1,
+        }}
+      />
+      <StyledLoginContainer>
         <Spacing size={45} />
         <Text font={'Body_32'} fontWeight={700} letterSpacing={-1}>
           {'☕️커피밋'}
@@ -28,28 +46,42 @@ const Login = () => {
         </Text>
         <Spacing size={80} />
 
-        <OauthWrapper>
-          <NaverButton />
+        <StyledOauthWrapper>
+          <NaverButton
+            moveToOAuthProvider={() => {
+              handleMoveToAuthProvider('naver')
+            }}
+          />
           <Spacing size={16} />
-          <KakaoButton />
-        </OauthWrapper>
-      </StyledContainer>
-    </LoginOuterWrapper>
+          <KakaoButton
+            moveToOAuthProvider={() => {
+              handleMoveToAuthProvider('kakao')
+            }}
+          />
+        </StyledOauthWrapper>
+      </StyledLoginContainer>
+    </StyledLoginOuterWrapper>
   )
 }
 
-const LoginOuterWrapper = styled.div`
+const StyledLoginOuterWrapper = styled.div`
   background-color: ${palette.SKY_BLUE};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 `
 
-const OauthWrapper = styled.div`
+const StyledOauthWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `
 
-const StyledContainer = styled.div`
+const StyledLoginContainer = styled.div`
+  flex: 1;
   width: 100%;
   height: 441px;
   background-color: ${palette.WHITE};
