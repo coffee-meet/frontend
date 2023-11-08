@@ -13,7 +13,7 @@ const NotFoundPage = () => {
 
   return (
     <StyledNotFoundPage>
-      <GradationBackground>
+      <GradationBackground isDarkMode={isDarkMode}>
         <Spacing size={80} />
         <StyledNotFoundPageBackground isDarkMode={isDarkMode}>
           <Spacing size={40} />
