@@ -58,9 +58,9 @@ const AdminLoginOuterWrapper = styled.div`
 
 const StyledImage = styled.img`
   width: 100%;
-  max-width: 100%; // 이미지가 원본 크기보다 커지는 것을 방지합니다.
-  height: auto; // 이미지의 비율을 유지합니다.
-  margin: 20px 0; // 상하 여백을 추가합니다.
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0;
 `
 const StyledAdminApproveFormContainer = styled.div`
   background-color: ${palette.WHITE};
