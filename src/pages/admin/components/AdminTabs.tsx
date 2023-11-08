@@ -1,11 +1,10 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
 
+import AdminApprovalList from '@/components/common/ListRow/AdminApprovalList'
+import AdminReportList from '@/components/common/ListRow/AdminReportList'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
-
-import AdminApprovalList from './AdminApprovalList'
-import AdminReportList from './AdminReportList'
 
 const ApprovalList = () => <AdminApprovalList />
 const ReportList = () => <AdminReportList />
