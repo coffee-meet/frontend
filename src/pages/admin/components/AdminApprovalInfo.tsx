@@ -36,8 +36,10 @@ const AdminApprovalInfo = () => {
           width={'245px'}
           height={'54px'}
           borderRadius={'20px'}
-          inputTextSize={'16px'}
+          inputTextSize={'18px'}
           borderWidth={'0px'}
+          inputTextColor={palette.GRAY700}
+          inputTextFontWeight={900}
         />
         <Text font={'Body_20'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
           {'명함 이미지'}
