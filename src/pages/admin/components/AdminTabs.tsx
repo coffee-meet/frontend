@@ -6,6 +6,7 @@ import AdminReportList from '@/components/common/ListRow/AdminReportList'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
+import AdminApprovalInfo from './AdminApprovalInfo'
 import AdminReportInfo from './AdminReportInfo'
 
 interface TabProps {
@@ -14,19 +15,29 @@ interface TabProps {
 interface ReportListProps {
   onPersonReportedSelected: (reportNickname: string) => void
 }
+interface ApprovalListProps {
+  onPersonApprovalSelected: (approvalNickname: string) => void
+}
 
 const AdminTabs = () => {
   const [activeTab, setActiveTab] = useState('approval')
-  const [selectedReportNickname, setSelectedNickname] = useState<string | null>(null)
+  const [selectedReportNickname, setSelectedReportNickname] = useState<string | null>(null)
+  const [selectedApprovalNickname, setSelectedApprovalNickname] = useState<string | null>(null)
 
   const handleReportSelectNickname = (reportNickname: string) => {
-    setSelectedNickname(reportNickname)
+    setSelectedReportNickname(reportNickname)
     setActiveTab('reportInfo')
   }
+  const handleApprovalSelectNickname = (approvalNickname: string) => {
+    setSelectedApprovalNickname(approvalNickname)
+    setActiveTab('approvalInfo')
+  }
 
-  const ApprovalList = () => <AdminApprovalList />
+  const ApprovalList = ({ onPersonApprovalSelected }: ApprovalListProps) => (
+    <AdminApprovalList onApproveSelect={onPersonApprovalSelected} />
+  )
   const ReportList = ({ onPersonReportedSelected }: ReportListProps) => (
-    <AdminReportList onSelect={onPersonReportedSelected} />
+    <AdminReportList onReportSelect={onPersonReportedSelected} />
   )
   // 탭에서 보여줄 컴포넌트들
 
@@ -56,12 +67,17 @@ const AdminTabs = () => {
       </StyledTabsContainer>
 
       <StyledListContainer>
-        {activeTab === 'approval' && <ApprovalList />}
+        {activeTab === 'approval' && (
+          <ApprovalList onPersonApprovalSelected={handleApprovalSelectNickname} />
+        )}
         {activeTab === 'report' && (
           <ReportList onPersonReportedSelected={handleReportSelectNickname} />
         )}
         {activeTab === 'reportInfo' && selectedReportNickname && (
           <AdminReportInfo selectedReportNickname={selectedReportNickname} />
+        )}
+        {activeTab === 'approvalInfo' && selectedApprovalNickname && (
+          <AdminApprovalInfo selectedApprovalNickname={selectedApprovalNickname} />
         )}
       </StyledListContainer>
     </>
