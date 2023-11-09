@@ -12,15 +12,15 @@ interface TabProps {
   isActive: boolean
 }
 interface ReportListProps {
-  onPersonReportedSelected: (nickname: string) => void
+  onPersonReportedSelected: (reportNickname: string) => void
 }
 
 const AdminTabs = () => {
   const [activeTab, setActiveTab] = useState('approval')
-  const [selectedNickname, setSelectedNickname] = useState<string | null>(null)
+  const [selectedReportNickname, setSelectedNickname] = useState<string | null>(null)
 
-  const handleSelectNickname = (nickname: string) => {
-    setSelectedNickname(nickname)
+  const handleReportSelectNickname = (reportNickname: string) => {
+    setSelectedNickname(reportNickname)
     setActiveTab('reportInfo')
   }
 
@@ -57,9 +57,11 @@ const AdminTabs = () => {
 
       <StyledListContainer>
         {activeTab === 'approval' && <ApprovalList />}
-        {activeTab === 'report' && <ReportList onPersonReportedSelected={handleSelectNickname} />}
-        {activeTab === 'reportInfo' && selectedNickname && (
-          <AdminReportInfo selectedNickname={selectedNickname} />
+        {activeTab === 'report' && (
+          <ReportList onPersonReportedSelected={handleReportSelectNickname} />
+        )}
+        {activeTab === 'reportInfo' && selectedReportNickname && (
+          <AdminReportInfo selectedReportNickname={selectedReportNickname} />
         )}
       </StyledListContainer>
     </>
