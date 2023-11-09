@@ -6,16 +6,29 @@ import AdminReportList from '@/components/common/ListRow/AdminReportList'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-const ApprovalList = () => <AdminApprovalList />
-const ReportList = () => <AdminReportList />
-// 탭에서 보여줄 컴포넌트 리스트
+import AdminReportInfo from './AdminReportInfo'
 
 interface TabProps {
   isActive: boolean
 }
+interface ReportListProps {
+  onPersonReportedSelected: (nickname: string) => void
+}
 
 const AdminTabs = () => {
   const [activeTab, setActiveTab] = useState('approval')
+  const [selectedNickname, setSelectedNickname] = useState<string | null>(null)
+
+  const handleSelectNickname = (nickname: string) => {
+    setSelectedNickname(nickname)
+    setActiveTab('reportInfo')
+  }
+
+  const ApprovalList = () => <AdminApprovalList />
+  const ReportList = ({ onPersonReportedSelected }: ReportListProps) => (
+    <AdminReportList onSelect={onPersonReportedSelected} />
+  )
+  // 탭에서 보여줄 컴포넌트들
 
   return (
     <>
@@ -44,7 +57,10 @@ const AdminTabs = () => {
 
       <StyledListContainer>
         {activeTab === 'approval' && <ApprovalList />}
-        {activeTab === 'report' && <ReportList />}
+        {activeTab === 'report' && <ReportList onPersonReportedSelected={handleSelectNickname} />}
+        {activeTab === 'reportInfo' && selectedNickname && (
+          <AdminReportInfo selectedNickname={selectedNickname} />
+        )}
       </StyledListContainer>
     </>
   )
