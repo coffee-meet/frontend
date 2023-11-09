@@ -1,17 +1,26 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react'
+import { css, SerializedStyles } from '@emotion/react'
 
 import { KeyOfPalette, theme } from '@/styles/theme'
 
-const Spacing = ({ size, color }: { size: number; color?: KeyOfPalette }) => {
+type SpacingProps = {
+  size: number
+  color?: KeyOfPalette
+  css?: SerializedStyles
+}
+
+const Spacing = ({ size, color, css: customCss }: SpacingProps) => {
   return (
     <div
-      css={css`
-        height: ${size}px;
-        width: 100%;
-        background-color: ${color ? `${theme.palette[color]}` : 'transparent'};
-      `}
-    ></div>
+      css={[
+        css`
+          height: ${size}px;
+          width: 100%;
+          background-color: ${color ? `${theme.palette[color]}` : 'transparent'};
+        `,
+        customCss, // 사용자 정의 스타일을 적용
+      ]}
+    />
   )
 }
 

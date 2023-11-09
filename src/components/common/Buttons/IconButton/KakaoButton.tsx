@@ -5,7 +5,23 @@ import { OAuthButtonProps, StyledIconWrapper } from '@/components/common/Buttons
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-export const ButtonWrapper = styled.button<{
+const KakaoButton = ({ moveToOAuthProvider }: OAuthButtonProps) => (
+  <StyledButtonWrapper buttonTheme={'kakao'} onClick={moveToOAuthProvider}>
+    <StyledIconWrapper>
+      <KakaoIcon width={53} height={53} iconWidth={35} iconHeight={35} borderRadius={10} />
+    </StyledIconWrapper>
+    <Text
+      font={'Body_18'}
+      fontWeight={600}
+      letterSpacing={-1}
+      style={{ flex: 1, textAlign: 'left', marginLeft: 20 }}
+    >
+      {'카카오톡으로 시작'}
+    </Text>
+  </StyledButtonWrapper>
+)
+
+export const StyledButtonWrapper = styled.button<{
   buttonTheme: 'kakao' | 'naver'
   onClick: () => void
 }>`
@@ -17,26 +33,10 @@ export const ButtonWrapper = styled.button<{
   justify-content: space-between;
   align-items: center;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.15);
-`
 
-const KakaoButton = ({ moveToOAuthProvider }: OAuthButtonProps) => (
-  <ButtonWrapper buttonTheme={'kakao'} onClick={moveToOAuthProvider}>
-    <StyledIconWrapper
-      style={{
-        margin: '4px 38px 4px 20px',
-      }}
-    >
-      <KakaoIcon width={53} height={53} iconWidth={35} iconHeight={35} borderRadius={10} />
-    </StyledIconWrapper>
-    <Text
-      font={'Body_18'}
-      fontWeight={600}
-      letterSpacing={-1}
-      style={{ flex: 1, textAlign: 'left', marginLeft: 20 }}
-    >
-      {'카카오톡으로 시작'}
-    </Text>
-  </ButtonWrapper>
-)
+  @media (max-width: 280px) {
+    width: 250px;
+  }
+`
 
 export default KakaoButton

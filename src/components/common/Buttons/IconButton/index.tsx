@@ -47,11 +47,16 @@ export const StyledIconWrapper = styled.div<{
 }>`
   width: 35px;
   height: 35px;
+  margin: 4px 38px 4px 20px;
   border-radius: ${(props) => props.borderRadius};
   background-color: ${(props) => props.backgroundColor};
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 280px) {
+    margin: 2px 10px 2px 10px;
+  }
 `
 
 export { InterestButton, KakaoButton, NaverButton, ParticularTopicButton, RandomMatchingButton }

@@ -1,3 +1,4 @@
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 import { KakaoButton, NaverButton } from '@/components/common/Buttons/IconButton'
@@ -30,21 +31,49 @@ const Login = () => {
         }}
       />
       <StyledLoginContainer>
-        <Spacing size={45} />
+        <Spacing
+          size={45}
+          css={css`
+            @media (max-width: 375px) {
+              height: ${45 * 0.75}px;
+            }
+          `}
+        />
         <Text font={'Body_32'} fontWeight={700} letterSpacing={-1}>
           {'☕️커피밋'}
         </Text>
-        <Spacing size={50} />
+        <Spacing
+          size={50}
+          css={css`
+            @media (max-width: 375px) {
+              height: ${50 * 0.75}px;
+            }
+          `}
+        />
 
         <Text font={'Body_18'} fontWeight={500} letterSpacing={-1}>
           {'회사의 경계를 넘어, '}
         </Text>
-        <Spacing size={10} />
+        <Spacing
+          size={10}
+          css={css`
+            @media (max-width: 375px) {
+              height: ${10 * 0.75}px;
+            }
+          `}
+        />
 
         <Text font={'Body_18'} fontWeight={500} letterSpacing={-1}>
           {' 새로운 대화의 세계를 탐험하세요!'}
         </Text>
-        <Spacing size={80} />
+        <Spacing
+          size={80}
+          css={css`
+            @media (max-width: 375px) {
+              height: ${80 * 0.75}px;
+            }
+          `}
+        />
 
         <StyledOauthWrapper>
           <NaverButton
@@ -52,7 +81,14 @@ const Login = () => {
               handleMoveToAuthProvider('naver')
             }}
           />
-          <Spacing size={16} />
+          <Spacing
+            size={16}
+            css={css`
+              @media (max-width: 375px) {
+                height: ${16 * 0.75}px;
+              }
+            `}
+          />
           <KakaoButton
             moveToOAuthProvider={() => {
               handleMoveToAuthProvider('kakao')
@@ -66,11 +102,11 @@ const Login = () => {
 
 const StyledLoginOuterWrapper = styled.div`
   background-color: ${palette.SKY_BLUE};
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 `
 
 const StyledOauthWrapper = styled.div`
@@ -87,5 +123,6 @@ const StyledLoginContainer = styled.div`
   background-color: ${palette.WHITE};
   border-radius: 20px;
   text-align: center;
+  padding-bottom: 10%;
 `
 export default Login
