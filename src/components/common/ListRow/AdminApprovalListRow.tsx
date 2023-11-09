@@ -15,6 +15,7 @@ const AdminApprovalListRow = ({
   nickname,
   infoMessage,
   isDarkMode,
+  onClick,
 }: AdminApprovalListRowProps) => {
   const renderInfoMessage = () => {
     if (typeof infoMessage === 'number') {
@@ -77,6 +78,7 @@ const AdminApprovalListRow = ({
         padding: '0 20px 0px 20px',
         borderBottom: `1px solid ${palette.GRAY300}`,
       }}
+      onClick={onClick}
     >
       <Text
         font={'Body_16'}
