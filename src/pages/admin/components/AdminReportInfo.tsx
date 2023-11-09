@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import { BiLeftArrowAlt } from 'react-icons/bi'
 
-import AdminAppHeader from '@/components/common/AppHeader/AdminAppHeader'
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import AdminReportInfoListRow from '@/components/common/ListRow/AdminReportInfoListRow'
 import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
@@ -19,7 +18,6 @@ const AdminReportInfo = () => {
   }
   return (
     <StyledAdminReportInfoOuterWrapper>
-      <AdminAppHeader isDarkMode={false} nickname={'홍길동'} />
       <PageHeader
         isDarkMode={false}
         hasBackground={true}
