@@ -3,11 +3,11 @@ import styled from '@emotion/styled'
 import AdminReportListRow from '@/components/common/ListRow/AdminReportListRow'
 import { palette } from '@/styles/palette'
 interface AdminReportListProps {
-  onSelect: (nickname: string) => void
+  onReportSelect: (nickname: string) => void
 }
-const AdminReportList = ({ onSelect }: AdminReportListProps) => {
+const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
   const handlePersonReported = (nickname: string) => {
-    onSelect(nickname)
+    onReportSelect(nickname)
   }
   const AdminReportListData = [
     { nickname: '유명한', height: 60, infoMessage: '누적 1회', isDarkMode: false },
