@@ -23,7 +23,7 @@ const LoginPending = () => {
         })
       })
       .catch((err) => {
-        if (err.response.status === 400) {
+        if (err.response.status === 404) {
           navigate('/register/user')
         }
       })
