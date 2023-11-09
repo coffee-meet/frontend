@@ -7,37 +7,37 @@ const AdminReportList = () => {
   return (
     <AdminReportListContainer>
       <AdminReportListRow
-        nickname={'홍길동'}
+        nickname={'유명한'}
         height={60}
         infoMessage={'누적 1회'}
         isDarkMode={false}
       />
       <AdminReportListRow
-        nickname={'홍길동'}
+        nickname={'박상민'}
         height={60}
         infoMessage={'누적 2회'}
         isDarkMode={false}
       />
       <AdminReportListRow
-        nickname={'홍길동'}
+        nickname={'박은지'}
         height={60}
         infoMessage={'누적 2회'}
         isDarkMode={false}
       />
       <AdminReportListRow
-        nickname={'홍길동'}
+        nickname={'주다현'}
         height={60}
         infoMessage={'누적 1회'}
         isDarkMode={false}
       />
       <AdminReportListRow
-        nickname={'홍길동'}
+        nickname={'남궁호수'}
         height={60}
         infoMessage={'누적 1회'}
         isDarkMode={false}
       />
       <AdminReportListRow
-        nickname={'홍길동'}
+        nickname={'우창욱'}
         height={60}
         infoMessage={'누적 2회'}
         isDarkMode={false}
