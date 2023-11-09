@@ -2,7 +2,6 @@ import styled from '@emotion/styled'
 import { BiLeftArrowAlt } from 'react-icons/bi'
 
 import businessCardExample from '@/assets/images/businessCardExample.jpg'
-import AdminAppHeader from '@/components/common/AppHeader/AdminAppHeader'
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import Input from '@/components/common/Input'
 import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
@@ -10,7 +9,12 @@ import PageHeader from '@/components/common/PageHeader'
 import { Text } from '@/components/common/Text'
 import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
-const AdminApprovalInfo = () => {
+
+interface AdminApprovalInfoProps {
+  selectedApprovalNickname: string
+}
+
+const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps) => {
   const { openModal } = useModal()
   const handleAcceptCertificationBtn = () => {
     openModal({
@@ -21,11 +25,10 @@ const AdminApprovalInfo = () => {
   }
   return (
     <StyledAdminLoginOuterWrapper>
-      <AdminAppHeader isDarkMode={false} nickname={'홍길동'} />
       <PageHeader
         isDarkMode={false}
         hasBackground={true}
-        title={'홍길동'}
+        title={selectedApprovalNickname}
         leftIcon={
           <BiLeftArrowAlt
             size={'20px'}
