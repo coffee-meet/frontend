@@ -1,7 +1,9 @@
 import NaverIcon from '@/assets/icons/NaverIcon'
 import { OAuthButtonProps, StyledIconWrapper } from '@/components/common/Buttons/IconButton'
-import { StyledButtonWrapper } from '@/components/common/Buttons/IconButton/KakaoButton'
-import { Text } from '@/components/common/Text'
+import {
+  StyledButtonText,
+  StyledButtonWrapper,
+} from '@/components/common/Buttons/IconButton/KakaoButton'
 import { palette } from '@/styles/palette'
 const NaverButton = ({ moveToOAuthProvider }: OAuthButtonProps) => {
   return (
@@ -9,7 +11,7 @@ const NaverButton = ({ moveToOAuthProvider }: OAuthButtonProps) => {
       <StyledIconWrapper>
         <NaverIcon width={53} height={53} iconWidth={20} iconHeight={20} borderRadius={10} />
       </StyledIconWrapper>
-      <Text
+      <StyledButtonText
         font={'Body_18'}
         fontWeight={600}
         letterSpacing={-1}
@@ -21,7 +23,7 @@ const NaverButton = ({ moveToOAuthProvider }: OAuthButtonProps) => {
         }}
       >
         {'네이버로 시작'}
-      </Text>
+      </StyledButtonText>
     </StyledButtonWrapper>
   )
 }

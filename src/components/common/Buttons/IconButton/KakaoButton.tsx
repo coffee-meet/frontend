@@ -10,14 +10,14 @@ const KakaoButton = ({ moveToOAuthProvider }: OAuthButtonProps) => (
     <StyledIconWrapper>
       <KakaoIcon width={53} height={53} iconWidth={35} iconHeight={35} borderRadius={10} />
     </StyledIconWrapper>
-    <Text
+    <StyledButtonText
       font={'Body_18'}
       fontWeight={600}
       letterSpacing={-1}
       style={{ flex: 1, textAlign: 'left', marginLeft: 20 }}
     >
       {'카카오톡으로 시작'}
-    </Text>
+    </StyledButtonText>
   </StyledButtonWrapper>
 )
 
@@ -36,6 +36,12 @@ export const StyledButtonWrapper = styled.button<{
 
   @media (max-width: 280px) {
     width: 250px;
+  }
+`
+
+export const StyledButtonText = styled(Text)`
+  @media (max-width: 280px) {
+    font-size: 16px;
   }
 `
 

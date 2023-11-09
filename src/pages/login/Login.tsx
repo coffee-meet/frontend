@@ -39,9 +39,9 @@ const Login = () => {
             }
           `}
         />
-        <Text font={'Body_32'} fontWeight={700} letterSpacing={-1}>
+        <StyledHeaderText font={'Body_32'} fontWeight={700} letterSpacing={-1}>
           {'☕️커피밋'}
-        </Text>
+        </StyledHeaderText>
         <Spacing
           size={50}
           css={css`
@@ -51,9 +51,9 @@ const Login = () => {
           `}
         />
 
-        <Text font={'Body_18'} fontWeight={500} letterSpacing={-1}>
+        <StyledSubText font={'Body_18'} fontWeight={500} letterSpacing={-1}>
           {'회사의 경계를 넘어, '}
-        </Text>
+        </StyledSubText>
         <Spacing
           size={10}
           css={css`
@@ -63,9 +63,9 @@ const Login = () => {
           `}
         />
 
-        <Text font={'Body_18'} fontWeight={500} letterSpacing={-1}>
+        <StyledSubText font={'Body_18'} fontWeight={500} letterSpacing={-1}>
           {' 새로운 대화의 세계를 탐험하세요!'}
-        </Text>
+        </StyledSubText>
         <Spacing
           size={80}
           css={css`
@@ -124,5 +124,17 @@ const StyledLoginContainer = styled.div`
   border-radius: 20px;
   text-align: center;
   padding-bottom: 10%;
+`
+
+const StyledHeaderText = styled(Text)`
+  @media (max-width: 280px) {
+    font-size: 24px;
+  }
+`
+
+const StyledSubText = styled(Text)`
+  @media (max-width: 280px) {
+    font-size: 14px;
+  }
 `
 export default Login
