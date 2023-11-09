@@ -8,12 +8,14 @@ type AdminReportListRowProps = {
   nickname: string
   infoMessage: string | number
   isDarkMode: boolean
+  onClick?: () => void
 }
 const AdminReportListRow = ({
   height,
   nickname,
   infoMessage,
   isDarkMode,
+  onClick,
 }: AdminReportListRowProps) => {
   const renderInfoMessage = () => {
     if (typeof infoMessage === 'number') {
@@ -76,6 +78,7 @@ const AdminReportListRow = ({
         padding: '0 20px 0px 20px',
         borderBottom: `1px solid ${palette.GRAY300}`,
       }}
+      onClick={onClick}
     >
       <Text
         font={'Body_16'}
