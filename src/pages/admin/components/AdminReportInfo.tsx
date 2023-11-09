@@ -9,10 +9,10 @@ import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
 
 interface AdminReportInfoProps {
-  selectedNickname: string
+  selectedReportNickname: string
 }
 
-const AdminReportInfo = ({ selectedNickname }: AdminReportInfoProps) => {
+const AdminReportInfo = ({ selectedReportNickname }: AdminReportInfoProps) => {
   const { openModal } = useModal()
   const handleAccumulationAddBtn = () => {
     openModal({
@@ -26,7 +26,7 @@ const AdminReportInfo = ({ selectedNickname }: AdminReportInfoProps) => {
       <PageHeader
         isDarkMode={false}
         hasBackground={true}
-        title={`${selectedNickname}(닉네임 명)`}
+        title={`${selectedReportNickname}(닉네임 명)`}
         leftIcon={
           <BiLeftArrowAlt
             size={'20px'}
