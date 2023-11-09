@@ -7,7 +7,12 @@ import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigation
 import PageHeader from '@/components/common/PageHeader'
 import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
-const AdminReportInfo = () => {
+
+interface AdminReportInfoProps {
+  selectedNickname: string
+}
+
+const AdminReportInfo = ({ selectedNickname }: AdminReportInfoProps) => {
   const { openModal } = useModal()
   const handleAccumulationAddBtn = () => {
     openModal({
@@ -21,7 +26,7 @@ const AdminReportInfo = () => {
       <PageHeader
         isDarkMode={false}
         hasBackground={true}
-        title={'홍길동(닉네임 명)'}
+        title={`${selectedNickname}(닉네임 명)`}
         leftIcon={
           <BiLeftArrowAlt
             size={'20px'}
