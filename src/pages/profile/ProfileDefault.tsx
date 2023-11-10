@@ -76,6 +76,7 @@ const ProfileDefault = () => {
             <Avatar width={49} height={49} imgUrl={''} />
             <StyledProfilePrimaryInfoTextWrapper>
               <TextWrapper
+                isDarkMode={isDarkMode}
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'flex-start',
@@ -91,6 +92,7 @@ const ProfileDefault = () => {
                   flexDirection: 'row',
                   justifyContent: 'flex-start',
                 }}
+                isDarkMode={isDarkMode}
               >
                 <Text font={'Body_12'} fontWeight={600} letterSpacing={-1}>
                   {'커피밋 IT 부서'}
@@ -119,7 +121,14 @@ const ProfileDefault = () => {
 
       <PageContainer height={'100%'} isDarkMode={isDarkMode}>
         <Spacing size={25} />
-        <Text font={'Body_16'} fontWeight={600} letterSpacing={-1}>
+        <Text
+          font={'Body_16'}
+          fontWeight={600}
+          letterSpacing={-1}
+          style={{
+            color: isDarkMode ? palette.DARK_WHITE : palette.WHITE,
+          }}
+        >
           {'개인 및 어플리케이션 정보'}
         </Text>
         <Spacing size={20} />
