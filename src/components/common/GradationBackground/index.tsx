@@ -14,12 +14,12 @@ type GradationBackgroundProps = {
 const GradationBackground = ({ children, isDarkMode }: GradationBackgroundProps) => {
   return <StyledGradationBackground isDarkMode={isDarkMode}>{children}</StyledGradationBackground>
 }
-        
+
 const StyledGradationBackground = styled.div<{
   isDarkMode: boolean
 }>`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background: ${({ isDarkMode }) =>
     isDarkMode
       ? `linear-gradient(157deg, ${palette.BLACK} 16.84%, ${palette.DARK_GRADIENT} 40%)`

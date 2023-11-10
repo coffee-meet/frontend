@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import defaultProfileImage from '@/assets/images/defaultProfileImage.png'
 import Avatar from '@/components/common/Avatar'
 import { FlexBox } from '@/components/common/Flexbox'
+import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
-import { typo } from '@/styles/typo'
 
 type NavigationBarProps = {
   isDarkMode: boolean
@@ -29,7 +29,14 @@ const NavigationBar = ({ isDarkMode }: NavigationBarProps) => {
                 color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
               }}
             />
-            <StyledNavigationText isDarkMode={isDarkMode}>{'이전대화방'}</StyledNavigationText>
+            <StyledNavigationText
+              font={'Body_10'}
+              fontWeight={400}
+              letterSpacing={0}
+              isDarkMode={isDarkMode}
+            >
+              {'이전대화방'}
+            </StyledNavigationText>
           </FlexBox>
         </StyledNavigationItem>
         <StyledNavigationItem onClick={() => moveFromNavigationBar('')}>
@@ -40,7 +47,14 @@ const NavigationBar = ({ isDarkMode }: NavigationBarProps) => {
                 color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
               }}
             />
-            <StyledNavigationText isDarkMode={isDarkMode}>{'홈'}</StyledNavigationText>
+            <StyledNavigationText
+              font={'Body_10'}
+              fontWeight={400}
+              letterSpacing={0}
+              isDarkMode={isDarkMode}
+            >
+              {'홈'}
+            </StyledNavigationText>
           </FlexBox>
         </StyledNavigationItem>
         <StyledNavigationItem onClick={() => moveFromNavigationBar('profile')}>
@@ -48,7 +62,14 @@ const NavigationBar = ({ isDarkMode }: NavigationBarProps) => {
             <StyledProfileImageWrapper>
               <Avatar width={30} height={30} imgUrl={defaultProfileImage} margin={'0'} />
             </StyledProfileImageWrapper>
-            <StyledNavigationText isDarkMode={isDarkMode}>{'프로필'}</StyledNavigationText>
+            <StyledNavigationText
+              font={'Body_10'}
+              fontWeight={400}
+              letterSpacing={0}
+              isDarkMode={isDarkMode}
+            >
+              {'프로필'}
+            </StyledNavigationText>
           </FlexBox>
         </StyledNavigationItem>
       </StyledNavigation>
@@ -59,11 +80,10 @@ const StyledWrapper = styled(FlexBox)`
   position: sticky;
   bottom: 0px;
 `
-const StyledNavigationText = styled.span<{
+const StyledNavigationText = styled(Text)<{
   isDarkMode: boolean
 }>`
   color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.DARK_BLUE)};
-  font-size: ${typo.Body_10()};
 `
 const StyledNavigation = styled(FlexBox)<{
   isDarkMode: boolean
