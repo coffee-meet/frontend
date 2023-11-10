@@ -66,14 +66,14 @@ const Modal = () => {
   return (
     <AnimatePresence>
       {modalState ? (
-        <StyleModalWrapper
+        <StyledModalWrapper
           variants={wrapperVariants}
           initial={'hidden'}
           animate={'visible'}
           exit={'exit'}
           onClick={handleCloseModal}
         >
-          <StyleModal
+          <StyledModal
             variants={modalVariants}
             initial={'hidden'}
             animate={'visible'}
@@ -82,24 +82,24 @@ const Modal = () => {
             onClick={handleModalClick}
           >
             {type == 'confirm' ? (
-              <StyleIcon src={ExclamationIcon} />
+              <StyledIcon src={ExclamationIcon} />
             ) : (
-              <StyleIcon src={WarningIcon} />
+              <StyledIcon src={WarningIcon} />
             )}
 
-            <StyleMainText
+            <StyledMainText
               font={'Body_20'}
               fontWeight={900}
               letterSpacing={-2}
               subTrue={subText == undefined ? false : true}
             >
               {mainText}
-            </StyleMainText>
-            <StyleSubText font={'Body_12'} fontWeight={900} letterSpacing={-1} type={type}>
+            </StyledMainText>
+            <StyledSubText font={'Body_12'} fontWeight={900} letterSpacing={-1} type={type}>
               {subText}
-            </StyleSubText>
+            </StyledSubText>
             {type === 'confirm' ? (
-              <StyleButtonWrapper>
+              <StyledButtonWrapper>
                 <NormalButton
                   normalButtonType={'modal-accept'}
                   style={{ margin: 10 }}
@@ -114,27 +114,27 @@ const Modal = () => {
                 >
                   {'취소'}
                 </NormalButton>
-              </StyleButtonWrapper>
+              </StyledButtonWrapper>
             ) : (
-              <StyleButtonWrapper>
-                <NormalButton
+              <StyledButtonWrapper>
+                <StyledWarningAcceptButton
                   normalButtonType={'warning-accept'}
                   style={{ margin: 10 }}
                   onClick={OkAndClose}
                 >
                   {acceptText ? acceptText : '예, 나가겠습니다.'}
-                </NormalButton>
-                <NormalButton
+                </StyledWarningAcceptButton>
+                <StyledWarningAcceptButton
                   normalButtonType={'warning-deny'}
                   style={{ margin: 10 }}
                   onClick={handleCloseModal}
                 >
                   {cancelText ? cancelText : '아니오, 돌아가겠습니다.'}
-                </NormalButton>
-              </StyleButtonWrapper>
+                </StyledWarningAcceptButton>
+              </StyledButtonWrapper>
             )}
-          </StyleModal>
-        </StyleModalWrapper>
+          </StyledModal>
+        </StyledModalWrapper>
       ) : (
         ''
       )}
@@ -142,13 +142,13 @@ const Modal = () => {
   )
 }
 
-const StyleModalWrapper = styled(motion.div)`
+const StyledModalWrapper = styled(motion.div)`
   z-index: 999;
   display: flex;
   position: absolute;
   justify-content: center;
   align-items: center;
-  width: 414px;
+  max-width: 414px;
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
   top: 0;
@@ -156,8 +156,8 @@ const StyleModalWrapper = styled(motion.div)`
   right: 0;
   bottom: 0;
 `
-const StyleModal = styled(motion.div)<{ type: string }>`
-  width: 344px;
+const StyledModal = styled(motion.div)<{ type: string }>`
+  max-width: 344px;
   height: ${({ type }) => (type == 'warn' ? '195.6px' : '246px')};
   z-index: 1;
   position: absolute;
@@ -165,24 +165,40 @@ const StyleModal = styled(motion.div)<{ type: string }>`
   border-radius: 10px;
   box-shadow: 3px 3px 3px ${palette.GRAY400};
   text-align: center;
+
+  @media (max-width: 280px) {
+    max-width: 260px;
+  }
 `
 
-const StyleButtonWrapper = styled.span`
+const StyledIcon = styled.img`
+  margin: 22px;
+`
+
+const StyledButtonWrapper = styled.span`
   justify-content: center;
   margin: 10px;
   display: flex;
 `
-const StyleMainText = styled(Text)<{ subTrue: boolean }>`
+const StyledMainText = styled(Text)<{ subTrue: boolean }>`
   color: ${palette.BLACK};
   text-align: center;
   margin-top: ${({ subTrue }) => (subTrue ? '' : '10px')};
   margin-bottom: ${({ subTrue }) => (subTrue ? '20px' : '30px')};
 `
-const StyleSubText = styled(Text)<{ type: string }>`
+const StyledSubText = styled(Text)<{ type: string }>`
   color: ${palette.GRAY500};
   text-align: center;
+
+  @media (max-width: 280px) {
+    font-size: 10.5px;
+  }
 `
-const StyleIcon = styled.img`
-  margin: 22px;
+
+const StyledWarningAcceptButton = styled(NormalButton)`
+  @media (max-width: 280px) {
+    font-size: 10px;
+  }
 `
+
 export default Modal
