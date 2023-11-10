@@ -17,47 +17,45 @@ const Home = () => {
   const { showToast } = useToast()
 
   return (
-    <>
-      <GradationBackground isDarkMode={isDarkMode}>
-        <AppHeader nickname={nickname} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-        <PageContainer isDarkMode={isDarkMode}>
-          <Text
-            font={'Body_16'}
-            fontWeight={600}
-            letterSpacing={-0.5}
-            style={{
-              margin: '33px 0 22px 0',
-              color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
-            }}
-          >
-            {'진행중인 매칭'}
-          </Text>
-          <Card isDarkMode={isDarkMode} />
-          <Text
-            font={'Body_16'}
-            fontWeight={600}
-            letterSpacing={-0.5}
-            style={{
-              margin: '32px 0 13px 0',
-              color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
-            }}
-          >
-            {'커피밋의 추천기능'}
-          </Text>
-          <ParticularTopicButton
-            isDarkMode={isDarkMode}
-            moveToParticularTopic={() => {
-              showToast({
-                message: '아직 준비중인 기능입니다!',
-                type: 'info',
-                isDarkMode,
-              })
-            }}
-          />
-        </PageContainer>
-        <NavigationBar isDarkMode={isDarkMode} />
-      </GradationBackground>
-    </>
+    <GradationBackground isDarkMode={isDarkMode}>
+      <AppHeader nickname={nickname} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      <PageContainer isDarkMode={isDarkMode}>
+        <Text
+          font={'Body_16'}
+          fontWeight={600}
+          letterSpacing={-0.5}
+          style={{
+            margin: '33px 0 22px 0',
+            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
+          }}
+        >
+          {'진행중인 매칭'}
+        </Text>
+        <Card isDarkMode={isDarkMode} />
+        <Text
+          font={'Body_16'}
+          fontWeight={600}
+          letterSpacing={-0.5}
+          style={{
+            margin: '32px 0 13px 0',
+            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
+          }}
+        >
+          {'커피밋의 추천기능'}
+        </Text>
+        <ParticularTopicButton
+          isDarkMode={isDarkMode}
+          moveToParticularTopic={() => {
+            showToast({
+              message: '아직 준비중인 기능입니다!',
+              type: 'info',
+              isDarkMode,
+            })
+          }}
+        />
+      </PageContainer>
+      <NavigationBar isDarkMode={isDarkMode} />
+    </GradationBackground>
   )
 }
 
