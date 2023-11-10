@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
 import { BiBuildings, BiChevronRight, BiPencil } from 'react-icons/bi'
 import { MdOutlineRecordVoiceOver } from 'react-icons/md'
-import { PiIdentificationCardLight } from 'react-icons/pi'
+import { PiIdentificationCardBold } from 'react-icons/pi'
 import { useNavigate } from 'react-router-dom'
 
 import NaverIcon from '@/assets/icons/NaverIcon'
@@ -40,6 +40,7 @@ const ProfileDefault = () => {
       type: 'warn',
       acceptText: '네, 로그아웃 하겠습니다.',
       cancelText: '아니오. 취소하겠습니다.',
+      isDarkMode,
     })
   }
 
@@ -53,6 +54,7 @@ const ProfileDefault = () => {
       type: 'warn',
       acceptText: '네, 삭제하겠습니다.',
       cancelText: '아니오. 취소하겠습니다.',
+      isDarkMode,
     })
   }
 
@@ -158,7 +160,7 @@ const ProfileDefault = () => {
           />
           <Divider width={'100%'} height={'1px'} isDarkMode={isDarkMode} margin={'9px 0'} />
           <ProfileListRow
-            firstIcon={<PiIdentificationCardLight size={20} />}
+            firstIcon={<PiIdentificationCardBold size={20} />}
             title={'소셜 로그인 계정'}
             isDarkMode={isDarkMode}
             additionalContent={

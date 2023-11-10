@@ -13,7 +13,7 @@ import { typo } from '@/styles/typo'
  */
 
 export const TextWrapper = styled.div<{
-  isDarkMode: boolean
+  isDarkMode?: boolean
 }>`
   display: flex;
   flex-direction: column;

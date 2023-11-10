@@ -49,8 +49,17 @@ const modalVariants = {
 }
 
 const Modal = () => {
-  const { modalState, setModalState, okFunc, mainText, subText, type, acceptText, cancelText } =
-    useModalStore()
+  const {
+    modalState,
+    setModalState,
+    okFunc,
+    mainText,
+    subText,
+    type,
+    acceptText,
+    cancelText,
+    isDarkMode,
+  } = useModalStore()
   const OkAndClose = () => {
     okFunc()
     handleCloseModal()
@@ -80,6 +89,7 @@ const Modal = () => {
             exit={'exit'}
             type={type}
             onClick={handleModalClick}
+            isDarkMode={isDarkMode}
           >
             {type == 'confirm' ? (
               <StyledIcon src={ExclamationIcon} />
@@ -92,10 +102,17 @@ const Modal = () => {
               fontWeight={900}
               letterSpacing={-2}
               subTrue={subText == undefined ? false : true}
+              isDarkMode={isDarkMode}
             >
               {mainText}
             </StyledMainText>
-            <StyledSubText font={'Body_12'} fontWeight={900} letterSpacing={-1} type={type}>
+            <StyledSubText
+              font={'Body_12'}
+              fontWeight={900}
+              letterSpacing={-1}
+              type={type}
+              isDarkMode={isDarkMode}
+            >
               {subText}
             </StyledSubText>
             {type === 'confirm' ? (
@@ -149,21 +166,19 @@ const StyledModalWrapper = styled(motion.div)`
   justify-content: center;
   align-items: center;
   max-width: 414px;
-  background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
 `
-const StyledModal = styled(motion.div)<{ type: string }>`
+const StyledModal = styled(motion.div)<{ type: string; isDarkMode?: boolean }>`
   max-width: 344px;
   height: ${({ type }) => (type == 'warn' ? '195.6px' : '246px')};
   z-index: 1;
   position: absolute;
-  background-color: white;
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
   border-radius: 10px;
-  box-shadow: 3px 3px 3px ${palette.GRAY400};
   text-align: center;
 
   @media (max-width: 280px) {
@@ -180,14 +195,14 @@ const StyledButtonWrapper = styled.span`
   margin: 10px;
   display: flex;
 `
-const StyledMainText = styled(Text)<{ subTrue: boolean }>`
-  color: ${palette.BLACK};
+const StyledMainText = styled(Text)<{ subTrue: boolean; isDarkMode?: boolean }>`
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.BLACK)};
   text-align: center;
   margin-top: ${({ subTrue }) => (subTrue ? '' : '10px')};
   margin-bottom: ${({ subTrue }) => (subTrue ? '20px' : '30px')};
 `
-const StyledSubText = styled(Text)<{ type: string }>`
-  color: ${palette.GRAY500};
+const StyledSubText = styled(Text)<{ type: string; isDarkMode?: boolean }>`
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.GRAY500)};
   text-align: center;
 
   @media (max-width: 280px) {

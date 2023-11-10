@@ -8,6 +8,7 @@ type ModalConfirmPropsType = {
   subText?: string
   acceptText?: string
   cancelText?: string
+  isDarkMode?: boolean
 }
 export const useModal = () => {
   const {
@@ -18,6 +19,7 @@ export const useModal = () => {
     setType,
     setAcceptText,
     setCancelText,
+    setDarkMode,
   } = useModalStore()
 
   const openModal = ({
@@ -27,6 +29,7 @@ export const useModal = () => {
     type,
     acceptText,
     cancelText,
+    isDarkMode,
   }: ModalConfirmPropsType) => {
     setModalState(true)
     setType(type)
@@ -35,6 +38,7 @@ export const useModal = () => {
     setOkFunc(okFunc)
     setAcceptText(acceptText)
     setCancelText(cancelText)
+    setDarkMode(isDarkMode)
   }
 
   return { openModal, Modal }

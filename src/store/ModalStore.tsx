@@ -13,8 +13,10 @@ type ModalState = {
   setOkFunc: (func: () => void) => void
   acceptText?: string
   cancelText?: string
+  isDarkMode?: boolean
   setAcceptText: (text: string | undefined) => void
   setCancelText: (text: string | undefined) => void
+  setDarkMode: (isDarkMode: boolean | undefined) => void
 }
 
 const useModalStore = create<ModalState>((set) => ({
@@ -32,6 +34,7 @@ const useModalStore = create<ModalState>((set) => ({
   setOkFunc: (func) => set({ okFunc: func }),
   setAcceptText: (text) => set({ acceptText: text }),
   setCancelText: (text) => set({ cancelText: text }),
+  setDarkMode: (isDarkMode) => set({ isDarkMode }),
 }))
 
 export default useModalStore
