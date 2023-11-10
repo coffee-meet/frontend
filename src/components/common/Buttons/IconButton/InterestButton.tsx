@@ -38,7 +38,6 @@ const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          margin: '18px 33px 18px 14px',
         }}
       >
         <RiStarFill

@@ -223,6 +223,10 @@ const StyledProfilePrimaryInfoTextWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+
+  @media (max-width: 280px) {
+    margin-left: 10px;
+  }
 `
 
 const StyledProfilePageContentCard = styled.div<{

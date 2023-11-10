@@ -46,6 +46,11 @@ export const StyledIconWrapper = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 18px 33px 18px 14px;
+
+  @media (max-width: 280px) {
+    margin: 18px 14px 18px 14px;
+  }
 `
 
 export { InterestButton, KakaoButton, NaverButton, ParticularTopicButton, RandomMatchingButton }
