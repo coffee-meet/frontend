@@ -77,8 +77,12 @@ const ProfileListRow = ({
   )
 }
 
-export const StyleList = styled(FlexBox)`
-  width: 100%;
+export const StyleList = styled(FlexBox)<{
+  width?: number
+  height?: number
+}>`
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
+  height: ${({ height }) => (height ? `${height}px` : '')};
   display: flex;
   justify-content: space-between;
   cursor: pointer;
