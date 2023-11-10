@@ -3,36 +3,6 @@ import styled from '@emotion/styled'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-const StylePageHeader = styled.div<{
-  isDarkMode?: boolean
-  hasBackground?: boolean
-}>`
-  width: 100%;
-  height: 72px;
-  padding: 0 18px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 20px 20px 0 0;
-  border-bottom: 1px solid
-    ${({ isDarkMode, hasBackground }) =>
-      isDarkMode
-        ? hasBackground
-          ? palette.GRAY500
-          : 'none'
-        : hasBackground
-        ? palette.GRAY300
-        : 'none'};
-  background-color: ${({ isDarkMode, hasBackground }) =>
-    isDarkMode
-      ? hasBackground
-        ? `${palette.DARK_BLUE}`
-        : 'transparent'
-      : hasBackground
-      ? `${palette.GRAY100}`
-      : 'transparent'};
-`
-
 const StyleIcon = styled.div`
   width: 38px;
   height: 38px;
@@ -83,5 +53,34 @@ const PageHeader = ({ leftIcon, rightIcon, title, isDarkMode, hasBackground }: P
     </StylePageHeader>
   )
 }
+
+const StylePageHeader = styled.div<{
+  isDarkMode?: boolean
+  hasBackground?: boolean
+}>`
+  width: 100%;
+  height: 72px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px 20px 0 0;
+  border-bottom: 1px solid
+    ${({ isDarkMode, hasBackground }) =>
+      isDarkMode
+        ? hasBackground
+          ? palette.GRAY500
+          : 'none'
+        : hasBackground
+        ? palette.GRAY300
+        : 'none'};
+  background-color: ${({ isDarkMode, hasBackground }) =>
+    isDarkMode
+      ? hasBackground
+        ? `${palette.DARK_BLUE}`
+        : 'transparent'
+      : hasBackground
+      ? `${palette.GRAY100}`
+      : 'transparent'};
+`
 
 export default PageHeader

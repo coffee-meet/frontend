@@ -5,48 +5,34 @@ import { FlexBox } from '@/components/common/Flexbox'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-export const StyleList = styled(FlexBox)<{
-  width: number
-  height: number
-}>`
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
-  display: flex;
-  justify-content: space-between;
-`
-
-const StyleIconWrapper = styled.div<{
-  width: number
-  height: number
-  borderRadius?: string
-  backgroundColor: string
-}>`
-  width: ${({ width }) => width}px;
-  height: ${({ height }) => height}px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: ${({ borderRadius }) => borderRadius};
-  background-color: ${({ backgroundColor }) => backgroundColor};
-`
-
 type ProfileListRowProps = {
   firstIcon: ReactNode
   title: string
   additionalContent?: ReactNode | string
   isDarkMode?: boolean
+  moveFromProfileListRow?: () => void
 }
+
+/**
+ * @param firstIcon - 첫번째 아이콘 (ReactNode)
+ * @param title - 제목 (string)
+ * @param additionalContent - 추가적인 내용 (string | ReactNode)
+ * @param isDarkMode - 다크모드 여부
+ * @param moveFromProfileListRow - 클릭 시 이동할 경로
+ */
+
 const ProfileListRow = ({
   firstIcon,
   title,
   additionalContent,
   isDarkMode,
+  moveFromProfileListRow,
 }: ProfileListRowProps) => {
   const isAdditionalContentString = typeof additionalContent === 'string'
   const additionalContentColor = isAdditionalContentString ? palette.GRAY300 : undefined
 
   return (
-    <StyleList width={308} height={38}>
+    <StyleList onClick={moveFromProfileListRow}>
       <StyleIconWrapper
         width={38}
         height={38}
@@ -90,5 +76,27 @@ const ProfileListRow = ({
     </StyleList>
   )
 }
+
+export const StyleList = styled(FlexBox)`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+`
+
+const StyleIconWrapper = styled.div<{
+  width: number
+  height: number
+  borderRadius?: string
+  backgroundColor: string
+}>`
+  width: ${({ width }) => width}px;
+  height: ${({ height }) => height}px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: ${({ borderRadius }) => borderRadius};
+  background-color: ${({ backgroundColor }) => backgroundColor};
+`
 
 export default ProfileListRow

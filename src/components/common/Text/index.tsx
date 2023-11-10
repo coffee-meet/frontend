@@ -4,6 +4,13 @@ import styled from '@emotion/styled'
 import { KeyOfTypo } from '@/styles/theme'
 import { typo } from '@/styles/typo'
 
+/**
+ * @param display: (기본값: flex)
+ * @param flexDirection: (기본값: column)
+ * @param justifyContent: (기본값: center)
+ * @param alignItems: (기본값: flex-start)
+ */
+
 export const TextWrapper = styled.div`
   display: flex;
   flex-direction: column;
