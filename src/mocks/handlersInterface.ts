@@ -7,6 +7,7 @@ export interface ApprovalInfo {
   email: string
   businessCardImage: string
 }
+// req.body 오류 해결이 필요한 부분
 // export interface ApprovalResult {
 //   result: string
 // }
@@ -22,6 +23,7 @@ export interface ReportInfo {
   reportCount: number
   email: string
 }
+// req.body 오류 해결이 필요한 부분
 // export interface ReportResult {
 //   result: string
 // }

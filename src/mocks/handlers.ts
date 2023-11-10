@@ -28,6 +28,7 @@ export const handlers = [
   }),
 
   // 승인/거절 처리 API 핸들러
+  // req.body 오류 해결이 필요한 부분
   // http.post('/admin/approvals/:userId/action', (req) => {
   //   const { userId } = req.params
   //   const { action } = req.body
@@ -63,6 +64,7 @@ export const handlers = [
   }),
 
   // // 신고 처리 API 핸들러
+  // req.body 오류 해결이 필요한 부분
   // http.post('/admin/reports/:userId/action', (req) => {
   //   const { userId } = req.params
   //   const { action } = req.body
