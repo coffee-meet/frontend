@@ -16,7 +16,7 @@ const StyleAppHeader = styled.div<{ height?: string }>`
   justify-content: flex-end;
   height: ${({ height }) => height};
   text-align: center;
-  padding: 6.5% 5% 7%;
+  padding: 15% 5% 7%;
 `
 
 type AppHeaderProps = {
@@ -52,6 +52,9 @@ const AppHeader = ({ nickname, isDarkMode, height, toggleDarkMode }: AppHeaderPr
           height={49}
           imgUrl={''}
           margin={'0'}
+          style={{
+            cursor: 'pointer',
+          }}
           onClick={() => {
             moveFromAppHeader('profile')
           }}

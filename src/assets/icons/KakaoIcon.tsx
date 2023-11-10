@@ -8,6 +8,14 @@ export type IconProps = {
   borderRadius: number
 }
 
+/**
+ * @param width - 너비 (string)
+ * @param height - 높이 (string)
+ * @param iconWidth - (Optional) 아이콘 너비 (string)
+ * @param iconHeight - (Optional) 아이콘 높이 (string)
+ * @param borderRadius - (Optional) 아이콘 테두리 반지름 (string)
+ */
+
 const KakaoIcon = ({ width, height, iconWidth, iconHeight, borderRadius }: IconProps) => (
   <span
     style={{
