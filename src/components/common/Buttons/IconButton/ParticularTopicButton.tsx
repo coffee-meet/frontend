@@ -3,31 +3,36 @@ import { BiChevronRight, BiSolidConversation } from 'react-icons/bi'
 import { Text, TextWrapper } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import { StyleIconButtonWrapper, StyleIconWrapper } from '.'
+import { StyledIconButtonWrapper, StyledIconWrapper } from '.'
 
 type ParticularTopicButtonProps = {
   isDarkMode: boolean
+  moveToParticularTopic?: () => void
 }
 
 /**
  * @param isDarkMode - 다크모드 여부
  */
-const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
+const ParticularTopicButton = ({
+  isDarkMode,
+  moveToParticularTopic,
+}: ParticularTopicButtonProps) => {
   const getButtonType = isDarkMode ? 'particular-topic-dark' : 'particular-topic'
   const getIconColor = isDarkMode ? palette.DARK_WHITE : palette.GRAY600
   const getIconBackgroundColor = isDarkMode ? palette.DARK_ICON : palette.GRAY100
   const getSecondTextColor = isDarkMode ? palette.GRAY300 : palette.GRAY500
 
   return (
-    <StyleIconButtonWrapper
+    <StyledIconButtonWrapper
       iconButtonType={getButtonType}
       style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
       }}
+      onClick={moveToParticularTopic}
     >
-      <StyleIconWrapper
+      <StyledIconWrapper
         backgroundColor={getIconBackgroundColor}
         borderRadius={'50%'}
         style={{
@@ -44,7 +49,7 @@ const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
             height: 20,
           }}
         />
-      </StyleIconWrapper>
+      </StyledIconWrapper>
       <TextWrapper
         style={{
           flex: 1,
@@ -67,7 +72,7 @@ const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
           {'네트워크를 넓혀보세요!'}
         </Text>
       </TextWrapper>
-      <StyleIconWrapper
+      <StyledIconWrapper
         style={{
           margin: '18px 27px 18px 0',
         }}
@@ -79,8 +84,8 @@ const ParticularTopicButton = ({ isDarkMode }: ParticularTopicButtonProps) => {
             height: 30,
           }}
         />
-      </StyleIconWrapper>
-    </StyleIconButtonWrapper>
+      </StyledIconWrapper>
+    </StyledIconButtonWrapper>
   )
 }
 

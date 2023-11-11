@@ -5,7 +5,7 @@ import { Text, TextWrapper } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 import { getTimeDelta } from '@/utils/getTimeStamp'
 
-import { StyleIconButtonWrapper, StyleIconWrapper } from '.'
+import { StyledIconButtonWrapper, StyledIconWrapper } from '.'
 
 type RandomMatchingButtonProps = {
   date: string
@@ -24,7 +24,7 @@ const RandomMatchingButton = ({ date, isDarkMode, onClick }: RandomMatchingButto
   const setButtonType = isDarkMode ? 'random-matching-dark' : 'random-matching'
 
   return (
-    <StyleIconButtonWrapper
+    <StyledIconButtonWrapper
       iconButtonType={setButtonType}
       style={{
         display: 'flex',
@@ -33,7 +33,7 @@ const RandomMatchingButton = ({ date, isDarkMode, onClick }: RandomMatchingButto
       }}
       onClick={onClick}
     >
-      <StyleIconWrapper
+      <StyledIconWrapper
         backgroundColor={palette.GRAY100}
         borderRadius={'50%'}
         style={{
@@ -50,7 +50,7 @@ const RandomMatchingButton = ({ date, isDarkMode, onClick }: RandomMatchingButto
             height: 20,
           }}
         />
-      </StyleIconWrapper>
+      </StyledIconWrapper>
       <TextWrapper
         style={{
           flex: 1,
@@ -73,7 +73,7 @@ const RandomMatchingButton = ({ date, isDarkMode, onClick }: RandomMatchingButto
           {'마지막 채팅: '} {`${getTimeDelta(date)}`}
         </Text>
       </TextWrapper>
-      <StyleIconWrapper
+      <StyledIconWrapper
         style={{
           margin: '18px 5px 18px 0px',
         }}
@@ -84,8 +84,8 @@ const RandomMatchingButton = ({ date, isDarkMode, onClick }: RandomMatchingButto
             height: 30,
           }}
         />
-      </StyleIconWrapper>
-    </StyleIconButtonWrapper>
+      </StyledIconWrapper>
+    </StyledIconButtonWrapper>
   )
 }
 

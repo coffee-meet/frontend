@@ -48,16 +48,16 @@ const SelectorButtonContainer = ({
   }
 
   return (
-    <OuterWrapper>
-      <Container isDarkMode={isDarkMode}>
+    <ButtonsContainerOuterWrapper>
+      <ButtonsContainer isDarkMode={isDarkMode}>
         {buttonNames.map((name, index) => (
           <SelectorButton
             key={index}
             isDarkMode={isDarkMode}
             buttonName={name}
-            onClick={handleButtonSelection}
-            maxLengthReached={selectedCount >= maxLength}
-            isButtonselected={false}
+            isButtonClicked={handleButtonSelection}
+            isMaxLengthReached={selectedCount >= maxLength}
+            isButtonSelected={false}
           />
         ))}
         {customButtons.map((name, index) => (
@@ -65,10 +65,10 @@ const SelectorButtonContainer = ({
             key={index}
             isDarkMode={isDarkMode}
             buttonName={name}
-            onClick={(isSelected) => handleCustomButtonClick(isSelected)}
+            isButtonClicked={(isSelected) => handleCustomButtonClick(isSelected)}
             onRemove={() => handleCustomButtonRemove(name)}
-            maxLengthReached={selectedCount >= maxLength}
-            isButtonselected={false}
+            isMaxLengthReached={selectedCount >= maxLength}
+            isButtonSelected={false}
           />
         ))}
         {showAlert && (
@@ -81,7 +81,7 @@ const SelectorButtonContainer = ({
             {`최대 ${maxLength}개까지만 설정할 수 있습니다!`}
           </AlertText>
         )}
-      </Container>
+      </ButtonsContainer>
       <CountNumber
         currentLength={selectedCount}
         maxLength={maxLength}
@@ -89,15 +89,15 @@ const SelectorButtonContainer = ({
         right={-320}
         color={isDarkMode ? palette.GRAY300 : palette.BLACK}
       />
-    </OuterWrapper>
+    </ButtonsContainerOuterWrapper>
   )
 }
 
-const OuterWrapper = styled.div`
+const ButtonsContainerOuterWrapper = styled.div`
   position: relative;
 `
 
-const Container = styled.div<{ isDarkMode: boolean }>`
+const ButtonsContainer = styled.div<{ isDarkMode: boolean }>`
   width: 348px;
   min-height: 235px;
   max-height: 400px;

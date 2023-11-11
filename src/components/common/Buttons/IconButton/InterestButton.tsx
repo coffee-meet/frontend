@@ -5,7 +5,7 @@ import { Divider } from '@/components/common/Divider'
 import { Text, TextWrapper } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import { StyleIconButtonWrapper, StyleIconWrapper } from '.'
+import { StyledIconButtonWrapper, StyledIconWrapper } from '.'
 
 type InterestButtonProps = {
   nickName: string
@@ -17,7 +17,7 @@ const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps
   const setButtonType = isDarkMode ? 'interest-dark' : 'interest'
 
   return (
-    <StyleIconButtonWrapper
+    <StyledIconButtonWrapper
       iconButtonType={setButtonType}
       style={{
         display: 'flex',
@@ -25,7 +25,7 @@ const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps
         alignItems: 'center',
       }}
     >
-      <StyleIconWrapper
+      <StyledIconWrapper
         borderRadius={'12px'}
         backgroundColor={palette.WHITE}
         style={{
@@ -42,7 +42,7 @@ const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps
             height: 23,
           }}
         />
-      </StyleIconWrapper>
+      </StyledIconWrapper>
       <TextWrapper>
         <Text font={'Body_18'} fontWeight={500} letterSpacing={-2} style={{ marginBottom: 4 }}>
           {`${nickName}의 관심사`}
@@ -68,7 +68,7 @@ const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps
           ))}
         </Text>
       </TextWrapper>
-    </StyleIconButtonWrapper>
+    </StyledIconButtonWrapper>
   )
 }
 
