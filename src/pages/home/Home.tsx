@@ -9,6 +9,7 @@ import { Text } from '@/components/common/Text'
 import Card from '@/components/home/Card'
 import useToast from '@/hooks/useToast'
 import useThemeStore from '@/store/ThemeStore'
+import { palette } from '@/styles/palette'
 
 const Home = () => {
   const nickname = '우땅'
@@ -34,6 +35,7 @@ const Home = () => {
           letterSpacing={-0.5}
           style={{
             margin: '33px 0 22px 0',
+            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.BLACK}`,
           }}
         >
           {'진행중인 매칭'}
@@ -51,6 +53,7 @@ const Home = () => {
           letterSpacing={-0.5}
           style={{
             margin: '32px 0 13px 0',
+            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.BLACK}`,
           }}
         >
           {'커피밋의 추천기능'}

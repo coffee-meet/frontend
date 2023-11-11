@@ -1,5 +1,8 @@
+import { useQuery } from '@tanstack/react-query'
+import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 
+import ChatListApi from '@/apis/chatList/ChatListApi'
 import ChatRoomBubbles from '@/components/chatList/ChatRoomBubbles'
 import BackChevron from '@/components/common/BackChevron'
 import GradationBackground from '@/components/common/GradationBackground'
@@ -7,39 +10,24 @@ import NavigationBar from '@/components/common/NavigationBar'
 import PageContainer from '@/components/common/PageContainer'
 import PageHeader from '@/components/common/PageHeader'
 import Spacing from '@/components/common/Spacing'
+import useThemeStore from '@/store/ThemeStore'
 
 const ChatList = () => {
-  // TODO: useThemeStore로 isDarkMode 상태 가져오기
-  const isDarkMode = true
+  const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const navigate = useNavigate()
 
-  const chatRoomList = [
-    {
-      title: '🥤️ 차가운 아메리카노-6',
-      participants: ['우땅', '빅맘', '롤로노아 조로'],
-      createdAt: '2023-11-05T22:00:00',
+  // TODO: TanStack의 useQuery를 사용하여 채팅방 목록 가져오기
+  // 일단 MSW로 mock data를 만들어서 사용
+  const { data, isSuccess } = useQuery(['chatRoomList'], ChatListApi.GET_CHAT_LIST)
+
+  const containerVariants = {
+    initial: { opacity: 0 },
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { delay: 0, duration: 0.5 },
     },
-    {
-      title: '🧃 미지근한 사과주스-23',
-      participants: ['우땅', '빅맘', '루피'],
-      createdAt: '2023-11-05T22:30:00',
-    },
-    {
-      title: '☕️ 따뜻한 아메리카노-10',
-      participants: ['우땅', '빅맘', '나미'],
-      createdAt: '2023-11-05T23:00:00',
-    },
-    {
-      title: '🍰️ 차가운 케이크-8',
-      participants: ['우땅', '빅맘', '상디'],
-      createdAt: '2023-11-05T24:00:00',
-    },
-    {
-      title: '🍦 고소한 아이스크림-2',
-      participants: ['우땅', '빅맘', '우솝'],
-      createdAt: '2023-11-06T00:10:50',
-    },
-  ]
+  }
 
   return (
     <GradationBackground isDarkMode={isDarkMode}>
@@ -63,7 +51,11 @@ const ChatList = () => {
             zIndex: 1,
           }}
         />
-        <ChatRoomBubbles chatRoomList={chatRoomList} isDarkMode={isDarkMode} />
+        {isSuccess && (
+          <motion.div variants={containerVariants} initial={'hidden'} animate={'visible'}>
+            <ChatRoomBubbles chatRoomList={data?.data} isDarkMode={isDarkMode} />
+          </motion.div>
+        )}
       </PageContainer>
       <NavigationBar isDarkMode={isDarkMode} />
     </GradationBackground>

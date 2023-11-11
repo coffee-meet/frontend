@@ -7,42 +7,6 @@ import { Text, TextWrapper } from '@/components/common/Text'
 import AvatarGroup from '@/components/home/AvatarGroup'
 import { palette } from '@/styles/palette'
 
-const StyledChatRoomBubble = styled.div<{ isDarkMode: boolean }>`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 161px;
-  height: 161px;
-  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
-  border-radius: 20px;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
-  position: relative;
-`
-
-const StyledAvatarGroupWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 10px;
-`
-
-const StyledChatRoomBubbleTextWrapper = styled(TextWrapper)`
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 0 10px;
-`
-
-const StyledChatRoomBubbleParticipantsWrapper = styled(TextWrapper)`
-  flex-direction: row;
-  justify-content: flex-end;
-  max-width: 80px;
-  flex-wrap: wrap;
-  row-gap: 3px;
-`
-
 type ChatRoomBubbleProps = {
   title: string
   participants: string[]
@@ -174,5 +138,42 @@ const ChatRoomBubble = ({ title, participants, createdAt, isDarkMode }: ChatRoom
     </StyledChatRoomBubble>
   )
 }
+
+const StyledChatRoomBubble = styled.div<{ isDarkMode: boolean }>`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 161px;
+  height: 161px;
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
+  border-radius: 20px;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+  position: relative;
+  cursor: pointer;
+`
+
+const StyledAvatarGroupWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 10px;
+`
+
+const StyledChatRoomBubbleTextWrapper = styled(TextWrapper)`
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 10px;
+`
+
+const StyledChatRoomBubbleParticipantsWrapper = styled(TextWrapper)`
+  flex-direction: row;
+  justify-content: flex-end;
+  max-width: 80px;
+  flex-wrap: wrap;
+  row-gap: 3px;
+`
 
 export default ChatRoomBubble

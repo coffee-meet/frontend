@@ -1,7 +1,10 @@
 import axios from 'axios'
 
 export const axiosAPI = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:5173'
+      : import.meta.env.VITE_BASE_URL,
 })
 
 // Add a request interceptor
