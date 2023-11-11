@@ -29,20 +29,28 @@ const AdminApprovalList = ({ onApproveSelect }: AdminApprovalListProps) => {
   ]
 
   return (
-    <AdminApprovalListContainer>
-      {AdminApprovalListData.map((data, index) => (
-        <AdminApprovalListRow
-          key={index}
-          {...data}
-          onClick={() => handlePersonApproval(data.nickname)}
-        />
-      ))}
-    </AdminApprovalListContainer>
+    <AdminApprovalListContainerOuterWrapper>
+      <AdminApprovalListContainer>
+        {AdminApprovalListData.map((data, index) => (
+          <AdminApprovalListRow
+            key={index}
+            {...data}
+            onClick={() => handlePersonApproval(data.nickname)}
+          />
+        ))}
+      </AdminApprovalListContainer>
+    </AdminApprovalListContainerOuterWrapper>
   )
 }
 const AdminApprovalListContainer = styled.div`
   background-color: ${palette.WHITE};
   overflow: scroll;
   height: 500px;
+  width: 80%;
+  margin: auto;
+`
+const AdminApprovalListContainerOuterWrapper = styled.div`
+  background-color: ${palette.WHITE};
+  width: 100%;
 `
 export default AdminApprovalList

@@ -27,20 +27,28 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
   ]
 
   return (
-    <StyledAdminReportListContainer>
-      {AdminReportListData.map((data, index) => (
-        <AdminReportListRow
-          key={index}
-          {...data}
-          onClick={() => handlePersonReported(data.nickname)}
-        />
-      ))}
-    </StyledAdminReportListContainer>
+    <StyledAdminReportListContainerOuterWrapper>
+      <StyledAdminReportListContainer>
+        {AdminReportListData.map((data, index) => (
+          <AdminReportListRow
+            key={index}
+            {...data}
+            onClick={() => handlePersonReported(data.nickname)}
+          />
+        ))}
+      </StyledAdminReportListContainer>
+    </StyledAdminReportListContainerOuterWrapper>
   )
 }
 const StyledAdminReportListContainer = styled.div`
   background-color: ${palette.WHITE};
   overflow: scroll;
   height: 500px;
+  width: 80%;
+  margin: auto;
+`
+const StyledAdminReportListContainerOuterWrapper = styled.div`
+  background-color: ${palette.WHITE};
+  width: 100%;
 `
 export default AdminReportList
