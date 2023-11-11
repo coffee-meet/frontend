@@ -1,5 +1,4 @@
 import NaverIcon from '@/assets/icons/NaverIcon'
-
 import { OAuthButtonProps, StyledIconWrapper } from '@/components/common/Buttons/IconButton'
 import {
   StyledButtonText,

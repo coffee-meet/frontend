@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-
 import React, { ForwardedRef } from 'react'
 
 type InputProps = {
