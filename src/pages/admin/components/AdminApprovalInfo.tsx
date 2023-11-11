@@ -1,13 +1,13 @@
 import styled from '@emotion/styled'
-import { BiLeftArrowAlt } from 'react-icons/bi'
 
 import businessCardExample from '@/assets/images/businessCardExample.jpg'
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import Input from '@/components/common/Input'
-import PageHeader from '@/components/common/PageHeader'
 import { Text } from '@/components/common/Text'
 import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
+
+import AdminPageHeader from './AdminPageHeader'
 
 interface AdminApprovalInfoProps {
   selectedApprovalNickname: string
@@ -24,20 +24,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
   }
   return (
     <StyledAdminLoginOuterWrapper>
-      <PageHeader
-        isDarkMode={false}
-        hasBackground={true}
-        title={selectedApprovalNickname}
-        leftIcon={
-          <BiLeftArrowAlt
-            size={'20px'}
-            style={{
-              color: palette.GRAY600,
-              cursor: 'pointer',
-            }}
-          />
-        }
-      />
+      <AdminPageHeader username={selectedApprovalNickname} />
       <StyledAdminApproveFormContainer>
         <StyledEmailFormWrapper>
           <Text font={'Body_18'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>

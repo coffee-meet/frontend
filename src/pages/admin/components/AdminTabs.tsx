@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import AdminApprovalList from '@/components/common/ListRow/AdminApprovalList'
 import AdminReportList from '@/components/common/ListRow/AdminReportList'
+import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
@@ -80,6 +81,7 @@ const AdminTabs = () => {
           <AdminApprovalInfo selectedApprovalNickname={selectedApprovalNickname} />
         )}
       </StyledListContainer>
+      <HomeNavigationBar isDarkMode={false} />
     </>
   )
 }
@@ -95,18 +97,20 @@ const StyledListContainer = styled.div`
 `
 const StyledLeftTab = styled.button<TabProps>`
   flex: 1;
-  padding: 30px 20px;
+  padding: 25px 20px;
   cursor: pointer;
   background: ${(props) => (props.isActive ? palette.GRAY100 : palette.WHITE)};
-  border: none;
+  border: 1.5px solid ${palette.GRAY100};
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 30px 0 0 0;
 `
 const StyledRightTab = styled.button<TabProps>`
   flex: 1;
-  padding: 30px 20px;
+  padding: 25px 20px;
   cursor: pointer;
   background: ${(props) => (props.isActive ? palette.GRAY100 : palette.WHITE)};
-  border: none;
+  border: 1.5px solid ${palette.GRAY100};
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 0 30px 0 0;
 `
 

@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
-import { BiLeftArrowAlt } from 'react-icons/bi'
 
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import AdminReportInfoListRow from '@/components/common/ListRow/AdminReportInfoListRow'
-import PageHeader from '@/components/common/PageHeader'
 import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
+
+import AdminPageHeader from './AdminPageHeader'
 
 interface AdminReportInfoProps {
   selectedReportNickname: string
@@ -22,20 +22,8 @@ const AdminReportInfo = ({ selectedReportNickname }: AdminReportInfoProps) => {
   }
   return (
     <StyledAdminReportInfoOuterWrapper>
-      <PageHeader
-        isDarkMode={false}
-        hasBackground={true}
-        title={`${selectedReportNickname}(닉네임 명)`}
-        leftIcon={
-          <BiLeftArrowAlt
-            size={'20px'}
-            style={{
-              color: palette.GRAY600,
-              cursor: 'pointer',
-            }}
-          />
-        }
-      />
+      <AdminPageHeader username={selectedReportNickname} />
+
       <StyledReportInfoListWrapper>
         <AdminReportInfoListRow
           nickname={'신고자'}
