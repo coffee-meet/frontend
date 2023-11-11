@@ -8,6 +8,7 @@ import ChattingPage from '@/pages/chatting'
 import HomePage from '@/pages/home'
 import LandingPage from '@/pages/landing'
 import LoginPage from '@/pages/login'
+import LoginPendingPage from '@/pages/loginPending'
 import NotFoundPage from '@/pages/notFound/NotFound'
 import ProfilePage from '@/pages/profile'
 import PrivateRoute from '@/pages/redirect/PrivateRoute'
@@ -28,6 +29,7 @@ const App = () => {
         <Route element={<PrivateRoute auth={true} />}>
           <Route path={'/landing'} element={<LandingPage />} />
           <Route path={'/login'} element={<LoginPage />} />
+          <Route path={'/login-pending-page'} element={<LoginPendingPage />} />
           <Route path={'/register/*'} element={<RegisterPage />} />
           <Route path={'/admin-login'} element={<AdminLoginPage />} />
           <Route path={'*'} element={<NotFoundPage />}></Route>
