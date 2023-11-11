@@ -9,13 +9,13 @@ import { palette } from '@/styles/palette'
 const LoginPending = () => {
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
-  const code = searchParams.get('code')
+  const authCode = searchParams.get('code')
   const setToken = useAuthStore((state) => state.setAuthTokens)
   const provider = useAuthStore((state) => state.provider)
 
   const routeAuthInfo = async () => {
     await axiosAPI
-      .get(`${import.meta.env.VITE_BASE_URL}/v1/users/login/${provider}?code=${code}`)
+      .get(`${import.meta.env.VITE_BASE_URL}/v1/users/login/${provider}?code=${authCode}`)
       .then((res) => {
         setToken({
           accessToken: res.data.accessToken,
@@ -24,7 +24,7 @@ const LoginPending = () => {
       })
       .catch((err) => {
         if (err.response.status === 404) {
-          navigate('/register/user')
+          navigate('/register/user', { state: { authCode } })
         }
       })
   }
