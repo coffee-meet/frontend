@@ -17,7 +17,6 @@ const BusinessCardContainer = ({ isDarkMode }: BusinessCardContainerProps) => {
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!uploadedImage) {
-
       const uploadedFile = event.target.files?.[0]
       const uploadedFileReader = new FileReader()
 
