@@ -25,7 +25,7 @@ const App = () => {
           <Route path={'*'} element={<NotFoundPage />}></Route>
         </Route>
 
-        <Route element={<PrivateRoute auth={false} />}>
+        <Route element={<PrivateRoute auth={true} />}>
           <Route path={'/landing'} element={<LandingPage />} />
           <Route path={'/login'} element={<LoginPage />} />
           <Route path={'/register/*'} element={<RegisterPage />} />
