@@ -46,6 +46,7 @@ const StyledAdminReportListContainer = styled.div`
   height: 500px;
   width: 80%;
   margin: auto;
+  cursor: pointer;
 `
 const StyledAdminReportListContainerOuterWrapper = styled.div`
   background-color: ${palette.WHITE};

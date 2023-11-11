@@ -48,9 +48,11 @@ const AdminApprovalListContainer = styled.div`
   height: 500px;
   width: 80%;
   margin: auto;
+  cursor: pointer;
 `
 const AdminApprovalListContainerOuterWrapper = styled.div`
   background-color: ${palette.WHITE};
   width: 100%;
 `
+
 export default AdminApprovalList

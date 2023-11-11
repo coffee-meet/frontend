@@ -23,39 +23,40 @@ const AdminReportInfo = ({ selectedReportNickname }: AdminReportInfoProps) => {
   return (
     <StyledAdminReportInfoOuterWrapper>
       <AdminPageHeader username={selectedReportNickname} />
-
-      <StyledReportInfoListWrapper>
-        <AdminReportInfoListRow
-          nickname={'신고자'}
-          height={60}
-          infoMessage={'박은지(닉네임 명)'}
-          isDarkMode={false}
-        />
-        <AdminReportInfoListRow
-          nickname={'일시'}
-          height={60}
-          infoMessage={'2021.09.01 12:00:00'}
-          isDarkMode={false}
-        />
-        <AdminReportInfoListRow
-          nickname={'신고 사유'}
-          height={60}
-          infoMessage={'채팅방 내 잠수'}
-          isDarkMode={false}
-        />
-        <AdminReportInfoListRow
-          nickname={'현재 누적 횟수'}
-          height={60}
-          infoMessage={'누적 2회'}
-          isDarkMode={false}
-        />
-        <AdminReportInfoListRow
-          nickname={'해당 사용자 메일'}
-          height={60}
-          infoMessage={'famous@naver.com'}
-          isDarkMode={false}
-        />
-      </StyledReportInfoListWrapper>
+      <StyledReportInfoListOuterWrapper>
+        <StyledReportInfoListWrapper>
+          <AdminReportInfoListRow
+            nickname={'신고자'}
+            height={60}
+            infoMessage={'박은지(닉네임 명)'}
+            isDarkMode={false}
+          />
+          <AdminReportInfoListRow
+            nickname={'일시'}
+            height={60}
+            infoMessage={'2021.09.01 12:00:00'}
+            isDarkMode={false}
+          />
+          <AdminReportInfoListRow
+            nickname={'신고 사유'}
+            height={60}
+            infoMessage={'채팅방 내 잠수'}
+            isDarkMode={false}
+          />
+          <AdminReportInfoListRow
+            nickname={'현재 누적 횟수'}
+            height={60}
+            infoMessage={'누적 2회'}
+            isDarkMode={false}
+          />
+          <AdminReportInfoListRow
+            nickname={'해당 사용자 메일'}
+            height={60}
+            infoMessage={'famous@naver.com'}
+            isDarkMode={false}
+          />
+        </StyledReportInfoListWrapper>
+      </StyledReportInfoListOuterWrapper>
 
       <StyledAdminReportInfoContainer>
         <StyledButtonsWrapper>
@@ -83,6 +84,15 @@ const StyledButtonsWrapper = styled.div`
   padding: 60px 0 25px 0;
 `
 const StyledReportInfoListWrapper = styled.div`
+  background-color: ${palette.WHITE};
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`
+const StyledReportInfoListOuterWrapper = styled.div`
   background-color: ${palette.WHITE};
 `
 export default AdminReportInfo

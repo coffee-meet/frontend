@@ -39,7 +39,7 @@ const StyledAdminPageHeaderContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 93%;
+  width: 90%;
   margin: 0 auto;
   height: 70px;
   background-color: ${palette.WHITE};

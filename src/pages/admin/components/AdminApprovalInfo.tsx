@@ -27,7 +27,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
       <AdminPageHeader username={selectedApprovalNickname} />
       <StyledAdminApproveFormContainer>
         <StyledEmailFormWrapper>
-          <Text font={'Body_18'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
+          <Text font={'Body_16'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
             {'이메일'}
           </Text>
           <Input
@@ -44,7 +44,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
 
         <Text
           style={{ marginLeft: '28px' }}
-          font={'Body_18'}
+          font={'Body_16'}
           fontWeight={900}
           letterSpacing={-0.5}
           textColor={palette.GRAY300}
