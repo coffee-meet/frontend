@@ -15,7 +15,7 @@ const LoginPending = () => {
 
   const routeAuthInfo = async () => {
     await axiosAPI
-      .get(`${import.meta.env.VITE_BASE_URL}/v1/users/login/${provider}?code=${authCode}`)
+      .get(`${import.meta.env.VITE_BASE_URL}/v1/users/login/${provider}?authCode=${authCode}`)
       .then((res) => {
         setToken({
           accessToken: res.data.accessToken,
