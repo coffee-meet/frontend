@@ -4,7 +4,6 @@ import { BiLeftArrowAlt } from 'react-icons/bi'
 import businessCardExample from '@/assets/images/businessCardExample.jpg'
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import Input from '@/components/common/Input'
-import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
 import PageHeader from '@/components/common/PageHeader'
 import { Text } from '@/components/common/Text'
 import { useModal } from '@/hooks/useModal'
@@ -73,8 +72,6 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
           <NormalButton normalButtonType={'admin-deny'}>{'거절'}</NormalButton>
         </StyledButtonsWrapper>
       </StyledAdminApproveFormContainer>
-
-      <HomeNavigationBar isDarkMode={false} />
     </StyledAdminLoginOuterWrapper>
   )
 }

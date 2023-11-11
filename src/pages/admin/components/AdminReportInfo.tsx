@@ -3,7 +3,6 @@ import { BiLeftArrowAlt } from 'react-icons/bi'
 
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import AdminReportInfoListRow from '@/components/common/ListRow/AdminReportInfoListRow'
-import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
 import PageHeader from '@/components/common/PageHeader'
 import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
@@ -78,8 +77,6 @@ const AdminReportInfo = ({ selectedReportNickname }: AdminReportInfoProps) => {
           <NormalButton normalButtonType={'admin-deny'}>{'무시'}</NormalButton>
         </StyledButtonsWrapper>
       </StyledAdminReportInfoContainer>
-
-      <HomeNavigationBar isDarkMode={false} />
     </StyledAdminReportInfoOuterWrapper>
   )
 }
