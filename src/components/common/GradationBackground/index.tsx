@@ -14,7 +14,7 @@ type GradationBackgroundProps = {
 const GradationBackground = ({ children, isDarkMode }: GradationBackgroundProps) => {
   return <StyledGradationBackground isDarkMode={isDarkMode}>{children}</StyledGradationBackground>
 }
-        
+
 const StyledGradationBackground = styled.div<{
   isDarkMode: boolean
 }>`
