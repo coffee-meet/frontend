@@ -2,6 +2,19 @@ import styled from '@emotion/styled'
 
 import { palette } from '@/styles/palette'
 
+type GradationBackgroundProps = {
+  children: React.ReactNode
+  isDarkMode: boolean
+}
+
+/**
+ * @param children - 렌더링 할 하위 컴포넌트
+ * @param isDarkMode - 다크모드 여부
+ */
+const GradationBackground = ({ children, isDarkMode }: GradationBackgroundProps) => {
+  return <StyledGradationBackground isDarkMode={isDarkMode}>{children}</StyledGradationBackground>
+}
+
 const StyledGradationBackground = styled.div<{
   isDarkMode: boolean
 }>`
@@ -14,18 +27,5 @@ const StyledGradationBackground = styled.div<{
   display: flex;
   flex-direction: column;
 `
-
-type GradationBackgroundProps = {
-  children: React.ReactNode
-  isDarkMode: boolean
-}
-
-/**
- * @param children - 자식 컴포넌트
- * @param isDarkMode - 다크모드 여부
- */
-const GradationBackground = ({ children, isDarkMode }: GradationBackgroundProps) => {
-  return <StyledGradationBackground isDarkMode={isDarkMode}>{children}</StyledGradationBackground>
-}
 
 export default GradationBackground
