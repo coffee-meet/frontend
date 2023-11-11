@@ -1,14 +1,20 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
+import {
+  iconButtonStyles,
+  IconButtonType,
+} from '@/components/common/Buttons/IconButton/IconButtonStyles'
+import InterestButton from '@/components/common/Buttons/IconButton/InterestButton'
+import KakaoButton from '@/components/common/Buttons/IconButton/KakaoButton'
+import NaverButton from '@/components/common/Buttons/IconButton/NaverButton'
+import ParticularTopicButton from '@/components/common/Buttons/IconButton/ParticularTopicButton'
+import RandomMatchingButton from '@/components/common/Buttons/IconButton/RandomMatchingButton'
 import { typo } from '@/styles/typo'
 
-import { iconButtonStyles, IconButtonType } from './IconButtonStyles'
-import InterestButton from './InterestButton'
-import KakaoButton from './KakaoButton'
-import NaverButton from './NaverButton'
-import ParticularTopicButton from './ParticularTopicButton'
-import RandomMatchingButton from './RandomMatchingButton'
+export type OAuthButtonProps = {
+  moveToOAuthProvider: () => void
+}
 
 export const StyledIconButtonWrapper = styled.button<{
   iconButtonType: IconButtonType
@@ -41,6 +47,7 @@ export const StyledIconWrapper = styled.div<{
 }>`
   width: 35px;
   height: 35px;
+  margin: 4px 38px 4px 20px;
   border-radius: ${(props) => props.borderRadius};
   background-color: ${(props) => props.backgroundColor};
   display: flex;
