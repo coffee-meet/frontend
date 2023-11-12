@@ -22,6 +22,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
       okFunc: () => console.log('okFunc'),
     })
   }
+
   return (
     <StyledAdminLoginOuterWrapper>
       <AdminPageHeader username={selectedApprovalNickname} />
@@ -39,11 +40,12 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
             borderWidth={'0px'}
             inputTextColor={palette.GRAY700}
             inputTextFontWeight={900}
+            padding={'0 27px 0 27px'}
           />
         </StyledEmailFormWrapper>
 
         <Text
-          style={{ marginLeft: '28px' }}
+          style={{ marginLeft: '31px' }}
           font={'Body_16'}
           fontWeight={900}
           letterSpacing={-0.5}

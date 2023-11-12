@@ -6,8 +6,6 @@ import { palette } from '@/styles/palette'
 
 interface AdminPageHeaderProps {
   username: string
-  // onBack: () => void;
-  //onclick 함수 보류
 }
 
 const AdminPageHeader = ({ username }: AdminPageHeaderProps) => {
