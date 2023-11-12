@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 import { MdWbSunny } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
 import AlertText from '@/components/common/AlertText'
@@ -11,6 +12,7 @@ import { FlexBox } from '@/components/common/Flexbox'
 import RegisterInput from '@/components/common/RegisterInput'
 import SelectorButtonContainer from '@/components/common/SelectorButtonContainer'
 import Spacing from '@/components/common/Spacing'
+import useAuthStore from '@/store/AuthStore'
 import useInterestStore from '@/store/InterestStore'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
@@ -32,12 +34,14 @@ const RegisterUser = () => {
     '반려동물',
   ]
   const navigate = useNavigate()
+  const { authCode } = useLocation().state || {}
   const inputRef = useRef<HTMLInputElement>(null)
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false)
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
   let nickname = ''
   const { interestList } = useInterestStore()
-
+  const { authTokens } = useAuthStore()
+  console.log(authTokens)
   const doubleCheckNickName = async () => {
     if (inputRef.current && inputRef.current.value.length == 0) {
       setDoubleChecked(null)
@@ -70,11 +74,10 @@ const RegisterUser = () => {
     else return true
   }
   const submitUserProfileData = () => {
-    //닉네임 중복검사 다 했고 관심사 list의 length > 0이면 mutate함수 호출
     if (!formValidation())
       if (doubleChecked && inputRef.current !== null && interestList.length > 0) {
         const body = {
-          authCode: '코드',
+          authCode: authCode,
           nickname: nickname,
           keywords: interestList,
           oAuthProvider: 'KAKAO',
