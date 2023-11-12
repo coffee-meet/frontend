@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import useAuthStore from '@/store/AuthStore'
+// import useAuthStore from '@/store/AuthStore'
 
 export const axiosAPI = axios.create({
   baseURL:
@@ -14,8 +14,8 @@ axiosAPI.interceptors.request.use(
   function (config) {
     // 요청 바로 직전
     // axios 설정값에 대해 작성합니다.
-    const { authTokens } = useAuthStore()
-    config.headers['Authorization'] = `Bearer ${authTokens}`
+    // const { authTokens } = useAuthStore()
+    // config.headers['Authorization'] = `Bearer ${authTokens}`
 
     return config
   },
