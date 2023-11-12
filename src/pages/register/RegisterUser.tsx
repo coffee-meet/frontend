@@ -13,6 +13,7 @@ import RegisterInput from '@/components/common/RegisterInput'
 import SelectorButtonContainer from '@/components/common/SelectorButtonContainer'
 import Spacing from '@/components/common/Spacing'
 import useToast from '@/hooks/useToast'
+import useAuthStore from '@/store/AuthStore'
 import useInterestStore from '@/store/InterestStore'
 import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
@@ -41,6 +42,7 @@ const RegisterUser = () => {
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
   let nickname = ''
   const { interestList } = useInterestStore()
+  const { provider } = useAuthStore()
   const { showToast } = useToast()
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
 
@@ -63,7 +65,7 @@ const RegisterUser = () => {
     onError: () => {},
   })
   const doubleCheckNickName = async () => {
-    if (inputRef.current && inputRef.current.value.length == 0) {
+    if (inputRef.current !== null && inputRef.current.value.length == 0) {
       setDoubleChecked(null)
       return
     }
@@ -75,20 +77,41 @@ const RegisterUser = () => {
     }
   }
   const formValidation = () => {
-    if (nickname.length === 0) return false
-    else if (doubleChecked) return false
-    else if (nicknameDuplicated) return false
-    else return true
+    console.log(doubleChecked)
+    if (inputRef.current !== null && inputRef.current.value.length === 0) {
+      showToast({
+        message: '닉네임을 입력하세요!',
+        type: 'warning',
+        isDarkMode,
+      })
+      return false
+    } else if (!doubleChecked) {
+      showToast({
+        message: '중복검사를 해주세요!',
+        type: 'warning',
+        isDarkMode,
+      })
+      return false
+    } else if (nicknameDuplicated) {
+      showToast({
+        message: '사용할 수 없는 닉네임입니다.',
+        type: 'warning',
+        isDarkMode,
+      })
+      return false
+    } else {
+      return true
+    }
   }
   const submitUserProfileData = () => {
-    if (!formValidation()) {
+    if (formValidation()) {
       console.log(nickname, interestList)
       if (doubleChecked && inputRef.current !== null && interestList.length > 0) {
         const body = {
           authCode: authCode,
-          nickname: nickname,
+          nickname: inputRef.current.value,
           keywords: interestList,
-          oAuthProvider: 'KAKAO',
+          oAuthProvider: provider,
         }
         console.log(body)
         registerMutation.mutate(body)

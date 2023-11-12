@@ -46,15 +46,18 @@ const SelectorButton = ({
       return
     }
     setIsButtonSelected(isSelected)
+
+    setInterestList([...interestList, buttonName])
     setBackgroundColor(
       isSelected ? defaultSettings.selectedButtonColor : defaultSettings.defaultButtonColor,
     )
-    setInterestList([...interestList, buttonName])
 
+    console.log(interestList.filter((v) => v != buttonName))
     if (defaultSettings.textColor !== palette.WHITE) {
       setCurrentTextColor(isSelected ? palette.WHITE : defaultSettings.textColor)
     }
     if (isButtonClicked) isButtonClicked(isSelected)
+    if (!isSelected) setInterestList(interestList.filter((v) => v != buttonName))
   }
 
   return (
