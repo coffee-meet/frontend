@@ -40,32 +40,33 @@ const RegisterUser = () => {
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
   let nickname = ''
   const { interestList } = useInterestStore()
-  const { authTokens } = useAuthStore()
-  console.log(authTokens)
+
+  const handleClickDoubleCheck = async (nickname: string) => {
+    return await axiosAPI.get(`/v1/users/duplicate?nickname=${nickname}`)
+  }
+  const doubleCheckMutation = useMutation((nickname: string) => handleClickDoubleCheck(nickname), {
+    onSuccess: (response) => {
+      if (response.status == 200) {
+        //사용가능한 닉네임일 경우
+        setDoubleChecked(true)
+        setNicknameDuplicated(false)
+      } else {
+        //이미 사용 중인 닉네임일 경우
+        setDoubleChecked(true)
+        setNicknameDuplicated(true)
+      }
+    },
+    onError: () => {},
+  })
   const doubleCheckNickName = async () => {
     if (inputRef.current && inputRef.current.value.length == 0) {
       setDoubleChecked(null)
       return
     }
+    if (inputRef.current == null) return
 
-    if (inputRef.current !== null) {
-      nickname = inputRef.current.value
-      await axiosAPI
-        .get(`/v1/users/duplicate?nickname=${nickname}`)
-        .then((response) => {
-          console.log(response)
-          if (response.status == 200) {
-            //사용가능한 닉네임일 경우
-            setDoubleChecked(true)
-            setNicknameDuplicated(false)
-          } else {
-            //이미 사용 중인 닉네임일 경우
-            setDoubleChecked(true)
-            setNicknameDuplicated(true)
-          }
-        })
-        .catch((err) => console.log(err))
-    }
+    nickname = inputRef.current.value
+    doubleCheckMutation.mutate(nickname)
   }
   const formValidation = () => {
     if (nickname.length === 0) return false
@@ -74,7 +75,8 @@ const RegisterUser = () => {
     else return true
   }
   const submitUserProfileData = () => {
-    if (!formValidation())
+    if (!formValidation()) {
+      console.log(nickname, interestList)
       if (doubleChecked && inputRef.current !== null && interestList.length > 0) {
         const body = {
           authCode: authCode,
@@ -85,6 +87,7 @@ const RegisterUser = () => {
         console.log(body)
         registerMutation.mutate(body)
       }
+    }
   }
   const registerPost = async (body: object) => {
     return await axiosAPI.post('/v1/users/sign-up', body)
@@ -115,7 +118,7 @@ const RegisterUser = () => {
       <Spacing size={73} />
       <FlexBox gap={16}>
         <RegisterInput width={260} placeholder={'닉네임'} ref={inputRef} />
-        <NormalButton normalButtonType={'nickname-duplicate'} onClick={doubleCheckNickName}>
+        <NormalButton normalButtonType={'nickname-duplicate'} onClick={() => doubleCheckNickName()}>
           {'중복확인'}
         </NormalButton>
       </FlexBox>
