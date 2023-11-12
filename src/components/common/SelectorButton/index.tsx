@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
 
+import useInterestStore from '@/store/InterestStore'
 import { palette } from '@/styles/palette'
-
 type SelectorButtonProps = {
   isDarkMode: boolean
   buttonName: string
@@ -36,6 +36,7 @@ const SelectorButton = ({
     : defaultSettings.defaultButtonColor
   const [backgroundColor, setBackgroundColor] = useState(initialBackgroundColor)
   const [currentTextColor, setCurrentTextColor] = useState(defaultSettings.textColor)
+  const { interestList, setInterestList } = useInterestStore()
 
   const handleButtonClick = () => {
     const isSelected = backgroundColor !== defaultSettings.selectedButtonColor
@@ -48,6 +49,8 @@ const SelectorButton = ({
     setBackgroundColor(
       isSelected ? defaultSettings.selectedButtonColor : defaultSettings.defaultButtonColor,
     )
+    setInterestList([...interestList, buttonName])
+    console.log(interestList)
     if (defaultSettings.textColor !== palette.WHITE) {
       setCurrentTextColor(isSelected ? palette.WHITE : defaultSettings.textColor)
     }

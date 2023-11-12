@@ -1,8 +1,16 @@
-import { http, HttpResponse } from 'msw'
+import { rest } from 'msw'
+const nickname = '주다다'
 
 export const handlers = [
-  // example
-  http.get('/pets', () => {
-    return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
+  rest.get(`/v1/users/duplicate?nickname=${nickname}`, async (req, res, ctx) => {
+    await sleep(200)
+    console.log(req)
+    return res(ctx.status(200), ctx.json(res))
   }),
 ]
+
+async function sleep(timeout: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, timeout)
+  })
+}
