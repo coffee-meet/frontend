@@ -1,12 +1,6 @@
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 const nickname = '주다다'
-
 export const handlers = [
-  rest.get(`/v1/users/duplicate?nickname=${nickname}`, async (req, res, ctx) => {
-    await sleep(200)
-    console.log(req)
-    return res(ctx.status(200), ctx.json(res))
-  }),
   http.get('/v1/histories', () => {
     return HttpResponse.json([
       {
@@ -36,10 +30,11 @@ export const handlers = [
       },
     ])
   }),
-]
 
-async function sleep(timeout: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, timeout)
-  })
-}
+  http.get(`/v1/users/duplicate?nickname=${nickname}`, () => {
+    return new HttpResponse(null, {
+      status: 200,
+      statusText: 'Out Of Apples',
+    })
+  }),
+]
