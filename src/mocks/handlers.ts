@@ -4,6 +4,7 @@ const nickname = '주다다'
 export const handlers = [
   rest.get(`/v1/users/duplicate?nickname=${nickname}`, async (req, res, ctx) => {
     await sleep(200)
+    console.log(req)
     return res(ctx.status(200), ctx.json(res))
   }),
 ]
