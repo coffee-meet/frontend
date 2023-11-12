@@ -7,19 +7,19 @@ import { palette } from '@/styles/palette'
 type CustomSelectorButtonProps = {
   isDarkMode: boolean
   buttonName: string
-  onClick: (selected: boolean) => void
+  isButtonClicked: (selected: boolean) => void
   onRemove: () => void
-  isButtonselected: boolean
-  maxLengthReached: boolean
+  isButtonSelected: boolean
+  isMaxLengthReached: boolean
 }
 
 const CustomSelectorButton = ({
   isDarkMode,
   buttonName,
-  onClick,
+  isButtonClicked,
   onRemove,
-  isButtonselected: propIsButtonSelected,
-  maxLengthReached,
+  isButtonSelected: propIsButtonSelected,
+  isMaxLengthReached,
 }: CustomSelectorButtonProps) => {
   const defaultSettings = isDarkMode
     ? {
@@ -40,12 +40,12 @@ const CustomSelectorButton = ({
   }, [propIsButtonSelected])
 
   const handleButtonClick = () => {
-    if (maxLengthReached && !isButtonSelected) {
-      onClick && onClick(true)
+    if (isMaxLengthReached && !isButtonSelected) {
+      isButtonClicked && isButtonClicked(true)
       return
     }
     setIsButtonSelected((prevState) => !prevState)
-    if (onClick) onClick(!isButtonSelected)
+    if (isButtonClicked) isButtonClicked(!isButtonSelected)
   }
 
   return (
@@ -61,7 +61,7 @@ const CustomSelectorButton = ({
       >
         {buttonName}
       </StyledButton>
-      <RemoveButton onClick={onRemove}>
+      <StyledRemoveButton onClick={onRemove}>
         <TiDelete
           style={{
             position: 'relative',
@@ -73,7 +73,7 @@ const CustomSelectorButton = ({
             color: isDarkMode ? palette.GRAY300 : palette.BLACK,
           }}
         />
-      </RemoveButton>
+      </StyledRemoveButton>
     </StyledButtonWrapper>
   )
 }
@@ -83,7 +83,7 @@ const StyledButtonWrapper = styled.div`
   align-items: center;
 `
 
-const RemoveButton = styled.button`
+const StyledRemoveButton = styled.button`
   margin-left: 8px;
   background-color: transparent;
   border: none;

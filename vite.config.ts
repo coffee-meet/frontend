@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://13.125.194.230',
+        target: process.env.SERVER_EC2_URL,
         changeOrigin: true,
       },
     },

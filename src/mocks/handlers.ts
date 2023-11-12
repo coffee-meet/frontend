@@ -1,22 +1,31 @@
 import { http, HttpResponse } from 'msw'
 
 export const handlers = [
-  http.get(`/v1/chatrooms/1/messages`, () => {
+  http.get('/v1/histories', () => {
     return HttpResponse.json([
       {
-        nickname: '유명한',
-        content: '와라라라라',
-        createdAt: '15:40',
+        title: '🥤️ 차가운 아메리카노-6',
+        participants: ['우땅', '빅맘', '롤로노아 조로'],
+        createdAt: '2023-11-05T22:00:00',
       },
       {
-        nickname: '주다현',
-        content: '으갸갸갸갹',
-        createdAt: '15:41',
+        title: '🧃 미지근한 사과주스-23',
+        participants: ['우땅', '빅맘', '루피'],
+        createdAt: '2023-11-05T22:30:00',
       },
       {
-        nickname: '닉네임이 뭐게',
-        content: '오오오오오',
-        createdAt: '15:42',
+        title: '☕️ 따뜻한 아메리카노-10',
+        participants: ['우땅', '빅맘', '나미'],
+        createdAt: '2023-11-05T23:00:00',
+      },
+      {
+        title: '🍰️ 차가운 케이크-8',
+        participants: ['우땅', '빅맘', '상디'],
+        createdAt: '2023-11-05T24:00:00',
+      },
+      {
+        title: '🍦 고소한 아이스크림-2',
+        participants: ['우땅', '빅맘', '우솝'],
       },
     ])
   }),

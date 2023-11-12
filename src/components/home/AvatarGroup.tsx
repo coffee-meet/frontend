@@ -2,44 +2,61 @@ import styled from '@emotion/styled'
 
 import Avatar from '@/components/common/Avatar'
 
-const StyleAvatarGroup = styled.div`
+const StyledAvatarGroup = styled.div<{ avatarHeight: number }>`
   display: flex;
-  position: relative;
-  justify-content: flex-end;
   align-items: center;
   width: 100%;
-  position: relative;
+  height: ${({ avatarHeight }) => `${avatarHeight}px`};
 `
 
-const StyleAvatarWrapper = styled.div`
+const StyledAvatarWrapper = styled.div`
   position: absolute;
-  right: 0;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  width: 100%;
 `
 
 type AvatarGroupProps = {
   avatarList: string[]
+  avatarWidth?: number
+  avatarHeight?: number
+  style?: React.CSSProperties
 }
 
-const AvatarGroup = ({ avatarList }: AvatarGroupProps) => {
+/**
+ * @param avatarList: string[] - 아바타 이미지 리스트
+ * @param avatarWidth?: number - 아바타 이미지의 width 값
+ * @param avatarHeight?: number - 아바타 이미지의 height 값
+ * @param style?: React.CSSProperties - 컴포넌트 스타일
+ */
+
+const AvatarGroup = ({
+  avatarList,
+  avatarWidth = 34,
+  avatarHeight = 34,
+  ...props
+}: AvatarGroupProps) => {
   return (
-    <StyleAvatarGroup>
+    <StyledAvatarGroup avatarHeight={avatarHeight} {...props}>
       {avatarList.map((avatar, index) => {
         return (
-          <StyleAvatarWrapper
+          <StyledAvatarWrapper
             key={index}
             style={{
-              right: `${index * 15}px`,
+              right: `${index * 7}px`,
             }}
           >
-            <Avatar width={34} height={34} imgUrl={avatar} margin={'0'} border={'2px solid red'} />
-          </StyleAvatarWrapper>
+            <Avatar
+              width={avatarWidth}
+              height={avatarHeight}
+              imgUrl={avatar}
+              margin={'0'}
+              border={'2px solid red'}
+            />
+          </StyledAvatarWrapper>
         )
       })}
-    </StyleAvatarGroup>
+    </StyledAvatarGroup>
   )
 }
 
