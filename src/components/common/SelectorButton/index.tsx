@@ -18,21 +18,6 @@ const SelectorButton = ({
   isButtonSelected: propIsButtonSelected = false,
   isMaxLengthReached = false,
 }: SelectorButtonProps) => {
-  const buttonNames = [
-    '요리',
-    '맛집',
-    '음악',
-    '연애',
-    '패션',
-    '여행',
-    '운동',
-    '게임',
-    '재테크',
-    '자격증',
-    '외국어',
-    '전자기기',
-    '반려동물',
-  ]
   const defaultSettings = isDarkMode
     ? {
         selectedButtonColor: palette.SECONDARY,
@@ -69,9 +54,7 @@ const SelectorButton = ({
     if (defaultSettings.textColor !== palette.WHITE) {
       setCurrentTextColor(isSelected ? palette.WHITE : defaultSettings.textColor)
     }
-    if (isButtonClicked) {
-      isButtonClicked(isSelected)
-    }
+    if (isButtonClicked) isButtonClicked(isSelected)
   }
 
   return (
