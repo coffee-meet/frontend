@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
 import { MdWbSunny } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
