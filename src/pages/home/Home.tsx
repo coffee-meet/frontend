@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import AppHeader from '@/components/common/AppHeader'
 import { ParticularTopicButton } from '@/components/common/Buttons/IconButton'
 import GradationBackground from '@/components/common/GradationBackground'
@@ -15,14 +13,19 @@ const Home = () => {
   const nickname = '우땅'
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode)
-  const [isMatching, setIsMatching] = useState(false)
 
   const { showToast } = useToast()
 
   return (
     <GradationBackground isDarkMode={isDarkMode}>
       <AppHeader nickname={nickname} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-      <PageContainer isDarkMode={isDarkMode}>
+      <PageContainer
+        height={'80%'}
+        isDarkMode={isDarkMode}
+        style={{
+          padding: '5% 5%',
+        }}
+      >
         <Text
           font={'Body_16'}
           fontWeight={600}

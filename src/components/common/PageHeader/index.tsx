@@ -66,19 +66,11 @@ const PageHeader = ({
   )
 }
 
-const StyledIcon = styled.div`
-  width: 38px;
-  height: 38px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-`
-
-const StylePageHeader = styled.div<{
+const StyledPageHeader = styled.div<{
   isDarkMode?: boolean
   hasBackground?: boolean
 }>`
+  max-width: 414px;
   width: 100%;
   height: 72px;
   display: flex;
@@ -102,6 +94,15 @@ const StylePageHeader = styled.div<{
       : hasBackground
       ? `${palette.GRAY100}`
       : 'transparent'};
+`
+
+const StyledIcon = styled.div`
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `
 
 export default PageHeader

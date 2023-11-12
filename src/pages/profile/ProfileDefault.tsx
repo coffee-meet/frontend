@@ -121,7 +121,13 @@ const ProfileDefault = () => {
         <Spacing size={28.5} />
       </StyledProfilePageHeader>
 
-      <PageContainer height={'100%'} isDarkMode={isDarkMode}>
+      <PageContainer
+        height={'100%'}
+        isDarkMode={isDarkMode}
+        style={{
+          padding: '5% 5%',
+        }}
+      >
         <Spacing size={25} />
         <Text
           font={'Body_16'}

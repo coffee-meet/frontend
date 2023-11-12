@@ -1,3 +1,4 @@
+import styled from '@emotion/styled'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
@@ -33,7 +34,7 @@ const ChatList = () => {
     <GradationBackground isDarkMode={isDarkMode}>
       <Spacing size={50} />
       <PageContainer height={'80%'} isDarkMode={isDarkMode}>
-        <PageHeader
+        <StyledPageHeader
           title={'이전 대화방'}
           leftIcon={
             <BackChevron
@@ -46,10 +47,6 @@ const ChatList = () => {
           }
           isDarkMode={isDarkMode}
           hasBackground={true}
-          style={{
-            position: 'fixed',
-            zIndex: 1,
-          }}
         />
         {isSuccess && (
           <motion.div variants={containerVariants} initial={'hidden'} animate={'visible'}>
@@ -61,5 +58,9 @@ const ChatList = () => {
     </GradationBackground>
   )
 }
+
+const StyledPageHeader = styled(PageHeader)`
+  padding: 0 18px;
+`
 
 export default ChatList
