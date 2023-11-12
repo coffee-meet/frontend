@@ -20,7 +20,7 @@ const SelectorButtonContainer = ({
   const [selectedCount, setSelectedCount] = useState(0)
   const [showAlert, setShowAlert] = useState(false)
   const [customButtons, setCustomButtons] = useState<string[]>([])
-  const selectedList = []
+
   const handleButtonSelection = (isSelected: boolean) => {
     if (isSelected) {
       if (selectedCount + 1 > maxLength) {
