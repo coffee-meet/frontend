@@ -12,6 +12,7 @@ type ParticularTopicButtonProps = {
 
 /**
  * @param isDarkMode - 다크모드 여부
+ * @param moveToParticularTopic? - 특정 주제로 대화하기 버튼 클릭 시 이동할 페이지
  */
 const ParticularTopicButton = ({
   isDarkMode,

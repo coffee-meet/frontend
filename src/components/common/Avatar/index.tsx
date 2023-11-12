@@ -59,6 +59,15 @@ const StyledAvatar = styled.div<AvatarProps>`
   margin: ${(props) => `${props.margin}px`};
   border: ${(props) => (props.border ? props.border : 'none')};
   box-shadow: ${(props) => (props.shadow ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none')};
+
+  @media (max-width: 280px) {
+    width: ${(props) =>
+      typeof props.width === 'number' ? `${props.width * 0.95}px` : `calc(${props.width} * 0.95)`};
+    height: ${(props) =>
+      typeof props.height === 'number'
+        ? `${props.height * 0.95}px`
+        : `calc(${props.height} * 0.95)`};
+  }
 `
 
 export default Avatar

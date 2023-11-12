@@ -3,14 +3,6 @@ import styled from '@emotion/styled'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-const StyleIcon = styled.div`
-  width: 38px;
-  height: 38px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
-
 type PageHeaderProps = {
   title: string
   leftIcon?: React.ReactNode
@@ -18,6 +10,7 @@ type PageHeaderProps = {
   isDarkMode?: boolean
   hasBackground?: boolean
   onClick?: () => void
+  style?: React.CSSProperties
 }
 
 /**
@@ -29,10 +22,23 @@ type PageHeaderProps = {
  * @param onClick - (Optional) 클릭 이벤트
  */
 
-const PageHeader = ({ leftIcon, rightIcon, title, isDarkMode, hasBackground }: PageHeaderProps) => {
+const PageHeader = ({
+  leftIcon,
+  rightIcon,
+  title,
+  isDarkMode,
+  hasBackground,
+  ...props
+}: PageHeaderProps) => {
   return (
-    <StylePageHeader isDarkMode={isDarkMode} hasBackground={hasBackground}>
-      <StyleIcon>{leftIcon}</StyleIcon>
+    <StyledPageHeader isDarkMode={isDarkMode} hasBackground={hasBackground} {...props}>
+      <StyledIcon
+        style={{
+          cursor: 'pointer',
+        }}
+      >
+        {leftIcon}
+      </StyledIcon>
       <Text
         font={'Body_20'}
         fontWeight={600}
@@ -49,10 +55,25 @@ const PageHeader = ({ leftIcon, rightIcon, title, isDarkMode, hasBackground }: P
       >
         {title}
       </Text>
-      <StyleIcon>{rightIcon}</StyleIcon>
-    </StylePageHeader>
+      <StyledIcon
+        style={{
+          cursor: 'pointer',
+        }}
+      >
+        {rightIcon}
+      </StyledIcon>
+    </StyledPageHeader>
   )
 }
+
+const StyledIcon = styled.div`
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`
 
 const StylePageHeader = styled.div<{
   isDarkMode?: boolean
