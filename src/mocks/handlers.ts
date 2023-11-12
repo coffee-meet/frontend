@@ -1,11 +1,13 @@
-import { rest } from 'msw'
+import { http, HttpResponse } from 'msw'
 const nickname = '주다다'
 
 export const handlers = [
-  rest.get(`/v1/users/duplicate?nickname=${nickname}`, async (req, res, ctx) => {
+  http.get(`/v1/users/duplicate?nickname=${nickname}`, async () => {
     await sleep(200)
-    console.log(req)
-    return res(ctx.status(200), ctx.json(res))
+    console.log()
+    return HttpResponse.json({
+      duplicate: true,
+    })
   }),
   http.get('/v1/histories', () => {
     return HttpResponse.json([
