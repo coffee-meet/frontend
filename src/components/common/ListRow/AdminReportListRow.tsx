@@ -9,7 +9,7 @@ type ProfileListRowProps = {
   infoMessage: string | number
   isDarkMode: boolean
 }
-const AdminListRow = ({ height, nickname, infoMessage, isDarkMode }: ProfileListRowProps) => {
+const AdminReportListRow = ({ height, nickname, infoMessage, isDarkMode }: ProfileListRowProps) => {
   const renderInfoMessage = () => {
     if (typeof infoMessage === 'number') {
       return (
@@ -87,4 +87,4 @@ const AdminListRow = ({ height, nickname, infoMessage, isDarkMode }: ProfileList
   )
 }
 
-export default AdminListRow
+export default AdminReportListRow
