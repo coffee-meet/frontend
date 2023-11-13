@@ -3,24 +3,18 @@ import { StyleList } from '@/components/common/ListRow/ProfileListRow'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-
-type AdminReportListRowProps = {
-
+type AdminReportInfoListRowProps = {
   height: number
   nickname: string
   infoMessage: string | number
   isDarkMode: boolean
-
-  onClick?: () => void
 }
-const AdminReportListRow = ({
+const AdminReportInfoListRow = ({
   height,
   nickname,
   infoMessage,
   isDarkMode,
-  onClick,
-}: AdminReportListRowProps) => {
-
+}: AdminReportInfoListRowProps) => {
   const renderInfoMessage = () => {
     if (typeof infoMessage === 'number') {
       return (
@@ -62,11 +56,11 @@ const AdminReportListRow = ({
     }
     return (
       <Text
-        font={'Caption_11'}
+        font={'Body_14'}
         fontWeight={900}
         letterSpacing={0}
         style={{
-          color: isDarkMode ? palette.GRAY300 : palette.GRAY500,
+          color: isDarkMode ? palette.GRAY400 : palette.GRAY400,
         }}
       >
         {infoMessage}
@@ -76,17 +70,12 @@ const AdminReportListRow = ({
 
   return (
     <StyleList
-
-      width={322}
-
+      width={372}
       height={height}
       style={{
         padding: '0 20px 0px 20px',
         borderBottom: `1px solid ${palette.GRAY300}`,
       }}
-
-      onClick={onClick}
-
     >
       <Text
         font={'Body_16'}
@@ -103,4 +92,4 @@ const AdminReportListRow = ({
   )
 }
 
-export default AdminReportListRow
+export default AdminReportInfoListRow
