@@ -2,7 +2,6 @@ import styled from '@emotion/styled'
 
 import businessCardExample from '@/assets/images/businessCardExample.jpg'
 import NormalButton from '@/components/common/Buttons/NormalButton'
-import Input from '@/components/common/Input'
 import { Text } from '@/components/common/Text'
 import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
@@ -27,22 +26,22 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
     <StyledAdminLoginOuterWrapper>
       <AdminPageHeader username={selectedApprovalNickname} />
       <StyledAdminApproveFormContainer>
-        <StyledEmailFormWrapper>
+        <StyledEmailContainer>
           <Text font={'Body_16'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
             {'이메일'}
           </Text>
-          <Input
-            inputBackgroundColor={palette.SKY_BLUE}
-            width={'245px'}
-            height={'54px'}
-            borderRadius={'20px'}
-            inputTextSize={'18px'}
-            borderWidth={'0px'}
-            inputTextColor={palette.GRAY700}
-            inputTextFontWeight={900}
-            padding={'0 27px 0 27px'}
-          />
-        </StyledEmailFormWrapper>
+          <StyledEmailTextWrapper>
+            <Text
+              font={'Body_16'}
+              fontWeight={900}
+              letterSpacing={-0.5}
+              textColor={palette.GRAY700}
+            >
+              {`myeonghan@naver.com`}
+              {/* {`${selectedApprovalNickname}의 이메일, userId를 받을 수 있음 (API 요청)`} */}
+            </Text>
+          </StyledEmailTextWrapper>
+        </StyledEmailContainer>
 
         <Text
           style={{ marginLeft: '31px' }}
@@ -78,7 +77,14 @@ const StyledImage = styled.img`
 const StyledAdminApproveFormContainer = styled.div`
   background-color: ${palette.WHITE};
 `
-const StyledEmailFormWrapper = styled.div`
+const StyledEmailTextWrapper = styled.div`
+  padding: 16px 34px;
+  background-color: ${palette.SKY_BLUE};
+  width: 246px;
+  border-radius: 20px;
+  text-align: center;
+`
+const StyledEmailContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
