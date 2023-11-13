@@ -56,11 +56,11 @@ const AdminReportInfoListRow = ({
     }
     return (
       <Text
-        font={'Caption_11'}
+        font={'Body_14'}
         fontWeight={900}
         letterSpacing={0}
         style={{
-          color: isDarkMode ? palette.GRAY300 : palette.GRAY500,
+          color: isDarkMode ? palette.GRAY400 : palette.GRAY400,
         }}
       >
         {infoMessage}
@@ -70,7 +70,7 @@ const AdminReportInfoListRow = ({
 
   return (
     <StyleList
-      width={308}
+      width={372}
       height={height}
       style={{
         padding: '0 20px 0px 20px',

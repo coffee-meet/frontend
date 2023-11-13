@@ -1,14 +1,13 @@
 import styled from '@emotion/styled'
-import { BiLeftArrowAlt } from 'react-icons/bi'
 
 import businessCardExample from '@/assets/images/businessCardExample.jpg'
 import NormalButton from '@/components/common/Buttons/NormalButton'
-import Input from '@/components/common/Input'
-import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
-import PageHeader from '@/components/common/PageHeader'
+import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
 import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
+
+import AdminPageHeader from './AdminPageHeader'
 
 interface AdminApprovalInfoProps {
   selectedApprovalNickname: string
@@ -23,42 +22,32 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
       okFunc: () => console.log('okFunc'),
     })
   }
+
   return (
     <StyledAdminLoginOuterWrapper>
-      <PageHeader
-        isDarkMode={false}
-        hasBackground={true}
-        title={selectedApprovalNickname}
-        leftIcon={
-          <BiLeftArrowAlt
-            size={'20px'}
-            style={{
-              color: palette.GRAY600,
-              cursor: 'pointer',
-            }}
-          />
-        }
-      />
+      <AdminPageHeader username={selectedApprovalNickname} />
       <StyledAdminApproveFormContainer>
-        <StyledEmailFormWrapper>
-          <Text font={'Body_18'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
+        <Spacing size={10} />
+        <StyledEmailContainer>
+          <Text font={'Body_14'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
             {'이메일'}
           </Text>
-          <Input
-            inputBackgroundColor={palette.SKY_BLUE}
-            width={'245px'}
-            height={'54px'}
-            borderRadius={'20px'}
-            inputTextSize={'18px'}
-            borderWidth={'0px'}
-            inputTextColor={palette.GRAY700}
-            inputTextFontWeight={900}
-          />
-        </StyledEmailFormWrapper>
-
+          <StyledEmailTextWrapper>
+            <Text
+              font={'Body_16'}
+              fontWeight={900}
+              letterSpacing={-0.5}
+              textColor={palette.GRAY700}
+            >
+              {`myeonghan@naver.com`}
+              {/* {`${selectedApprovalNickname}의 이메일, userId를 받을 수 있음 (API 요청)`} */}
+            </Text>
+          </StyledEmailTextWrapper>
+        </StyledEmailContainer>
+        <Spacing size={34} />
         <Text
-          style={{ marginLeft: '28px' }}
-          font={'Body_18'}
+          style={{ marginLeft: '31px' }}
+          font={'Body_14'}
           fontWeight={900}
           letterSpacing={-0.5}
           textColor={palette.GRAY300}
@@ -66,37 +55,48 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
           {'명함 이미지'}
         </Text>
         <StyledImage src={businessCardExample} alt={'명함 이미지'} />
+        <Spacing size={26} />
+
         <StyledButtonsWrapper>
           <NormalButton onClick={handleAcceptCertificationBtn} normalButtonType={'admin-accept'}>
             {'인증 수락'}
           </NormalButton>
           <NormalButton normalButtonType={'admin-deny'}>{'거절'}</NormalButton>
         </StyledButtonsWrapper>
+        <Spacing size={18} />
       </StyledAdminApproveFormContainer>
-
-      <HomeNavigationBar isDarkMode={false} />
     </StyledAdminLoginOuterWrapper>
   )
 }
 
 const StyledAdminLoginOuterWrapper = styled.div`
   background-color: ${palette.PRIMARY};
+  overflow: scroll;
+  height: 662px;
 `
 
-const StyledImage = styled.img`
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  margin: 20px 0;
-`
 const StyledAdminApproveFormContainer = styled.div`
   background-color: ${palette.WHITE};
+  overflow: scroll;
 `
-const StyledEmailFormWrapper = styled.div`
+const StyledEmailTextWrapper = styled.div`
+  padding: 16px 34px 16px 34px;
+  background-color: ${palette.SKY_BLUE};
+  width: 246px;
+  border-radius: 20px;
+  text-align: center;
+`
+const StyledEmailContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 40px 0;
+`
+const StyledImage = styled.img`
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0 20px 0;
 `
 const StyledButtonsWrapper = styled.div`
   display: flex;

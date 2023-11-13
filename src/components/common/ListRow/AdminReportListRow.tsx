@@ -8,6 +8,7 @@ type AdminReportListRowProps = {
   nickname: string
   infoMessage: string | number
   isDarkMode: boolean
+
   onClick?: () => void
 }
 const AdminReportListRow = ({
@@ -72,7 +73,7 @@ const AdminReportListRow = ({
 
   return (
     <StyleList
-      width={308}
+      width={322}
       height={height}
       style={{
         padding: '0 20px 0px 20px',

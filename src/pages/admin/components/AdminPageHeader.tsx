@@ -14,14 +14,14 @@ const AdminPageHeader = ({ username }: AdminPageHeaderProps) => {
       <StyledAdminPageHeaderContainer>
         <StyledBackIcon>
           <BiLeftArrowAlt
-            size={'30px'}
+            size={'35px'}
             style={{
               color: palette.GRAY600,
               cursor: 'pointer',
             }}
           />
         </StyledBackIcon>
-        <Text font={'Body_18'} fontWeight={900} letterSpacing={-1}>
+        <Text font={'Body_20'} fontWeight={900} letterSpacing={-1}>
           <StyledUsernameWrapper>{username}</StyledUsernameWrapper>
         </Text>
 
@@ -39,13 +39,13 @@ const StyledAdminPageHeaderContainer = styled.div`
   justify-content: space-between;
   width: 90%;
   margin: 0 auto;
-  height: 70px;
+  height: 65px;
   background-color: ${palette.WHITE};
   border-bottom: 1px solid ${palette.GRAY300};
+  padding-top: 10px;
 `
 
 const StyledBackIcon = styled.span`
-  margin-left: 20px;
   cursor: pointer;
 `
 

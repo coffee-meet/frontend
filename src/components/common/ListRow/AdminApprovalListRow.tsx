@@ -8,6 +8,7 @@ type AdminApprovalListRowProps = {
   nickname: string
   infoMessage: string | number
   isDarkMode: boolean
+
   onClick?: () => void
 }
 const AdminApprovalListRow = ({
@@ -15,6 +16,7 @@ const AdminApprovalListRow = ({
   nickname,
   infoMessage,
   isDarkMode,
+
   onClick,
 }: AdminApprovalListRowProps) => {
   const renderInfoMessage = () => {
@@ -72,7 +74,7 @@ const AdminApprovalListRow = ({
 
   return (
     <StyleList
-      width={308}
+      width={322}
       height={height}
       style={{
         padding: '0 20px 0px 20px',
