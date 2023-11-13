@@ -4,19 +4,24 @@ import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
 type AdminApprovalListRowProps = {
+
   height: number
   nickname: string
   infoMessage: string | number
   isDarkMode: boolean
+
   onClick?: () => void
+
 }
 const AdminApprovalListRow = ({
   height,
   nickname,
   infoMessage,
   isDarkMode,
+
   onClick,
 }: AdminApprovalListRowProps) => {
+
   const renderInfoMessage = () => {
     if (typeof infoMessage === 'number') {
       return (
@@ -72,13 +77,17 @@ const AdminApprovalListRow = ({
 
   return (
     <StyleList
+
       width={322}
+
       height={height}
       style={{
         padding: '0 20px 0px 20px',
         borderBottom: `1px solid ${palette.GRAY300}`,
       }}
+
       onClick={onClick}
+
     >
       <Text
         font={'Body_16'}

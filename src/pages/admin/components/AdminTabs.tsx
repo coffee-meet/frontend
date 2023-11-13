@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import AdminApprovalList from '@/components/common/ListRow/AdminApprovalList'
 import AdminReportList from '@/components/common/ListRow/AdminReportList'
+
 import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
@@ -10,9 +11,11 @@ import { palette } from '@/styles/palette'
 import AdminApprovalInfo from './AdminApprovalInfo'
 import AdminReportInfo from './AdminReportInfo'
 
+
 interface TabProps {
   isActive: boolean
 }
+
 interface ReportListProps {
   onPersonReportedSelected: (reportNickname: string) => void
 }
@@ -42,6 +45,7 @@ const AdminTabs = () => {
   )
   // 탭에서 보여줄 컴포넌트들
 
+
   return (
     <>
       <StyledTabsContainer>
@@ -49,7 +53,9 @@ const AdminTabs = () => {
           <Text
             font={'Body_20'}
             fontWeight={600}
+
             letterSpacing={-0.5}
+
             textColor={activeTab === 'report' ? palette.GRAY300 : palette.BLACK}
           >
             {'승인 대기 목록'}
@@ -59,7 +65,9 @@ const AdminTabs = () => {
           <Text
             font={'Body_20'}
             fontWeight={600}
+
             letterSpacing={-0.5}
+
             textColor={activeTab === 'approval' ? palette.GRAY300 : palette.BLACK}
           >
             {'사용자 신고 내역'}
@@ -68,6 +76,7 @@ const AdminTabs = () => {
       </StyledTabsContainer>
 
       <StyledListContainer>
+
         {activeTab === 'approval' && (
           <ApprovalList onPersonApprovalSelected={handleApprovalSelectNickname} />
         )}
@@ -82,6 +91,7 @@ const AdminTabs = () => {
         )}
       </StyledListContainer>
       <HomeNavigationBar isDarkMode={false} />
+
     </>
   )
 }
@@ -97,6 +107,7 @@ const StyledListContainer = styled.div`
 `
 const StyledLeftTab = styled.button<TabProps>`
   flex: 1;
+
   padding: 27px 25px 23px 25px;
   cursor: pointer;
   background: ${(props) => (props.isActive ? palette.GRAY100 : palette.WHITE)};
@@ -112,6 +123,7 @@ const StyledRightTab = styled.button<TabProps>`
   background: ${(props) => (props.isActive ? palette.GRAY100 : palette.WHITE)};
   border: 1.5px solid ${palette.GRAY100};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
   border-radius: 0 30px 0 0;
 `
 

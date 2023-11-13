@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 
 import AdminReportListRow from '@/components/common/ListRow/AdminReportListRow'
 import { palette } from '@/styles/palette'
+
 interface AdminReportListProps {
   onReportSelect: (nickname: string) => void
 }
@@ -51,5 +52,6 @@ const StyledAdminReportListContainer = styled.div`
 const StyledAdminReportListContainerOuterWrapper = styled.div`
   background-color: ${palette.WHITE};
   width: 100%;
+
 `
 export default AdminReportList
