@@ -72,7 +72,7 @@ const AdminApprovalListRow = ({
 
   return (
     <StyleList
-      width={308}
+      width={322}
       height={height}
       style={{
         padding: '0 20px 0px 20px',

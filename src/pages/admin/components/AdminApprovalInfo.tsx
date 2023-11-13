@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 
 import businessCardExample from '@/assets/images/businessCardExample.jpg'
 import NormalButton from '@/components/common/Buttons/NormalButton'
+import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
 import { useModal } from '@/hooks/useModal'
 import { palette } from '@/styles/palette'
@@ -26,8 +27,9 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
     <StyledAdminLoginOuterWrapper>
       <AdminPageHeader username={selectedApprovalNickname} />
       <StyledAdminApproveFormContainer>
+        <Spacing size={10} />
         <StyledEmailContainer>
-          <Text font={'Body_16'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
+          <Text font={'Body_14'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
             {'이메일'}
           </Text>
           <StyledEmailTextWrapper>
@@ -42,10 +44,10 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
             </Text>
           </StyledEmailTextWrapper>
         </StyledEmailContainer>
-
+        <Spacing size={34} />
         <Text
           style={{ marginLeft: '31px' }}
-          font={'Body_16'}
+          font={'Body_14'}
           fontWeight={900}
           letterSpacing={-0.5}
           textColor={palette.GRAY300}
@@ -53,12 +55,15 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
           {'명함 이미지'}
         </Text>
         <StyledImage src={businessCardExample} alt={'명함 이미지'} />
+        <Spacing size={26} />
+
         <StyledButtonsWrapper>
           <NormalButton onClick={handleAcceptCertificationBtn} normalButtonType={'admin-accept'}>
             {'인증 수락'}
           </NormalButton>
           <NormalButton normalButtonType={'admin-deny'}>{'거절'}</NormalButton>
         </StyledButtonsWrapper>
+        <Spacing size={18} />
       </StyledAdminApproveFormContainer>
     </StyledAdminLoginOuterWrapper>
   )
@@ -66,19 +71,16 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
 
 const StyledAdminLoginOuterWrapper = styled.div`
   background-color: ${palette.PRIMARY};
+  overflow: scroll;
+  height: 662px;
 `
 
-const StyledImage = styled.img`
-  width: 100%;
-  max-width: 100%;
-  height: auto;
-  margin: 20px 0;
-`
 const StyledAdminApproveFormContainer = styled.div`
   background-color: ${palette.WHITE};
+  overflow: scroll;
 `
 const StyledEmailTextWrapper = styled.div`
-  padding: 16px 34px;
+  padding: 16px 34px 16px 34px;
   background-color: ${palette.SKY_BLUE};
   width: 246px;
   border-radius: 20px;
@@ -89,6 +91,12 @@ const StyledEmailContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   padding: 40px 0;
+`
+const StyledImage = styled.img`
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  margin: 20px 0 20px 0;
 `
 const StyledButtonsWrapper = styled.div`
   display: flex;

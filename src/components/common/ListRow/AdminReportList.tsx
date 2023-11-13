@@ -10,20 +10,20 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
     onReportSelect(nickname)
   }
   const AdminReportListData = [
-    { nickname: '유명한', height: 60, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '박상민', height: 60, infoMessage: '누적 2회', isDarkMode: false },
-    { nickname: '박은지', height: 60, infoMessage: '누적 2회', isDarkMode: false },
-    { nickname: '주다현', height: 60, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '남궁호수', height: 60, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '우창욱', height: 60, infoMessage: '누적 2회', isDarkMode: false },
-    { nickname: '홍길동', height: 60, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 60, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 60, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 60, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 60, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 60, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 60, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 60, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '유명한', height: 71, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '박상민', height: 71, infoMessage: '누적 2회', isDarkMode: false },
+    { nickname: '박은지', height: 71, infoMessage: '누적 2회', isDarkMode: false },
+    { nickname: '주다현', height: 71, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '남궁호수', height: 71, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '우창욱', height: 71, infoMessage: '누적 2회', isDarkMode: false },
+    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
+    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
   ]
 
   return (
@@ -43,7 +43,7 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
 const StyledAdminReportListContainer = styled.div`
   background-color: ${palette.WHITE};
   overflow: scroll;
-  height: 500px;
+  height: 662px;
   width: 80%;
   margin: auto;
   cursor: pointer;

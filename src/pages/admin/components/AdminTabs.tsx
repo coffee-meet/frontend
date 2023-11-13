@@ -49,7 +49,7 @@ const AdminTabs = () => {
           <Text
             font={'Body_20'}
             fontWeight={600}
-            letterSpacing={-1}
+            letterSpacing={-0.5}
             textColor={activeTab === 'report' ? palette.GRAY300 : palette.BLACK}
           >
             {'승인 대기 목록'}
@@ -59,7 +59,7 @@ const AdminTabs = () => {
           <Text
             font={'Body_20'}
             fontWeight={600}
-            letterSpacing={-1}
+            letterSpacing={-0.5}
             textColor={activeTab === 'approval' ? palette.GRAY300 : palette.BLACK}
           >
             {'사용자 신고 내역'}
@@ -97,7 +97,7 @@ const StyledListContainer = styled.div`
 `
 const StyledLeftTab = styled.button<TabProps>`
   flex: 1;
-  padding: 25px 20px;
+  padding: 27px 25px 23px 25px;
   cursor: pointer;
   background: ${(props) => (props.isActive ? palette.GRAY100 : palette.WHITE)};
   border: 1.5px solid ${palette.GRAY100};
@@ -105,8 +105,9 @@ const StyledLeftTab = styled.button<TabProps>`
   border-radius: 30px 0 0 0;
 `
 const StyledRightTab = styled.button<TabProps>`
+  padding: 27px 25px 23px 25px;
+
   flex: 1;
-  padding: 25px 20px;
   cursor: pointer;
   background: ${(props) => (props.isActive ? palette.GRAY100 : palette.WHITE)};
   border: 1.5px solid ${palette.GRAY100};
