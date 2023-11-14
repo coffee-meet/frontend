@@ -1,6 +1,6 @@
 export interface Approval {
-  name: string
-  status: string
+  approvalRequestUser: string
+  approvalRequestUserStatus: string
 }
 export interface ApprovalInfo {
   name: string

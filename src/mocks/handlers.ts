@@ -53,8 +53,31 @@ export const handlers = [
   // 승인 목록 API 핸들러
   http.get('/admin/approvals', () => {
     const approvals: Approval[] = [
-      { name: '박상민', status: '대기 중' },
-      { name: '유명한', status: '대기 중' },
+      { approvalRequestUser: '박상민', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '박은지', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '주다현', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '남궁호수', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '우창욱', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
     ]
     return HttpResponse.json({ approvals })
   }),
