@@ -25,18 +25,19 @@ const AdminTabs = () => {
   const [activeTab, setActiveTab] = useState('approval')
   const [selectedReportNickname, setSelectedReportNickname] = useState<string | null>(null)
   const [selectedApprovalNickname, setSelectedApprovalNickname] = useState<string | null>(null)
+  const [selectedApprovalUserID, setSelectedApprovalUserID] = useState<number | null>(null)
 
   const handleReportSelectNickname = (reportNickname: string) => {
     setSelectedReportNickname(reportNickname)
     setActiveTab('reportInfo')
   }
-  const handleApprovalSelectNickname = (approvalNickname: string) => {
+  const handleApprovalSelectUserName = (approvalNickname: string) => {
     setSelectedApprovalNickname(approvalNickname)
     setActiveTab('approvalInfo')
   }
 
   const ApprovalList = ({ onPersonApprovalSelected }: ApprovalListProps) => (
-    <AdminApprovalList onApproveSelect={onPersonApprovalSelected} />
+    <AdminApprovalList onApproveSelectUserName={onPersonApprovalSelected} />
   )
   const ReportList = ({ onPersonReportedSelected }: ReportListProps) => (
     <AdminReportList onReportSelect={onPersonReportedSelected} />
@@ -70,7 +71,7 @@ const AdminTabs = () => {
 
       <StyledListContainer>
         {activeTab === 'approval' && (
-          <ApprovalList onPersonApprovalSelected={handleApprovalSelectNickname} />
+          <ApprovalList onPersonApprovalSelected={handleApprovalSelectUserName} />
         )}
         {activeTab === 'report' && (
           <ReportList onPersonReportedSelected={handleReportSelectNickname} />

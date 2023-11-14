@@ -3,9 +3,9 @@ export interface Approval {
   approvalRequestUserStatus: string
 }
 export interface ApprovalInfo {
-  name: string
-  email: string
-  businessCardImage: string
+  approvalRequestUserName: string
+  approvalRequestUserEmail: string
+  approvalRequestUserBusinessCardImage: string
 }
 // req.body 오류 해결이 필요한 부분
 // export interface ApprovalResult {

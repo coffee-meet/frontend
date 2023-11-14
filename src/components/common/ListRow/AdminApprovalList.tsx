@@ -6,14 +6,14 @@ import AdminApprovalListRow from '@/components/common/ListRow/AdminApprovalListR
 import { palette } from '@/styles/palette'
 
 interface AdminApprovalListProps {
-  onApproveSelect: (nickname: string) => void
+  onApproveSelectUserName: (nickname: string) => void
 }
 interface ApprovalListData {
   approvalRequestUser: string
   approvalRequestUserStatus: string
 }
 
-const AdminApprovalList = ({ onApproveSelect }: AdminApprovalListProps) => {
+const AdminApprovalList = ({ onApproveSelectUserName }: AdminApprovalListProps) => {
   // API 요청 코드
   const { data, isSuccess } = useQuery(
     ['ApprovalRequestList'],
@@ -21,7 +21,7 @@ const AdminApprovalList = ({ onApproveSelect }: AdminApprovalListProps) => {
   )
 
   const handlePersonApproval = (nickname: string) => {
-    onApproveSelect(nickname)
+    onApproveSelectUserName(nickname)
   }
   const ApprovalDatas = data?.data.approvals
 
