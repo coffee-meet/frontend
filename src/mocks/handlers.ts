@@ -107,8 +107,20 @@ export const handlers = [
   // 신고 목록 API 핸들러
   http.get('/admin/reports', () => {
     const reports: Reports[] = [
-      { reportedUserName: '유명한', reportCount: 2 },
-      { reportedUserName: '박상민', reportCount: 1 },
+      { reportedUserName: '유명한', reportCount: 1 },
+      { reportedUserName: '박상민', reportCount: 2 },
+      { reportedUserName: '박은지', reportCount: 1 },
+      { reportedUserName: '주다현', reportCount: 1 },
+      { reportedUserName: '남궁호수', reportCount: 1 },
+      { reportedUserName: '우창욱', reportCount: 1 },
+      { reportedUserName: '홍길동', reportCount: 0 },
+      { reportedUserName: '홍길동', reportCount: 2 },
+      { reportedUserName: '홍길동', reportCount: 3 },
+      { reportedUserName: '홍길동', reportCount: 1 },
+      { reportedUserName: '홍길동', reportCount: 2 },
+      { reportedUserName: '홍길동', reportCount: 3 },
+      { reportedUserName: '홍길동', reportCount: 1 },
+      { reportedUserName: '홍길동', reportCount: 0 },
     ]
     return HttpResponse.json({ reports })
   }),
