@@ -3,9 +3,7 @@ import { StyleList } from '@/components/common/ListRow/ProfileListRow'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-
 type AdminReportListRowProps = {
-
   height: number
   nickname: string
   infoMessage: string | number
@@ -20,7 +18,6 @@ const AdminReportListRow = ({
   isDarkMode,
   onClick,
 }: AdminReportListRowProps) => {
-
   const renderInfoMessage = () => {
     if (typeof infoMessage === 'number') {
       return (
@@ -76,17 +73,13 @@ const AdminReportListRow = ({
 
   return (
     <StyleList
-
       width={322}
-
       height={height}
       style={{
         padding: '0 20px 0px 20px',
         borderBottom: `1px solid ${palette.GRAY300}`,
       }}
-
       onClick={onClick}
-
     >
       <Text
         font={'Body_16'}

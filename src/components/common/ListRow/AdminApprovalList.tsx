@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import AdminApprovalListRow from '@/components/common/ListRow/AdminApprovalListRow'
 import { palette } from '@/styles/palette'
 
-
 interface AdminApprovalListProps {
   onApproveSelect: (nickname: string) => void
 }

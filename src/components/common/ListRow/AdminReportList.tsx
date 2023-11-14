@@ -52,6 +52,5 @@ const StyledAdminReportListContainer = styled.div`
 const StyledAdminReportListContainerOuterWrapper = styled.div`
   background-color: ${palette.WHITE};
   width: 100%;
-
 `
 export default AdminReportList
