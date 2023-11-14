@@ -25,7 +25,6 @@ const AdminTabs = () => {
   const [activeTab, setActiveTab] = useState('approval')
   const [selectedReportNickname, setSelectedReportNickname] = useState<string | null>(null)
   const [selectedApprovalNickname, setSelectedApprovalNickname] = useState<string | null>(null)
-  const [selectedApprovalUserID, setSelectedApprovalUserID] = useState<number | null>(null)
 
   const handleReportSelectNickname = (reportNickname: string) => {
     setSelectedReportNickname(reportNickname)
