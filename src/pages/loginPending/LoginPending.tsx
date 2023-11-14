@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { local } from 'd3'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
 
@@ -17,6 +18,8 @@ const LoginPending = () => {
     await axiosAPI
       .get(`${import.meta.env.VITE_BASE_URL}/v1/users/login/${provider}?authCode=${authCode}`)
       .then((res) => {
+        console.log(res.data.accessToken)
+        localStorage.setItem('jwt', res.data.accessToken)
         setToken({
           accessToken: res.data.accessToken,
           refreshToken: res.data.refreshToken,
