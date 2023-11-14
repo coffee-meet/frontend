@@ -1,7 +1,5 @@
 import { http, HttpResponse } from 'msw'
 
-import businessCard from '@/assets/images/businessCard.jpg'
-
 import { Approval, ApprovalInfo, ReportInfo, Reports } from './handlersInterface'
 const nickname = '주다다'
 
@@ -90,7 +88,7 @@ export const handlers = [
     const approvalInfo: ApprovalInfo = {
       approvalRequestUserName: `userId:${userId}에 해당하는 userName`,
       approvalRequestUserEmail: `userId:${userId}에 해당하는 userName의 Email`,
-      approvalRequestUserBusinessCardImage: businessCard,
+      approvalRequestUserBusinessCardImage: `https://www.imageExample.jpg`,
     }
 
     return HttpResponse.json({ approvalInfo })
