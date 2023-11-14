@@ -1,13 +1,11 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
 
+import AlertText from '@/components/common/AlertText'
+import CountNumber from '@/components/common/CountNumber'
+import CustomSelectorButton from '@/components/common/CustomSelectorButton'
+import SelectorButton from '@/components/common/SelectorButton'
 import { palette } from '@/styles/palette'
-
-import AlertText from '../AlertText'
-import CountNumber from '../CountNumber'
-import CustomSelectorButton from '../CustomSelectorButton'
-import SelectorButton from '../SelectorButton'
-
 type SelectorButtonContainerProps = {
   isDarkMode: boolean
   buttonNames: string[]

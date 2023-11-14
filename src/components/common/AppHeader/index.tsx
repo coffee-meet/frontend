@@ -19,6 +19,29 @@ const StyleAppHeader = styled.div<{ height?: string }>`
   padding: 6.5% 5% 7%;
 `
 
+const StyledAppHeaderLargeText = styled(Text)<Pick<AppHeaderProps, 'isDarkMode'>>`
+  font: Body_24;
+  font-weight: 600;
+  letter-spacing: -0.5;
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.WHITE : palette.DARK_WHITE)};
+  margin-right: 5px;
+
+  @media (max-width: 280px) {
+    font-size: 1.25rem;
+  }
+`
+
+const StyledAppHeaderSmallText = styled(Text)<Pick<AppHeaderProps, 'isDarkMode'>>`
+  font: Body_18;
+  font-weight: 600;
+  letter-spacing: -0.5;
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.WHITE : palette.DARK_WHITE)};
+
+  @media (max-width: 280px) {
+    font-size: 0.85rem;
+  }
+`
+
 type AppHeaderProps = {
   nickname: string
   isDarkMode: boolean
@@ -77,7 +100,8 @@ const AppHeader = ({ nickname, isDarkMode, height, toggleDarkMode }: AppHeaderPr
         )}
       </FlexBox>
       <FlexBox align={'flex-end'}>
-        <Text
+        <StyledAppHeaderLargeText
+          isDarkMode={isDarkMode}
           font={'Body_24'}
           fontWeight={600}
           letterSpacing={-0.5}
@@ -87,8 +111,9 @@ const AppHeader = ({ nickname, isDarkMode, height, toggleDarkMode }: AppHeaderPr
           }}
         >
           {nickname}
-        </Text>
-        <Text
+        </StyledAppHeaderLargeText>
+        <StyledAppHeaderSmallText
+          isDarkMode={isDarkMode}
           font={'Body_18'}
           fontWeight={600}
           letterSpacing={-0.5}
@@ -97,7 +122,7 @@ const AppHeader = ({ nickname, isDarkMode, height, toggleDarkMode }: AppHeaderPr
           }}
         >
           {'님, 안녕하세요! 오늘도 즐거운 커피밋! ☕️'}
-        </Text>
+        </StyledAppHeaderSmallText>
       </FlexBox>
     </StyleAppHeader>
   )
