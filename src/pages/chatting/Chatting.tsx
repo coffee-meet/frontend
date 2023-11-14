@@ -5,6 +5,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 
+import { axiosAPI } from '@/apis/axios'
 import { ChattingApi } from '@/apis/chatting/chattingApi'
 import { Messages } from '@/apis/chatting/chattingType'
 import ExitIcon from '@/assets/icons/ExitIcon'
@@ -15,26 +16,36 @@ import Loading from '@/components/common/Loading'
 import PageContainer from '@/components/common/PageContainer'
 import PageHeader from '@/components/common/PageHeader'
 import Spacing from '@/components/common/Spacing'
+import TextArea from '@/components/common/TextArea'
 import MessageArea from '@/components/messageArea'
 import { useModal } from '@/hooks/useModal'
+import useAuthStore from '@/store/AuthStore'
 import { palette } from '@/styles/palette'
 
 const Chatting = () => {
   const { openModal } = useModal()
   const navigate = useNavigate()
-  const chatroomId = ''
+  const chatroomId = '1'
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
   const [inputValue, setInputValue] = useState('')
-  const { data, isLoading } = useQuery(['messages'], () => getDetailMessages, {
-    onSuccess: async (responseData: Messages[]) => {
-      setMessages(responseData)
-    },
-  })
+  const { authTokens } = useAuthStore()
+  const messageRef = useRef<HTMLTextAreaElement>(null)
+  const messageWrapperRef = useRef<HTMLDivElement>(null)
+  const divRef = useRef<HTMLDivElement>(null)
+
+  console.log(authTokens?.accessToken)
+  // const { data, isLoading } = useQuery(['messages'], () => getDetailMessages, {
+  //   onSuccess: (responseData: Messages[]) => {
+  //     setMessages(responseData)
+  //     console.log(responseData)
+  //   },
+  // })
 
   const getDetailMessages = async () => {
     try {
       const response = await ChattingApi.GET_DETAIL_MESSAGES()
       console.log(response)
+      setMessages(response)
     } catch (error) {
       console.error('Message fetching error')
     }
@@ -49,12 +60,16 @@ const Chatting = () => {
         console.log('소켓 연결완료')
         subscribe()
       },
+      onDisconnect: (response) => {
+        console.log(response)
+      },
       connectHeaders: {
         Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjk5MzQ3NjQ5fQ.pc39bNfs2NXsFmkRvOM0JzhAgdvec585fZ5zotPBupWAsFW_DEWcETcdz7VPa9vJ9zzNukO4yUcZo-Gf9sB12Q`,
       },
     })
     client.current.activate()
   }
+
   const subscribe = () => {
     console.log('구독 함수 실행')
     if (client.current) {
@@ -70,13 +85,17 @@ const Chatting = () => {
     e.preventDefault()
     send(inputValue)
   }
-  const deleteChattingRoom = () => {
+  const handleClickExitRoom = () => {
     openModal({
       mainText: '채팅방을 나가시겠습니까?',
       subText: '채팅방을 1명이라도  나가면  해당 채팅방은 폭파됩니다.',
-      okFunc: () => {},
+      okFunc: () => deleteChattingRoom(),
       type: 'confirm',
     })
+  }
+  const deleteChattingRoom = async () => {
+    navigate('/')
+    return await axiosAPI.delete(`/v1/chatrooms/${chatroomId}`)
   }
   const navigateHome = () => {
     navigate('/')
@@ -96,6 +115,9 @@ const Chatting = () => {
         },
       })
     }
+    if (messageWrapperRef.current) {
+      messageWrapperRef.current.scrollTop = messageWrapperRef.current.scrollHeight
+    }
     setInputValue('')
   }
   const disconnect = () => {
@@ -103,37 +125,49 @@ const Chatting = () => {
   }
 
   useEffect(() => {
+    if (messageWrapperRef.current !== null)
+      messageWrapperRef.current.scrollTop = messageWrapperRef.current.scrollHeight
+  })
+
+  useEffect(() => {
     connect()
     return () => disconnect()
   }, [chatroomId])
+
+  useEffect(() => {
+    getDetailMessages()
+  }, [])
 
   return (
     <>
       <GradationBackground isDarkMode={false}>
         <Spacing size={46} />
-        <PageContainer isDarkMode={false}>
-          <PageHeader
-            title={'Matching Room Name'}
-            hasBackground={true}
-            leftIcon={
-              <BsArrowLeftShort size={32} color={`${palette.GRAY500}`} onClick={navigateHome} />
-            }
-            rightIcon={<ExitIcon exitClick={deleteChattingRoom} />}
-          ></PageHeader>
-          {isLoading ? (
+        <PageContainer isDarkMode={false} height={'100%'}>
+          <StyleChattingWrapper ref={divRef}>
+            <PageHeader
+              title={'Matching Room Name'}
+              hasBackground={true}
+              leftIcon={
+                <BsArrowLeftShort size={32} color={`${palette.GRAY500}`} onClick={navigateHome} />
+              }
+              rightIcon={<ExitIcon exitClick={handleClickExitRoom} />}
+            ></PageHeader>
+            {/* {isLoading ? (
             <Loading />
-          ) : (
-            <StyleMessageWrapper>
+          ) : ( */}
+            <StyleMessageWrapper ref={messageWrapperRef}>
               {messages && <MessageArea messageData={messages} />}
             </StyleMessageWrapper>
-          )}
-          <StyleTypingFlexBox gap={10}>
-            {/* <StyleTextArea width={'321px'} height={'36px'} borderRadius={'10px'} /> */}
-            <StyleInput onChange={(e) => setInputValue(e.target.value)} value={inputValue} />
-            <StyleSubmitButton onClick={(e) => handleSubmit(e)}>
-              <StyleIcon src={Send} />
-            </StyleSubmitButton>
-          </StyleTypingFlexBox>
+            {/* )} */}
+            <StyleTypingFlexBox gap={10}>
+              {/* <StyleTextArea width={'321px'} height={'36px'} borderRadius={'10px'} /> */}
+              {/* <StyleInput onChange={(e) => setInputValue(e.target.value)} value={inputValue} /> */}
+              <TextArea ref={messageRef}></TextArea>
+              <StyleSubmitButton onClick={(e) => handleSubmit(e)}>
+                <StyleIcon src={Send} />
+              </StyleSubmitButton>
+            </StyleTypingFlexBox>
+          </StyleChattingWrapper>
         </PageContainer>
       </GradationBackground>
     </>
@@ -148,7 +182,7 @@ const StyleTypingFlexBox = styled(FlexBox)`
   padding: 10px;
   border-radius: 10px;
 `
-
+const StyleChattingWrapper = styled.span``
 const StyleInput = styled.input`
   width: 321px;
   height: 36px;
@@ -157,9 +191,9 @@ const StyleInput = styled.input`
   border: none;
 `
 const StyleMessageWrapper = styled.div`
-  height: calc(100% - 120px);
+  height: calc(100% - 145px);
   flex: 1;
-  overflow-y: auto;
+  overflow-y: scroll;
   scroll-behavior: smooth;
 `
 

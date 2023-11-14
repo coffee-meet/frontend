@@ -19,6 +19,7 @@ const MessageArea = ({ messageData }: MessageProps) => {
             <ChattingBubble isMyChat={true} message={message.content} time={'15:44'} />
           </StyleChattingBubbleWrapper>
         ))}
+        <Spacing size={20} />
       </FlexBox>
     </>
   )
@@ -26,5 +27,7 @@ const MessageArea = ({ messageData }: MessageProps) => {
 
 const StyleChattingBubbleWrapper = styled.div<{ isMyChat: boolean }>`
   width: 100%;
+  /* padding-left: ${(props) => props.isMyChat && '10%'};
+  padding-right: ${(props) => !props.isMyChat && '10%'}; */
 `
 export default MessageArea

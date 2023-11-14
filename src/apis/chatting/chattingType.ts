@@ -1,5 +1,6 @@
 export type Messages = {
-  content: string
+  messageId: string
   nickname: string
+  content: string
   createdAt: string
 }
