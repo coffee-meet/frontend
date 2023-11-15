@@ -94,17 +94,17 @@ export const handlers = [
     return HttpResponse.json({ approvalInfo })
   }),
 
-  http.post('/admin/login', (req) => {
-    const { adminId, adminPassword } = req.body
-    const isValidUser = adminId === 'expectedId' && adminPassword === 'expectedPassword'
-    const adminLoginInfo: AdminLoginInfo = {
-      adminLoginResult: isValidUser ? 'success' : 'error',
-      adminLoginMessage: isValidUser ? 'Authentication successful' : 'Invalid credentials',
-    }
-    return HttpResponse.json({
-      adminLoginInfo,
-    })
-  }),
+  // http.post('/admin/login', (req) => {
+  //   const { adminId, adminPassword } = req.body
+  //   const isValidUser = adminId === 'expectedId' && adminPassword === 'expectedPassword'
+  //   const adminLoginInfo: AdminLoginInfo = {
+  //     adminLoginResult: isValidUser ? 'success' : 'error',
+  //     adminLoginMessage: isValidUser ? 'Authentication successful' : 'Invalid credentials',
+  //   }
+  //   return HttpResponse.json({
+  //     adminLoginInfo,
+  //   })
+  // }),
 
   // 승인/거절 처리 API 핸들러
   // req.body 오류 해결이 필요한 부분
