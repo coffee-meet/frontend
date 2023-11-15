@@ -27,3 +27,8 @@ export interface ReportInfo {
 // export interface ReportResult {
 //   result: string
 // }
+
+export interface AdminLoginInfo {
+  adminLoginResult: string
+  adminLoginMessage: string
+}

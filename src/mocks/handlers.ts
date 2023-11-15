@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-import { Approval, ApprovalInfo, ReportInfo, Reports } from './handlersInterface'
+import { AdminLoginInfo, Approval, ApprovalInfo, ReportInfo, Reports } from './handlersInterface'
 const nickname = '주다다'
 
 export const handlers = [
@@ -94,6 +94,18 @@ export const handlers = [
     return HttpResponse.json({ approvalInfo })
   }),
 
+  http.post('/admin/login', (req) => {
+    const { adminId, adminPassword } = req.body
+    const isValidUser = adminId === 'expectedId' && adminPassword === 'expectedPassword'
+    const adminLoginInfo: AdminLoginInfo = {
+      adminLoginResult: isValidUser ? 'success' : 'error',
+      adminLoginMessage: isValidUser ? 'Authentication successful' : 'Invalid credentials',
+    }
+    return HttpResponse.json({
+      adminLoginInfo,
+    })
+  }),
+
   // 승인/거절 처리 API 핸들러
   // req.body 오류 해결이 필요한 부분
   // http.post('/admin/approvals/:userId/action', (req) => {
@@ -143,7 +155,7 @@ export const handlers = [
   }),
 
   // // 신고 처리 API 핸들러
-  // req.body 오류 해결이 필요한 부분
+  // // req.body 오류 해결이 필요한 부분
   // http.post('/admin/reports/:userId/action', (req) => {
   //   const { userId } = req.params
   //   const { action } = req.body
