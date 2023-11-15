@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw'
 
-import { AdminLoginInfo, Approval, ApprovalInfo, ReportInfo, Reports } from './handlersInterface'
+import { Approval, ApprovalInfo, ReportInfo, Reports } from './handlersInterface'
 const nickname = '주다다'
 
 export const handlers = [
