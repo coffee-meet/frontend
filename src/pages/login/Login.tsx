@@ -2,6 +2,7 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 import { KakaoButton, NaverButton } from '@/components/common/Buttons/IconButton'
+import NormalButton from '@/components/common/Buttons/NormalButton'
 import HeroImage from '@/components/common/HeroImage'
 import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
@@ -50,7 +51,9 @@ const Login = () => {
             }
           `}
         />
-
+        <StyledAdminLoginBtn>
+          <NormalButton normalButtonType={'nickname-duplicate'}>{'관리자 로그인'}</NormalButton>
+        </StyledAdminLoginBtn>
         <StyledSubText font={'Body_18'} fontWeight={500} letterSpacing={-1}>
           {'회사의 경계를 넘어, '}
         </StyledSubText>
@@ -62,7 +65,6 @@ const Login = () => {
             }
           `}
         />
-
         <StyledSubText font={'Body_18'} fontWeight={500} letterSpacing={-1}>
           {' 새로운 대화의 세계를 탐험하세요!'}
         </StyledSubText>
@@ -74,7 +76,6 @@ const Login = () => {
             }
           `}
         />
-
         <StyledOauthWrapper>
           <NaverButton
             moveToOAuthProvider={() => {
@@ -136,5 +137,10 @@ const StyledSubText = styled(Text)`
   @media (max-width: 280px) {
     font-size: 14px;
   }
+`
+const StyledAdminLoginBtn = styled.div`
+  position: absolute;
+  cursor: pointer;
+  opacity: 0;
 `
 export default Login
