@@ -93,7 +93,7 @@ export const handlers = [
 
     return HttpResponse.json({ approvalInfo })
   }),
-
+  // 관리자 로그인 요청 API 핸들러
   // http.post('/admin/login', (req) => {
   //   const { adminId, adminPassword } = req.body
   //   const isValidUser = adminId === 'expectedId' && adminPassword === 'expectedPassword'
