@@ -35,7 +35,7 @@ const Home = () => {
           letterSpacing={-0.5}
           style={{
             margin: '33px 0 22px 0',
-            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.BLACK}`,
+            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
           }}
         >
           {'진행중인 매칭'}
@@ -53,7 +53,7 @@ const Home = () => {
           letterSpacing={-0.5}
           style={{
             margin: '32px 0 13px 0',
-            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.BLACK}`,
+            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
           }}
         >
           {'커피밋의 추천기능'}

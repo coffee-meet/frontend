@@ -1,14 +1,21 @@
 import styled from '@emotion/styled'
 import { AnimatePresence, motion } from 'framer-motion'
-import { MouseEvent, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 
+import { axiosAPI } from '@/apis/axios'
 import Avatar from '@/components/common/Avatar'
 import { Text } from '@/components/common/Text'
+import useBottomSheetStore from '@/store/BottomSheetStore'
 import { palette } from '@/styles/palette'
 
 import { InterestButton } from '../Buttons/IconButton'
-
+type OpponentUserData = {
+  nickname: string
+  profileImageUrl: string
+  department: string
+  interests: string[]
+}
 const Background = styled(motion.div)`
   width: 100%;
   height: 100%;
@@ -64,15 +71,29 @@ type ProfileSheetProps = {
 
 const ProfileSheet = ({ title, isDarkMode }: ProfileSheetProps) => {
   const [isOpen, setIsOpen] = useState(true) // ProfileSheet의 상태
-
+  const { setBottomSheetState, userId } = useBottomSheetStore()
+  const [opponentUserProfile, setOpponentUserProfile] = useState<OpponentUserData>({
+    nickname: '',
+    profileImageUrl: '',
+    department: '',
+    interests: [],
+  })
   const handleWrapperClick = (e: MouseEvent) => {
     e.stopPropagation()
   }
 
   const toggleProfileSheet = () => {
     setIsOpen(false)
+    setBottomSheetState(false)
   }
-
+  const getOpponentUserProfile = async () => {
+    const response = await axiosAPI.get(`/api/v1/users/${userId}`)
+    console.log(response)
+    setOpponentUserProfile(response.data)
+  }
+  useEffect(() => {
+    getOpponentUserProfile()
+  })
   const slideUp = {
     hidden: { y: '100%', opacity: 0 },
     visible: { y: '0%', opacity: 1, transition: { type: 'spring', damping: 15, stiffness: 100 } },
@@ -133,12 +154,14 @@ const ProfileSheet = ({ title, isDarkMode }: ProfileSheetProps) => {
               <Avatar
                 width={124}
                 height={124}
-                imgUrl={'https://i.imgur.com/VwJQ2KB.png'}
+                imgUrl={
+                  opponentUserProfile.profileImageUrl ? opponentUserProfile.profileImageUrl : ''
+                }
                 margin={'24px 0 42px 0'}
               />
               <InterestButton
-                nickName={'우땅'}
-                interests={['웹 소프트웨어 개발', '취업', '주식']}
+                nickName={opponentUserProfile.nickname}
+                interests={opponentUserProfile.interests}
                 isDarkMode={isDarkMode}
               />
             </BottomContent>

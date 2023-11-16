@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
 
@@ -19,6 +20,8 @@ const LoginPending = () => {
       .then((res) => {
         console.log(res.data.accessToken)
         localStorage.setItem('jwt', res.data.accessToken)
+        localStorage.setItem('nickname', res.data.nickname)
+
         setToken({
           accessToken: res.data.accessToken,
           refreshToken: res.data.refreshToken,
@@ -30,8 +33,9 @@ const LoginPending = () => {
         }
       })
   }
-
-  routeAuthInfo()
+  useEffect(() => {
+    routeAuthInfo()
+  }, [])
 
   return (
     <StyledLoginPending>
