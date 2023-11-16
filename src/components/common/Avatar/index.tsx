@@ -13,7 +13,6 @@ type AvatarProps = {
   style?: React.CSSProperties
 }
 
-
 /**
  * `Avatar` component for displaying profile images.
  * @param width - 아바타의 너비 (픽셀 또는 유효한 CSS 단위).

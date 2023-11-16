@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-
 type PageHeaderProps = {
   title: string
   leftIcon?: React.ReactNode
