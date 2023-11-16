@@ -12,7 +12,10 @@ import { FlexBox } from '@/components/common/Flexbox'
 import RegisterInput from '@/components/common/RegisterInput'
 import SelectorButtonContainer from '@/components/common/SelectorButtonContainer'
 import Spacing from '@/components/common/Spacing'
+import useToast from '@/hooks/useToast'
+import useAuthStore from '@/store/AuthStore'
 import useInterestStore from '@/store/InterestStore'
+import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
 
@@ -39,14 +42,18 @@ const RegisterUser = () => {
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
   let nickname = ''
   const { interestList } = useInterestStore()
+  const { provider } = useAuthStore()
+  const { showToast } = useToast()
+  const isDarkMode = useThemeStore((state) => state.isDarkMode)
 
-  const handleClickDoubleCheck = async (nickname: string) => {
+  const getNicknameValid = async (nickname: string) => {
     return await axiosAPI.get(`/v1/users/duplicate?nickname=${nickname}`)
   }
-  const doubleCheckMutation = useMutation((nickname: string) => handleClickDoubleCheck(nickname), {
+  const doubleCheckMutation = useMutation((nickname: string) => getNicknameValid(nickname), {
     onSuccess: (response) => {
       if (response.status == 200) {
         //사용가능한 닉네임일 경우
+        console.log(response)
         setDoubleChecked(true)
         setNicknameDuplicated(false)
       } else {
@@ -58,30 +65,53 @@ const RegisterUser = () => {
     onError: () => {},
   })
   const doubleCheckNickName = async () => {
-    if (inputRef.current && inputRef.current.value.length == 0) {
+    if (inputRef.current !== null && inputRef.current.value.length == 0) {
       setDoubleChecked(null)
       return
     }
-    if (inputRef.current == null) return
-
-    nickname = inputRef.current.value
-    doubleCheckMutation.mutate(nickname)
+    if (inputRef.current !== null) {
+      nickname = inputRef.current.value
+      doubleCheckMutation.mutate(nickname)
+      // const response = getNicknameValid(nickname)
+      // console.log(response)
+    }
   }
   const formValidation = () => {
-    if (nickname.length === 0) return false
-    else if (doubleChecked) return false
-    else if (nicknameDuplicated) return false
-    else return true
+    console.log(doubleChecked)
+    if (inputRef.current !== null && inputRef.current.value.length === 0) {
+      showToast({
+        message: '닉네임을 입력하세요!',
+        type: 'warning',
+        isDarkMode,
+      })
+      return false
+    } else if (!doubleChecked) {
+      showToast({
+        message: '중복검사를 해주세요!',
+        type: 'warning',
+        isDarkMode,
+      })
+      return false
+    } else if (nicknameDuplicated) {
+      showToast({
+        message: '사용할 수 없는 닉네임입니다.',
+        type: 'warning',
+        isDarkMode,
+      })
+      return false
+    } else {
+      return true
+    }
   }
   const submitUserProfileData = () => {
-    if (!formValidation()) {
+    if (formValidation()) {
       console.log(nickname, interestList)
       if (doubleChecked && inputRef.current !== null && interestList.length > 0) {
         const body = {
           authCode: authCode,
-          nickname: nickname,
+          nickname: inputRef.current.value,
           keywords: interestList,
-          oAuthProvider: 'KAKAO',
+          oAuthProvider: provider,
         }
         console.log(body)
         registerMutation.mutate(body)
@@ -91,9 +121,16 @@ const RegisterUser = () => {
   const registerPost = async (body: object) => {
     return await axiosAPI.post('/v1/users/sign-up', body)
   }
+
   const registerMutation = useMutation((body: object) => registerPost(body), {
     onSuccess: (response) => {
       console.log(response)
+      showToast({
+        message: '닉네임, 관심사 정보 등록을 완료했습니다!',
+        type: 'success',
+        isDarkMode,
+      })
+
       navigate('/register/company')
     },
     onError: (err) => {
@@ -117,7 +154,7 @@ const RegisterUser = () => {
       <Spacing size={73} />
       <FlexBox gap={16}>
         <RegisterInput width={260} placeholder={'닉네임'} ref={inputRef} />
-        <NormalButton normalButtonType={'nickname-duplicate'} onClick={() => doubleCheckNickName()}>
+        <NormalButton normalButtonType={'nickname-duplicate'} onClick={doubleCheckNickName}>
           {'중복확인'}
         </NormalButton>
       </FlexBox>

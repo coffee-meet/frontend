@@ -14,7 +14,7 @@ export type IconButtonType =
 
 export const iconButtonStyles: Record<IconButtonType, NormalButtonStyle> = {
   interest: {
-    width: '339px',
+    width: '100%',
     height: 70,
     fontColor: palette.WHITE,
     font: 'Body_18',
@@ -25,7 +25,7 @@ export const iconButtonStyles: Record<IconButtonType, NormalButtonStyle> = {
     backgroundColor: `linear-gradient(96deg, #7382F8 49.74%, #A6BCFC 93.87%);`,
   },
   'interest-dark': {
-    width: '339px',
+    width: '100%',
     height: 70,
     fontColor: palette.DARK_WHITE,
     font: 'Body_18',
