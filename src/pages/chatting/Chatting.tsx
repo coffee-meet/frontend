@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import * as Stomp from '@stomp/stompjs'
-import { useQuery } from '@tanstack/react-query'
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
@@ -13,7 +12,6 @@ import Send from '@/assets/icons/Send.svg'
 import ProfileSheet from '@/components/common/BottomSheet/ProfileSheet'
 import { FlexBox } from '@/components/common/Flexbox'
 import GradationBackground from '@/components/common/GradationBackground'
-import Loading from '@/components/common/Loading'
 import PageContainer from '@/components/common/PageContainer'
 import PageHeader from '@/components/common/PageHeader'
 import Spacing from '@/components/common/Spacing'
@@ -186,13 +184,13 @@ const StyleTypingFlexBox = styled(FlexBox)`
   border-radius: 10px;
 `
 const StyleChattingWrapper = styled.span``
-const StyleInput = styled.input`
-  width: 321px;
-  height: 36px;
-  border-radius: 10px;
-  padding: 0 12px;
-  border: none;
-`
+// const StyleInput = styled.input`
+//   width: 321px;
+//   height: 36px;
+//   border-radius: 10px;
+//   padding: 0 12px;
+//   border: none;
+// `
 const StyleMessageWrapper = styled.div`
   height: calc(100% - 145px);
   flex: 1;

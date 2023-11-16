@@ -1,9 +1,8 @@
 import styled from '@emotion/styled'
-import { type ComponentProps, type ReactNode, useState } from 'react'
+import { type ComponentProps, type ReactNode } from 'react'
 
 import defaultProfileImage from '@/assets/images/defaultProfileImage.png'
 import Avatar from '@/components/common/Avatar'
-import ProfileSheet from '@/components/common/BottomSheet/ProfileSheet'
 import { ChattingText } from '@/components/common/ChattingText'
 import useBottomSheetStore from '@/store/BottomSheetStore'
 import { type KeyOfPalette, type KeyOfTypo } from '@/styles/theme'
