@@ -21,6 +21,7 @@ const LoginPending = () => {
         console.log(res.data.accessToken)
         localStorage.setItem('jwt', res.data.accessToken)
         localStorage.setItem('nickname', res.data.nickname)
+
         setToken({
           accessToken: res.data.accessToken,
           refreshToken: res.data.refreshToken,

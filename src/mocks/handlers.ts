@@ -1,16 +1,8 @@
 import { http, HttpResponse } from 'msw'
-
 const nickname = '주다다'
 export const handlers = [
-  http.get(`/v1/users/duplicate?nickname=${nickname}`, async () => {
-    return HttpResponse.json({
-      duplicate: true,
-    })
-  }),
-
   http.get('/v1/histories', () => {
     return HttpResponse.json([
-      //https://github.com/coffee-meet/frontend/pull/125/conflict?name=src%252Fmocks%252Fhandlers.ts&ancestor_oid=754b9948060f7dc0a13eabf5683fc01c1cc625f2&base_oid=9d66112fef597345b51b9ba8a5c9e672cb7f165d&head_oid=9bea8f50e6adda8dafdc0d062f4ca3a31657fb0c   ,
       {
         title: '🥤️ 차가운 아메리카노-6',
         participants: ['우땅', '빅맘', '롤로노아 조로'],

@@ -1,3 +1,4 @@
+
 import styled from '@emotion/styled'
 import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
@@ -47,6 +48,10 @@ const ChatList = () => {
           }
           isDarkMode={isDarkMode}
           hasBackground={true}
+          style={{
+            position: 'fixed',
+            zIndex: 1,
+          }}
         />
         {isSuccess && (
           <motion.div variants={containerVariants} initial={'hidden'} animate={'visible'}>

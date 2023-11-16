@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import AppHeader from '@/components/common/AppHeader'
 import { ParticularTopicButton } from '@/components/common/Buttons/IconButton'
 import GradationBackground from '@/components/common/GradationBackground'
@@ -13,6 +15,7 @@ const Home = () => {
   const nickname = '우땅'
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode)
+  const [isMatching, setIsMatching] = useState(false)
 
   const { showToast } = useToast()
 
@@ -37,7 +40,13 @@ const Home = () => {
         >
           {'진행중인 매칭'}
         </Text>
-        <Card isDarkMode={isDarkMode} />
+        <Card
+          isMatching={isMatching}
+          onClick={() => {
+            setIsMatching((prev) => !prev)
+          }}
+          isDarkMode={isDarkMode}
+        />
         <Text
           font={'Body_16'}
           fontWeight={600}

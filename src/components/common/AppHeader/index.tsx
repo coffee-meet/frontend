@@ -42,6 +42,29 @@ const StyledAppHeaderSmallText = styled(Text)<Pick<AppHeaderProps, 'isDarkMode'>
   }
 `
 
+const StyledAppHeaderLargeText = styled(Text)<Pick<AppHeaderProps, 'isDarkMode'>>`
+  font: Body_24;
+  font-weight: 600;
+  letter-spacing: -0.5;
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.WHITE : palette.DARK_WHITE)};
+  margin-right: 5px;
+
+  @media (max-width: 280px) {
+    font-size: 1.25rem;
+  }
+`
+
+const StyledAppHeaderSmallText = styled(Text)<Pick<AppHeaderProps, 'isDarkMode'>>`
+  font: Body_18;
+  font-weight: 600;
+  letter-spacing: -0.5;
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.WHITE : palette.DARK_WHITE)};
+
+  @media (max-width: 280px) {
+    font-size: 0.85rem;
+  }
+`
+
 type AppHeaderProps = {
   nickname: string
   isDarkMode: boolean
