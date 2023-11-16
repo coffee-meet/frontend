@@ -17,13 +17,7 @@ export interface TextProps extends HTMLAttributes<HTMLDivElement> {
 
 export type TextPropsKey = 'typo' | 'color'
 
-export const ChattingText = ({
-  typo = 'Body_16',
-  as = 'h1',
-  color,
-  children,
-  ...props
-}: TextProps) => {
+export const ChattingText = ({ typo, as = 'h1', color, children, ...props }: TextProps) => {
   return (
     <StyledText typoKey={typo} as={as} colorKey={color} {...props}>
       {children}
@@ -36,6 +30,9 @@ const StyledText = styled.span<{
   colorKey?: TextType['color']
 }>`
   white-space: pre-wrap;
+  font-size: ${({ typoKey }) => {
+    return typoKey && theme.typo[typoKey]()
+  }};
   color: ${({ colorKey }) => {
     return colorKey && theme.palette[colorKey]
   }};
