@@ -1,13 +1,17 @@
 import styled from '@emotion/styled'
-import { type ComponentProps, type ReactNode } from 'react'
+import { type ComponentProps, type ReactNode, useState } from 'react'
 
 import defaultProfileImage from '@/assets/images/defaultProfileImage.png'
 import Avatar from '@/components/common/Avatar'
+import ProfileSheet from '@/components/common/BottomSheet/ProfileSheet'
 import { ChattingText } from '@/components/common/ChattingText'
+import useBottomSheetStore from '@/store/BottomSheetStore'
 import { type KeyOfPalette, type KeyOfTypo } from '@/styles/theme'
 
 interface ListRowProps extends ComponentProps<'div'> {
   rightElement: ReactNode
+  userId: string
+  profileImageUrl: string
   leftImage?: string | undefined
   mainText: ReactNode
   textTypo?: KeyOfTypo
@@ -30,30 +34,40 @@ interface ListRowProps extends ComponentProps<'div'> {
  * @param fullWidth : true로 설정할 경우 width: 100%, 기본값 true
  */
 
-const ListRow = ({
+const ChatBubbleListLow = ({
   rightElement,
+  userId,
+  profileImageUrl,
   leftImage = defaultProfileImage,
   mainText,
   textTypo = 'Body_12',
-  textColor = 'BLACK',
+  textColor = 'GRAY500',
   gap = 4,
-  imageGap = 8,
+  imageGap = 5,
   subElement,
   fullWidth = true,
   ...props
 }: ListRowProps) => {
+  const { setBottomSheetState, setUserId } = useBottomSheetStore()
+  const handleBottomSheet = () => {
+    setBottomSheetState(true)
+    setUserId(userId)
+  }
   return (
-    // TODO: Padding 컴포넌트 생성되면 추후 Padding도 추가할 예정입니다.
-    <MainFlexBox fullWidth={fullWidth} {...props}>
-      <SubFlexBox gap={imageGap}>
-        {leftImage ? <Avatar width={35} height={35} imgUrl={leftImage} margin={'0'} /> : ''}
-        <TextFlexBox gap={gap}>
-          <StyledText text={mainText} typo={textTypo} color={textColor} />
-          {subElement && subElement}
-        </TextFlexBox>
-      </SubFlexBox>
-      {rightElement}
-    </MainFlexBox>
+    <>
+      <MainFlexBox fullWidth={fullWidth} {...props}>
+        <SubFlexBox gap={imageGap}>
+          <StyleAvatarWrapper onClick={handleBottomSheet}>
+            {leftImage ? <Avatar width={35} height={35} imgUrl={leftImage} margin={'0'} /> : ''}
+          </StyleAvatarWrapper>
+          <TextFlexBox gap={gap}>
+            <StyledText text={mainText} typo={textTypo} color={textColor} />
+            {subElement && subElement}
+          </TextFlexBox>
+        </SubFlexBox>
+        {rightElement}
+      </MainFlexBox>
+    </>
   )
 }
 
@@ -70,13 +84,14 @@ const SubFlexBox = styled.div<{ gap: number }>`
   align-items: center;
   gap: ${({ gap }) => `${gap}px`};
 `
-
+const StyleAvatarWrapper = styled.span``
 const TextFlexBox = styled.div<{ gap: number }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: ${({ gap }) => `${gap}px`};
   align-items: flex-start;
+  width: 330px;
 `
 
 const StyledText = ({
@@ -101,4 +116,4 @@ const StyledText = ({
     </>
   )
 }
-export default ListRow
+export default ChatBubbleListLow

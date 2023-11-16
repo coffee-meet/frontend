@@ -9,6 +9,8 @@ import { type KeyOfPalette, type KeyOfTypo } from '@/styles/theme'
 interface ChattingBubbleProps extends ComponentProps<'div'> {
   isMyChat?: boolean
   message: string
+  userId: string
+  userProfile: string
   time: string
   messageTypo?: KeyOfTypo
   messageColor?: KeyOfPalette
@@ -31,12 +33,16 @@ const ChattingBubble = ({
   isMyChat = false,
   message,
   time,
+  userId,
+  userProfile,
   messageTypo = 'Body_12',
   messageColor = 'BLACK',
   timeTypo = 'Caption_11',
   timeColor = 'GRAY500',
   ...props
 }: ChattingBubbleProps) => {
+  const hourAndMinute = time.slice(11, 16)
+
   return (
     <BubbleContainer
       justify={'flex-start'}
@@ -52,7 +58,7 @@ const ChattingBubble = ({
         </MessageText>
       </StyledText>
       <TimeText typo={timeTypo} color={timeColor} {...props}>
-        {time}
+        {hourAndMinute}
       </TimeText>
     </BubbleContainer>
   )
@@ -71,7 +77,7 @@ const StyledText = styled.div<{
   word-wrap: break-word;
   order: ${(props) => (props.isMyChat ? '2' : '1')};
   margin-right: ${(props) => (props.isMyChat ? '12px' : '0px')};
-  margin-left: ${(props) => (props.isMyChat ? '0px' : '12px')};
+  margin-left: ${(props) => (props.isMyChat ? '0px' : '5px')};
 `
 
 const TimeText = styled(ChattingText)`

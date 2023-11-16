@@ -10,6 +10,7 @@ import { ChattingApi } from '@/apis/chatting/chattingApi'
 import { Messages } from '@/apis/chatting/chattingType'
 import ExitIcon from '@/assets/icons/ExitIcon'
 import Send from '@/assets/icons/Send.svg'
+import ProfileSheet from '@/components/common/BottomSheet/ProfileSheet'
 import { FlexBox } from '@/components/common/Flexbox'
 import GradationBackground from '@/components/common/GradationBackground'
 import Loading from '@/components/common/Loading'
@@ -20,6 +21,7 @@ import TextArea from '@/components/common/TextArea'
 import MessageArea from '@/components/messageArea'
 import { useModal } from '@/hooks/useModal'
 import useAuthStore from '@/store/AuthStore'
+import useBottomSheetStore from '@/store/BottomSheetStore'
 import { palette } from '@/styles/palette'
 
 const Chatting = () => {
@@ -137,9 +139,10 @@ const Chatting = () => {
   useEffect(() => {
     getDetailMessages()
   }, [])
-
+  const { bottomSheetState } = useBottomSheetStore()
   return (
     <>
+      {bottomSheetState && <ProfileSheet title={'프로필'} isDarkMode={false} />}
       <GradationBackground isDarkMode={false}>
         <Spacing size={46} />
         <PageContainer isDarkMode={false} height={'100%'}>
@@ -162,7 +165,7 @@ const Chatting = () => {
             <StyleTypingFlexBox gap={10}>
               {/* <StyleTextArea width={'321px'} height={'36px'} borderRadius={'10px'} /> */}
               {/* <StyleInput onChange={(e) => setInputValue(e.target.value)} value={inputValue} /> */}
-              <TextArea ref={messageRef}></TextArea>
+              <TextArea ref={messageRef} height={35}></TextArea>
               <StyleSubmitButton onClick={(e) => handleSubmit(e)}>
                 <StyleIcon src={Send} />
               </StyleSubmitButton>

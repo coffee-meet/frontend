@@ -34,10 +34,8 @@ const StyledTextArea = styled.textarea<{ widthProps?: number; heightProps?: numb
   width: ${({ widthProps }) => (widthProps ? `${widthProps}px` : '100%')};
   height: ${({ heightProps }) => (heightProps ? `${heightProps}px` : '50px')};
   background-color: ${palette.WHITE};
-  /* width: 321px;
-  height: 36px; */
   border-radius: 10px;
-  padding: 0 12px;
+  padding: 8px;
   border: none;
   color: ${palette.GRAY700};
   border-radius: 10px;
