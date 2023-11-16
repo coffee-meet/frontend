@@ -11,6 +11,12 @@ type ModalState = {
   setModalState: (state: boolean) => void
   setMainText: (text: string) => void
   setOkFunc: (func: () => void) => void
+  acceptText?: string
+  cancelText?: string
+  isDarkMode?: boolean
+  setAcceptText: (text: string | undefined) => void
+  setCancelText: (text: string | undefined) => void
+  setDarkMode: (isDarkMode: boolean | undefined) => void
 }
 
 const useModalStore = create<ModalState>((set) => ({
@@ -19,10 +25,16 @@ const useModalStore = create<ModalState>((set) => ({
   mainText: '',
   subText: '',
   type: 'confirm',
+  acceptText: '네',
+  cancelText: '아니오',
   setType: (type) => set({ type: type }),
   setSubText: (text) => set({ subText: text }),
   setModalState: (state) => set({ modalState: state }),
   setMainText: (text) => set({ mainText: text }),
   setOkFunc: (func) => set({ okFunc: func }),
+  setAcceptText: (text) => set({ acceptText: text }),
+  setCancelText: (text) => set({ cancelText: text }),
+  setDarkMode: (isDarkMode) => set({ isDarkMode }),
 }))
+
 export default useModalStore

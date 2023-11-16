@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import AppHeader from '@/components/common/AppHeader'
 import { ParticularTopicButton } from '@/components/common/Buttons/IconButton'
 import GradationBackground from '@/components/common/GradationBackground'
@@ -15,7 +13,6 @@ const Home = () => {
   const nickname = '우땅'
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode)
-  const [isMatching, setIsMatching] = useState(false)
 
   const { showToast } = useToast()
 
@@ -35,25 +32,19 @@ const Home = () => {
           letterSpacing={-0.5}
           style={{
             margin: '33px 0 22px 0',
-            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.BLACK}`,
+            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
           }}
         >
           {'진행중인 매칭'}
         </Text>
-        <Card
-          isMatching={isMatching}
-          onClick={() => {
-            setIsMatching((prev) => !prev)
-          }}
-          isDarkMode={isDarkMode}
-        />
+        <Card isDarkMode={isDarkMode} />
         <Text
           font={'Body_16'}
           fontWeight={600}
           letterSpacing={-0.5}
           style={{
             margin: '32px 0 13px 0',
-            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.BLACK}`,
+            color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
           }}
         >
           {'커피밋의 추천기능'}
