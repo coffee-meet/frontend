@@ -2,7 +2,6 @@ import { http, HttpResponse } from 'msw'
 
 const nickname = '주다다'
 export const handlers = [
-
   http.get(`/v1/users/duplicate?nickname=${nickname}`, async () => {
     return HttpResponse.json({
       duplicate: true,
