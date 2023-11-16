@@ -3,8 +3,6 @@ const nickname = '주다다'
 export const handlers = [
 
   http.get(`/v1/users/duplicate?nickname=${nickname}`, async () => {
-    await sleep(200)
-    console.log()
     return HttpResponse.json({
       duplicate: true,
     })
