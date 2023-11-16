@@ -8,8 +8,8 @@ const AdminLogin = () => {
   // form 제출 -> API 요청 -> 결과값에 따라 페이지 이동
   const mutation = useMutation(AdminLoginAPI.POST_ADMIN_LOGIN)
 
-  const onSubmit2 = (adminData: string) => {
-    mutation.mutate(JSON.parse(adminData))
+  const onSubmitAdminLoginData = (AdminLoginData: string) => {
+    mutation.mutate(JSON.parse(AdminLoginData))
   }
 
   const { register, handleSubmit } = useForm()
@@ -18,7 +18,7 @@ const AdminLogin = () => {
     <form
       onSubmit={handleSubmit((data) => {
         setAdminData(JSON.stringify(data))
-        onSubmit2(adminData)
+        onSubmitAdminLoginData(adminData)
       })}
     >
       <input {...register('adminId')} placeholder={'Admin ID'} />
