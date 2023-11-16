@@ -59,7 +59,7 @@ const StyledAvatar = styled.div<AvatarProps>`
   margin: ${(props) => `${props.margin}px`};
   border: ${(props) => (props.border ? props.border : 'none')};
   box-shadow: ${(props) => (props.shadow ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none')};
-
+  cursor: pointer;
   @media (max-width: 280px) {
     width: ${(props) =>
       typeof props.width === 'number' ? `${props.width * 0.95}px` : `calc(${props.width} * 0.95)`};
