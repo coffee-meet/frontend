@@ -6,7 +6,13 @@ import AdminLoginAPI from '@/apis/adminLogin/AdminLoginApi'
 
 const AdminLogin = () => {
   // form 제출 -> API 요청 -> 결과값에 따라 페이지 이동
-  const mutation = useMutation(AdminLoginAPI.POST_ADMIN_LOGIN)
+  const mutation = useMutation(AdminLoginAPI.POST_ADMIN_LOGIN, {
+    onSuccess: (data) => {
+      if (data.adminLoginInfo.adminLoginResult == 'error') {
+        window.location.assign(`/admin`)
+      }
+    },
+  })
 
   const onSubmitAdminLoginData = (AdminLoginData: string) => {
     mutation.mutate(JSON.parse(AdminLoginData))
