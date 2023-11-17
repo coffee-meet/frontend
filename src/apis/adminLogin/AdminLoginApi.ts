@@ -2,7 +2,7 @@ import { axiosAPI } from '@/apis/axios'
 
 interface AdminLoginData {
   adminId: string
-  adminPassword: string
+  adminPw: string
 }
 
 const AdminLoginAPI = {

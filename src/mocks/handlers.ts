@@ -414,8 +414,8 @@ export const handlers = [
   // 관리자 로그인 요청 API 핸들러
   http.post('/admin/login', async ({ request }) => {
     const adminData = await request.text()
-    const { adminId, adminPassword } = JSON.parse(adminData)
-    const isValidUser = adminId === 'expectedId' && adminPassword === 'expectedPassword'
+    const { adminId, adminPw } = JSON.parse(adminData)
+    const isValidUser = adminId === 'expectedId' && adminPw === 'expectedPassword'
     const adminLoginInfo: AdminLoginInfo = {
       adminLoginResult: isValidUser ? 'success' : 'error',
       adminLoginMessage: isValidUser ? 'Authentication successful' : 'Invalid credentials',

@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
+import { useNavigate } from 'react-router-dom'
 
 import { KakaoButton, NaverButton } from '@/components/common/Buttons/IconButton'
 import NormalButton from '@/components/common/Buttons/NormalButton'
@@ -14,11 +15,15 @@ export type Provider = 'naver' | 'kakao'
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
 const Login = () => {
+  const navigate = useNavigate()
   const setProvider = useAuthStore((state) => state.setProvider)
 
   const handleMoveToAuthProvider = async (provider: Provider) => {
     window.location.assign(`${BASE_URL}/v1/oauth2.0/${provider}`)
     setProvider(provider)
+  }
+  const handleMoveToAdminLogin = () => {
+    navigate('/admin-login')
   }
 
   return (
@@ -51,7 +56,7 @@ const Login = () => {
             }
           `}
         />
-        <StyledAdminLoginBtn>
+        <StyledAdminLoginBtn onClick={handleMoveToAdminLogin}>
           <NormalButton normalButtonType={'nickname-duplicate'}>{'관리자 로그인'}</NormalButton>
         </StyledAdminLoginBtn>
         <StyledSubText font={'Body_18'} fontWeight={500} letterSpacing={-1}>
