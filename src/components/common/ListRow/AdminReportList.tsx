@@ -1,42 +1,38 @@
 import styled from '@emotion/styled'
+import { useQuery } from '@tanstack/react-query'
 
+import AdminReportAPI from '@/apis/adminReport/AdminReportApi'
 import AdminReportListRow from '@/components/common/ListRow/AdminReportListRow'
 import { palette } from '@/styles/palette'
 
 interface AdminReportListProps {
   onReportSelect: (nickname: string) => void
 }
+interface ReportListData {
+  reportedUserName: string
+  reportCount: number
+}
 const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
+  const { data, isSuccess } = useQuery(['ReportedUserList'], AdminReportAPI.GET_REPORT_LIST)
   const handlePersonReported = (nickname: string) => {
     onReportSelect(nickname)
   }
-  const AdminReportListData = [
-    { nickname: '유명한', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '박상민', height: 71, infoMessage: '누적 2회', isDarkMode: false },
-    { nickname: '박은지', height: 71, infoMessage: '누적 2회', isDarkMode: false },
-    { nickname: '주다현', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '남궁호수', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '우창욱', height: 71, infoMessage: '누적 2회', isDarkMode: false },
-    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-    { nickname: '홍길동', height: 71, infoMessage: '누적 1회', isDarkMode: false },
-  ]
+  const ReportDatas = data?.data.reports
 
   return (
     <StyledAdminReportListContainerOuterWrapper>
       <StyledAdminReportListContainer>
-        {AdminReportListData.map((data, index) => (
-          <AdminReportListRow
-            key={index}
-            {...data}
-            onClick={() => handlePersonReported(data.nickname)}
-          />
-        ))}
+        {isSuccess &&
+          ReportDatas.map((reportListData: ReportListData, index: number) => (
+            <AdminReportListRow
+              key={index}
+              height={71}
+              nickname={reportListData.reportedUserName}
+              infoMessage={reportListData.reportCount}
+              isDarkMode={false}
+              onClick={() => handlePersonReported(reportListData.reportedUserName)}
+            />
+          ))}
       </StyledAdminReportListContainer>
     </StyledAdminReportListContainerOuterWrapper>
   )

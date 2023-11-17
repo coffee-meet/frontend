@@ -1,5 +1,7 @@
 import styled from '@emotion/styled'
+import { useQuery } from '@tanstack/react-query'
 
+import AdminApprovalAPI from '@/apis/adminApproval/AdminApprovalApi'
 import businessCardExample from '@/assets/images/businessCardExample.jpg'
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import Spacing from '@/components/common/Spacing'
@@ -14,6 +16,11 @@ interface AdminApprovalInfoProps {
 }
 
 const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps) => {
+  const { data, isSuccess } = useQuery(
+    ['ApprovalRequestUserInfo'],
+    AdminApprovalAPI.GET_APPROVAL_INFO,
+  )
+  console.log(isSuccess && data)
   const { openModal } = useModal()
   const handleAcceptCertificationBtn = () => {
     openModal({
