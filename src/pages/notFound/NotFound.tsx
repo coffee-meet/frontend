@@ -1,15 +1,17 @@
 import styled from '@emotion/styled'
+import { useNavigate } from 'react-router-dom'
 
 import NotFoundIcon from '@/assets/icons/NotFoundIcon'
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import GradationBackground from '@/components/common/GradationBackground'
 import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
+import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
 
 const NotFoundPage = () => {
-  // TODO: zustand로 darkMode 상태 받기
-  const isDarkMode = true
+  const isDarkMode = useThemeStore((state) => state.isDarkMode)
+  const navigate = useNavigate()
 
   return (
     <StyledNotFoundPage>
@@ -40,7 +42,14 @@ const NotFoundPage = () => {
           <StyledNotFoundPageMainContent>
             <StyledNotFoundIconWrapper>
               <NotFoundIcon isDarkMode={isDarkMode} />
-              <NormalButton normalButtonType={'form-submit'}>{'홈으로 돌아가기'}</NormalButton>
+              <NormalButton
+                normalButtonType={'form-submit'}
+                onClick={() => {
+                  navigate('/')
+                }}
+              >
+                {'홈으로 돌아가기'}
+              </NormalButton>
             </StyledNotFoundIconWrapper>
             <Spacing size={58.5} />
           </StyledNotFoundPageMainContent>

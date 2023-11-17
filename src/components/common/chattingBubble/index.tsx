@@ -9,6 +9,8 @@ import { type KeyOfPalette, type KeyOfTypo } from '@/styles/theme'
 interface ChattingBubbleProps extends ComponentProps<'div'> {
   isMyChat?: boolean
   message: string
+  userId: string
+  userProfile: string
   time: string
   messageTypo?: KeyOfTypo
   messageColor?: KeyOfPalette
@@ -31,33 +33,38 @@ const ChattingBubble = ({
   isMyChat = false,
   message,
   time,
+  userId,
+  userProfile,
   messageTypo = 'Body_12',
   messageColor = 'BLACK',
   timeTypo = 'Caption_11',
   timeColor = 'GRAY500',
   ...props
 }: ChattingBubbleProps) => {
+  const hourAndMinute = time.slice(11, 16)
+
   return (
     <BubbleContainer
       justify={'flex-start'}
       gap={10}
       fullWidth={true}
       isMyChat={isMyChat}
+      messageLength={message.length > 17}
       {...props}
     >
       <StyledText isMyChat={isMyChat}>
-        <MessageText typo={'Body_20'} color={messageColor} {...props}>
+        <MessageText typo={messageTypo} color={messageColor} {...props}>
           {message}
         </MessageText>
       </StyledText>
-      <TimeText typo={'Body_20'} color={timeColor} {...props}>
-        {time}
+      <TimeText typo={timeTypo} color={timeColor} {...props}>
+        {hourAndMinute}
       </TimeText>
     </BubbleContainer>
   )
 }
 
-const BubbleContainer = styled(FlexBox)<{ isMyChat: boolean }>`
+const BubbleContainer = styled(FlexBox)<{ isMyChat: boolean; messageLength: boolean }>`
   justify-content: ${(props) => props.isMyChat && 'flex-end'};
 `
 
@@ -66,14 +73,17 @@ const StyledText = styled.div<{
 }>`
   border-radius: 10px;
   background-color: ${palette.WHITE};
-  padding: 7px 12px;
+  padding: 6px 8px;
   word-wrap: break-word;
   order: ${(props) => (props.isMyChat ? '2' : '1')};
+  margin-right: ${(props) => (props.isMyChat ? '12px' : '0px')};
+  margin-left: ${(props) => (props.isMyChat ? '0px' : '5px')};
 `
 
 const TimeText = styled(ChattingText)`
   order: 1;
   line-height: 150%;
+  font-family: '200';
 `
 
 const MessageText = styled(ChattingText)`

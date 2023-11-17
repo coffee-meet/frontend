@@ -13,6 +13,12 @@ type InterestButtonProps = {
   isDarkMode: boolean
 }
 
+/**
+ * @param nickName: 닉네임, string
+ * @param interests: 관심사 리스트 (최대 3개), string[]
+ * @param isDarkMode: 다크모드 여부, boolean
+ */
+
 const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps) => {
   const setButtonType = isDarkMode ? 'interest-dark' : 'interest'
 
@@ -32,7 +38,6 @@ const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          margin: '18px 33px 18px 14px',
         }}
       >
         <RiStarFill
@@ -62,7 +67,7 @@ const InterestButton = ({ nickName, interests, isDarkMode }: InterestButtonProps
             <Fragment key={interest}>
               {interest}
               {index !== interests.length - 1 && (
-                <Divider width={1} height={12} margin={'0 12px'} isDarkMode={isDarkMode} />
+                <Divider width={'1px'} height={'12px'} margin={'0 12px'} isDarkMode={isDarkMode} />
               )}
             </Fragment>
           ))}

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
 
@@ -12,13 +13,14 @@ const LoginPending = () => {
   const authCode = searchParams.get('code')
   const setToken = useAuthStore((state) => state.setAuthTokens)
   const provider = useAuthStore((state) => state.provider)
-
   const routeAuthInfo = async () => {
     await axiosAPI
-      .get(`${import.meta.env.VITE_BASE_URL}/v1/users/login/${provider}?authCode=${authCode}`)
+      .get(`/v1/users/login/${provider}?authCode=${authCode}`)
       .then((res) => {
         console.log(res.data.accessToken)
         localStorage.setItem('jwt', res.data.accessToken)
+        localStorage.setItem('nickname', res.data.nickname)
+
         setToken({
           accessToken: res.data.accessToken,
           refreshToken: res.data.refreshToken,
@@ -27,11 +29,13 @@ const LoginPending = () => {
       .catch((err) => {
         if (err.response.status === 404) {
           navigate('/register/user', { state: { authCode } })
+          console.log('실패패패')
         }
       })
   }
-
-  routeAuthInfo()
+  useEffect(() => {
+    routeAuthInfo()
+  }, [])
 
   return (
     <StyledLoginPending>

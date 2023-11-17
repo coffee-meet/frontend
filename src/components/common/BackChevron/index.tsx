@@ -10,6 +10,7 @@ const StyleBackChevron = styled.div<BackChevronProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   background-color: ${({ hasBackground, isDarkMode }) =>
     isDarkMode
       ? hasBackground

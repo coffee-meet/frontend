@@ -53,9 +53,10 @@ export const StyledIconWrapper = styled.div<{
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 18px 33px 18px 14px;
 
   @media (max-width: 280px) {
-    margin: 2px 10px 2px 10px;
+    margin: 18px 14px 18px 14px;
   }
 `
 
