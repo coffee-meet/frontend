@@ -67,7 +67,7 @@ const AdminLogin = () => {
         />
       </StyledInputWrapper>
 
-      <p>{adminData}</p>
+      <p>{`전송되는 JSON 형태: ${adminData}`}</p>
       <Spacing size={519}></Spacing>
 
       <StyledBtnWrapper>
