@@ -115,12 +115,12 @@ const RegisterCompany = () => {
     emailRef.current && formData.append('companyEmail', emailRef.current.value)
     formData.append('department', JSON.stringify(interestList))
 
-    const body = {
-      companyName: companyName.current && companyName.current.value,
-      companyEmail: emailRef.current && emailRef.current.value,
-      department: interestList,
-      businessCard: '',
-    }
+    // const body = {
+    //   companyName: companyName.current && companyName.current.value,
+    //   companyEmail: emailRef.current && emailRef.current.value,
+    //   department: interestList,
+    //   businessCard: '',
+    // }
     registerCompanyData(formData)
     // registerCompanyMutation.mutate(formData)
   }
@@ -133,19 +133,19 @@ const RegisterCompany = () => {
       },
     })
   }
-  const registerCompanyMutation = useMutation((body: object) => registerCompanyData(body), {
-    onSuccess: (response) => {
-      console.log(response)
-      navigate('/')
-    },
-    onError: () => {
-      showToast({
-        message: '회사 정보 등록에 실패했습니다.',
-        type: 'error',
-        isDarkMode: false,
-      })
-    },
-  })
+  // const registerCompanyMutation = useMutation((body: object) => registerCompanyData(body), {
+  //   onSuccess: (response) => {
+  //     console.log(response)
+  //     navigate('/')
+  //   },
+  //   onError: () => {
+  //     showToast({
+  //       message: '회사 정보 등록에 실패했습니다.',
+  //       type: 'error',
+  //       isDarkMode: false,
+  //     })
+  //   },
+  // })
   const handleImageChange = () => {
     if (imgRef.current && imgRef.current?.files) {
       if (!imgRef.current.files[0]) return
