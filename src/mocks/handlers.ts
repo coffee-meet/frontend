@@ -9,6 +9,11 @@ export const handlers = [
     return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
   }),
 
+  // example
+  http.get('/pets', () => {
+    return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
+  }),
+
   http.get('/v1/histories', () => {
     return HttpResponse.json([
       {

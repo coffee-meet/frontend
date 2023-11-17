@@ -11,6 +11,11 @@ interface AdminApprovalListProps {
 interface ApprovalListData {
   approvalRequestUser: string
   approvalRequestUserStatus: string
+  onApproveSelectUserName: (nickname: string) => void
+}
+interface ApprovalListData {
+  approvalRequestUser: string
+  approvalRequestUserStatus: string
 }
 
 const AdminApprovalList = ({ onApproveSelectUserName }: AdminApprovalListProps) => {
