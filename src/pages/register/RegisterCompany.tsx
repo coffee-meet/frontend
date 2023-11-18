@@ -40,7 +40,6 @@ const RegisterCompany = () => {
   const companyName = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
   const codeRef = useRef<HTMLInputElement>(null)
-  const [emailChecked, setEmailChecked] = useState<null | boolean>(null)
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null)
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null)
   const { interestList } = useInterestStore() //여기서 회사 직무 list 저장한거 get해옴
