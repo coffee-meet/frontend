@@ -140,8 +140,7 @@ const RegisterCompany = () => {
           'Content-Type': 'multipart/form-data',
         },
       })
-      .then((response) => {
-        console.log(response)
+      .then(() => {
         showToast({
           message: '회사 정보 등록 완료! 메인 홈으로 이동합니다.',
           type: 'success',
