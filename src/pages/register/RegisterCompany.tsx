@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { useMutation } from '@tanstack/react-query'
 import { RefObject, useRef, useState } from 'react'
 import { MdWbSunny } from 'react-icons/md'
+import { MdOutlinePhotoCamera } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
@@ -39,9 +40,9 @@ const RegisterCompany = () => {
   const companyName = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
   const codeRef = useRef<HTMLInputElement>(null)
-  const [isCodeSame, setIsCodeSame] = useState<null | boolean>(false)
+  const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null)
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null)
-  const { interestList } = useInterestStore() //여기서 회사 직무 list 저장한거 불러오기
+  const { interestList } = useInterestStore() //여기서 회사 직무 list 저장한거 get해옴
   const { showToast } = useToast()
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const formData = new FormData()
@@ -57,6 +58,11 @@ const RegisterCompany = () => {
   const emailVerifyMutation = useMutation((email: string) => handleClickEmailVerify(email), {
     onSuccess: (response) => {
       console.log(response)
+      showToast({
+        message: '메일로 인증코드가 전송되었습니다.',
+        type: 'info',
+        isDarkMode,
+      })
     },
     onError: (err) => {
       console.log(err)
@@ -64,12 +70,8 @@ const RegisterCompany = () => {
   })
 
   const getAlertMessage = (isCodeSame: boolean | null, codeChecked: boolean | null) => {
-    if (isCodeSame === null && codeChecked === null) {
-      return { message: '닉네임 중복검사를 해주세요!', color: palette.RED }
-    } else if (isCodeSame === false && codeChecked) {
-      return { message: '사용 가능한 닉네임입니다.', color: palette.PRIMARY }
-    } else if (isCodeSame === true && codeChecked) {
-      return { message: '이미 사용 중인 닉네임입니다.', color: palette.RED }
+    if (isCodeSame === false && codeChecked) {
+      return { message: '인증코드가 확인되지 않았습니다.', color: palette.PRIMARY }
     } else {
       return null // 혹은 기본 메시지 객체를 반환
     }
@@ -89,16 +91,14 @@ const RegisterCompany = () => {
       verificationCode: codeRef.current && codeRef.current.value,
     })
     if (response.status == 200) setIsCodeSame(true)
-    //이 부분 코드 다시 짜야함
-    else console.log('인증 코드 불일치')
+    else setIsCodeSame(false)
   }
 
   const submitUserCompanyData = () => {
-    console.log(formData)
     //다 체크 됐나 확인하고
     if (!codeChecked) {
       showToast({
-        message: '이메일 인증을 해주세요 ',
+        message: '인증코드가 확인되지 않았습니다. ',
         type: 'warning',
         isDarkMode,
       })
@@ -110,28 +110,51 @@ const RegisterCompany = () => {
         isDarkMode,
       })
       return
+    } else if (companyName.current && companyName.current.value.length === 0) {
+      showToast({
+        message: '회사명을 입력해주세요.',
+        type: 'warning',
+        isDarkMode,
+      })
+      return
+    } else if (imgRef.current && !imgRef.current?.files) {
+      showToast({
+        message: '명함을 업로드 해주세요!',
+        type: 'warning',
+        isDarkMode,
+      })
+      return
     }
     companyName.current && formData.append('companyName', companyName.current.value)
     emailRef.current && formData.append('companyEmail', emailRef.current.value)
     formData.append('department', JSON.stringify(interestList))
 
-    // const body = {
-    //   companyName: companyName.current && companyName.current.value,
-    //   companyEmail: emailRef.current && emailRef.current.value,
-    //   department: interestList,
-    //   businessCard: '',
-    // }
     registerCompanyData(formData)
-    // registerCompanyMutation.mutate(formData)
   }
 
   const registerCompanyData = async (body: object) => {
     console.log(body)
-    await axiosAPI.post('/v1/certification/users/me/company-info', body, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+    await axiosAPI
+      .post('/v1/certification/users/me/company-info', body, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(() => {
+        showToast({
+          message: '회사 정보 등록 완료! 메인 홈으로 이동합니다.',
+          type: 'success',
+          isDarkMode: false,
+        })
+        navigate('/')
+      })
+      .catch(() => {
+        showToast({
+          message: '회사 정보 등록에 실패했습니다.',
+          type: 'error',
+          isDarkMode: false,
+        })
+      })
   }
   // const registerCompanyMutation = useMutation((body: object) => registerCompanyData(body), {
   //   onSuccess: (response) => {
@@ -186,7 +209,7 @@ const RegisterCompany = () => {
       <StyleDataWrapper>
         <FlexBox gap={16} direction={'column'}>
           <FlexBox gap={16}>
-            <RegisterInput width={350} placeholder={'회사 명'} ref={companyName} />
+            <RegisterInput width={360} placeholder={'회사 명'} ref={companyName} />
           </FlexBox>
           <FlexBox gap={16}>
             <RegisterInput width={260} placeholder={'회사 이메일'} ref={emailRef} />
@@ -198,19 +221,8 @@ const RegisterCompany = () => {
             </NormalButton>
           </FlexBox>
         </FlexBox>
+        <Spacing size={16} />
 
-        {alertInfo ? (
-          <AlertText
-            padding={'10px'}
-            textAlign={'end'}
-            fontSize={`11px`}
-            fontColor={alertInfo.color}
-          >
-            {alertInfo.message}
-          </AlertText>
-        ) : (
-          <Spacing size={13} />
-        )}
         <FlexBox
           gap={16}
           style={{
@@ -250,10 +262,10 @@ const RegisterCompany = () => {
               <img
                 src={uploadedURL}
                 alt={'사용자가 업로드 한 이미지'}
-                style={{ width: 'autp', height: '50%' }}
+                style={{ width: 'auto', height: '100%' }}
               />
             ) : (
-              '+'
+              <MdOutlinePhotoCamera size={50} />
             )}
             <input
               type={'file'}
