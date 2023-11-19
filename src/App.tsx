@@ -1,3 +1,5 @@
+import './firebase-messaging-sw.ts'
+
 import { Route, Routes } from 'react-router-dom'
 
 import Layout from '@/components/layouts/Layout'
