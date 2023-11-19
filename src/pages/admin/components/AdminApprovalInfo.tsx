@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
 import AdminApprovalAPI from '@/apis/adminApproval/AdminApprovalApi'
 import businessCardExample from '@/assets/images/businessCardExample.jpg'
@@ -16,6 +17,16 @@ interface AdminApprovalInfoProps {
 }
 
 const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps) => {
+  const mutation = useMutation(AdminApprovalAPI.POST_APPROVAL_ACCEPT, {
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  })
+
+  const onAcceptAdminApproval = () => {
+    mutation.mutate()
+  }
+
   const { data, isSuccess } = useQuery(
     ['ApprovalRequestUserInfo'],
     AdminApprovalAPI.GET_APPROVAL_INFO,
@@ -26,7 +37,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
     openModal({
       type: 'confirm',
       mainText: '인증을 수락하시겠습니까?',
-      okFunc: () => console.log('okFunc'),
+      okFunc: onAcceptAdminApproval,
     })
   }
 

@@ -1,5 +1,7 @@
 import styled from '@emotion/styled'
+import { useQuery } from '@tanstack/react-query'
 
+import AdminReportAPI from '@/apis/adminReport/AdminReportApi'
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import AdminReportInfoListRow from '@/components/common/ListRow/AdminReportInfoListRow'
 import Spacing from '@/components/common/Spacing'
@@ -13,6 +15,8 @@ interface AdminReportInfoProps {
 }
 
 const AdminReportInfo = ({ selectedReportNickname }: AdminReportInfoProps) => {
+  const { data, isSuccess } = useQuery(['ReportedUserInfo'], AdminReportAPI.GET_REPORT_INFO)
+  console.log(isSuccess && data)
   const { openModal } = useModal()
   const handleAccumulationAddBtn = () => {
     openModal({

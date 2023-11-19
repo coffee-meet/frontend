@@ -1,29 +1,111 @@
 import styled from '@emotion/styled'
+import { useMutation } from '@tanstack/react-query'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
-import AdminAppHeader from '@/components/common/AppHeader/AdminAppHeader'
+import AdminLoginAPI from '@/apis/adminLogin/AdminLoginApi'
+import Spacing from '@/components/common/Spacing'
+import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-import AdminTabs from './components/AdminTabs'
 const AdminLogin = () => {
-  //msw 테스트 코드
-  fetch('/admin/reports/2')
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('네트워크 상태가 불안정합니다.')
+  // form 제출 -> API 요청 -> 결과값에 따라 페이지 이동
+  const { register, handleSubmit } = useForm()
+  const [adminData, setAdminData] = useState('')
+
+  const navigate = useNavigate()
+
+  const mutation = useMutation(AdminLoginAPI.POST_ADMIN_LOGIN, {
+    onSuccess: (data) => {
+      if (data.adminLoginInfo.adminLoginResult == 'error') {
+        navigate('/admin')
       }
-      return response.json()
-    })
-    .then((data) => console.log(data))
-    .catch((error) => console.error('fetch 오류 발생.', error))
+    },
+  })
+
+  const onSubmitAdminLoginData = (AdminLoginData: string) => {
+    mutation.mutate(JSON.parse(AdminLoginData))
+  }
+
   return (
-    <StyledAdminLoginOuterWrapper>
-      <AdminAppHeader isDarkMode={false} nickname={'홍길동'} />
-      <AdminTabs />
-    </StyledAdminLoginOuterWrapper>
+    <AdminLoginOuterWrapper>
+      <form
+        onSubmit={handleSubmit((data) => {
+          setAdminData(JSON.stringify(data))
+          onSubmitAdminLoginData(adminData)
+        })}
+      >
+        <Spacing size={229}></Spacing>
+
+        <StyledTextWrapper>
+          <Text font={'Body_32'} fontWeight={900} letterSpacing={-1}>
+            {'Admin Login'}
+          </Text>
+        </StyledTextWrapper>
+
+        <Spacing size={42}></Spacing>
+
+        <StyledInputWrapper>
+          <StyledInput placeholder={'관리자 아이디'} {...register('adminId')}></StyledInput>
+        </StyledInputWrapper>
+
+        <Spacing size={19}></Spacing>
+
+        <StyledInputWrapper>
+          <StyledInput placeholder={'관리자 비밀번호'} {...register('adminPw')}></StyledInput>
+        </StyledInputWrapper>
+
+        <Spacing size={81}></Spacing>
+
+        <StyledBtnWrapper>
+          <StyledButton type={'submit'}>{'로그인'}</StyledButton>
+        </StyledBtnWrapper>
+
+        <Spacing size={500}></Spacing>
+      </form>
+    </AdminLoginOuterWrapper>
   )
 }
-
-const StyledAdminLoginOuterWrapper = styled.div`
-  background-color: ${palette.PRIMARY};
+const AdminLoginOuterWrapper = styled.div`
+  background-color: ${palette.GRAY100};
 `
+const StyledTextWrapper = styled.div`
+  text-align: center;
+`
+const StyledInputWrapper = styled.div`
+  text-align: center;
+`
+const StyledInput = styled.input`
+  width: 230px;
+  height: 39px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  padding: 0 0 0 10px;
+  border-color: ${palette.GRAY200};
+  box-shadow: 4px 4px 1px 0px ${palette.GRAY200};
+  color: ${palette.GRAY400};
+  ::placeholder {
+    color: ${palette.GRAY300};
+  }
+`
+const StyledBtnWrapper = styled.div`
+  text-align: center;
+`
+const StyledButton = styled.button`
+  width: 265px;
+  height: 44px;
+  border: 1px solid #000;
+  border-radius: 11px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  padding: 0 0 0 10px;
+  background-color: ${palette.SECONDARY};
+  border-color: ${palette.GRAY300};
+  color: ${palette.WHITE};
+  font-weight: 900;
+`
+
 export default AdminLogin
