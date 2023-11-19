@@ -5,13 +5,17 @@ import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 import AdminLoginAPI from '@/apis/adminLogin/AdminLoginApi'
-import NormalButton from '@/components/common/Buttons/NormalButton'
 import Spacing from '@/components/common/Spacing'
+import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
 const AdminLogin = () => {
-  const navigate = useNavigate()
   // form 제출 -> API 요청 -> 결과값에 따라 페이지 이동
+  const { register, handleSubmit } = useForm()
+  const [adminData, setAdminData] = useState('')
+
+  const navigate = useNavigate()
+
   const mutation = useMutation(AdminLoginAPI.POST_ADMIN_LOGIN, {
     onSuccess: (data) => {
       if (data.adminLoginInfo.adminLoginResult == 'error') {
@@ -24,66 +28,84 @@ const AdminLogin = () => {
     mutation.mutate(JSON.parse(AdminLoginData))
   }
 
-  const { register, handleSubmit } = useForm()
-  const [adminData, setAdminData] = useState('')
   return (
-    <form
-      onSubmit={handleSubmit((data) => {
-        setAdminData(JSON.stringify(data))
-        onSubmitAdminLoginData(adminData)
-      })}
-    >
-      <Spacing size={56}></Spacing>
-      <StyledInputWrapper>
-        <input
-          style={{
-            width: '351px',
-            height: '46px',
-            border: '1px solid #000',
-            borderRadius: '10px',
-            marginBottom: '10px',
-            boxSizing: 'border-box',
-            padding: '0 0 0 10px',
-            borderColor: palette.GRAY300,
-          }}
-          {...register('adminId')}
-          placeholder={'관리자 아이디'}
-        />
-      </StyledInputWrapper>
-      <Spacing size={43}></Spacing>
+    <AdminLoginOuterWrapper>
+      <form
+        onSubmit={handleSubmit((data) => {
+          setAdminData(JSON.stringify(data))
+          onSubmitAdminLoginData(adminData)
+        })}
+      >
+        <Spacing size={229}></Spacing>
 
-      <StyledInputWrapper>
-        <input
-          style={{
-            width: '351px',
-            height: '46px',
-            border: '1px solid #000',
-            borderRadius: '10px',
-            marginBottom: '10px',
-            boxSizing: 'border-box',
-            padding: '0 0 0 10px',
-            borderColor: palette.GRAY300,
-          }}
-          {...register('adminPassword')}
-          placeholder={'관리자 비밀번호'}
-        />
-      </StyledInputWrapper>
+        <StyledTextWrapper>
+          <Text font={'Body_32'} fontWeight={900} letterSpacing={-1}>
+            {'Admin Login'}
+          </Text>
+        </StyledTextWrapper>
 
-      <p>{`전송되는 JSON 형태: ${adminData}`}</p>
-      <Spacing size={519}></Spacing>
+        <Spacing size={42}></Spacing>
 
-      <StyledBtnWrapper>
-        <NormalButton type={'submit'} normalButtonType={'form-submit'}>
-          {'관리자 로그인'}
-        </NormalButton>
-      </StyledBtnWrapper>
-    </form>
+        <StyledInputWrapper>
+          <StyledInput placeholder={'관리자 아이디'} {...register('adminId')}></StyledInput>
+        </StyledInputWrapper>
+
+        <Spacing size={19}></Spacing>
+
+        <StyledInputWrapper>
+          <StyledInput placeholder={'관리자 비밀번호'} {...register('adminPassword')}></StyledInput>
+        </StyledInputWrapper>
+
+        <Spacing size={81}></Spacing>
+
+        <StyledBtnWrapper>
+          <StyledButton type={'submit'}>{'로그인'}</StyledButton>
+        </StyledBtnWrapper>
+
+        <Spacing size={500}></Spacing>
+      </form>
+    </AdminLoginOuterWrapper>
   )
 }
+const AdminLoginOuterWrapper = styled.div`
+  background-color: ${palette.GRAY100};
+`
+const StyledTextWrapper = styled.div`
+  text-align: center;
+`
 const StyledInputWrapper = styled.div`
   text-align: center;
+`
+const StyledInput = styled.input`
+  width: 230px;
+  height: 39px;
+  border: 1px solid #000;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  padding: 0 0 0 10px;
+  border-color: ${palette.GRAY200};
+  box-shadow: 4px 4px 1px 0px ${palette.GRAY200};
+  color: ${palette.GRAY400};
+  ::placeholder {
+    color: ${palette.GRAY300};
+  }
 `
 const StyledBtnWrapper = styled.div`
   text-align: center;
 `
+const StyledButton = styled.button`
+  width: 265px;
+  height: 44px;
+  border: 1px solid #000;
+  border-radius: 11px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  padding: 0 0 0 10px;
+  background-color: ${palette.SECONDARY};
+  border-color: ${palette.GRAY300};
+  color: ${palette.WHITE};
+  font-weight: 900;
+`
+
 export default AdminLogin
