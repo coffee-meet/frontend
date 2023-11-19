@@ -25,11 +25,14 @@ const LoginPending = () => {
           accessToken: res.data.accessToken,
           refreshToken: res.data.refreshToken,
         })
+        navigate('/')
       })
       .catch((err) => {
         if (err.response.status === 404) {
           navigate('/register/user', { state: { authCode } })
-          console.log('실패패패')
+
+          console.log('카카오 로그인 완료 & 정보 등록 안됨')
+
         }
       })
   }

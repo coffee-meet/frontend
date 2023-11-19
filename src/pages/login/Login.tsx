@@ -8,7 +8,7 @@ import { Text } from '@/components/common/Text'
 import useAuthStore from '@/store/AuthStore'
 import { palette } from '@/styles/palette'
 
-export type Provider = 'naver' | 'kakao'
+export type Provider = 'NAVER' | 'KAKAO'
 
 const BASE_URL = import.meta.env.VITE_BASE_URL
 
@@ -78,7 +78,7 @@ const Login = () => {
         <StyledOauthWrapper>
           <NaverButton
             moveToOAuthProvider={() => {
-              handleMoveToAuthProvider('naver')
+              handleMoveToAuthProvider('NAVER')
             }}
           />
           <Spacing
@@ -91,7 +91,7 @@ const Login = () => {
           />
           <KakaoButton
             moveToOAuthProvider={() => {
-              handleMoveToAuthProvider('kakao')
+              handleMoveToAuthProvider('KAKAO')
             }}
           />
         </StyledOauthWrapper>
