@@ -53,7 +53,7 @@ const AdminLogin = () => {
         <Spacing size={19}></Spacing>
 
         <StyledInputWrapper>
-          <StyledInput placeholder={'관리자 비밀번호'} {...register('adminPassword')}></StyledInput>
+          <StyledInput placeholder={'관리자 비밀번호'} {...register('adminPw')}></StyledInput>
         </StyledInputWrapper>
 
         <Spacing size={81}></Spacing>
