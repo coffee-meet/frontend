@@ -11,6 +11,11 @@ interface AdminApprovalListProps {
 interface ApprovalListData {
   approvalRequestUser: string
   approvalRequestUserStatus: string
+  onApproveSelectUserName: (nickname: string) => void
+}
+interface ApprovalListData {
+  approvalRequestUser: string
+  approvalRequestUserStatus: string
 }
 
 const AdminApprovalList = ({ onApproveSelectUserName }: AdminApprovalListProps) => {
@@ -23,13 +28,13 @@ const AdminApprovalList = ({ onApproveSelectUserName }: AdminApprovalListProps) 
   const handlePersonApproval = (nickname: string) => {
     onApproveSelectUserName(nickname)
   }
-  const ApprovalDatas = data?.data.approvals
+  const approvalDatas = data?.data.approvals
 
   return (
     <AdminApprovalListContainerOuterWrapper>
       <AdminApprovalListContainer>
         {isSuccess &&
-          ApprovalDatas.map((approvalListData: ApprovalListData, index: number) => (
+          approvalDatas.map((approvalListData: ApprovalListData, index: number) => (
             <AdminApprovalListRow
               key={index}
               height={71}

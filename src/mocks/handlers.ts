@@ -1,9 +1,21 @@
 import { http, HttpResponse } from 'msw'
 
-import { Approval, ApprovalInfo, ReportInfo, Reports } from './handlersInterface'
+import {
+  AdminLoginInfo,
+  Approval,
+  ApprovalInfo,
+  ApprovalResult,
+  ReportInfo,
+  Reports,
+} from './handlersInterface'
 const nickname = '주다다'
 
 export const handlers = [
+  // example
+  http.get('/pets', () => {
+    return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
+  }),
+
   // example
   http.get('/pets', () => {
     return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
@@ -369,7 +381,7 @@ export const handlers = [
     return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
   }),
   // 승인 목록 API 핸들러
-  http.get('/admin/approvals', () => {
+  http.get('/api/v1/users/inquries', () => {
     const approvals: Approval[] = [
       { approvalRequestUser: '박상민', approvalRequestUserStatus: '대기 중' },
       { approvalRequestUser: '박은지', approvalRequestUserStatus: '대기 중' },
@@ -401,7 +413,7 @@ export const handlers = [
   }),
 
   // 승인 상세 정보 API 핸들러
-  http.get('/admin/approvals/:userId', (req) => {
+  http.get('/api/v1/useres/inquries/:inquryId', (req) => {
     const { userId } = req.params
     const approvalInfo: ApprovalInfo = {
       approvalRequestUserName: `userId:${userId}에 해당하는 userName`,
@@ -411,20 +423,44 @@ export const handlers = [
 
     return HttpResponse.json({ approvalInfo })
   }),
+  // 관리자 로그인 요청 API 핸들러
+  http.post('/api/v1/admins/login', async ({ request }) => {
+    const adminData = await request.text()
+    const { adminId, adminPw } = JSON.parse(adminData)
+    const isValidUser = adminId === 'expectedId' && adminPw === 'expectedPassword'
+    const adminLoginInfo: AdminLoginInfo = {
+      adminLoginResult: isValidUser ? 'success' : 'error',
+      adminLoginMessage: isValidUser ? 'Authentication successful' : 'Invalid credentials',
+    }
+    return HttpResponse.json({
+      adminLoginInfo,
+    })
+  }),
 
-  // 승인/거절 처리 API 핸들러
-  // req.body 오류 해결이 필요한 부분
-  // http.post('/admin/approvals/:userId/action', (req) => {
-  //   const { userId } = req.params
-  //   const { action } = req.body
-  //   const approvalResult: ApprovalResult = {
-  //     result: action === 'accept' ? 'accepted' : 'rejected',
-  //   }
-  //   return HttpResponse.json({ approvalResult })
-  // }),
+  // 승인 처리 API 핸들러
+  http.post('/api/v1/certification/users/:userId/accept', async ({ request }) => {
+    const decisionString = await request.text()
+    const { decision } = JSON.parse(decisionString)
+    const decisionMaking = decision === 'approve'
+    const approvalResult: ApprovalResult = {
+      result: decisionMaking === true ? 'accepted' : 'error',
+    }
+    return HttpResponse.json({ approvalResult })
+  }),
+
+  // 거절 처리 API 핸들러
+  http.post('/api/v1/certification/users/:userId/reject', async ({ request }) => {
+    const decisionString = await request.text()
+    const { decision } = JSON.parse(decisionString)
+    const decisionMaking = decision === 'reject'
+    const approvalResult: ApprovalResult = {
+      result: decisionMaking === true ? 'rejected' : 'error',
+    }
+    return HttpResponse.json({ approvalResult })
+  }),
 
   // 신고 목록 API 핸들러
-  http.get('/admin/reports', () => {
+  http.get('/api/v1/reports', () => {
     const reports: Reports[] = [
       { reportedUserName: '유명한', reportCount: 1 },
       { reportedUserName: '박상민', reportCount: 2 },
@@ -445,11 +481,10 @@ export const handlers = [
   }),
 
   // 신고 상세 정보 API 핸들러
-  http.get('/admin/reports/:userId', (req) => {
+  http.get('/api/v1/reports/:reportId', (req) => {
     const { userId } = req.params
     const reportInfo: ReportInfo = {
-      reportedUserName: `userName, userId:${userId}`,
-      reporterUserName: 'reporterUserName',
+      reportedUserName: `reporterUserName, userId:${userId}`,
       reportDate: new Date().toISOString(),
       reason: 'saying swear words',
       reportCount: 3,
@@ -461,7 +496,7 @@ export const handlers = [
   }),
 
   // // 신고 처리 API 핸들러
-  // req.body 오류 해결이 필요한 부분
+  // // req.body 오류 해결이 필요한 부분
   // http.post('/admin/reports/:userId/action', (req) => {
   //   const { userId } = req.params
   //   const { action } = req.body

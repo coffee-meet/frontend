@@ -1,12 +1,12 @@
 import { Route, Routes } from 'react-router-dom'
 
-import AdminLogin from '@/pages/admin/AdminLogin'
+import AdminMain from '@/pages/admin/AdminMain'
 
-const AdminLoginPage = () => {
+const AdminPage = () => {
   return (
     <Routes>
-      <Route path={'/'} element={<AdminLogin />}></Route>
+      <Route path={'/'} element={<AdminMain />}></Route>
     </Routes>
   )
 }
-export default AdminLoginPage
+export default AdminPage
