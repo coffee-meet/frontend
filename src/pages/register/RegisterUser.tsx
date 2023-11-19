@@ -36,7 +36,7 @@ const RegisterUser = () => {
     '반려동물',
   ]
   const navigate = useNavigate()
-  const { authCode } = useLocation().state || {}
+  const authCode = useLocation().state
   const inputRef = useRef<HTMLInputElement>(null)
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false)
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
@@ -56,7 +56,7 @@ const RegisterUser = () => {
         setDoubleChecked(true)
         setNicknameDuplicated(false)
       } else {
-        //이미 사용 중인 닉네임일 경우
+        //이미 사용 중 인 닉네임일 경우
         setDoubleChecked(true)
         setNicknameDuplicated(true)
       }
