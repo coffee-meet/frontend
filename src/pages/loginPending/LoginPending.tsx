@@ -30,7 +30,9 @@ const LoginPending = () => {
       .catch((err) => {
         if (err.response.status === 404) {
           navigate('/register/user', { state: { authCode } })
+
           console.log('카카오 로그인 완료 & 정보 등록 안됨')
+
         }
       })
   }

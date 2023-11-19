@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { RefObject, useRef, useState } from 'react'
 import { MdWbSunny } from 'react-icons/md'
 import { MdOutlinePhotoCamera } from 'react-icons/md'
+
 import { useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
@@ -134,6 +135,7 @@ const RegisterCompany = () => {
 
   const registerCompanyData = async (body: object) => {
     console.log(body)
+
     await axiosAPI
       .post('/v1/certification/users/me/company-info', body, {
         headers: {
@@ -155,6 +157,7 @@ const RegisterCompany = () => {
           isDarkMode: false,
         })
       })
+
   }
   // const registerCompanyMutation = useMutation((body: object) => registerCompanyData(body), {
   //   onSuccess: (response) => {
@@ -209,7 +212,7 @@ const RegisterCompany = () => {
       <StyleDataWrapper>
         <FlexBox gap={16} direction={'column'}>
           <FlexBox gap={16}>
-            <RegisterInput width={360} placeholder={'회사 명'} ref={companyName} />
+            <RegisterInput width={350} placeholder={'회사 명'} ref={companyName} />
           </FlexBox>
           <FlexBox gap={16}>
             <RegisterInput width={260} placeholder={'회사 이메일'} ref={emailRef} />
@@ -222,7 +225,6 @@ const RegisterCompany = () => {
           </FlexBox>
         </FlexBox>
         <Spacing size={16} />
-
         <FlexBox
           gap={16}
           style={{
