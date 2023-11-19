@@ -417,7 +417,7 @@ export const handlers = [
     return HttpResponse.json({ approvalInfo })
   }),
   // 관리자 로그인 요청 API 핸들러
-  http.post('/admin/login', async ({ request }) => {
+  http.post('/api/v1/admins/login', async ({ request }) => {
     const adminData = await request.text()
     const { adminId, adminPw } = JSON.parse(adminData)
     const isValidUser = adminId === 'expectedId' && adminPw === 'expectedPassword'

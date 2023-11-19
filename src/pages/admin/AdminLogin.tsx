@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { useMutation } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 import AdminLoginAPI from '@/apis/adminLogin/AdminLoginApi'
 import NormalButton from '@/components/common/Buttons/NormalButton'
@@ -9,11 +10,12 @@ import Spacing from '@/components/common/Spacing'
 import { palette } from '@/styles/palette'
 
 const AdminLogin = () => {
+  const navigate = useNavigate()
   // form 제출 -> API 요청 -> 결과값에 따라 페이지 이동
   const mutation = useMutation(AdminLoginAPI.POST_ADMIN_LOGIN, {
     onSuccess: (data) => {
       if (data.adminLoginInfo.adminLoginResult == 'error') {
-        window.location.assign(`/admin`)
+        navigate('/admin')
       }
     },
   })

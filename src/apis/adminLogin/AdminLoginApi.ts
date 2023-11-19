@@ -7,7 +7,7 @@ interface AdminLoginData {
 
 const AdminLoginAPI = {
   POST_ADMIN_LOGIN: async (adminLoginData: AdminLoginData) => {
-    const response = await axiosAPI.post('/admin/login', adminLoginData, {
+    const response = await axiosAPI.post('/api/v1/admins/login', adminLoginData, {
       headers: {
         'Content-Type': 'application/json',
       },
