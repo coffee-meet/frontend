@@ -25,6 +25,18 @@ const AdminApprovalAPI = {
     )
     return response.data
   },
+  POST_APPROVAL_REJECT: async () => {
+    const response = await axiosAPI.post(
+      '/api/v1/certification/users/:userId/reject',
+      { decision: 'reject' },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    return response.data
+  },
 }
 
 export default AdminApprovalAPI

@@ -6,6 +6,7 @@ import {
   ApprovalInfo,
   ApprovalResult,
   ReportInfo,
+  ReportResult,
   Reports,
 } from './handlersInterface'
 const nickname = '주다다'
@@ -437,7 +438,7 @@ export const handlers = [
     })
   }),
 
-  // 승인 처리 API 핸들러
+  // 관리자 회사승인 동의 API 핸들러
   http.post('/api/v1/certification/users/:userId/accept', async ({ request }) => {
     const decisionString = await request.text()
     const { decision } = JSON.parse(decisionString)
@@ -448,7 +449,7 @@ export const handlers = [
     return HttpResponse.json({ approvalResult })
   }),
 
-  // 거절 처리 API 핸들러
+  // 관리자 회사승인 거절 API 핸들러
   http.post('/api/v1/certification/users/:userId/reject', async ({ request }) => {
     const decisionString = await request.text()
     const { decision } = JSON.parse(decisionString)
@@ -495,14 +496,21 @@ export const handlers = [
     })
   }),
 
-  // // 신고 처리 API 핸들러
-  // // req.body 오류 해결이 필요한 부분
-  // http.post('/admin/reports/:userId/action', (req) => {
-  //   const { userId } = req.params
-  //   const { action } = req.body
-  //   const reportResult: ReportResult = {
-  //     result: action === 'addCount' ? 'countAdded' : 'ignored',
-  //   }
-  //   return HttpResponse.json({ reportResult })
-  // }),
+  // 신고 승인 처리 API 핸들러
+  http.post('/api/v1/reports/accept/:reportId', async ({ request }) => {
+    const decisionString = await request.text()
+    const { decision } = JSON.parse(decisionString)
+    const decisionMaking = decision === 'addReportCount'
+    const reportResult: ReportResult = {
+      result: decisionMaking === true ? 'reportCountAdded' : 'error',
+    }
+    return HttpResponse.json({ reportResult })
+  }),
+
+  // 신고 거절 처리 API 핸들러
+  http.delete('/api/v1/reports/reject/:reportId', async () => {
+    return HttpResponse.json({
+      result: 'reportDeleted',
+    })
+  }),
 ]
