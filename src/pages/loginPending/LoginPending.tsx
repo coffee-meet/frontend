@@ -44,7 +44,7 @@ const LoginPending = () => {
     } else {
       routeAuthInfo()
     }
-  }, [])
+  })
 
   return (
     <StyledLoginPending>

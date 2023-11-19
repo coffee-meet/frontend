@@ -3,7 +3,6 @@ import { useMutation } from '@tanstack/react-query'
 import { RefObject, useRef, useState } from 'react'
 import { MdWbSunny } from 'react-icons/md'
 import { MdOutlinePhotoCamera } from 'react-icons/md'
-
 import { useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
