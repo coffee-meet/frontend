@@ -17,7 +17,6 @@ axiosAPI.interceptors.request.use(
 
     config.headers['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`
 
-
     return config
   },
   function (error) {
