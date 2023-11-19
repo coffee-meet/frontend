@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { useMutation } from '@tanstack/react-query'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { MdWbSunny } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
@@ -45,6 +45,31 @@ const RegisterUser = () => {
   const { provider } = useAuthStore()
   const { showToast } = useToast()
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
+  const setToken = useAuthStore((state) => state.setAuthTokens)
+
+  const routeAuthInfo = async () => {
+    await axiosAPI
+      .get(`/v1/users/login/${provider}?authCode=${authCode}`)
+      .then((res) => {
+        console.log(res.data.accessToken)
+        localStorage.setItem('jwt', res.data.accessToken)
+        localStorage.setItem('nickname', res.data.nickname)
+
+        setToken({
+          accessToken: res.data.accessToken,
+          refreshToken: res.data.refreshToken,
+        })
+      })
+      .catch((err) => {
+        if (err.response.status === 404) {
+          navigate('/register/user', { state: { authCode } })
+          console.log('실패패패')
+        }
+      })
+  }
+  useEffect(() => {
+    routeAuthInfo()
+  }, [])
 
   const getNicknameValid = async (nickname: string) => {
     return await axiosAPI.get(`/v1/users/duplicate?nickname=${nickname}`)
@@ -125,6 +150,8 @@ const RegisterUser = () => {
   const registerMutation = useMutation((body: object) => registerPost(body), {
     onSuccess: (response) => {
       console.log(response)
+      console.log(response.data.accessToken)
+      localStorage.setItem('jwt', response.data.accessToken)
       showToast({
         message: '닉네임, 관심사 정보 등록을 완료했습니다!',
         type: 'success',
