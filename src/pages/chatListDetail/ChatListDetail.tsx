@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { useEffect, useRef, useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
 import { Messages } from '@/apis/chatting/chattingType'
@@ -17,8 +17,8 @@ import { palette } from '@/styles/palette'
 
 const ChatListDetail = () => {
   const navigate = useNavigate()
-  // const { chatroomId } = useLocation().state
-  const chatroomId = '1'
+  const { chatroomId } = useLocation().state
+  // const chatroomId = '1'
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
 
   const messageWrapperRef = useRef<HTMLDivElement>(null)
@@ -56,16 +56,10 @@ const ChatListDetail = () => {
               }
               rightIcon={null}
             ></PageHeader>
-            {/* {isLoading ? (
-            <Loading />
-          ) : ( */}
             <StyleMessageWrapper ref={messageWrapperRef}>
               {messages && <MessageArea messageData={messages} />}
             </StyleMessageWrapper>
-            {/* )} */}
             <StyleTypingFlexBox gap={10}>
-              {/* <StyleTextArea width={'321px'} height={'36px'} borderRadius={'10px'} /> */}
-              {/* <StyleInput onChange={(e) => setInputValue(e.target.value)} value={inputValue} /> */}
               <TextArea
                 ref={messageRef}
                 height={35}
