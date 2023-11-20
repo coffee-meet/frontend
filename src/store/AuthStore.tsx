@@ -10,7 +10,9 @@ type Tokens = {
 
 type AuthState = {
   provider: Provider
+  isNewUser: boolean
   authTokens?: Tokens
+  setIsNewUser: (isNewUser: boolean) => void
   setProvider: (provider: Provider) => void
   setAuthTokens: (authTokens: Tokens) => void
 }
@@ -18,7 +20,9 @@ type AuthState = {
 const useAuthStore = create(
   persist<AuthState>(
     (set) => ({
+      isNewUser: false,
       provider: 'KAKAO',
+      setIsNewUser: (isNewUser: boolean) => set(() => ({ isNewUser })),
       setProvider: (provider: Provider) => set(() => ({ provider })),
       setAuthTokens: (authTokens: Tokens) =>
         set(() => ({

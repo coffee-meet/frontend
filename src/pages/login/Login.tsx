@@ -12,7 +12,7 @@ import { palette } from '@/styles/palette'
 
 export type Provider = 'NAVER' | 'KAKAO'
 
-const BASE_URL = import.meta.env.VITE_BASE_URL
+export const BASE_URL = import.meta.env.VITE_BASE_URL
 
 const Login = () => {
   const navigate = useNavigate()
