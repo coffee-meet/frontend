@@ -2,10 +2,6 @@ import 'firebase/messaging'
 
 import firebase from 'firebase/app'
 
-// const token = await getToken(messaging, {
-//   vapidKey: import.meta.env.VITE_VAPID_KEY,
-// })
-
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_apiKey,
   authDomain: import.meta.env.VITE_authDomain,

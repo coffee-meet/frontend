@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { useState } from 'react'
 
 import AppHeader from '@/components/common/AppHeader'
@@ -18,6 +19,12 @@ const Home = () => {
   const [isMatching, setIsMatching] = useState(false)
 
   const { showToast } = useToast()
+  const handleMatchingStart = async () => {
+    setIsMatching((prev) => !prev)
+    await axios.post('/v1/matching/start').then((response) => {
+      console.log(response)
+    })
+  }
 
   return (
     <GradationBackground isDarkMode={isDarkMode}>
@@ -40,13 +47,7 @@ const Home = () => {
         >
           {'진행중인 매칭'}
         </Text>
-        <Card
-          isMatching={isMatching}
-          onClick={() => {
-            setIsMatching((prev) => !prev)
-          }}
-          isDarkMode={isDarkMode}
-        />
+        <Card isMatching={isMatching} onClick={handleMatchingStart} isDarkMode={isDarkMode} />
         <Text
           font={'Body_16'}
           fontWeight={600}

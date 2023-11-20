@@ -19,10 +19,8 @@ self.addEventListener('push', function (e) {
     tag: resultData.tag,
     ...resultData,
   }
-  console.log('push: ', { resultData, notificationTitle, notificationOptions })
-
-  //서버에서 push가 오면 console.log는 찍히는데 왜 백그라운드에서 실행이 안될까
   self.registration.showNotification(notificationTitle, notificationOptions)
+  console.log('push: ', { resultData, notificationTitle, notificationOptions })
 })
 
 self.addEventListener('notificationclick', function (event) {
