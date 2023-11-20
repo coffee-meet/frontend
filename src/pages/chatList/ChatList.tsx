@@ -54,7 +54,11 @@ const ChatList = () => {
         />
         {isSuccess && (
           <motion.div variants={containerVariants} initial={'hidden'} animate={'visible'}>
-            <ChatRoomBubbles chatRoomList={data?.data} isDarkMode={isDarkMode} />
+            {/* {data?.data.length == 0 ? (
+              '이전 채팅방이 없습니다!'
+            ) : ( */}
+            <ChatRoomBubbles chatRoomList={data} isDarkMode={isDarkMode} />
+            {/* )} */}
           </motion.div>
         )}
       </PageContainer>
