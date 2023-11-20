@@ -8,6 +8,7 @@ import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
 import AdminApprovalInfo from './AdminApprovalInfo'
+import AdminInquiryBtn from './AdminInquiryBtn'
 import AdminReportInfo from './AdminReportInfo'
 
 interface TabProps {
@@ -82,6 +83,7 @@ const AdminTabs = () => {
           <AdminApprovalInfo selectedApprovalNickname={selectedApprovalNickname} />
         )}
       </StyledListContainer>
+      <AdminInquiryBtn></AdminInquiryBtn>
       <HomeNavigationBar isDarkMode={false} />
     </>
   )
