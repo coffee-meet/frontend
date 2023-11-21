@@ -13,7 +13,6 @@ import RegisterInput from '@/components/common/RegisterInput'
 import SelectorButtonContainer from '@/components/common/SelectorButtonContainer'
 import Spacing from '@/components/common/Spacing'
 import useToast from '@/hooks/useToast'
-import useAuthStore from '@/store/AuthStore'
 import useInterestStore from '@/store/InterestStore'
 import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
@@ -36,13 +35,12 @@ const RegisterUser = () => {
     '반려동물',
   ]
   const navigate = useNavigate()
-  const authCode = useLocation().state
+  const userId = useLocation().state.userId
   const inputRef = useRef<HTMLInputElement>(null)
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false)
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
   let nickname = ''
   const { interestList } = useInterestStore()
-  const { provider } = useAuthStore()
   const { showToast } = useToast()
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
 
@@ -107,10 +105,9 @@ const RegisterUser = () => {
       console.log(nickname, interestList)
       if (doubleChecked && inputRef.current !== null && interestList.length > 0) {
         const body = {
-          authCode: authCode,
+          userId: userId,
           nickname: inputRef.current.value,
           keywords: interestList,
-          oAuthProvider: provider,
         }
         console.log(body)
         registerMutation.mutate(body)
