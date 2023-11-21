@@ -8,10 +8,6 @@ import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-// interface AdminApprovalInfoProps {
-//   selectedApprovalNickname: string
-// }
-
 const AdminInquiryInfo = () => {
   const { data, isSuccess } = useQuery(
     ['ApprovalRequestUserInfo'],
