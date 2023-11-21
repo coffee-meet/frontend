@@ -5,6 +5,7 @@ import {
   Approval,
   ApprovalInfo,
   ApprovalResult,
+  Inquiry,
   ReportInfo,
   ReportResult,
   Reports,
@@ -382,7 +383,7 @@ export const handlers = [
     return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
   }),
   // 승인 목록 API 핸들러
-  http.get('/v1/users/inquries', () => {
+  http.get('/v1/users/approvals', () => {
     const approvals: Approval[] = [
       { approvalRequestUser: '박상민', approvalRequestUserStatus: '대기 중' },
       { approvalRequestUser: '박은지', approvalRequestUserStatus: '대기 중' },
@@ -417,7 +418,7 @@ export const handlers = [
   http.get('/v1/useres/inquries/:inquryId', (req) => {
     const { userId } = req.params
     const approvalInfo: ApprovalInfo = {
-      approvalRequestUserName: `userId:${userId}에 해당하는 userName`,
+      approvalRequestUserName: `userId:${userId}에 해당하는  userName`,
       approvalRequestUserEmail: `userId:${userId}에 해당하는 userName의 Email`,
       approvalRequestUserBusinessCardImage: `https://www.imageExample.jpg`,
     }
@@ -512,5 +513,37 @@ export const handlers = [
     return HttpResponse.json({
       result: 'reportDeleted',
     })
+  }),
+
+  // 문의 목록 API 핸들러
+  http.get('/v1/users/inquiries', () => {
+    const inquiries: Inquiry[] = [
+      { inquiryRequestUser: '박상민', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '박은지', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '주다현', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '남궁호수', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '우창욱', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+    ]
+    return HttpResponse.json({ inquiries })
   }),
 ]

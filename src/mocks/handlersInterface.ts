@@ -33,3 +33,8 @@ export interface AdminLoginInfo {
   adminLoginResult: string
   adminLoginMessage: string
 }
+
+export interface Inquiry {
+  inquiryRequestUser: string
+  inquiryRequestDate: string
+}

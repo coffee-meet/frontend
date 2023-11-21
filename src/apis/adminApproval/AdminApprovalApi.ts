@@ -2,7 +2,7 @@ import { axiosAPI } from '@/apis/axios'
 
 const AdminApprovalAPI = {
   GET_APPROVAL_REQUEST_LIST: async () => {
-    const response = await axiosAPI.get(`/v1/users/inquries`)
+    const response = await axiosAPI.get(`/v1/users/approvals`)
     return {
       data: response.data,
     }
