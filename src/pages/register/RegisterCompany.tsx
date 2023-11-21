@@ -14,7 +14,6 @@ import RegisterInput from '@/components/common/RegisterInput'
 import SelectorButtonContainer from '@/components/common/SelectorButtonContainer'
 import Spacing from '@/components/common/Spacing'
 import useToast from '@/hooks/useToast'
-import useAuthStore from '@/store/AuthStore.tsx'
 import useInterestStore from '@/store/InterestStore'
 import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
@@ -49,7 +48,6 @@ const RegisterCompany = () => {
   const formData = new FormData()
   const imgRef = useRef<HTMLInputElement>(null) as RefObject<HTMLInputElement>
   const [uploadedURL, setUploadedURL] = useState('')
-  const { setIsNewUser } = useAuthStore()
 
   const handleClickEmailVerify = async (email: string) => {
     console.log(email)
@@ -149,7 +147,6 @@ const RegisterCompany = () => {
           type: 'success',
           isDarkMode: false,
         })
-        setIsNewUser(false)
         navigate('/')
       })
       .catch(() => {
