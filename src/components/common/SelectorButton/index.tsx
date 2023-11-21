@@ -2,10 +2,13 @@ import styled from '@emotion/styled'
 import { useState } from 'react'
 
 import useInterestStore from '@/store/InterestStore'
+import useJobStore from '@/store/JobStore.tsx'
 import { palette } from '@/styles/palette'
+
 type SelectorButtonProps = {
   isDarkMode: boolean
   buttonName: string
+  type: 'interest' | 'job'
   isButtonClicked?: (selected: boolean) => void
   isButtonSelected?: boolean
   isMaxLengthReached: boolean
@@ -14,6 +17,7 @@ type SelectorButtonProps = {
 const SelectorButton = ({
   isDarkMode,
   buttonName,
+  type,
   isButtonClicked,
   isButtonSelected: propIsButtonSelected = false,
   isMaxLengthReached = false,
@@ -37,6 +41,7 @@ const SelectorButton = ({
   const [backgroundColor, setBackgroundColor] = useState(initialBackgroundColor)
   const [currentTextColor, setCurrentTextColor] = useState(defaultSettings.textColor)
   const { interestList, setInterestList } = useInterestStore()
+  const { setJobInfo } = useJobStore()
 
   const handleButtonClick = () => {
     const isSelected = backgroundColor !== defaultSettings.selectedButtonColor
@@ -47,7 +52,19 @@ const SelectorButton = ({
     }
     setIsButtonSelected(isSelected)
 
-    setInterestList([...interestList, buttonName])
+    if (type === 'interest') {
+      if (isSelected) {
+        setInterestList([...interestList, buttonName])
+      } else {
+        setInterestList(interestList.filter((v) => v != buttonName))
+      }
+    } else {
+      if (isSelected) {
+        setJobInfo(buttonName)
+      } else {
+        setJobInfo('')
+      }
+    }
     setBackgroundColor(
       isSelected ? defaultSettings.selectedButtonColor : defaultSettings.defaultButtonColor,
     )
@@ -57,7 +74,11 @@ const SelectorButton = ({
       setCurrentTextColor(isSelected ? palette.WHITE : defaultSettings.textColor)
     }
     if (isButtonClicked) isButtonClicked(isSelected)
-    if (!isSelected) setInterestList(interestList.filter((v) => v != buttonName))
+    if (type === 'interest') {
+      if (!isSelected) setInterestList(interestList.filter((v) => v != buttonName))
+    } else {
+      if (!isSelected) setJobInfo('')
+    }
   }
 
   return (

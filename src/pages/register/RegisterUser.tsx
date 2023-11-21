@@ -189,6 +189,7 @@ const RegisterUser = () => {
       <FlexBox direction={'column'}>
         <SelectorButtonContainer
           isDarkMode={false}
+          type={'interest'}
           buttonNames={InterestList}
           maxLength={4}
         ></SelectorButtonContainer>
