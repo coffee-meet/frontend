@@ -13,6 +13,22 @@ const AdminReportAPI = {
       data: response.data,
     }
   },
+  POST_REPORT_ADD: async () => {
+    const response = await axiosAPI.post(
+      '/api/v1/reports/accept/:reportId',
+      { decision: 'addReportCount' },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    return response.data
+  },
+  POST_REPORT_IGNORE: async () => {
+    const response = await axiosAPI.delete('/api/v1/reports/reject/:reportId')
+    return response.data
+  },
 }
 
 export default AdminReportAPI

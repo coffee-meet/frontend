@@ -10,6 +10,9 @@ export interface ApprovalInfo {
 export interface ApprovalResult {
   result: string
 }
+export interface ReportResult {
+  result: string
+}
 export interface Reports {
   reportedUserName: string
   reportCount: number
