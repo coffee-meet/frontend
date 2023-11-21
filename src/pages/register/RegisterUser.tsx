@@ -119,8 +119,7 @@ const RegisterUser = () => {
   }
 
   const registerMutation = useMutation((body: object) => registerPost(body), {
-    onSuccess: (response) => {
-      localStorage.setItem('jwt', response.data.accessToken)
+    onSuccess: () => {
       showToast({
         message: '닉네임, 관심사 정보 등록을 완료했습니다!',
         type: 'success',
