@@ -38,13 +38,8 @@ const LoginPending = () => {
       })
   }
   useEffect(() => {
-    if (isNewUser) {
-      const authCode = searchParams.get('code')
-      navigate('/register/user', { state: authCode })
-    } else {
-      routeAuthInfo()
-    }
-  })
+    routeAuthInfo()
+  }, [])
 
   return (
     <StyledLoginPending>
