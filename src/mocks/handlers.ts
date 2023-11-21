@@ -50,7 +50,7 @@ export const handlers = [
       },
     ])
   }),
-  http.delete(`/api/v1/chatrooms/1`, () => {
+  http.delete(`/v1/chatrooms/1`, () => {
     return new HttpResponse(null, {
       status: 200,
       statusText: '삭제 완료',
@@ -382,7 +382,7 @@ export const handlers = [
     return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
   }),
   // 승인 목록 API 핸들러
-  http.get('/api/v1/users/inquries', () => {
+  http.get('/v1/users/inquries', () => {
     const approvals: Approval[] = [
       { approvalRequestUser: '박상민', approvalRequestUserStatus: '대기 중' },
       { approvalRequestUser: '박은지', approvalRequestUserStatus: '대기 중' },
@@ -414,7 +414,7 @@ export const handlers = [
   }),
 
   // 승인 상세 정보 API 핸들러
-  http.get('/api/v1/useres/inquries/:inquryId', (req) => {
+  http.get('/v1/useres/inquries/:inquryId', (req) => {
     const { userId } = req.params
     const approvalInfo: ApprovalInfo = {
       approvalRequestUserName: `userId:${userId}에 해당하는 userName`,
@@ -425,7 +425,7 @@ export const handlers = [
     return HttpResponse.json({ approvalInfo })
   }),
   // 관리자 로그인 요청 API 핸들러
-  http.post('/api/v1/admins/login', async ({ request }) => {
+  http.post('/v1/admins/login', async ({ request }) => {
     const adminData = await request.text()
     const { adminId, adminPw } = JSON.parse(adminData)
     const isValidUser = adminId === 'expectedId' && adminPw === 'expectedPassword'
@@ -439,7 +439,7 @@ export const handlers = [
   }),
 
   // 관리자 회사승인 동의 API 핸들러
-  http.post('/api/v1/certification/users/:userId/accept', async ({ request }) => {
+  http.post('/v1/certification/users/:userId/accept', async ({ request }) => {
     const decisionString = await request.text()
     const { decision } = JSON.parse(decisionString)
     const decisionMaking = decision === 'approve'
@@ -450,7 +450,7 @@ export const handlers = [
   }),
 
   // 관리자 회사승인 거절 API 핸들러
-  http.post('/api/v1/certification/users/:userId/reject', async ({ request }) => {
+  http.post('/v1/certification/users/:userId/reject', async ({ request }) => {
     const decisionString = await request.text()
     const { decision } = JSON.parse(decisionString)
     const decisionMaking = decision === 'reject'
@@ -461,7 +461,7 @@ export const handlers = [
   }),
 
   // 신고 목록 API 핸들러
-  http.get('/api/v1/reports', () => {
+  http.get('/v1/reports', () => {
     const reports: Reports[] = [
       { reportedUserName: '유명한', reportCount: 1 },
       { reportedUserName: '박상민', reportCount: 2 },
@@ -482,7 +482,7 @@ export const handlers = [
   }),
 
   // 신고 상세 정보 API 핸들러
-  http.get('/api/v1/reports/:reportId', (req) => {
+  http.get('/v1/reports/:reportId', (req) => {
     const { userId } = req.params
     const reportInfo: ReportInfo = {
       reportedUserName: `reporterUserName, userId:${userId}`,
@@ -497,7 +497,7 @@ export const handlers = [
   }),
 
   // 신고 승인 처리 API 핸들러
-  http.post('/api/v1/reports/accept/:reportId', async ({ request }) => {
+  http.post('/v1/reports/accept/:reportId', async ({ request }) => {
     const decisionString = await request.text()
     const { decision } = JSON.parse(decisionString)
     const decisionMaking = decision === 'addReportCount'
@@ -508,7 +508,7 @@ export const handlers = [
   }),
 
   // 신고 거절 처리 API 핸들러
-  http.delete('/api/v1/reports/reject/:reportId', async () => {
+  http.delete('/v1/reports/reject/:reportId', async () => {
     return HttpResponse.json({
       result: 'reportDeleted',
     })
