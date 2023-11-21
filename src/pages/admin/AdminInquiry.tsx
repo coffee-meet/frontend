@@ -9,9 +9,9 @@ import { palette } from '@/styles/palette'
 import AdminInquiryInfo from './components/AdminInquiryInfo'
 
 const AdminInquiry = () => {
-  const handleInquiryId = (inquiryId: string) => {
-    // inquiryId에 대한 처리
-  }
+  // const handleInquiryId = (inquiryId: string) => {
+  //   // inquiryId에 대한 처리
+  // }
   return (
     <>
       <AdminInquiryWrapper>
