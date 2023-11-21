@@ -3,18 +3,22 @@ import { StyleList } from '@/components/common/ListRow/ProfileListRow'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-type AdminReportInfoListRowProps = {
+type AdminApprovalListRowProps = {
   height: number
   nickname: string
   infoMessage: string | number
   isDarkMode: boolean
+
+  onClick?: () => void
 }
 const AdminInquiryListRow = ({
   height,
   nickname,
   infoMessage,
   isDarkMode,
-}: AdminReportInfoListRowProps) => {
+
+  onClick,
+}: AdminApprovalListRowProps) => {
   const renderInfoMessage = () => {
     if (typeof infoMessage === 'number') {
       return (
@@ -28,7 +32,7 @@ const AdminInquiryListRow = ({
               marginRight: '2px',
             }}
           >
-            {'불편 사항 접수 날짜 '}
+            {'누적 '}
           </Text>
           <Text
             font={'Body_16'}
@@ -56,11 +60,11 @@ const AdminInquiryListRow = ({
     }
     return (
       <Text
-        font={'Body_14'}
+        font={'Caption_11'}
         fontWeight={900}
         letterSpacing={0}
         style={{
-          color: isDarkMode ? palette.GRAY400 : palette.GRAY400,
+          color: isDarkMode ? palette.GRAY300 : palette.GRAY500,
         }}
       >
         {infoMessage}
@@ -70,12 +74,13 @@ const AdminInquiryListRow = ({
 
   return (
     <StyleList
-      width={372}
+      width={322}
       height={height}
       style={{
         padding: '0 20px 0px 20px',
         borderBottom: `1px solid ${palette.GRAY300}`,
       }}
+      onClick={onClick}
     >
       <Text
         font={'Body_16'}
