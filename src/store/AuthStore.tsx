@@ -18,6 +18,7 @@ type AuthState = {
 const useAuthStore = create(
   persist<AuthState>(
     (set) => ({
+      authTokens: undefined,
       provider: 'KAKAO',
       setProvider: (provider: Provider) => set(() => ({ provider })),
       setAuthTokens: (authTokens: Tokens) =>

@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import AppHeader from '@/components/common/AppHeader'
 import { ParticularTopicButton } from '@/components/common/Buttons/IconButton'
@@ -8,16 +10,36 @@ import PageContainer from '@/components/common/PageContainer'
 import { Text } from '@/components/common/Text'
 import Card from '@/components/home/Card'
 import useToast from '@/hooks/useToast'
+import useAuthStore from '@/store/AuthStore.tsx'
 import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
 
 const Home = () => {
   const nickname = '우땅'
+  const [nickname, setNickname] = useState('')
+  const [profileImageUrl, setProfileImageUrl] = useState('')
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode)
+  const { authTokens } = useAuthStore()
   const [isMatching, setIsMatching] = useState(false)
+  const navigate = useNavigate()
 
   const { showToast } = useToast()
+
+  useEffect(() => {
+    if (!authTokens) {
+      showToast({
+        message: '로그인이 필요한 서비스입니다.',
+        type: 'warning',
+        isDarkMode,
+      })
+      navigate('/login')
+    }
+    if (authTokens) {
+      setNickname(localStorage.getItem('nickname') || '')
+      setProfileImageUrl(localStorage.getItem('profileImageUrl') || '')
+    }
+  }, [])
 
   return (
     <GradationBackground isDarkMode={isDarkMode}>
