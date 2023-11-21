@@ -150,11 +150,11 @@ const RegisterCompany = () => {
       })
       .then(() => {
         showToast({
-          message: '회사 정보 등록 완료! 메인 홈으로 이동합니다.',
+          message: '회사 정보 등록 완료! 다시 로그인 해주세요!',
           type: 'success',
           isDarkMode: false,
         })
-        navigate('/')
+        navigate('/login')
       })
       .catch(() => {
         showToast({
