@@ -14,7 +14,7 @@ import RegisterInput from '@/components/common/RegisterInput'
 import SelectorButtonContainer from '@/components/common/SelectorButtonContainer'
 import Spacing from '@/components/common/Spacing'
 import useToast from '@/hooks/useToast'
-import useInterestStore from '@/store/InterestStore'
+import useJobStore from '@/store/JobStore.tsx'
 import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
@@ -42,7 +42,7 @@ const RegisterCompany = () => {
   const codeRef = useRef<HTMLInputElement>(null)
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null)
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null)
-  const { interestList } = useInterestStore() //여기서 회사 직무 list 저장한거 get해옴
+  const { jobInfo } = useJobStore()
   const { showToast } = useToast()
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const formData = new FormData()
@@ -249,8 +249,9 @@ const RegisterCompany = () => {
         <FlexBox direction={'column'}>
           <SelectorButtonContainer
             isDarkMode={false}
+            type={'job'}
             buttonNames={JobList}
-            maxLength={4}
+            maxLength={1}
           ></SelectorButtonContainer>
         </FlexBox>
         <Spacing size={10} />
