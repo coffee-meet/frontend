@@ -15,9 +15,6 @@ interface LoginResponse {
   refreshToken: string
   nickname: string
   profileImageUrl: string
-  companyName: string
-  department: string
-  interests: string[]
 }
 
 const LoginPending = () => {
@@ -32,17 +29,8 @@ const LoginPending = () => {
     await axiosAPI
       .get<LoginResponse>(`/v1/users/login/${provider}?authCode=${authCode}`)
       .then((res) => {
-        const {
-          userId,
-          accessToken,
-          refreshToken,
-          isRegistered,
-          nickname,
-          profileImageUrl,
-          companyName,
-          department,
-          interests,
-        } = res.data
+        const { userId, accessToken, refreshToken, isRegistered, nickname, profileImageUrl } =
+          res.data
 
         if (!isRegistered) {
           navigate('/register/user', { state: { userId } })
@@ -50,13 +38,16 @@ const LoginPending = () => {
 
         if (isRegistered) {
           localStorage.setItem('jwt', accessToken)
+          // TODO: 아래 3개의 정보는 추후 AuthStore에서 관리?
+          localStorage.setItem('userId', userId.toString())
           localStorage.setItem('nickname', nickname)
+          localStorage.setItem('profileImageUrl', profileImageUrl)
           setToken({
             accessToken: accessToken,
             refreshToken: refreshToken,
           })
           navigate('/', {
-            state: { userId, nickname, profileImageUrl, companyName, department, interests },
+            state: { userId, nickname, profileImageUrl },
           })
         }
       })
