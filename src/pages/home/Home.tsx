@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,7 +14,6 @@ import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
 
 const Home = () => {
-  const nickname = '우땅'
   const [nickname, setNickname] = useState('')
   const [profileImageUrl, setProfileImageUrl] = useState('')
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
@@ -43,7 +41,12 @@ const Home = () => {
 
   return (
     <GradationBackground isDarkMode={isDarkMode}>
-      <AppHeader nickname={nickname} isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+      <AppHeader
+        nickname={nickname}
+        profileImageUrl={profileImageUrl}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+      />
       <PageContainer
         height={'80%'}
         isDarkMode={isDarkMode}

@@ -44,6 +44,7 @@ const StyledAppHeaderSmallText = styled(Text)<Pick<AppHeaderProps, 'isDarkMode'>
 
 type AppHeaderProps = {
   nickname: string
+  profileImageUrl: string
   isDarkMode: boolean
   height?: string
   toggleDarkMode: () => void
@@ -51,12 +52,19 @@ type AppHeaderProps = {
 
 /**
  * @param nickname - 유저 닉네임
+ * @param profileImageUrl - 유저 프로필 이미지 URL
  * @param isDarkMode - 다크모드 여부
  * @param height - 컴포넌트 높이
  * @param toggleDarkMode - 다크모드 토글 함수
  */
 
-const AppHeader = ({ nickname, isDarkMode, height, toggleDarkMode }: AppHeaderProps) => {
+const AppHeader = ({
+  nickname,
+  profileImageUrl,
+  isDarkMode,
+  height,
+  toggleDarkMode,
+}: AppHeaderProps) => {
   const navigate = useNavigate()
   const moveFromAppHeader = (path: string) => {
     navigate(`/${path}`)
@@ -73,7 +81,7 @@ const AppHeader = ({ nickname, isDarkMode, height, toggleDarkMode }: AppHeaderPr
         <Avatar
           width={49}
           height={49}
-          imgUrl={''}
+          imgUrl={profileImageUrl}
           margin={'0'}
           style={{
             cursor: 'pointer',
