@@ -127,7 +127,7 @@ const RegisterUser = () => {
         isDarkMode,
       })
 
-      navigate('/register/company')
+      navigate('/register/company', { state: { userId: userId } })
     },
     onError: (err) => {
       console.log(err)

@@ -3,7 +3,7 @@ import { useMutation } from '@tanstack/react-query'
 import { RefObject, useRef, useState } from 'react'
 import { MdWbSunny } from 'react-icons/md'
 import { MdOutlinePhotoCamera } from 'react-icons/md'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
 import AlertText from '@/components/common/AlertText'
@@ -37,6 +37,7 @@ const RegisterCompany = () => {
     '법률/집행기관',
   ]
   const navigate = useNavigate()
+  const userId = useLocation().state.userId
   const companyName = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
   const codeRef = useRef<HTMLInputElement>(null)
@@ -52,6 +53,7 @@ const RegisterCompany = () => {
   const handleClickEmailVerify = async (email: string) => {
     console.log(email)
     return await axiosAPI.post(`/v1/certification/users/me/company-mail`, {
+      userId: userId,
       companyEmail: emailRef.current && emailRef.current.value,
     })
   }
@@ -88,6 +90,7 @@ const RegisterCompany = () => {
   const checkEmailCode = async () => {
     setCodeChecked(true)
     const response = await axiosAPI.post('/v1/certification/users/me/company-mail/verification', {
+      userId: userId,
       verificationCode: codeRef.current && codeRef.current.value,
     })
     if (response.status == 200) setIsCodeSame(true)
@@ -125,6 +128,7 @@ const RegisterCompany = () => {
       })
       return
     }
+    formData.append('userId', userId)
     companyName.current && formData.append('companyName', companyName.current.value)
     emailRef.current && formData.append('companyEmail', emailRef.current.value)
     formData.append('department', JSON.stringify(interestList))
