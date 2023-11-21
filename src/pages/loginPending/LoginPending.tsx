@@ -4,9 +4,21 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
 
 import { axiosAPI } from '@/apis/axios'
-import { BASE_URL } from '@/pages/login/Login.tsx'
+import useToast from '@/hooks/useToast.tsx'
 import useAuthStore from '@/store/AuthStore'
 import { palette } from '@/styles/palette'
+
+interface LoginResponse {
+  userId: number
+  isRegistered: boolean
+  accessToken: string
+  refreshToken: string
+  nickname: string
+  profileImageUrl: string
+  companyName: string
+  department: string
+  interests: string[]
+}
 
 const LoginPending = () => {
   const navigate = useNavigate()
@@ -14,27 +26,48 @@ const LoginPending = () => {
   const authCode = searchParams.get('code')
   const setToken = useAuthStore((state) => state.setAuthTokens)
   const provider = useAuthStore((state) => state.provider)
-  const { isNewUser, setIsNewUser } = useAuthStore()
+
+  const { showToast } = useToast()
   const routeAuthInfo = async () => {
     await axiosAPI
-      .get(`/v1/users/login/${provider}?authCode=${authCode}`)
+      .get<LoginResponse>(`/v1/users/login/${provider}?authCode=${authCode}`)
       .then((res) => {
-        console.log(res.data.accessToken)
-        localStorage.setItem('jwt', res.data.accessToken)
-        localStorage.setItem('nickname', res.data.nickname)
+        const {
+          userId,
+          accessToken,
+          refreshToken,
+          isRegistered,
+          nickname,
+          profileImageUrl,
+          companyName,
+          department,
+          interests,
+        } = res.data
 
-        setToken({
-          accessToken: res.data.accessToken,
-          refreshToken: res.data.refreshToken,
-        })
-        navigate('/')
-      })
-      .catch((err) => {
-        if (err.response.status === 404) {
-          console.log('카카오 로그인 완료 & 정보 등록 안됨')
-          setIsNewUser(true)
-          window.location.replace(`${BASE_URL}/v1/oauth2.0/${provider}`)
+        if (!isRegistered) {
+          navigate('/register/user', { state: { userId } })
         }
+
+        if (isRegistered) {
+          localStorage.setItem('jwt', accessToken)
+          localStorage.setItem('nickname', nickname)
+          setToken({
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+          })
+          navigate('/', {
+            state: { userId, nickname, profileImageUrl, companyName, department, interests },
+          })
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+        showToast({
+          message: '로그인에 실패했습니다.',
+          type: 'error',
+          isDarkMode: false,
+        })
+        navigate('/login')
       })
   }
   useEffect(() => {
