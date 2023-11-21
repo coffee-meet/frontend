@@ -2,9 +2,8 @@ import styled from '@emotion/styled'
 
 import AdminAppHeader from '@/components/common/AppHeader/AdminAppHeader'
 import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
+import AdminPageHeader from '@/pages/admin/components/AdminPageHeader'
 import { palette } from '@/styles/palette'
-
-import AdminPageHeader from './components/AdminPageHeader'
 
 const AdminInquiry = () => {
   return (

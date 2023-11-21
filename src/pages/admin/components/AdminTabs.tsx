@@ -5,11 +5,10 @@ import AdminApprovalList from '@/components/common/ListRow/AdminApprovalList'
 import AdminReportList from '@/components/common/ListRow/AdminReportList'
 import HomeNavigationBar from '@/components/common/NavigationBar/AdminNavigationBar'
 import { Text } from '@/components/common/Text'
+import AdminApprovalInfo from '@/pages/admin/components/AdminApprovalInfo'
+import AdminInquiryBtn from '@/pages/admin/components/AdminInquiryBtn'
+import AdminReportInfo from '@/pages/admin/components/AdminReportInfo'
 import { palette } from '@/styles/palette'
-
-import AdminApprovalInfo from './AdminApprovalInfo'
-import AdminInquiryBtn from './AdminInquiryBtn'
-import AdminReportInfo from './AdminReportInfo'
 
 interface TabProps {
   isActive: boolean

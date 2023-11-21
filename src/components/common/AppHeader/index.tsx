@@ -4,10 +4,9 @@ import { RiSunFill } from 'react-icons/ri'
 import { useNavigate } from 'react-router-dom'
 
 import Avatar from '@/components/common/Avatar'
+import { FlexBox } from '@/components/common/Flexbox'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
-
-import { FlexBox } from '../Flexbox'
 
 const StyleAppHeader = styled.div<{ height?: string }>`
   width: 100%;
