@@ -131,7 +131,10 @@ const RegisterCompany = () => {
     formData.append('userId', userId)
     companyName.current && formData.append('companyName', companyName.current.value)
     emailRef.current && formData.append('companyEmail', emailRef.current.value)
-    formData.append('department', JSON.stringify(interestList))
+    formData.append('department', jobInfo)
+    if (imgRef.current && imgRef.current?.files) {
+      formData.append('businessCard', imgRef.current?.files[0])
+    }
 
     registerCompanyData(formData)
   }
