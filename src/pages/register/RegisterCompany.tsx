@@ -5,6 +5,7 @@ import { MdWbSunny } from 'react-icons/md'
 import { MdOutlinePhotoCamera } from 'react-icons/md'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+
 import { axiosAPI } from '@/apis/axios'
 import AlertText from '@/components/common/AlertText'
 import BackChevron from '@/components/common/BackChevron'

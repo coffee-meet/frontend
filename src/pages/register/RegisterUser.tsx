@@ -36,6 +36,7 @@ const RegisterUser = () => {
   ]
   const navigate = useNavigate()
   const userId = useLocation().state.userId
+
   const inputRef = useRef<HTMLInputElement>(null)
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false)
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
