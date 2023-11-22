@@ -8,12 +8,14 @@ import SelectorButton from '@/components/common/SelectorButton'
 import { palette } from '@/styles/palette'
 type SelectorButtonContainerProps = {
   isDarkMode: boolean
+  type: 'interest' | 'job'
   buttonNames: string[]
   maxLength: number
 }
 
 const SelectorButtonContainer = ({
   isDarkMode,
+  type,
   buttonNames,
   maxLength,
 }: SelectorButtonContainerProps) => {
@@ -53,6 +55,7 @@ const SelectorButtonContainer = ({
             key={index}
             isDarkMode={isDarkMode}
             buttonName={name}
+            type={type}
             isButtonClicked={handleButtonSelection}
             isMaxLengthReached={selectedCount >= maxLength}
             isButtonSelected={false}

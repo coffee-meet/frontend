@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'
 
-import InquiryImage from '@/assets/images/inquiry.svg'
+import InquiryImage from '@/assets/images/inquiryImage.svg'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 const AdminInquiryBtn = () => {
