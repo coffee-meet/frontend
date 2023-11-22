@@ -4,8 +4,18 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
 
 import { axiosAPI } from '@/apis/axios'
+import useToast from '@/hooks/useToast.tsx'
 import useAuthStore from '@/store/AuthStore'
 import { palette } from '@/styles/palette'
+
+interface LoginResponse {
+  userId: number
+  isRegistered: boolean
+  accessToken: string
+  refreshToken: string
+  nickname: string
+  profileImageUrl: string
+}
 
 const LoginPending = () => {
   const navigate = useNavigate()
@@ -13,26 +23,42 @@ const LoginPending = () => {
   const authCode = searchParams.get('code')
   const setToken = useAuthStore((state) => state.setAuthTokens)
   const provider = useAuthStore((state) => state.provider)
+
+  const { showToast } = useToast()
   const routeAuthInfo = async () => {
     await axiosAPI
-      .get(`/v1/users/login/${provider}?authCode=${authCode}`)
+      .get<LoginResponse>(`/v1/users/login/${provider}?authCode=${authCode}`)
       .then((res) => {
-        console.log(res.data.accessToken)
-        localStorage.setItem('jwt', res.data.accessToken)
-        localStorage.setItem('nickname', res.data.nickname)
+        const { userId, accessToken, refreshToken, isRegistered, nickname, profileImageUrl } =
+          res.data
 
-        setToken({
-          accessToken: res.data.accessToken,
-          refreshToken: res.data.refreshToken,
-        })
-        navigate('/')
-      })
-      .catch((err) => {
-        if (err.response.status === 404) {
-          navigate('/register/user', { state: { authCode } })
-
-          console.log('카카오 로그인 완료 & 정보 등록 안됨')
+        if (!isRegistered) {
+          navigate('/register/user', { state: { userId } })
         }
+
+        if (isRegistered) {
+          localStorage.setItem('jwt', accessToken)
+          // TODO: 아래 3개의 정보는 추후 AuthStore에서 관리?
+          localStorage.setItem('userId', userId.toString())
+          localStorage.setItem('nickname', nickname)
+          localStorage.setItem('profileImageUrl', profileImageUrl)
+          setToken({
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+          })
+          navigate('/', {
+            state: { userId, nickname, profileImageUrl },
+          })
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+        showToast({
+          message: '로그인에 실패했습니다.',
+          type: 'error',
+          isDarkMode: false,
+        })
+        navigate('/login')
       })
   }
   useEffect(() => {

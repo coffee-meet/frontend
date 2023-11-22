@@ -1,9 +1,23 @@
 import { http, HttpResponse } from 'msw'
 
-import { Approval, ApprovalInfo, ReportInfo, Reports } from './handlersInterface'
+import {
+  AdminLoginInfo,
+  Approval,
+  ApprovalInfo,
+  ApprovalResult,
+  Inquiry,
+  ReportInfo,
+  ReportResult,
+  Reports,
+} from './handlersInterface'
 const nickname = '주다다'
 
 export const handlers = [
+  // example
+  http.get('/pets', () => {
+    return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
+  }),
+
   // example
   http.get('/pets', () => {
     return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
@@ -37,7 +51,7 @@ export const handlers = [
       },
     ])
   }),
-  http.delete(`/api/v1/chatrooms/1`, () => {
+  http.delete(`/v1/chatrooms/1`, () => {
     return new HttpResponse(null, {
       status: 200,
       statusText: '삭제 완료',
@@ -369,7 +383,7 @@ export const handlers = [
     return HttpResponse.json(['Tom', 'Jerry', 'Spike'])
   }),
   // 승인 목록 API 핸들러
-  http.get('/admin/approvals', () => {
+  http.get('/v1/users/approvals', () => {
     const approvals: Approval[] = [
       { approvalRequestUser: '박상민', approvalRequestUserStatus: '대기 중' },
       { approvalRequestUser: '박은지', approvalRequestUserStatus: '대기 중' },
@@ -401,30 +415,54 @@ export const handlers = [
   }),
 
   // 승인 상세 정보 API 핸들러
-  http.get('/admin/approvals/:userId', (req) => {
+  http.get('/v1/useres/inquries/:inquryId', (req) => {
     const { userId } = req.params
     const approvalInfo: ApprovalInfo = {
-      approvalRequestUserName: `userId:${userId}에 해당하는 userName`,
+      approvalRequestUserName: `userId:${userId}에 해당하는  userName`,
       approvalRequestUserEmail: `userId:${userId}에 해당하는 userName의 Email`,
       approvalRequestUserBusinessCardImage: `https://www.imageExample.jpg`,
     }
 
     return HttpResponse.json({ approvalInfo })
   }),
+  // 관리자 로그인 요청 API 핸들러
+  http.post('/v1/admins/login', async ({ request }) => {
+    const adminData = await request.text()
+    const { adminId, adminPw } = JSON.parse(adminData)
+    const isValidUser = adminId === 'expectedId' && adminPw === 'expectedPassword'
+    const adminLoginInfo: AdminLoginInfo = {
+      adminLoginResult: isValidUser ? 'success' : 'error',
+      adminLoginMessage: isValidUser ? 'Authentication successful' : 'Invalid credentials',
+    }
+    return HttpResponse.json({
+      adminLoginInfo,
+    })
+  }),
 
-  // 승인/거절 처리 API 핸들러
-  // req.body 오류 해결이 필요한 부분
-  // http.post('/admin/approvals/:userId/action', (req) => {
-  //   const { userId } = req.params
-  //   const { action } = req.body
-  //   const approvalResult: ApprovalResult = {
-  //     result: action === 'accept' ? 'accepted' : 'rejected',
-  //   }
-  //   return HttpResponse.json({ approvalResult })
-  // }),
+  // 관리자 회사승인 동의 API 핸들러
+  http.post('/v1/certification/users/:userId/accept', async ({ request }) => {
+    const decisionString = await request.text()
+    const { decision } = JSON.parse(decisionString)
+    const decisionMaking = decision === 'approve'
+    const approvalResult: ApprovalResult = {
+      result: decisionMaking === true ? 'accepted' : 'error',
+    }
+    return HttpResponse.json({ approvalResult })
+  }),
+
+  // 관리자 회사승인 거절 API 핸들러
+  http.post('/v1/certification/users/:userId/reject', async ({ request }) => {
+    const decisionString = await request.text()
+    const { decision } = JSON.parse(decisionString)
+    const decisionMaking = decision === 'reject'
+    const approvalResult: ApprovalResult = {
+      result: decisionMaking === true ? 'rejected' : 'error',
+    }
+    return HttpResponse.json({ approvalResult })
+  }),
 
   // 신고 목록 API 핸들러
-  http.get('/admin/reports', () => {
+  http.get('/v1/reports', () => {
     const reports: Reports[] = [
       { reportedUserName: '유명한', reportCount: 1 },
       { reportedUserName: '박상민', reportCount: 2 },
@@ -445,11 +483,10 @@ export const handlers = [
   }),
 
   // 신고 상세 정보 API 핸들러
-  http.get('/admin/reports/:userId', (req) => {
+  http.get('/v1/reports/:reportId', (req) => {
     const { userId } = req.params
     const reportInfo: ReportInfo = {
-      reportedUserName: `userName, userId:${userId}`,
-      reporterUserName: 'reporterUserName',
+      reportedUserName: `reporterUserName, userId:${userId}`,
       reportDate: new Date().toISOString(),
       reason: 'saying swear words',
       reportCount: 3,
@@ -460,14 +497,53 @@ export const handlers = [
     })
   }),
 
-  // // 신고 처리 API 핸들러
-  // req.body 오류 해결이 필요한 부분
-  // http.post('/admin/reports/:userId/action', (req) => {
-  //   const { userId } = req.params
-  //   const { action } = req.body
-  //   const reportResult: ReportResult = {
-  //     result: action === 'addCount' ? 'countAdded' : 'ignored',
-  //   }
-  //   return HttpResponse.json({ reportResult })
-  // }),
+  // 신고 승인 처리 API 핸들러
+  http.post('/v1/reports/accept/:reportId', async ({ request }) => {
+    const decisionString = await request.text()
+    const { decision } = JSON.parse(decisionString)
+    const decisionMaking = decision === 'addReportCount'
+    const reportResult: ReportResult = {
+      result: decisionMaking === true ? 'reportCountAdded' : 'error',
+    }
+    return HttpResponse.json({ reportResult })
+  }),
+
+  // 신고 거절 처리 API 핸들러
+  http.delete('/v1/reports/reject/:reportId', async () => {
+    return HttpResponse.json({
+      result: 'reportDeleted',
+    })
+  }),
+
+  // 문의 목록 API 핸들러
+  http.get('/v1/users/inquiries', () => {
+    const inquiries: Inquiry[] = [
+      { inquiryRequestUser: '박상민', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '박은지', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '주다현', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '남궁호수', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '우창욱', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+    ]
+    return HttpResponse.json({ inquiries })
+  }),
 ]

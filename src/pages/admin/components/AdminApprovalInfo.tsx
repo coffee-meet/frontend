@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
 import AdminApprovalAPI from '@/apis/adminApproval/AdminApprovalApi'
 import businessCardExample from '@/assets/images/businessCardExample.jpg'
@@ -16,6 +17,24 @@ interface AdminApprovalInfoProps {
 }
 
 const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps) => {
+  const mutationApprovalRequestAccept = useMutation(AdminApprovalAPI.POST_APPROVAL_ACCEPT, {
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  })
+  const mutationReject = useMutation(AdminApprovalAPI.POST_APPROVAL_REJECT, {
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  })
+
+  const onAcceptAdminApproval = () => {
+    mutationApprovalRequestAccept.mutate()
+  }
+  const onRejectAdminApproval = () => {
+    mutationReject.mutate()
+  }
+
   const { data, isSuccess } = useQuery(
     ['ApprovalRequestUserInfo'],
     AdminApprovalAPI.GET_APPROVAL_INFO,
@@ -26,7 +45,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
     openModal({
       type: 'confirm',
       mainText: '인증을 수락하시겠습니까?',
-      okFunc: () => console.log('okFunc'),
+      okFunc: onAcceptAdminApproval,
     })
   }
 
@@ -68,7 +87,9 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
           <NormalButton onClick={handleAcceptCertificationBtn} normalButtonType={'admin-accept'}>
             {'인증 수락'}
           </NormalButton>
-          <NormalButton normalButtonType={'admin-deny'}>{'거절'}</NormalButton>
+          <NormalButton onClick={onRejectAdminApproval} normalButtonType={'admin-deny'}>
+            {'거절'}
+          </NormalButton>
         </StyledButtonsWrapper>
         <Spacing size={18} />
       </StyledAdminApproveFormContainer>

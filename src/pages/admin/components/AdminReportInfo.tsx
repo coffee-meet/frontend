@@ -1,5 +1,8 @@
 import styled from '@emotion/styled'
+import { useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
+import AdminReportAPI from '@/apis/adminReport/AdminReportApi'
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import AdminReportInfoListRow from '@/components/common/ListRow/AdminReportInfoListRow'
 import Spacing from '@/components/common/Spacing'
@@ -13,12 +16,30 @@ interface AdminReportInfoProps {
 }
 
 const AdminReportInfo = ({ selectedReportNickname }: AdminReportInfoProps) => {
+  const mutationReportAddCount = useMutation(AdminReportAPI.POST_REPORT_ADD, {
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  })
+  const mutationReportIgnore = useMutation(AdminReportAPI.POST_REPORT_IGNORE, {
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  })
+  const onReportAddCount = () => {
+    mutationReportAddCount.mutate()
+  }
+  const onReportIgnore = () => {
+    mutationReportIgnore.mutate()
+  }
+  const { data, isSuccess } = useQuery(['ReportedUserInfo'], AdminReportAPI.GET_REPORT_INFO)
+  console.log(isSuccess && data)
   const { openModal } = useModal()
   const handleAccumulationAddBtn = () => {
     openModal({
       type: 'confirm',
       mainText: '신고를 누적하시겠습니까?',
-      okFunc: () => console.log('okFunc'),
+      okFunc: onReportAddCount,
     })
   }
   return (
@@ -65,7 +86,9 @@ const AdminReportInfo = ({ selectedReportNickname }: AdminReportInfoProps) => {
           <NormalButton onClick={handleAccumulationAddBtn} normalButtonType={'admin-accept'}>
             {'누적 추가'}
           </NormalButton>
-          <NormalButton normalButtonType={'admin-deny'}>{'무시'}</NormalButton>
+          <NormalButton onClick={onReportIgnore} normalButtonType={'admin-deny'}>
+            {'무시'}
+          </NormalButton>
         </StyledButtonsWrapper>
         <Spacing size={18} />
       </StyledAdminReportInfoContainer>
