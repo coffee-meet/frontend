@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 import AdminApprovalList from '@/components/common/ListRow/AdminApprovalList'
 import AdminInquiryList from '@/components/common/ListRow/AdminInquiryList'
+import AdminReportersList from '@/components/common/ListRow/AdminReportersList'
 import AdminReportList from '@/components/common/ListRow/AdminReportList'
 import { Text } from '@/components/common/Text'
 import AdminApprovalInfo from '@/pages/admin/components/AdminApprovalInfo'
@@ -19,7 +20,8 @@ const AdminTabs = () => {
   const [activeTab, setActiveTab] = useState('approval')
   const [selectedApprovalNickname, setSelectedApprovalNickname] = useState<string>('')
   const [selectedInquiryNickname, setSelectedInquiryNickname] = useState<string>('')
-  const [selectedReportNickname, setSelectedReportNickname] = useState<string>('')
+  const [selectedReportedNickname, setSelectedReportedNickname] = useState<string>('')
+  const [selectedReporterNickname, setSelectedReporterNickname] = useState<string>('')
 
   const handleApprovalSelectUserName = (approvalNickname: string) => {
     setSelectedApprovalNickname(approvalNickname)
@@ -30,7 +32,11 @@ const AdminTabs = () => {
     setActiveTab('inquiryInfo')
   }
   const handleReportSelectUserName = (reportedNickname: string) => {
-    setSelectedReportNickname(reportedNickname)
+    setSelectedReportedNickname(reportedNickname)
+    setActiveTab('reportersList')
+  }
+  const handleReportersSelectUserName = (reporterNickname: string) => {
+    setSelectedReporterNickname(reporterNickname)
     setActiveTab('reportInfo')
   }
 
@@ -47,8 +53,15 @@ const AdminTabs = () => {
         return <AdminInquiryInfo selectedInquiryNickname={selectedInquiryNickname} />
       case 'report':
         return <AdminReportList onReportSelect={handleReportSelectUserName} />
+      case 'reportersList':
+        return (
+          <AdminReportersList
+            selectedReportNickname={selectedReportedNickname}
+            onReportSelect={handleReportersSelectUserName}
+          />
+        )
       case 'reportInfo':
-        return <AdminReportInfo selectedReportNickname={selectedReportNickname} />
+        return <AdminReportInfo selectedReporterNickname={selectedReportedNickname} />
       default:
         return null
     }

@@ -7,6 +7,12 @@ const AdminReportAPI = {
       data: response.data,
     }
   },
+  GET_REPORTERS_LIST: async () => {
+    const response = await axiosAPI.get(`/v1/reporters`)
+    return {
+      data: response.data,
+    }
+  },
   GET_REPORT_INFO: async () => {
     const response = await axiosAPI.get(`/v1/reports/:reportId`)
     return {
