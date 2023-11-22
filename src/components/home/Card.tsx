@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { timer } from 'd3'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { PulseLoader } from 'react-spinners'
 
 import { RandomMatchingButton } from '@/components/common/Buttons/IconButton'
@@ -29,6 +30,7 @@ type CardProps = {
 const Card = ({ isMatching, isDarkMode, onClick }: CardProps) => {
   const [time, setTime] = useState(0)
   const timerRef = useRef<TimerRefType>(null)
+  const navigate = useNavigate()
 
   const handleCancelClick = () => {
     setTime(0)
@@ -55,6 +57,8 @@ const Card = ({ isMatching, isDarkMode, onClick }: CardProps) => {
   }
 
   useEffect(() => {
+    if (localStorage.getItem('isMatchingSuccess') == 'true')
+      navigate('/chatting', { state: { chatroomId: 1 } })
     if (isMatching) {
       const startTime = Date.now()
       const updateTimer = () => {

@@ -23,6 +23,14 @@ export function requestPermission() {
         .getToken({ vapidKey: import.meta.env.VITE_VAPID_KEY })
         .then((token: string) => {
           console.log(`푸시 토큰 발급 완료 : ${token}`)
+          return token
+        })
+        .then(function (token) {
+          console.log('알림 왜 안 울려')
+          messaging.onMessage((payload) => {
+            alert('알림:' + payload.notification.body)
+          })
+          return token
         })
         .catch((err) => {
           console.log('푸시 토큰 가져오는 중에 에러 발생 : ', err)
