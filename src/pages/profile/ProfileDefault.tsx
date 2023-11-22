@@ -20,6 +20,7 @@ import Spacing from '@/components/common/Spacing'
 import { Text, TextWrapper } from '@/components/common/Text'
 import { useModal } from '@/hooks/useModal'
 import useToast from '@/hooks/useToast'
+import useAuthStore from '@/store/AuthStore.tsx'
 import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
 
@@ -35,6 +36,12 @@ const ProfileDefault = () => {
       mainText: '로그아웃 하시겠습니까?',
       subText: '로그아웃 시 로그인 화면으로 이동합니다.',
       okFunc: () => {
+        // TODO: 명령형 -> 선언형 로직으로 변경
+        localStorage.setItem('jwt', '')
+        localStorage.removeItem('userId')
+        localStorage.removeItem('nickname')
+        localStorage.removeItem('profileImageUrl')
+        useAuthStore.persist.clearStorage()
         navigate('/login')
       },
       type: 'warn',

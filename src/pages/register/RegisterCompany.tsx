@@ -3,7 +3,8 @@ import { useMutation } from '@tanstack/react-query'
 import { RefObject, useRef, useState } from 'react'
 import { MdWbSunny } from 'react-icons/md'
 import { MdOutlinePhotoCamera } from 'react-icons/md'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+
 
 import { axiosAPI } from '@/apis/axios'
 import AlertText from '@/components/common/AlertText'
@@ -14,8 +15,7 @@ import RegisterInput from '@/components/common/RegisterInput'
 import SelectorButtonContainer from '@/components/common/SelectorButtonContainer'
 import Spacing from '@/components/common/Spacing'
 import useToast from '@/hooks/useToast'
-import useAuthStore from '@/store/AuthStore.tsx'
-import useInterestStore from '@/store/InterestStore'
+import useJobStore from '@/store/JobStore.tsx'
 import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
@@ -38,22 +38,23 @@ const RegisterCompany = () => {
     '법률/집행기관',
   ]
   const navigate = useNavigate()
+  const userId = useLocation().state.userId
   const companyName = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
   const codeRef = useRef<HTMLInputElement>(null)
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null)
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null)
-  const { interestList } = useInterestStore() //여기서 회사 직무 list 저장한거 get해옴
+  const { jobInfo } = useJobStore()
   const { showToast } = useToast()
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const formData = new FormData()
   const imgRef = useRef<HTMLInputElement>(null) as RefObject<HTMLInputElement>
   const [uploadedURL, setUploadedURL] = useState('')
-  const { setIsNewUser } = useAuthStore()
 
   const handleClickEmailVerify = async (email: string) => {
     console.log(email)
     return await axiosAPI.post(`/v1/certification/users/me/company-mail`, {
+      userId: userId,
       companyEmail: emailRef.current && emailRef.current.value,
     })
   }
@@ -90,6 +91,7 @@ const RegisterCompany = () => {
   const checkEmailCode = async () => {
     setCodeChecked(true)
     const response = await axiosAPI.post('/v1/certification/users/me/company-mail/verification', {
+      userId: userId,
       verificationCode: codeRef.current && codeRef.current.value,
     })
     if (response.status == 200) setIsCodeSame(true)
@@ -127,9 +129,13 @@ const RegisterCompany = () => {
       })
       return
     }
+    formData.append('userId', userId)
     companyName.current && formData.append('companyName', companyName.current.value)
     emailRef.current && formData.append('companyEmail', emailRef.current.value)
-    formData.append('department', JSON.stringify(interestList))
+    formData.append('department', jobInfo)
+    if (imgRef.current && imgRef.current?.files) {
+      formData.append('businessCard', imgRef.current?.files[0])
+    }
 
     registerCompanyData(formData)
   }
@@ -145,12 +151,11 @@ const RegisterCompany = () => {
       })
       .then(() => {
         showToast({
-          message: '회사 정보 등록 완료! 메인 홈으로 이동합니다.',
+          message: '회사 정보 등록 완료! 다시 로그인 해주세요!',
           type: 'success',
           isDarkMode: false,
         })
-        setIsNewUser(false)
-        navigate('/')
+        navigate('/login')
       })
       .catch(() => {
         showToast({
@@ -252,8 +257,9 @@ const RegisterCompany = () => {
         <FlexBox direction={'column'}>
           <SelectorButtonContainer
             isDarkMode={false}
+            type={'job'}
             buttonNames={JobList}
-            maxLength={4}
+            maxLength={1}
           ></SelectorButtonContainer>
         </FlexBox>
         <Spacing size={10} />

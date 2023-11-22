@@ -10,6 +10,9 @@ export interface ApprovalInfo {
 export interface ApprovalResult {
   result: string
 }
+export interface ReportResult {
+  result: string
+}
 export interface Reports {
   reportedUserName: string
   reportCount: number
@@ -29,4 +32,9 @@ export interface ReportInfo {
 export interface AdminLoginInfo {
   adminLoginResult: string
   adminLoginMessage: string
+}
+
+export interface Inquiry {
+  inquiryRequestUser: string
+  inquiryRequestDate: string
 }
