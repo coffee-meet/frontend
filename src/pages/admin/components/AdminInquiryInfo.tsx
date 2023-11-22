@@ -6,6 +6,7 @@ import InquiryImage from '@/assets/images/inquiryImage.svg'
 import Spacing from '@/components/common/Spacing'
 // import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
+import AdminPageHeader from '@/pages/admin/components/AdminPageHeader'
 import { palette } from '@/styles/palette'
 
 interface AdminInquiryInfoProps {
@@ -22,6 +23,8 @@ const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
   return (
     <>
       <StyledAdminInquiryInfo>
+        <AdminPageHeader username={'불편 사항 처리'}></AdminPageHeader>
+
         <Spacing size={53}></Spacing>
         <StyledTextNameWrapper>
           <Text font={'Body_24'} fontWeight={900} letterSpacing={-1}>

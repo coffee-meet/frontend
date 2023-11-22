@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import AdminInquiryAPI from '@/apis/adminInquiry/AdminInquiryApi'
 import AdminApprovalListRow from '@/components/common/ListRow/AdminApprovalListRow'
+import AdminPageHeader from '@/pages/admin/components/AdminPageHeader'
 import { palette } from '@/styles/palette'
 
 interface AdminInquiryListProps {
@@ -29,6 +30,7 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
 
   return (
     <AdminInquiryListContainerOuterWrapper>
+      <AdminPageHeader username={'불편 사항 처리'}></AdminPageHeader>
       <AdminInquiryListContainer>
         {isSuccess &&
           inquiryDatas.map((inquiryListData: InquiryListData, index: number) => (
@@ -48,6 +50,7 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
 const AdminInquiryListContainerOuterWrapper = styled.div`
   background-color: ${palette.WHITE};
   width: 100%;
+  height: 662px;
 `
 const AdminInquiryListContainer = styled.div`
   background-color: ${palette.WHITE};
