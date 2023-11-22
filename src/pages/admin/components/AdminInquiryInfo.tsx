@@ -51,6 +51,7 @@ const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
 
 const StyledAdminInquiryInfo = styled.div`
   background-color: ${palette.WHITE};
+  height: 662px;
 `
 const StyledInquiryContent = styled.div`
   position: relative;
