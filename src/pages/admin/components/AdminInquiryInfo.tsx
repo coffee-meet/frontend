@@ -8,12 +8,16 @@ import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-const AdminInquiryInfo = () => {
+interface AdminInquiryInfoProps {
+  selectedInquiryNickname: string
+}
+const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
   const { data, isSuccess } = useQuery(
     ['ApprovalRequestUserInfo'],
     AdminApprovalAPI.GET_APPROVAL_INFO,
   )
   console.log(isSuccess && data)
+  const inquiryNickname = selectedInquiryNickname.selectedInquiryNickname
 
   return (
     <>
@@ -21,7 +25,7 @@ const AdminInquiryInfo = () => {
         <Spacing size={53}></Spacing>
         <StyledTextNameWrapper>
           <Text font={'Body_24'} fontWeight={900} letterSpacing={-1}>
-            {'유명한'}
+            {inquiryNickname}
           </Text>
         </StyledTextNameWrapper>
 

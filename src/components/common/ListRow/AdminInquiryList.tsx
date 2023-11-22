@@ -6,24 +6,24 @@ import AdminApprovalListRow from '@/components/common/ListRow/AdminApprovalListR
 import { palette } from '@/styles/palette'
 
 interface AdminInquiryListProps {
-  onApproveSelectUserName: (nickname: string) => void
+  onInquirySelectUserName: (nickname: string) => void
 }
 interface InquiryListData {
   inquiryRequestUser: string
   inquiryRequestDate: string
-  onApproveSelectUserName: (nickname: string) => void
+  onInquirySelectUserName: (nickname: string) => void
 }
 interface InquiryListData {
   approvalRequestUser: string
   approvalRequestUserStatus: string
 }
 
-const AdminInquiryList = ({ onApproveSelectUserName }: AdminInquiryListProps) => {
+const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) => {
   // API 요청 코드
   const { data, isSuccess } = useQuery(['AdminInquiryList'], AdminInquiryAPI.GET_INQUIRY_LIST)
 
-  const handlePersonApproval = (nickname: string) => {
-    onApproveSelectUserName(nickname)
+  const handlePersonInquiry = (inquiryNickname: string) => {
+    onInquirySelectUserName(inquiryNickname)
   }
   const inquiryDatas = data?.data.inquiries
 
@@ -38,7 +38,7 @@ const AdminInquiryList = ({ onApproveSelectUserName }: AdminInquiryListProps) =>
               nickname={inquiryListData.inquiryRequestUser}
               infoMessage={inquiryListData.inquiryRequestDate}
               isDarkMode={false}
-              onClick={() => handlePersonApproval(inquiryListData.inquiryRequestUser)}
+              onClick={() => handlePersonInquiry(inquiryListData.inquiryRequestUser)}
             />
           ))}
       </AdminInquiryListContainer>
