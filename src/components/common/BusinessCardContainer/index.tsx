@@ -3,10 +3,9 @@ import { useState } from 'react'
 import { TiDelete } from 'react-icons/ti'
 
 import camera from '@/assets/images/camera.svg'
+import Spacing from '@/components/common/Spacing'
+import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
-
-import Spacing from '../Spacing'
-import { Text } from '../Text'
 
 type BusinessCardContainerProps = {
   isDarkMode: boolean

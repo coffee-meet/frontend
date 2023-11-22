@@ -15,6 +15,8 @@ import ProfilePage from '@/pages/profile'
 import PrivateRoute from '@/pages/redirect/PrivateRoute'
 import RegisterPage from '@/pages/register'
 
+import AdminInquiry from './pages/admin/AdminInquiry'
+
 const App = () => {
   return (
     <Routes>
@@ -39,6 +41,7 @@ const App = () => {
 
         <Route element={<PrivateRoute auth={true} superAuth={true} />}>
           <Route path={'/admin/*'} element={<AdminPage />}></Route>
+          <Route path={'/admin/inquiry'} element={<AdminInquiry />}></Route>
           <Route path={'*'} element={<NotFoundPage />}></Route>
         </Route>
         <Route path={'*'} element={<NotFoundPage />}></Route>

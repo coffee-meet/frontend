@@ -1,9 +1,8 @@
 import styled from '@emotion/styled'
 
 import AdminAppHeader from '@/components/common/AppHeader/AdminAppHeader'
+import AdminTabs from '@/pages/admin/components/AdminTabs'
 import { palette } from '@/styles/palette'
-
-import AdminTabs from './components/AdminTabs'
 const AdminMain = () => {
   //msw 테스트 코드
   // fetch('/admin/reports/2')

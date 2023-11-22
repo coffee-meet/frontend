@@ -13,7 +13,6 @@ import RegisterInput from '@/components/common/RegisterInput'
 import SelectorButtonContainer from '@/components/common/SelectorButtonContainer'
 import Spacing from '@/components/common/Spacing'
 import useToast from '@/hooks/useToast'
-import useAuthStore from '@/store/AuthStore'
 import useInterestStore from '@/store/InterestStore'
 import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
@@ -36,13 +35,13 @@ const RegisterUser = () => {
     '반려동물',
   ]
   const navigate = useNavigate()
-  const authCode = useLocation().state
+  const userId = useLocation().state.userId
+
   const inputRef = useRef<HTMLInputElement>(null)
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false)
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
   let nickname = ''
   const { interestList } = useInterestStore()
-  const { provider } = useAuthStore()
   const { showToast } = useToast()
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
 
@@ -107,10 +106,9 @@ const RegisterUser = () => {
       console.log(nickname, interestList)
       if (doubleChecked && inputRef.current !== null && interestList.length > 0) {
         const body = {
-          authCode: authCode,
+          userId: userId,
           nickname: inputRef.current.value,
           keywords: interestList,
-          oAuthProvider: provider,
         }
         console.log(body)
         registerMutation.mutate(body)
@@ -122,15 +120,14 @@ const RegisterUser = () => {
   }
 
   const registerMutation = useMutation((body: object) => registerPost(body), {
-    onSuccess: (response) => {
-      localStorage.setItem('jwt', response.data.accessToken)
+    onSuccess: () => {
       showToast({
         message: '닉네임, 관심사 정보 등록을 완료했습니다!',
         type: 'success',
         isDarkMode,
       })
 
-      navigate('/register/company')
+      navigate('/register/company', { state: { userId: userId } })
     },
     onError: (err) => {
       console.log(err)
@@ -192,6 +189,7 @@ const RegisterUser = () => {
       <FlexBox direction={'column'}>
         <SelectorButtonContainer
           isDarkMode={false}
+          type={'interest'}
           buttonNames={InterestList}
           maxLength={4}
         ></SelectorButtonContainer>

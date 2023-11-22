@@ -17,14 +17,22 @@ interface AdminApprovalInfoProps {
 }
 
 const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps) => {
-  const mutation = useMutation(AdminApprovalAPI.POST_APPROVAL_ACCEPT, {
+  const mutationApprovalRequestAccept = useMutation(AdminApprovalAPI.POST_APPROVAL_ACCEPT, {
+    onSuccess: (data) => {
+      console.log(data)
+    },
+  })
+  const mutationReject = useMutation(AdminApprovalAPI.POST_APPROVAL_REJECT, {
     onSuccess: (data) => {
       console.log(data)
     },
   })
 
   const onAcceptAdminApproval = () => {
-    mutation.mutate()
+    mutationApprovalRequestAccept.mutate()
+  }
+  const onRejectAdminApproval = () => {
+    mutationReject.mutate()
   }
 
   const { data, isSuccess } = useQuery(
@@ -79,7 +87,9 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
           <NormalButton onClick={handleAcceptCertificationBtn} normalButtonType={'admin-accept'}>
             {'인증 수락'}
           </NormalButton>
-          <NormalButton normalButtonType={'admin-deny'}>{'거절'}</NormalButton>
+          <NormalButton onClick={onRejectAdminApproval} normalButtonType={'admin-deny'}>
+            {'거절'}
+          </NormalButton>
         </StyledButtonsWrapper>
         <Spacing size={18} />
       </StyledAdminApproveFormContainer>
