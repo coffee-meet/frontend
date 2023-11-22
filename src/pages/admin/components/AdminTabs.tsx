@@ -22,6 +22,7 @@ const AdminTabs = () => {
   const [selectedInquiryNickname, setSelectedInquiryNickname] = useState<string>('')
   const [selectedReportedNickname, setSelectedReportedNickname] = useState<string>('')
   const [selectedReporterNickname, setSelectedReporterNickname] = useState<string>('')
+  console.log('신고자 닉네임: ' + selectedReporterNickname)
 
   const handleApprovalSelectUserName = (approvalNickname: string) => {
     setSelectedApprovalNickname(approvalNickname)
