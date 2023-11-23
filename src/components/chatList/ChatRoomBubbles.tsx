@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { useNavigate } from 'react-router-dom'
 
 import ChatRoomBubble from './ChatRoomBubble'
 
@@ -18,8 +19,9 @@ const StyledChatRoomBubbleWrapper = styled.div`
     padding: 30% 5% 5%;
   }
 `
-
+const ChatRoomBubbleWrapper = styled.span``
 type ChatRoom = {
+  id: string
   title: string
   participants: string[]
   createdAt: string
@@ -31,17 +33,24 @@ type ChatRoomBubblesProps = {
 }
 
 const ChatRoomBubbles = ({ chatRoomList, isDarkMode }: ChatRoomBubblesProps) => {
+  const navigate = useNavigate()
   return (
     <StyledChatRoomBubbleWrapper>
       {chatRoomList.map((chatRoom, idx) => {
         return (
-          <ChatRoomBubble
+          <ChatRoomBubbleWrapper
             key={idx}
-            title={chatRoom.title}
-            participants={chatRoom.participants}
-            createdAt={chatRoom.createdAt}
-            isDarkMode={isDarkMode}
-          />
+            onClick={() => {
+              navigate('/chat-list-detail', { state: { chatroomId: chatRoom.id } })
+            }}
+          >
+            <ChatRoomBubble
+              title={chatRoom.title}
+              participants={chatRoom.participants}
+              createdAt={chatRoom.createdAt}
+              isDarkMode={isDarkMode}
+            />
+          </ChatRoomBubbleWrapper>
         )
       })}
     </StyledChatRoomBubbleWrapper>
