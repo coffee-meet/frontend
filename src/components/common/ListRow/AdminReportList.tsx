@@ -10,6 +10,7 @@ interface AdminReportListProps {
   onReportSelect: (nickname: string) => void
 }
 interface ReportListData {
+  chattingRoomName: string
   reportedUserName: string
   reportedDate: string
 }
@@ -37,7 +38,7 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
                 reportedNickname={reportListData.reportedUserName}
                 key={index}
                 height={71}
-                chattingRoomName={`채팅방${index.toString()}`}
+                chattingRoomName={reportListData.chattingRoomName}
                 reportedDate={reportListData.reportedDate}
                 isDarkMode={false}
                 onClick={() => handlePersonReported(reportListData.reportedUserName)}

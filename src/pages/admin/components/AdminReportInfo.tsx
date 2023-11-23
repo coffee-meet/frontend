@@ -56,7 +56,7 @@ const AdminReportInfo = ({ selectedReporterNickname }: AdminReportInfoProps) => 
         <StyledReportSpecificContent>
           <Text font={'Body_12'} fontWeight={400} letterSpacing={0.5}>
             {' '}
-            {'채팅방 내 잠수 기네스북 기록을 세웠어요 어쩌구 저쩌구'}
+            {'채팅방 내 잠수 기네스북 기록을 세웠어요'}
           </Text>
         </StyledReportSpecificContent>
         <Spacing size={70}></Spacing>
