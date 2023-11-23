@@ -25,6 +25,7 @@ import { palette } from '@/styles/palette'
 const Chatting = () => {
   const { openModal } = useModal()
   const navigate = useNavigate()
+  // const { chatroomId } = useLocation().state
   const chatroomId = '1'
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
   const [inputValue, setInputValue] = useState('')
