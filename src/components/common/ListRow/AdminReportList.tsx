@@ -11,7 +11,7 @@ interface AdminReportListProps {
 }
 interface ReportListData {
   reportedUserName: string
-  reportCount: string
+  reportedDate: string
 }
 const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
   const { data, isSuccess } = useQuery(['ReportedUserList'], AdminReportAPI.GET_REPORT_LIST)
@@ -38,7 +38,7 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
                 key={index}
                 height={71}
                 chattingRoomName={`채팅방${index.toString()}`}
-                reportedDate={'2021.07.30'}
+                reportedDate={reportListData.reportedDate}
                 isDarkMode={false}
                 onClick={() => handlePersonReported(reportListData.reportedUserName)}
               />

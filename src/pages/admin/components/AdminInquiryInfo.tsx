@@ -42,7 +42,7 @@ const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
         </StyledInquiryContentWrapper>
         <StyledTextDateWrapper>
           <Text font={'Body_16'} fontWeight={400} letterSpacing={-1}>
-            {'2023.7.30'}
+            {'2023.11.22'}
           </Text>
         </StyledTextDateWrapper>
 

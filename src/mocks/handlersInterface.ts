@@ -15,7 +15,7 @@ export interface ReportResult {
 }
 export interface Reports {
   reportedUserName: string
-  reportCount: number
+  reportedDate: string
 }
 export interface Reporters {
   reporterUserName: string

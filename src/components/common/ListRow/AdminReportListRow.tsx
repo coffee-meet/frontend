@@ -22,7 +22,7 @@ const AdminReportListRow = ({
   onClick,
 }: AdminReportListRowProps) => {
   const displayChattingRoomName =
-    chattingRoomName.length > 4 ? `${chattingRoomName.substring(0, 4)}...` : chattingRoomName
+    chattingRoomName.length > 4 ? `${chattingRoomName.substring(0, 4)}..` : chattingRoomName
   const displayReportedNickname =
     reportedNickname.length > 3 ? `${reportedNickname.substring(0, 3)}..` : reportedNickname
   return (
