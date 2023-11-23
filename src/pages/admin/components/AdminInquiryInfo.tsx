@@ -6,22 +6,29 @@ import InquiryImage from '@/assets/images/inquiryImage.svg'
 import Spacing from '@/components/common/Spacing'
 // import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
+import AdminPageHeader from '@/pages/admin/components/AdminPageHeader'
 import { palette } from '@/styles/palette'
 
-const AdminInquiryInfo = () => {
+interface AdminInquiryInfoProps {
+  selectedInquiryNickname: string
+}
+const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
   const { data, isSuccess } = useQuery(
     ['ApprovalRequestUserInfo'],
     AdminApprovalAPI.GET_APPROVAL_INFO,
   )
   console.log(isSuccess && data)
+  const inquiryNickname = selectedInquiryNickname.selectedInquiryNickname
 
   return (
     <>
       <StyledAdminInquiryInfo>
+        <AdminPageHeader username={'불편 사항 처리'}></AdminPageHeader>
+
         <Spacing size={53}></Spacing>
         <StyledTextNameWrapper>
           <Text font={'Body_24'} fontWeight={900} letterSpacing={-1}>
-            {'유명한'}
+            {inquiryNickname}
           </Text>
         </StyledTextNameWrapper>
 
@@ -47,6 +54,7 @@ const AdminInquiryInfo = () => {
 
 const StyledAdminInquiryInfo = styled.div`
   background-color: ${palette.WHITE};
+  height: 662px;
 `
 const StyledInquiryContent = styled.div`
   position: relative;

@@ -3,28 +3,25 @@ import { StyleList } from '@/components/common/ListRow/ProfileListRow'
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
 
-type AdminReportListRowProps = {
+type AdminReportersListRowProps = {
   height: number
-  chattingRoomName: string
-  reportedNickname: string
+  reporterNickname: string
   reportedDate: string
   isDarkMode: boolean
 
   onClick?: () => void
 }
 
-const AdminReportListRow = ({
+const AdminReportersListRow = ({
   height,
-  chattingRoomName,
-  reportedNickname,
+  reporterNickname,
   reportedDate,
   isDarkMode,
   onClick,
-}: AdminReportListRowProps) => {
-  const displayChattingRoomName =
-    chattingRoomName.length > 4 ? `${chattingRoomName.substring(0, 4)}...` : chattingRoomName
-  const displayReportedNickname =
-    reportedNickname.length > 3 ? `${reportedNickname.substring(0, 3)}..` : reportedNickname
+}: AdminReportersListRowProps) => {
+  const displayReporterNickname =
+    reporterNickname.length > 4 ? `${reporterNickname.substring(0, 4)}...` : reporterNickname
+
   return (
     <StyleList
       width={322}
@@ -38,14 +35,14 @@ const AdminReportListRow = ({
       <FlexBox>
         <Text
           font={'Body_16'}
-          fontWeight={700}
+          fontWeight={900}
           letterSpacing={0}
           style={{
-            color: isDarkMode ? palette.GRAY400 : palette.GRAY400,
+            color: isDarkMode ? palette.GRAY700 : palette.GRAY700,
             marginRight: '40px',
           }}
         >
-          {displayChattingRoomName}
+          {displayReporterNickname}
         </Text>
         <Text
           font={'Body_16'}
@@ -53,18 +50,7 @@ const AdminReportListRow = ({
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.GRAY400 : palette.GRAY400,
-            margin: '0 10px',
-          }}
-        >
-          {displayReportedNickname}
-        </Text>
-        <Text
-          font={'Body_16'}
-          fontWeight={700}
-          letterSpacing={0}
-          style={{
-            color: isDarkMode ? palette.GRAY400 : palette.GRAY400,
-            marginLeft: '34px',
+            marginLeft: '110px',
           }}
         >
           {reportedDate}
@@ -74,4 +60,4 @@ const AdminReportListRow = ({
   )
 }
 
-export default AdminReportListRow
+export default AdminReportersListRow

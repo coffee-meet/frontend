@@ -17,8 +17,6 @@ const ChatList = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const navigate = useNavigate()
 
-  // TODO: TanStack의 useQuery를 사용하여 채팅방 목록 가져오기
-  // 일단 MSW로 mock data를 만들어서 사용
   const { data, isSuccess } = useQuery(['chatRoomList'], ChatListApi.GET_CHAT_LIST)
 
   const containerVariants = {
@@ -54,7 +52,11 @@ const ChatList = () => {
         />
         {isSuccess && (
           <motion.div variants={containerVariants} initial={'hidden'} animate={'visible'}>
-            <ChatRoomBubbles chatRoomList={data?.data} isDarkMode={isDarkMode} />
+            {data?.data.length == 0 ? (
+              '이전 채팅방이 없습니다!'
+            ) : (
+              <ChatRoomBubbles chatRoomList={data?.data} isDarkMode={isDarkMode} />
+            )}
           </motion.div>
         )}
       </PageContainer>

@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import AdminReportAPI from '@/apis/adminReport/AdminReportApi'
 import AdminReportListRow from '@/components/common/ListRow/AdminReportListRow'
+import AdminReportListRowTitle from '@/components/common/ListRow/AdminReportListRowTitle'
 import { palette } from '@/styles/palette'
 
 interface AdminReportListProps {
@@ -10,7 +11,7 @@ interface AdminReportListProps {
 }
 interface ReportListData {
   reportedUserName: string
-  reportCount: number
+  reportCount: string
 }
 const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
   const { data, isSuccess } = useQuery(['ReportedUserList'], AdminReportAPI.GET_REPORT_LIST)
@@ -22,17 +23,28 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
   return (
     <StyledAdminReportListContainerOuterWrapper>
       <StyledAdminReportListContainer>
-        {isSuccess &&
-          ReportDatas.map((reportListData: ReportListData, index: number) => (
-            <AdminReportListRow
-              key={index}
+        {isSuccess && (
+          <>
+            <AdminReportListRowTitle
+              chattingRoomName={'채팅방 이름'}
               height={71}
-              nickname={reportListData.reportedUserName}
-              infoMessage={reportListData.reportCount}
               isDarkMode={false}
-              onClick={() => handlePersonReported(reportListData.reportedUserName)}
-            />
-          ))}
+              reportedNickname={'신고 대상 닉네임'}
+              reportedDate={'신고 날짜'}
+            ></AdminReportListRowTitle>
+            {ReportDatas.map((reportListData: ReportListData, index: number) => (
+              <AdminReportListRow
+                reportedNickname={reportListData.reportedUserName}
+                key={index}
+                height={71}
+                chattingRoomName={`채팅방${index.toString()}`}
+                reportedDate={'2021.07.30'}
+                isDarkMode={false}
+                onClick={() => handlePersonReported(reportListData.reportedUserName)}
+              />
+            ))}
+          </>
+        )}
       </StyledAdminReportListContainer>
     </StyledAdminReportListContainerOuterWrapper>
   )

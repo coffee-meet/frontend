@@ -6,6 +6,7 @@ import Layout from '@/components/layouts/Layout'
 import AdminPage from '@/pages/admin'
 import AdminLoginPage from '@/pages/admin/AdminLogin'
 import ChatListPage from '@/pages/chatList'
+import ChatListDetailPage from '@/pages/chatListDetail'
 import ChattingPage from '@/pages/chatting'
 import HomePage from '@/pages/home'
 import LandingPage from '@/pages/landing'
@@ -16,8 +17,6 @@ import ProfilePage from '@/pages/profile'
 import PrivateRoute from '@/pages/redirect/PrivateRoute'
 import RegisterPage from '@/pages/register'
 
-import AdminInquiry from './pages/admin/AdminInquiry'
-
 const App = () => {
   return (
     <Routes>
@@ -27,6 +26,7 @@ const App = () => {
           <Route path={'/profile/*'} element={<ProfilePage />} />
           <Route path={'/chatting'} element={<ChattingPage />} />
           <Route path={'/chat-list'} element={<ChatListPage />} />
+          <Route path={'/chat-list-detail'} element={<ChatListDetailPage />} />
           <Route path={'*'} element={<NotFoundPage />}></Route>
         </Route>
 
@@ -41,7 +41,6 @@ const App = () => {
 
         <Route element={<PrivateRoute auth={true} superAuth={true} />}>
           <Route path={'/admin/*'} element={<AdminPage />}></Route>
-          <Route path={'/admin/inquiry'} element={<AdminInquiry />}></Route>
           <Route path={'*'} element={<NotFoundPage />}></Route>
         </Route>
         <Route path={'*'} element={<NotFoundPage />}></Route>
