@@ -46,7 +46,6 @@ const Home = () => {
     }
   }, [])
   useEffect(() => {
-    // setInterval(() => {
     const request = indexedDB.open('matching-database')
     request.onsuccess = (event) => {
       const db = event.target && (event.target as IDBRequest).result
@@ -58,11 +57,10 @@ const Home = () => {
         if (event.target.result == true) {
           alert('매칭완료!')
           updateIsMatchingSuccessToFalse()
-          navigate('/chatting', { state: {} })
+          // navigate('/chatting', { state: {} })
         }
       }
     }
-    // }, 3000)
   }, [])
   function updateIsMatchingSuccessToFalse() {
     const request = indexedDB.open('my-database', 1)
