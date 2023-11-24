@@ -101,29 +101,6 @@ const Home = () => {
     }
   }
 
-  function saveDataToIndexedDB(key: string, value: string) {
-    const request = indexedDB.open('my-database', 1)
-
-    request.onupgradeneeded = function (event) {
-      const db = event.target && (event.target as IDBRequest).result
-      db.createObjectStore('my-store')
-    }
-
-    request.onsuccess = function (event) {
-      const db = event.target && (event.target as IDBRequest).result
-      const tx = db.transaction('my-store', 'readwrite')
-      const store = tx.objectStore('my-store')
-      store.put(value, key)
-
-      tx.oncomplete = function () {
-        db.close()
-      }
-    }
-
-    request.onerror = function () {
-      console.error('Error opening IndexedDB')
-    }
-  }
   return (
     <GradationBackground isDarkMode={isDarkMode}>
       <AppHeader
