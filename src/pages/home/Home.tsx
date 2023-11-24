@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
 import AppHeader from '@/components/common/AppHeader'
@@ -21,7 +20,6 @@ const Home = () => {
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode)
   const { authTokens } = useAuthStore()
   const [isMatching, setIsMatching] = useState(false)
-  const navigate = useNavigate()
 
   const { showToast } = useToast()
   const handleMatchingStart = async () => {
