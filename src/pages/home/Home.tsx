@@ -96,7 +96,7 @@ const Home = () => {
       }
     }
 
-    request.onerror = function (event) {
+    request.onerror = function () {
       console.error('Error opening IndexedDB')
     }
   }
