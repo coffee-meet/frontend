@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import { useQuery } from '@tanstack/react-query'
-import { useMutation } from '@tanstack/react-query'
 
 import AdminReportAPI from '@/apis/adminReport/AdminReportApi'
 import AdminReportInfoListRow from '@/components/common/ListRow/AdminReportInfoListRow'
