@@ -42,17 +42,17 @@
 // }
 // requestPermission()
 
-// import 'firebase/messaging'
+import 'firebase/messaging'
 
 import firebase from 'firebase'
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_apiKey,
-  authDomain: import.meta.env.VITE_authDomain,
-  projectId: import.meta.env.VITE_projectId,
-  storageBucket: import.meta.env.VITE_storageBucket,
-  messagingSenderId: import.meta.env.VITE_messagingSenderId,
-  appId: import.meta.env.VITE_appId,
-  measurementId: import.meta.env.VITE_measurementId,
+  apiKey: 'AIzaSyBPfx4R0QsrFbS5rMv38dM1B7iPR4bUxt4',
+  authDomain: 'coffee-meet-d295d.firebaseapp.com',
+  projectId: 'coffee-meet-d295d',
+  storageBucket: 'coffee-meet-d295d.appspot.com',
+  messagingSenderId: '716922226162',
+  appId: '1:716922226162:web:1f3cbb9069cd525323d76b',
+  measurementId: 'G-2YB8FMSHM5',
 }
 
 firebase.initializeApp(firebaseConfig)
@@ -66,7 +66,10 @@ export async function getToken() {
   const token = await messaging
     .requestPermission()
     .then(function () {
-      return messaging.getToken({ vapidKey: import.meta.env.VITE_VAPID_KEY })
+      return messaging.getToken({
+        vapidKey:
+          'BMwDtsjNmBgRePxytobo7zUvOiwm1k9RWNSl-8O1jBqvSJRBCIjcx3ZaBj-veAA3eVVmGeoVWOQtQMmAWTZif_A',
+      })
     })
     .then(function (token) {
       messaging.onMessage((payload) => {
