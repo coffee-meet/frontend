@@ -40,13 +40,13 @@ const ProfileDefault = () => {
   const navigate = useNavigate()
   const isDarkMode = useThemeStore((store) => store.isDarkMode)
   const [myProfileData, setMyProfileData] = useState<MyProfileData>({
-    nickname: '나',
+    nickname: '',
     email: '',
     profileImageUrl: '',
     reportedCount: 0,
     sanctionPeriod: '',
-    department: '개발',
-    interests: ['맛집', '음악', '반려동물'],
+    department: '',
+    interests: [''],
   })
   const { openModal } = useModal()
 
@@ -116,7 +116,11 @@ const ProfileDefault = () => {
         <Spacing size={20} />
         <FlexBox>
           <StyledProfilePrimaryInfo isDarkMode={isDarkMode}>
-            <Avatar width={49} height={49} imgUrl={''} />
+            <Avatar
+              width={49}
+              height={49}
+              imgUrl={myProfileData && myProfileData.profileImageUrl}
+            />
             <StyledProfilePrimaryInfoTextWrapper>
               <TextWrapper
                 isDarkMode={isDarkMode}
@@ -130,8 +134,7 @@ const ProfileDefault = () => {
                   {myProfileData && myProfileData.nickname}
                 </Text>
                 <Divider width={'2px'} height={'16px'} margin={'0 10px'} isDarkMode={isDarkMode} />
-                <Text font={'Body_18'} fontWeight={600} letterSpacing={-1}>
-                  {' '}
+                <Text font={'Body_14'} fontWeight={400} letterSpacing={-1}>
                   {myProfileData && myProfileData.email}
                 </Text>
               </TextWrapper>
