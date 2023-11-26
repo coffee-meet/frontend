@@ -9,7 +9,7 @@ const StyledTipHeader = styled.div`
   flex-direction: column;
   height: 63.525px;
   padding: 11px 18px 0px;
-  border-top: 1px solid ${palette.GRAY200};
+  border-top: 0.5px dotted ${palette.GRAY400};
 `
 
 const Tip = () => {

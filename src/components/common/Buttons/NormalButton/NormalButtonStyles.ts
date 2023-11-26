@@ -153,14 +153,14 @@ export const NormalButtonStyles: Record<NormalButtonType, NormalButtonStyle> = {
     borderRadius: 50,
   },
   matching: {
-    width: 123,
-    height: 45,
-    fontColor: palette.WHITE,
-    backgroundColor: palette.TERTIARY,
-    font: 'Body_14',
+    width: 63,
+    height: 30,
+    fontColor: palette.GRAY300,
+    backgroundColor: palette.GRAY100,
+    font: 'Body_12',
     fontWeight: 500,
     letterSpacing: -1,
-    boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.15)',
+
     borderRadius: 8,
   },
   'matching-dark': {
