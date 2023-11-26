@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query'
 
 import AdminInquiryAPI from '@/apis/adminInquiry/AdminInquiryApi'
 import AdminApprovalListRow from '@/components/common/ListRow/AdminApprovalListRow'
-
 import AdminPageHeader from '@/pages/admin/components/AdminPageHeader'
 import { palette } from '@/styles/palette'
 
