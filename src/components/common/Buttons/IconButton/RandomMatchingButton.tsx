@@ -3,12 +3,12 @@ import { PiTimerBold } from 'react-icons/pi'
 
 import { Text, TextWrapper } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
-import { getTimeDelta } from '@/utils/getTimeStamp'
 
+// import { getTimeDelta } from '@/utils/getTimeStamp'
 import { StyledIconButtonWrapper, StyledIconWrapper } from '.'
 
 type RandomMatchingButtonProps = {
-  date: string
+  date?: string
   isDarkMode: boolean
   onClick: () => void
 }
@@ -20,7 +20,7 @@ type RandomMatchingButtonProps = {
  * @param onClick - 랜덤매칭 버튼 클릭 이벤트
  */
 
-const RandomMatchingButton = ({ date, isDarkMode, onClick }: RandomMatchingButtonProps) => {
+const RandomMatchingButton = ({ isDarkMode, onClick }: RandomMatchingButtonProps) => {
   const setButtonType = isDarkMode ? 'random-matching-dark' : 'random-matching'
 
   return (
@@ -70,7 +70,7 @@ const RandomMatchingButton = ({ date, isDarkMode, onClick }: RandomMatchingButto
             alignItems: 'center',
           }}
         >
-          {'마지막 채팅: '} {`${getTimeDelta(date)}`}
+          {/* {'마지막 채팅: '} {`${getTimeDelta(date)}`} */}
         </Text>
       </TextWrapper>
       <StyledIconWrapper

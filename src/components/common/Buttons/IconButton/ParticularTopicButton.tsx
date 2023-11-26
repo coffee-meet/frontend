@@ -56,7 +56,12 @@ const ParticularTopicButton = ({
           flex: 1,
         }}
       >
-        <Text font={'Body_18'} fontWeight={500} letterSpacing={-2} style={{ marginBottom: 4 }}>
+        <Text
+          font={'Body_18'}
+          fontWeight={500}
+          letterSpacing={-2}
+          style={{ color: getSecondTextColor, marginBottom: 4 }}
+        >
           {'특정 주제로 대화하기'}
         </Text>
         <Text

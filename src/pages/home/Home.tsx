@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 import AppHeader from '@/components/common/AppHeader'
 import { ParticularTopicButton } from '@/components/common/Buttons/IconButton'
@@ -19,8 +18,6 @@ const Home = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode)
   const { authTokens } = useAuthStore()
-  const [isMatching, setIsMatching] = useState(false)
-  const navigate = useNavigate()
 
   const { showToast } = useToast()
 
@@ -31,7 +28,7 @@ const Home = () => {
         type: 'warning',
         isDarkMode,
       })
-      navigate('/login')
+      // navigate('/login')
     }
     if (authTokens) {
       setNickname(localStorage.getItem('nickname') || '')
@@ -65,13 +62,7 @@ const Home = () => {
         >
           {'진행중인 매칭'}
         </Text>
-        <Card
-          isMatching={isMatching}
-          onClick={() => {
-            setIsMatching((prev) => !prev)
-          }}
-          isDarkMode={isDarkMode}
-        />
+        <Card isDarkMode={isDarkMode} />
         <Text
           font={'Body_16'}
           fontWeight={600}
