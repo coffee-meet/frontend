@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
-
 import { useNavigate } from 'react-router-dom'
-
 
 import AppHeader from '@/components/common/AppHeader'
 import { ParticularTopicButton } from '@/components/common/Buttons/IconButton'
@@ -22,6 +20,7 @@ const Home = () => {
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode)
   const { authTokens } = useAuthStore()
   const { showToast } = useToast()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!authTokens) {
