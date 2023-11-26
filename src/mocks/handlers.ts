@@ -6,6 +6,7 @@ import {
   ApprovalInfo,
   ApprovalResult,
   Inquiry,
+  Reporters,
   ReportInfo,
   ReportResult,
   Reports,
@@ -468,8 +469,8 @@ export const handlers = [
       { reportedUserName: '박상민', reportCount: 2 },
       { reportedUserName: '박은지', reportCount: 1 },
       { reportedUserName: '주다현', reportCount: 1 },
-      { reportedUserName: '남궁호수', reportCount: 1 },
       { reportedUserName: '우창욱', reportCount: 1 },
+      { reportedUserName: '남궁호수', reportCount: 1 },
       { reportedUserName: '홍길동', reportCount: 0 },
       { reportedUserName: '홍길동', reportCount: 2 },
       { reportedUserName: '홍길동', reportCount: 3 },
@@ -480,6 +481,15 @@ export const handlers = [
       { reportedUserName: '홍길동', reportCount: 0 },
     ]
     return HttpResponse.json({ reports })
+  }),
+  // 신고자 목록 API 핸들러
+  http.get('/v1/reporters', () => {
+    const reporters: Reporters[] = [
+      { reporterUserName: '유명한', reportedDate: '2021.07.30' },
+      { reporterUserName: '박상민', reportedDate: '2021.07.30' },
+      { reporterUserName: '박은지', reportedDate: '2021.07.30' },
+    ]
+    return HttpResponse.json({ reporters })
   }),
 
   // 신고 상세 정보 API 핸들러

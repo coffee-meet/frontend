@@ -1,9 +1,13 @@
+import './firebase-messaging-sw.ts'
+
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import Layout from '@/components/layouts/Layout'
 import AdminPage from '@/pages/admin'
 import AdminLoginPage from '@/pages/admin/AdminLogin'
 import ChatListPage from '@/pages/chatList'
+import ChatListDetailPage from '@/pages/chatListDetail'
 import ChattingPage from '@/pages/chatting'
 import HomePage from '@/pages/home'
 import LandingPage from '@/pages/landing'
@@ -14,9 +18,17 @@ import ProfilePage from '@/pages/profile'
 import PrivateRoute from '@/pages/redirect/PrivateRoute'
 import RegisterPage from '@/pages/register'
 
-import AdminInquiry from './pages/admin/AdminInquiry'
+import { getToken } from './firebase-messaging-sw.ts'
 
 const App = () => {
+  const firebaseMessageToken = async () => {
+    const token = await getToken()
+    console.log('token === ', token)
+    //추후 서버에 토큰을 저장하는 기능을 여기에 추가
+  }
+  useEffect(() => {
+    firebaseMessageToken()
+  }, [])
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -25,6 +37,7 @@ const App = () => {
           <Route path={'/profile/*'} element={<ProfilePage />} />
           <Route path={'/chatting'} element={<ChattingPage />} />
           <Route path={'/chat-list'} element={<ChatListPage />} />
+          <Route path={'/chat-list-detail'} element={<ChatListDetailPage />} />
           <Route path={'*'} element={<NotFoundPage />}></Route>
         </Route>
 
@@ -39,7 +52,6 @@ const App = () => {
 
         <Route element={<PrivateRoute auth={true} superAuth={true} />}>
           <Route path={'/admin/*'} element={<AdminPage />}></Route>
-          <Route path={'/admin/inquiry'} element={<AdminInquiry />}></Route>
           <Route path={'*'} element={<NotFoundPage />}></Route>
         </Route>
         <Route path={'*'} element={<NotFoundPage />}></Route>

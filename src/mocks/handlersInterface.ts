@@ -17,6 +17,10 @@ export interface Reports {
   reportedUserName: string
   reportCount: number
 }
+export interface Reporters {
+  reporterUserName: string
+  reportedDate: string
+}
 export interface ReportInfo {
   reportedUserName: string
   reportDate: string

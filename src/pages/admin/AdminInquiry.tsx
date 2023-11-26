@@ -19,7 +19,7 @@ const AdminInquiry = () => {
         <AdminAppHeader isDarkMode={false} nickname={'홍길동'} />
         <AdminPageHeader username={'불편 사항 접수'}></AdminPageHeader>
         {/* <AdminInquiryInfo></AdminInquiryInfo> */}
-        <AdminInquiryList onApproveSelectUserName={handleInquiryId}></AdminInquiryList>
+        <AdminInquiryList onInquirySelectUserName={handleInquiryId}></AdminInquiryList>
         <HomeNavigationBar isDarkMode={false} />
       </AdminInquiryWrapper>
     </>

@@ -9,12 +9,12 @@ export default defineConfig({
     alias: { '@/': `${process.cwd()}/src/` },
   },
   server: {
-    proxy: {
-      '/api': {
-        target: process.env.SERVER_EC2_URL,
-        changeOrigin: true,
-      },
-    },
+    // proxy: {
+    //   '/api': {
+    //     target: process.env.SERVER_EC2_URL,
+    //     changeOrigin: true,
+    //   },
+    // },
     // port: 3000,
     // https: true,
     // hmr: {

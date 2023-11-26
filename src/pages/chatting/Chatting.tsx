@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import * as Stomp from '@stomp/stompjs'
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
 import { ChattingApi } from '@/apis/chatting/chattingApi'
@@ -25,7 +25,7 @@ import { palette } from '@/styles/palette'
 const Chatting = () => {
   const { openModal } = useModal()
   const navigate = useNavigate()
-  const chatroomId = '1'
+  const { chatroomId } = useLocation().state
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
   const [inputValue, setInputValue] = useState('')
   const { authTokens } = useAuthStore()

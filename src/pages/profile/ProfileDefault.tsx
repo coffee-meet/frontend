@@ -1,10 +1,12 @@
 import styled from '@emotion/styled'
+import { useEffect, useState } from 'react'
 import { AiOutlineInfoCircle } from 'react-icons/ai'
 import { BiBuildings, BiChevronRight, BiPencil } from 'react-icons/bi'
 import { MdOutlineRecordVoiceOver } from 'react-icons/md'
 import { PiIdentificationCardBold } from 'react-icons/pi'
 import { useNavigate } from 'react-router-dom'
 
+import { axiosAPI } from '@/apis/axios'
 import NaverIcon from '@/assets/icons/NaverIcon'
 import Avatar from '@/components/common/Avatar'
 import BackChevron from '@/components/common/BackChevron'
@@ -24,13 +26,42 @@ import useAuthStore from '@/store/AuthStore.tsx'
 import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
 
+type MyProfileData = {
+  nickname: string
+  email: string
+  profileImageUrl: string
+  reportedCount: number
+  sanctionPeriod: string
+  department: string
+  interests: string[]
+}
+
 const ProfileDefault = () => {
   const navigate = useNavigate()
   const isDarkMode = useThemeStore((store) => store.isDarkMode)
+  const [myProfileData, setMyProfileData] = useState<MyProfileData>({
+    nickname: '',
+    email: '',
+    profileImageUrl: '',
+    reportedCount: 0,
+    sanctionPeriod: '',
+    department: '',
+    interests: [''],
+  })
   const { openModal } = useModal()
 
   const { showToast } = useToast()
 
+  const getProfileData = async () => {
+    await axiosAPI
+      .get('/v1/users/me')
+      .then((response) => {
+        setMyProfileData(response.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
   const handleLogout = () => {
     openModal({
       mainText: '로그아웃 하시겠습니까?',
@@ -64,6 +95,9 @@ const ProfileDefault = () => {
       isDarkMode,
     })
   }
+  useEffect(() => {
+    getProfileData()
+  }, [])
 
   return (
     <GradationBackground isDarkMode={isDarkMode}>
@@ -82,7 +116,11 @@ const ProfileDefault = () => {
         <Spacing size={20} />
         <FlexBox>
           <StyledProfilePrimaryInfo isDarkMode={isDarkMode}>
-            <Avatar width={49} height={49} imgUrl={''} />
+            <Avatar
+              width={49}
+              height={49}
+              imgUrl={myProfileData && myProfileData.profileImageUrl}
+            />
             <StyledProfilePrimaryInfoTextWrapper>
               <TextWrapper
                 isDarkMode={isDarkMode}
@@ -92,9 +130,13 @@ const ProfileDefault = () => {
                   alignItems: 'center',
                 }}
               >
-                <Text font={'Body_20'} fontWeight={600} letterSpacing={-1}>{`우땅`}</Text>
+                <Text font={'Body_20'} fontWeight={600} letterSpacing={-1}>
+                  {myProfileData && myProfileData.nickname}
+                </Text>
                 <Divider width={'2px'} height={'16px'} margin={'0 10px'} isDarkMode={isDarkMode} />
-                <Text font={'Body_18'} fontWeight={600} letterSpacing={-1}>{`1998.01.20`}</Text>
+                <Text font={'Body_14'} fontWeight={400} letterSpacing={-1}>
+                  {myProfileData && myProfileData.email}
+                </Text>
               </TextWrapper>
               <TextWrapper
                 style={{
@@ -104,7 +146,7 @@ const ProfileDefault = () => {
                 isDarkMode={isDarkMode}
               >
                 <Text font={'Body_12'} fontWeight={600} letterSpacing={-1}>
-                  {'커피밋 IT 부서'}
+                  {myProfileData && myProfileData.department}
                 </Text>
               </TextWrapper>
             </StyledProfilePrimaryInfoTextWrapper>
@@ -122,7 +164,7 @@ const ProfileDefault = () => {
         <Spacing size={17.5} />
         <InterestButton
           nickName={'나'}
-          interests={['여행', '재태크', '요리']}
+          interests={myProfileData && myProfileData.interests}
           isDarkMode={isDarkMode}
         />
         <Spacing size={28.5} />
