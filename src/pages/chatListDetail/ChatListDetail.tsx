@@ -29,7 +29,7 @@ const ChatListDetail = () => {
   }
   const getChattingHistory = async () => {
     await axiosAPI
-      .get(`/api/v1/histories/${chatroomId}`)
+      .get(`/v1/chatting/room/histories/${chatroomId}`)
       .then((response) => {
         setMessages(response.data)
       })
