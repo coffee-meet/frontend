@@ -43,7 +43,7 @@ const Chatting = () => {
 
   const getDetailMessages = async () => {
     try {
-      const response = await ChattingApi.GET_DETAIL_MESSAGES()
+      const response = await ChattingApi.GET_DETAIL_MESSAGES(chatroomId)
       console.log(response)
       setMessages(response)
     } catch (error) {
@@ -95,7 +95,7 @@ const Chatting = () => {
   }
   const deleteChattingRoom = async () => {
     navigate('/')
-    return await axiosAPI.delete(`/v1/chatrooms/${chatroomId}`)
+    return await axiosAPI.delete(`/v1/chatting/rooms/${chatroomId}`)
   }
   const navigateHome = () => {
     navigate('/')
