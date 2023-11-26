@@ -70,7 +70,7 @@ const RandomMatchingButton = ({ date, isDarkMode, onClick }: RandomMatchingButto
             alignItems: 'center',
           }}
         >
-          {'마지막 채팅: '} {`${getTimeDelta(date)}`}
+          {/* {'마지막 채팅: '} {`${getTimeDelta(date)}`} */}
         </Text>
       </TextWrapper>
       <StyledIconWrapper

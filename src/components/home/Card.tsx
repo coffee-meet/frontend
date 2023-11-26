@@ -12,6 +12,7 @@ import NormalButton from '@/components/common/Buttons/NormalButton'
 import { FlexBox } from '@/components/common/Flexbox'
 import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
+import useToast from '@/hooks/useToast'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
 
@@ -37,6 +38,7 @@ const Card = ({ isDarkMode }: CardProps) => {
   const [currentState, setCurrentState] = useState('IDLE')
   const [chatroomId, setChatroomId] = useState('33')
   const navigate = useNavigate()
+  const { showToast } = useToast()
 
   const handleMoveChatting = () => {
     navigate('/chatting', { state: { chatroomId: chatroomId } })
@@ -80,6 +82,12 @@ const Card = ({ isDarkMode }: CardProps) => {
     await axiosAPI
       .get('/v1/users/status')
       .then((response) => {
+        if (currentState == response.data.userStatus)
+          showToast({
+            message: '아직 매칭이 성사되지 않았습니다!',
+            type: 'info',
+            isDarkMode: isDarkMode,
+          })
         setCurrentState(response.data.userStatus)
         response.data.userStatus === 'CHATTING_UNCONNECTED' &&
           setChatroomId(response.data.chattingRoomId)
@@ -95,7 +103,7 @@ const Card = ({ isDarkMode }: CardProps) => {
       //startTime에 서버에서 시작시간 받아와 new Date객체 안에 넣은 후 스트링으로 바꿔서 Date.parse한 후 Date.now()에서 뺄 것
       const date = new Date(matchingStartedAt)
       date.setHours(date.getHours() + 9)
-      const startTime = Date.parse(date.toString())
+      const startTime = matchingStartedAt.length === 0 ? Date.now() : Date.parse(date.toString())
 
       const updateTimer = () => {
         const elapsedTime = Date.now() - startTime
