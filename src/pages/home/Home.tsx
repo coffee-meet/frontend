@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
+
 import AppHeader from '@/components/common/AppHeader'
 import { ParticularTopicButton } from '@/components/common/Buttons/IconButton'
 import GradationBackground from '@/components/common/GradationBackground'
@@ -18,7 +21,6 @@ const Home = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode)
   const { authTokens } = useAuthStore()
-
   const { showToast } = useToast()
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const Home = () => {
         type: 'warning',
         isDarkMode,
       })
-      // navigate('/login')
+      navigate('/login')
     }
     if (authTokens) {
       setNickname(localStorage.getItem('nickname') || '')

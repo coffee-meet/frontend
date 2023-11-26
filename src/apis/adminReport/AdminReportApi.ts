@@ -9,6 +9,7 @@ const AdminReportAPI = {
   },
   GET_REPORTERS_LIST: async () => {
     const response = await axiosAPI.get(`/v1/reporters`)
+
     return {
       data: response.data,
     }
