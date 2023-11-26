@@ -17,7 +17,7 @@ const ChatList = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const navigate = useNavigate()
 
-  const { data, isSuccess } = useQuery(['chatRoomList'], ChatListApi.GET_CHAT_LIST)
+  const { data, isSuccess } = useQuery(['chatRoomList'], () => ChatListApi.GET_CHAT_LIST())
 
   const containerVariants = {
     initial: { opacity: 0 },
