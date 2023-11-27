@@ -52,6 +52,11 @@ const RegisterCompany = () => {
 
   const handleClickEmailVerify = async (email: string) => {
     console.log(email)
+    showToast({
+      message: '메일로 인증코드가 전송되었습니다.',
+      type: 'info',
+      isDarkMode,
+    })
     return await axiosAPI.post(`/v1/certification/users/me/company-mail`, {
       userId: userId,
       companyEmail: emailRef.current && emailRef.current.value,
@@ -60,26 +65,11 @@ const RegisterCompany = () => {
   const emailVerifyMutation = useMutation((email: string) => handleClickEmailVerify(email), {
     onSuccess: (response) => {
       console.log(response)
-      showToast({
-        message: '메일로 인증코드가 전송되었습니다.',
-        type: 'info',
-        isDarkMode,
-      })
     },
     onError: (err) => {
       console.log(err)
     },
   })
-
-  const getAlertMessage = (isCodeSame: boolean | null, codeChecked: boolean | null) => {
-    if (isCodeSame === false && codeChecked) {
-      return { message: '인증코드가 확인되지 않았습니다.', color: palette.PRIMARY }
-    } else {
-      return null // 혹은 기본 메시지 객체를 반환
-    }
-  }
-
-  const alertInfo = getAlertMessage(isCodeSame, codeChecked)
 
   //이메일 인증 버튼 누르면 실행되는 함수
   const handleEmailCertification = async () => {
@@ -241,16 +231,28 @@ const RegisterCompany = () => {
             {'확인'}
           </StyleVerificationEmailButton>
         </FlexBox>
-        {alertInfo && (
+        <Spacing size={10} />
+        {codeChecked && isCodeSame && (
           <AlertText
+            fontSize={`11px`}
+            fontColor={`${palette.PRIMARY}`}
             padding={'10px'}
             textAlign={'end'}
-            fontSize={`11px`}
-            fontColor={alertInfo.color}
           >
-            {alertInfo.message}
+            {'인증 코드가 확인되었습니다.'}
           </AlertText>
         )}
+        {codeChecked && !isCodeSame && (
+          <AlertText
+            fontSize={`11px`}
+            fontColor={`${palette.PRIMARY}`}
+            padding={'10px'}
+            textAlign={'end'}
+          >
+            {'인증 코드가 일치하지 않습니다..'}
+          </AlertText>
+        )}
+
         <Spacing size={13} />
         <StyleInterestText>{'직무정보'}</StyleInterestText>
         <FlexBox direction={'column'}>
