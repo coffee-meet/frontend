@@ -14,8 +14,9 @@ export interface ReportResult {
   result: string
 }
 export interface Reports {
+  chattingRoomName: string
   reportedUserName: string
-  reportCount: number
+  reportedDate: string
 }
 export interface Reporters {
   reporterUserName: string

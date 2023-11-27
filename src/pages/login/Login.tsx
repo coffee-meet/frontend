@@ -45,11 +45,11 @@ const Login = () => {
             }
           `}
         />
-        <StyledHeaderText font={'Body_32'} fontWeight={700} letterSpacing={-1}>
+        <StyledHeaderText font={'Body_24'} fontWeight={700} letterSpacing={-1}>
           {'☕️커피밋'}
         </StyledHeaderText>
         <Spacing
-          size={50}
+          size={30}
           css={css`
             @media (max-width: 375px) {
               height: ${50 * 0.75}px;
@@ -59,7 +59,7 @@ const Login = () => {
         <StyledAdminLoginBtn onClick={handleMoveToAdminLogin}>
           <NormalButton normalButtonType={'nickname-duplicate'}>{'관리자 로그인'}</NormalButton>
         </StyledAdminLoginBtn>
-        <StyledSubText font={'Body_18'} fontWeight={500} letterSpacing={-1}>
+        <StyledSubText font={'Body_16'} fontWeight={500} letterSpacing={-1}>
           {'회사의 경계를 넘어, '}
         </StyledSubText>
         <Spacing
@@ -70,11 +70,11 @@ const Login = () => {
             }
           `}
         />
-        <StyledSubText font={'Body_18'} fontWeight={500} letterSpacing={-1}>
+        <StyledSubText font={'Body_16'} fontWeight={500} letterSpacing={-1}>
           {' 새로운 대화의 세계를 탐험하세요!'}
         </StyledSubText>
         <Spacing
-          size={80}
+          size={50}
           css={css`
             @media (max-width: 375px) {
               height: ${80 * 0.75}px;
@@ -108,12 +108,11 @@ const Login = () => {
 
 const StyledLoginOuterWrapper = styled.div`
   background-color: ${palette.SKY_BLUE};
-  height: 100%;
+  height: 85%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: scroll;
 `
 
 const StyledOauthWrapper = styled.div`

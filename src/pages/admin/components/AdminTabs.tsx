@@ -78,7 +78,7 @@ const AdminTabs = () => {
         </StyledTab>
         <StyledTab isActive={activeTab === 'inquiry'} onClick={() => setActiveTab('inquiry')}>
           <Text font={'Body_18'} fontWeight={900} letterSpacing={-0.5}>
-            {'불편 사항 처리'}
+            {'문의 사항 처리'}
           </Text>
         </StyledTab>
         <StyledTab isActive={activeTab === 'report'} onClick={() => setActiveTab('report')}>

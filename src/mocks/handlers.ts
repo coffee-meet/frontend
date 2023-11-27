@@ -386,31 +386,12 @@ export const handlers = [
   // 승인 목록 API 핸들러
   http.get('/v1/users/approvals', () => {
     const approvals: Approval[] = [
-      { approvalRequestUser: '박상민', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '유명한', approvalRequestUserStatus: '대기 중' },
       { approvalRequestUser: '박은지', approvalRequestUserStatus: '대기 중' },
       { approvalRequestUser: '주다현', approvalRequestUserStatus: '대기 중' },
       { approvalRequestUser: '남궁호수', approvalRequestUserStatus: '대기 중' },
+      { approvalRequestUser: '박상민', approvalRequestUserStatus: '대기 중' },
       { approvalRequestUser: '우창욱', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
-      { approvalRequestUser: '홍길동', approvalRequestUserStatus: '대기 중' },
     ]
     return HttpResponse.json({ approvals })
   }),
@@ -465,29 +446,24 @@ export const handlers = [
   // 신고 목록 API 핸들러
   http.get('/v1/reports', () => {
     const reports: Reports[] = [
-      { reportedUserName: '유명한', reportCount: 1 },
-      { reportedUserName: '박상민', reportCount: 2 },
-      { reportedUserName: '박은지', reportCount: 1 },
-      { reportedUserName: '주다현', reportCount: 1 },
-      { reportedUserName: '우창욱', reportCount: 1 },
-      { reportedUserName: '남궁호수', reportCount: 1 },
-      { reportedUserName: '홍길동', reportCount: 0 },
-      { reportedUserName: '홍길동', reportCount: 2 },
-      { reportedUserName: '홍길동', reportCount: 3 },
-      { reportedUserName: '홍길동', reportCount: 1 },
-      { reportedUserName: '홍길동', reportCount: 2 },
-      { reportedUserName: '홍길동', reportCount: 3 },
-      { reportedUserName: '홍길동', reportCount: 1 },
-      { reportedUserName: '홍길동', reportCount: 0 },
+      { chattingRoomName: '채팅방1', reportedUserName: '유명한', reportedDate: '2023.11.23' },
+      { chattingRoomName: '채팅방2', reportedUserName: '박상민', reportedDate: '2023.11.22' },
+      { chattingRoomName: '채팅방3', reportedUserName: '박은지', reportedDate: '2023.11.22' },
+      { chattingRoomName: '채팅방4', reportedUserName: '주다현', reportedDate: '2023.11.15' },
+      { chattingRoomName: '채팅5', reportedUserName: '남궁호수', reportedDate: '2023.10.29' },
+      { chattingRoomName: '채팅방6', reportedUserName: '우창욱', reportedDate: '2023.10.26' },
+      { chattingRoomName: '채팅방칠', reportedUserName: '유명한', reportedDate: '2023.10.26' },
+      { chattingRoomName: '채팅방팔', reportedUserName: '박상민', reportedDate: '2023.10.26' },
+      { chattingRoomName: '채팅방9', reportedUserName: '박은지', reportedDate: '2023.10.23' },
     ]
     return HttpResponse.json({ reports })
   }),
   // 신고자 목록 API 핸들러
   http.get('/v1/reporters', () => {
     const reporters: Reporters[] = [
-      { reporterUserName: '유명한', reportedDate: '2021.07.30' },
-      { reporterUserName: '박상민', reportedDate: '2021.07.30' },
-      { reporterUserName: '박은지', reportedDate: '2021.07.30' },
+      { reporterUserName: '박은지', reportedDate: '2023.11.23' },
+      { reporterUserName: '유명한', reportedDate: '2021.11.21' },
+      { reporterUserName: '박상민', reportedDate: '2021.11.15' },
     ]
     return HttpResponse.json({ reporters })
   }),
@@ -528,31 +504,17 @@ export const handlers = [
   // 문의 목록 API 핸들러
   http.get('/v1/users/inquiries', () => {
     const inquiries: Inquiry[] = [
-      { inquiryRequestUser: '박상민', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '박은지', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '주다현', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '남궁호수', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '우창욱', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
-      { inquiryRequestUser: '홍길동', inquiryRequestDate: '2023.7.30' },
+      { inquiryRequestUser: '박상민', inquiryRequestDate: '2023.11.22' },
+      { inquiryRequestUser: '박은지', inquiryRequestDate: '2023.11.22' },
+      { inquiryRequestUser: '주다현', inquiryRequestDate: '2023.11.22' },
+      { inquiryRequestUser: '남궁호수', inquiryRequestDate: '2023.11.21' },
+      { inquiryRequestUser: '유명한', inquiryRequestDate: '2023.11.21' },
+      { inquiryRequestUser: '박상민', inquiryRequestDate: '2023.11.17' },
+      { inquiryRequestUser: '남궁호수', inquiryRequestDate: '2023.11.17' },
+      { inquiryRequestUser: '주다현', inquiryRequestDate: '2023.11.17' },
+      { inquiryRequestUser: '박은지', inquiryRequestDate: '2023.11.17' },
+      { inquiryRequestUser: '우창욱', inquiryRequestDate: '2023.11.10' },
+      { inquiryRequestUser: '유명한', inquiryRequestDate: '2023.11.10' },
     ]
     return HttpResponse.json({ inquiries })
   }),

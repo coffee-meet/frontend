@@ -8,10 +8,10 @@ import { palette } from '@/styles/palette'
 const KakaoButton = ({ moveToOAuthProvider }: OAuthButtonProps) => (
   <StyledButtonWrapper buttonTheme={'kakao'} onClick={moveToOAuthProvider}>
     <StyledIconWrapper>
-      <KakaoIcon width={53} height={53} iconWidth={35} iconHeight={35} borderRadius={10} />
+      <KakaoIcon width={48} height={48} iconWidth={30} iconHeight={30} borderRadius={10} />
     </StyledIconWrapper>
     <StyledButtonText
-      font={'Body_18'}
+      font={'Body_16'}
       fontWeight={600}
       letterSpacing={-1}
       style={{ flex: 1, textAlign: 'left', marginLeft: 20 }}
@@ -25,8 +25,8 @@ export const StyledButtonWrapper = styled.button<{
   buttonTheme: 'kakao' | 'naver'
   onClick: () => void
 }>`
-  width: 320px;
-  height: 60px;
+  width: 300px;
+  height: 50px;
   background-color: ${(props) => (props.buttonTheme === 'naver' ? palette.GREEN : palette.YELLOW)};
   border-radius: 15px;
   display: flex;

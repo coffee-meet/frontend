@@ -16,8 +16,9 @@ const StyledHeroImageContainer = styled.div`
 `
 
 const StyleHeroImage = styled.img`
+  padding-top: 15%;
   border-radius: 20px;
-  width: 350px;
+  width: 300px;
   height: 350px;
 
   @media (max-width: 375px) {

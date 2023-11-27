@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom'
 import AdminLoginAPI from '@/apis/adminLogin/AdminLoginApi'
 import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
+import useToast from '@/hooks/useToast'
 import { palette } from '@/styles/palette'
 
 const AdminLogin = () => {
+  const { showToast } = useToast()
   // form 제출 -> API 요청 -> 결과값에 따라 페이지 이동
   const { register, handleSubmit } = useForm()
   const [adminData, setAdminData] = useState('')
@@ -17,10 +19,15 @@ const AdminLogin = () => {
   const navigate = useNavigate()
 
   const mutation = useMutation(AdminLoginAPI.POST_ADMIN_LOGIN, {
-    onSuccess: (data) => {
-      if (data.adminLoginInfo.adminLoginResult == 'error') {
-        navigate('/admin')
-      }
+    onSuccess: () => {
+      navigate('/admin')
+    },
+    onError: () => {
+      showToast({
+        message: '올바른 id, password를 입력해주세요.',
+        type: 'warning',
+        isDarkMode: false,
+      })
     },
   })
 
@@ -47,13 +54,17 @@ const AdminLogin = () => {
         <Spacing size={42}></Spacing>
 
         <StyledInputWrapper>
-          <StyledInput placeholder={'관리자 아이디'} {...register('adminId')}></StyledInput>
+          <StyledInput placeholder={'관리자 아이디'} {...register('id')}></StyledInput>
         </StyledInputWrapper>
 
         <Spacing size={19}></Spacing>
 
         <StyledInputWrapper>
-          <StyledInput placeholder={'관리자 비밀번호'} {...register('adminPw')}></StyledInput>
+          <StyledInput
+            type={'password'}
+            placeholder={'관리자 비밀번호'}
+            {...register('password')}
+          ></StyledInput>
         </StyledInputWrapper>
 
         <Spacing size={81}></Spacing>

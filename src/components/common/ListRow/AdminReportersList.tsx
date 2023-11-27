@@ -43,8 +43,15 @@ const AdminReportersList = ({
   const handleAccumulationAddBtn = () => {
     openModal({
       type: 'confirm',
-      mainText: '신고를 누적하시겠습니까?',
+      mainText: '신고를 누적 하시겠습니까?',
       okFunc: onReportAddCount,
+    })
+  }
+  const handleAccumulationIgnoreBtn = () => {
+    openModal({
+      type: 'confirm',
+      mainText: '신고를 무시 하시겠습니까?',
+      okFunc: onReportIgnore,
     })
   }
   const { data, isSuccess } = useQuery(['ReporterUserList'], AdminReportAPI.GET_REPORTERS_LIST)
@@ -75,7 +82,7 @@ const AdminReportersList = ({
           <NormalButton onClick={handleAccumulationAddBtn} normalButtonType={'admin-accept'}>
             {'누적 추가'}
           </NormalButton>
-          <NormalButton onClick={onReportIgnore} normalButtonType={'admin-deny'}>
+          <NormalButton onClick={handleAccumulationIgnoreBtn} normalButtonType={'admin-deny'}>
             {'무시'}
           </NormalButton>
         </StyledButtonsWrapper>
