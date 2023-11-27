@@ -91,6 +91,8 @@ const Card = ({ isDarkMode }: CardProps) => {
         setCurrentState(response.data.userStatus)
         response.data.userStatus === 'CHATTING_UNCONNECTED' &&
           setChatroomId(response.data.chattingRoomId)
+        response.data.userStatus === 'CHATTING_CONNECTED' &&
+          setChatroomId(response.data.chattingRoomId)
         response.data.userStatus === 'MATCHING' && setMatchingStartedAt(response.data.startedAt)
       })
       .catch((err) => {
@@ -200,7 +202,8 @@ const Card = ({ isDarkMode }: CardProps) => {
               <Tip />
             </StyleWaitingBottomWrapper>
           </StyleWaitingWrapper>
-        ) : currentState && currentState === 'CHATTING_UNCONNECTED' ? (
+        ) : (currentState && currentState === 'CHATTING_UNCONNECTED') ||
+          (currentState && currentState === 'CHATTING_CONNECTED') ? (
           <>
             <Text
               font={'Body_16'}
