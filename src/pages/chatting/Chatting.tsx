@@ -38,7 +38,7 @@ const Chatting = () => {
 
   const getDetailMessages = async () => {
     try {
-      const response = await await axiosAPI.get(`/v1/chatting/rooms/${chatroomId}`)
+      const response = await axiosAPI.get(`/v1/chatting/rooms/${chatroomId}`)
       console.log(response)
       setMessages(response.data)
     } catch (error) {
