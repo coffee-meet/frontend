@@ -21,9 +21,9 @@ const StyledChatRoomBubbleWrapper = styled.div`
 `
 const ChatRoomBubbleWrapper = styled.span``
 type ChatRoom = {
-  id: string
-  title: string
-  participants: string[]
+  roomId: number
+  roomName: string
+  users: string[]
   createdAt: string
 }
 
@@ -41,12 +41,12 @@ const ChatRoomBubbles = ({ chatRoomList, isDarkMode }: ChatRoomBubblesProps) => 
           <ChatRoomBubbleWrapper
             key={idx}
             onClick={() => {
-              navigate('/chat-list-detail', { state: { chatroomId: chatRoom.id } })
+              navigate('/chat-list-detail', { state: { chatroomId: chatRoom.roomId } })
             }}
           >
             <ChatRoomBubble
-              title={chatRoom.title}
-              participants={chatRoom.participants}
+              title={chatRoom.roomName}
+              participants={chatRoom.users}
               createdAt={chatRoom.createdAt}
               isDarkMode={isDarkMode}
             />

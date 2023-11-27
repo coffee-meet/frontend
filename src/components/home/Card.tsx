@@ -60,7 +60,7 @@ const Card = ({ isDarkMode }: CardProps) => {
       timerRef.current.stop()
     }
     setCurrentState('IDLE')
-    await axiosAPI.post('/v1/matchings/cancel')
+    await axiosAPI.post('/v1/matching/cancel')
   }
 
   const formatTime = (time: number) => {
