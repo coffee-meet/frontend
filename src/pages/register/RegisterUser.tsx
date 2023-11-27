@@ -46,22 +46,25 @@ const RegisterUser = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
 
   const getNicknameValid = async (nickname: string) => {
-    return await axiosAPI.get(`/v1/users/duplicate?nickname=${nickname}`)
-  }
-  const doubleCheckMutation = useMutation((nickname: string) => getNicknameValid(nickname), {
-    onSuccess: (response) => {
-      if (response.status == 200) {
-        //사용가능한 닉네임일 경우
-        setDoubleChecked(true)
-        setNicknameDuplicated(false)
-      } else {
-        //이미 사용 중 인 닉네임일 경우
+    await axiosAPI
+      .get(`/v1/users/duplicate?nickname=${nickname}`)
+      .then((response) => {
+        if (response.status == 200) {
+          //사용가능한 닉네임일 경우
+          setDoubleChecked(true)
+          setNicknameDuplicated(false)
+        } else {
+          setDoubleChecked(true)
+          setNicknameDuplicated(true)
+        }
+      })
+      .catch((err) => {
+        console.log(err)
         setDoubleChecked(true)
         setNicknameDuplicated(true)
-      }
-    },
-    onError: () => {},
-  })
+      })
+  }
+
   const doubleCheckNickName = async () => {
     if (inputRef.current !== null && inputRef.current.value.length == 0) {
       setDoubleChecked(null)
@@ -69,9 +72,8 @@ const RegisterUser = () => {
     }
     if (inputRef.current !== null) {
       nickname = inputRef.current.value
-      doubleCheckMutation.mutate(nickname)
-      // const response = getNicknameValid(nickname)
-      // console.log(response)
+      // doubleCheckMutation.mutate(nickname)
+      getNicknameValid(nickname)
     }
   }
   const formValidation = () => {

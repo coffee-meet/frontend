@@ -35,7 +35,7 @@ const Card = ({ isDarkMode }: CardProps) => {
   const timerRef = useRef<TimerRefType>(null)
   const [matchingStartedAt, setMatchingStartedAt] = useState('')
   const [isMatching, setIsMatching] = useState(false)
-  const [currentState, setCurrentState] = useState('IDLE')
+  const [currentState, setCurrentState] = useState('')
   const [chatroomId, setChatroomId] = useState('33')
   const navigate = useNavigate()
   // const { showToast } = useToast()
@@ -129,7 +129,7 @@ const Card = ({ isDarkMode }: CardProps) => {
   return (
     <AnimatePresence>
       <StyleCard isDarkMode={isDarkMode}>
-        {currentState === 'IDLE' ? (
+        {currentState && currentState === 'IDLE' ? (
           <motion.div
             key={'randomButton'}
             initial={'hidden'}
@@ -143,7 +143,7 @@ const Card = ({ isDarkMode }: CardProps) => {
               onClick={handleMatchingStart}
             />
           </motion.div>
-        ) : currentState === 'MATCHING' ? (
+        ) : currentState && currentState === 'MATCHING' ? (
           <StyleWaitingWrapper
             key={'waiting'}
             initial={'hidden'}
@@ -200,7 +200,7 @@ const Card = ({ isDarkMode }: CardProps) => {
               <Tip />
             </StyleWaitingBottomWrapper>
           </StyleWaitingWrapper>
-        ) : (
+        ) : currentState && currentState === 'CHATTING_UNCONNECTED' ? (
           <>
             <Text
               font={'Body_16'}
@@ -226,6 +226,15 @@ const Card = ({ isDarkMode }: CardProps) => {
             </StyleMoveChatButton>
             <Spacing size={31} />
           </>
+        ) : (
+          <Text
+            font={'Body_16'}
+            fontWeight={400}
+            letterSpacing={-1}
+            textColor={`${palette.GRAY400}`}
+          >
+            {'신고 제제 중인 사용자입니다.'}
+          </Text>
         )}
       </StyleCard>
     </AnimatePresence>
