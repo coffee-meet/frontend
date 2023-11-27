@@ -97,13 +97,16 @@ const Card = ({ isDarkMode }: CardProps) => {
         console.log(err)
       })
   }
+  useEffect(() => {
+    getCurrentMatchingState()
+  }, [currentState])
 
   useEffect(() => {
     if (currentState === 'MATCHING') {
       //startTime에 서버에서 시작시간 받아와 new Date객체 안에 넣은 후 스트링으로 바꿔서 Date.parse한 후 Date.now()에서 뺄 것
       const date = new Date(matchingStartedAt)
       date.setHours(date.getHours() + 9)
-      const startTime = matchingStartedAt.length === 0 ? Date.now() : Date.parse(date.toString())
+      const startTime = !matchingStartedAt ? Date.now() : Date.parse(date.toString())
 
       const updateTimer = () => {
         const elapsedTime = Date.now() - startTime
@@ -122,10 +125,6 @@ const Card = ({ isDarkMode }: CardProps) => {
       }
     }
   }, [isMatching])
-
-  useEffect(() => {
-    getCurrentMatchingState()
-  }, [currentState])
 
   return (
     <AnimatePresence>
