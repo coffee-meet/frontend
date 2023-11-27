@@ -1,3 +1,6 @@
+import './firebase-messaging-sw.ts'
+
+import { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import Layout from '@/components/layouts/Layout'
@@ -15,7 +18,17 @@ import ProfilePage from '@/pages/profile'
 import PrivateRoute from '@/pages/redirect/PrivateRoute'
 import RegisterPage from '@/pages/register'
 
+import { getToken } from './firebase-messaging-sw.ts'
+
 const App = () => {
+  const firebaseMessageToken = async () => {
+    const token = await getToken()
+    console.log('token === ', token)
+    //추후 서버에 토큰을 저장하는 기능을 여기에 추가
+  }
+  useEffect(() => {
+    firebaseMessageToken()
+  }, [])
   return (
     <Routes>
       <Route element={<Layout />}>

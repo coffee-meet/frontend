@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import * as Stomp from '@stomp/stompjs'
 import { FormEvent, useEffect, useRef, useState } from 'react'
 import { BsArrowLeftShort } from 'react-icons/bs'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
 import { ChattingApi } from '@/apis/chatting/chattingApi'
@@ -25,8 +25,7 @@ import { palette } from '@/styles/palette'
 const Chatting = () => {
   const { openModal } = useModal()
   const navigate = useNavigate()
-  // const { chatroomId } = useLocation().state
-  const chatroomId = '1'
+  const { chatroomId } = useLocation().state
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
   const [inputValue, setInputValue] = useState('')
   const { authTokens } = useAuthStore()
@@ -44,7 +43,7 @@ const Chatting = () => {
 
   const getDetailMessages = async () => {
     try {
-      const response = await ChattingApi.GET_DETAIL_MESSAGES()
+      const response = await ChattingApi.GET_DETAIL_MESSAGES(chatroomId)
       console.log(response)
       setMessages(response)
     } catch (error) {
@@ -96,7 +95,7 @@ const Chatting = () => {
   }
   const deleteChattingRoom = async () => {
     navigate('/')
-    return await axiosAPI.delete(`/v1/chatrooms/${chatroomId}`)
+    return await axiosAPI.delete(`/v1/chatting/rooms/${chatroomId}`)
   }
   const navigateHome = () => {
     navigate('/')

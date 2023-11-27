@@ -19,10 +19,8 @@ const Home = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode)
   const { authTokens } = useAuthStore()
-  const [isMatching, setIsMatching] = useState(false)
-  const navigate = useNavigate()
-
   const { showToast } = useToast()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!authTokens) {
@@ -65,13 +63,7 @@ const Home = () => {
         >
           {'진행중인 매칭'}
         </Text>
-        <Card
-          isMatching={isMatching}
-          onClick={() => {
-            setIsMatching((prev) => !prev)
-          }}
-          isDarkMode={isDarkMode}
-        />
+        <Card isDarkMode={isDarkMode} />
         <Text
           font={'Body_16'}
           fontWeight={600}

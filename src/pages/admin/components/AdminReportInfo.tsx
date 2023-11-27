@@ -61,7 +61,6 @@ const AdminReportInfo = ({ selectedReporterNickname }: AdminReportInfoProps) => 
         </StyledReportSpecificContent>
         <Spacing size={70}></Spacing>
       </StyledReportInfoListOuterWrapper>
-
       <StyledBelowWhiteSpace></StyledBelowWhiteSpace>
     </StyledAdminReportInfoOuterWrapper>
   )
