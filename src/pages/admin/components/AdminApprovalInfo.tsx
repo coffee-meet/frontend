@@ -44,8 +44,15 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
   const handleAcceptCertificationBtn = () => {
     openModal({
       type: 'confirm',
-      mainText: '인증을 수락하시겠습니까?',
+      mainText: '인증을 수락 하시겠습니까?',
       okFunc: onAcceptAdminApproval,
+    })
+  }
+  const handleRejectCertificationBtn = () => {
+    openModal({
+      type: 'confirm',
+      mainText: '인증을 거절 하시겠습니까?',
+      okFunc: onRejectAdminApproval,
     })
   }
 
@@ -119,7 +126,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
           <NormalButton onClick={handleAcceptCertificationBtn} normalButtonType={'admin-accept'}>
             {'인증 수락'}
           </NormalButton>
-          <NormalButton onClick={onRejectAdminApproval} normalButtonType={'admin-deny'}>
+          <NormalButton onClick={handleRejectCertificationBtn} normalButtonType={'admin-deny'}>
             {'거절'}
           </NormalButton>
         </StyledButtonsWrapper>
