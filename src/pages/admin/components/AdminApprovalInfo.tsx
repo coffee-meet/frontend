@@ -44,8 +44,15 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
   const handleAcceptCertificationBtn = () => {
     openModal({
       type: 'confirm',
-      mainText: '인증을 수락하시겠습니까?',
+      mainText: '인증을 수락 하시겠습니까?',
       okFunc: onAcceptAdminApproval,
+    })
+  }
+  const handleRejectCertificationBtn = () => {
+    openModal({
+      type: 'confirm',
+      mainText: '인증을 거절 하시겠습니까?',
+      okFunc: onRejectAdminApproval,
     })
   }
 
@@ -54,11 +61,11 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
       <AdminPageHeader username={selectedApprovalNickname} />
       <StyledAdminApproveFormContainer>
         <Spacing size={10} />
-        <StyledEmailContainer>
+        <StyledContainer>
           <Text font={'Body_14'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
             {'이메일'}
           </Text>
-          <StyledEmailTextWrapper>
+          <StyledTextWrapper>
             <Text
               font={'Body_16'}
               fontWeight={900}
@@ -68,8 +75,40 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
               {`myeonghan@naver.com`}
               {/* {`${selectedApprovalNickname}의 이메일, userId를 받을 수 있음 (API 요청)`} */}
             </Text>
-          </StyledEmailTextWrapper>
-        </StyledEmailContainer>
+          </StyledTextWrapper>
+        </StyledContainer>
+        <StyledContainer>
+          <Text font={'Body_14'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
+            {'회사명'}
+          </Text>
+          <StyledTextWrapper>
+            <Text
+              font={'Body_16'}
+              fontWeight={900}
+              letterSpacing={-0.5}
+              textColor={palette.GRAY700}
+            >
+              {`홍길동 주식회사`}
+              {/* {`${selectedApprovalNickname}의 이메일, userId를 받을 수 있음 (API 요청)`} */}
+            </Text>
+          </StyledTextWrapper>
+        </StyledContainer>
+        <StyledContainer>
+          <Text font={'Body_14'} fontWeight={900} letterSpacing={-0.5} textColor={palette.GRAY300}>
+            {'부서명'}
+          </Text>
+          <StyledTextWrapper>
+            <Text
+              font={'Body_16'}
+              fontWeight={900}
+              letterSpacing={-0.5}
+              textColor={palette.GRAY700}
+            >
+              {`품질경영팀`}
+              {/* {`${selectedApprovalNickname}의 이메일, userId를 받을 수 있음 (API 요청)`} */}
+            </Text>
+          </StyledTextWrapper>
+        </StyledContainer>
         <Spacing size={34} />
         <Text
           style={{ marginLeft: '31px' }}
@@ -87,7 +126,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
           <NormalButton onClick={handleAcceptCertificationBtn} normalButtonType={'admin-accept'}>
             {'인증 수락'}
           </NormalButton>
-          <NormalButton onClick={onRejectAdminApproval} normalButtonType={'admin-deny'}>
+          <NormalButton onClick={handleRejectCertificationBtn} normalButtonType={'admin-deny'}>
             {'거절'}
           </NormalButton>
         </StyledButtonsWrapper>
@@ -107,18 +146,18 @@ const StyledAdminApproveFormContainer = styled.div`
   background-color: ${palette.WHITE};
   overflow: scroll;
 `
-const StyledEmailTextWrapper = styled.div`
+const StyledTextWrapper = styled.div`
   padding: 16px 34px 16px 34px;
   background-color: ${palette.SKY_BLUE};
   width: 246px;
   border-radius: 20px;
   text-align: center;
 `
-const StyledEmailContainer = styled.div`
+const StyledContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 40px 0;
+  padding: 12px 0;
 `
 const StyledImage = styled.img`
   width: 100%;

@@ -23,7 +23,7 @@ const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
   return (
     <>
       <StyledAdminInquiryInfo>
-        <AdminPageHeader username={'불편 사항 처리'}></AdminPageHeader>
+        <AdminPageHeader username={'문의 사항 처리'}></AdminPageHeader>
 
         <Spacing size={53}></Spacing>
         <StyledTextNameWrapper>
@@ -35,14 +35,14 @@ const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
         <StyledInquiryContentWrapper>
           <StyledInquiryContent>
             <Text font={'Body_16'} fontWeight={400} letterSpacing={-1}>
-              {'회사 인증 왜 안해주세요?'}
+              {'회사 인증 부탁드립니다!'}
             </Text>
             <StyledInquiryImage src={InquiryImage}></StyledInquiryImage>
           </StyledInquiryContent>
         </StyledInquiryContentWrapper>
         <StyledTextDateWrapper>
           <Text font={'Body_16'} fontWeight={400} letterSpacing={-1}>
-            {'2023.7.30'}
+            {'2023.11.22'}
           </Text>
         </StyledTextDateWrapper>
 

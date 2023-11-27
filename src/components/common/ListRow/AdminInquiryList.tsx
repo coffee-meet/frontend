@@ -30,7 +30,7 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
 
   return (
     <AdminInquiryListContainerOuterWrapper>
-      <AdminPageHeader username={'불편 사항 처리'}></AdminPageHeader>
+      <AdminPageHeader username={'문의 사항 처리'}></AdminPageHeader>
       <AdminInquiryListContainer>
         {isSuccess &&
           inquiryDatas.map((inquiryListData: InquiryListData, index: number) => (

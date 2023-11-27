@@ -25,13 +25,13 @@ const AdminReportInfo = ({ selectedReporterNickname }: AdminReportInfoProps) => 
           <AdminReportInfoListRow
             nickname={'신고자'}
             height={84}
-            infoMessage={'박은지(닉네임 명)'}
+            infoMessage={'박은지'}
             isDarkMode={false}
           />
           <AdminReportInfoListRow
             nickname={'일시'}
             height={84}
-            infoMessage={'2021.09.01 12:00:00'}
+            infoMessage={'2023.11.23 12:00:00'}
             isDarkMode={false}
           />
           <AdminReportInfoListRow
@@ -44,7 +44,7 @@ const AdminReportInfo = ({ selectedReporterNickname }: AdminReportInfoProps) => 
           <AdminReportInfoListRow
             nickname={'해당 사용자 메일'}
             height={84}
-            infoMessage={'famous@naver.com'}
+            infoMessage={'eunji@naver.com'}
             isDarkMode={false}
           />
         </StyledReportInfoListWrapper>
@@ -56,7 +56,7 @@ const AdminReportInfo = ({ selectedReporterNickname }: AdminReportInfoProps) => 
         <StyledReportSpecificContent>
           <Text font={'Body_12'} fontWeight={400} letterSpacing={0.5}>
             {' '}
-            {'채팅방 내 잠수 기네스북 기록을 세웠어요 어쩌구 저쩌구'}
+            {'채팅방 내 잠수 기네스북 기록을 세웠어요'}
           </Text>
         </StyledReportSpecificContent>
         <Spacing size={70}></Spacing>
