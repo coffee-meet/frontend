@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
-import { useQuery } from '@tanstack/react-query'
 import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import ChatListApi from '@/apis/chatList/ChatListApi'
+import { axiosAPI } from '@/apis/axios'
 import ChatRoomBubbles from '@/components/chatList/ChatRoomBubbles'
 import BackChevron from '@/components/common/BackChevron'
 import GradationBackground from '@/components/common/GradationBackground'
@@ -13,11 +13,27 @@ import PageHeader from '@/components/common/PageHeader'
 import Spacing from '@/components/common/Spacing'
 import useThemeStore from '@/store/ThemeStore'
 
+type ChatHistoryType = {
+  roomId: number
+  roomName: string
+  users: string[]
+  createdAt: string
+}
+
 const ChatList = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
   const navigate = useNavigate()
-
-  const { data, isSuccess } = useQuery(['chatRoomList'], () => ChatListApi.GET_CHAT_LIST())
+  const [chatHistoryData, setChatHistoryData] = useState<ChatHistoryType[]>([])
+  const getChatHistoryData = async () => {
+    await axiosAPI
+      .get('/v1/chatting/room/histories')
+      .then((response) => {
+        setChatHistoryData(response.data.chatRoomHistories)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   const containerVariants = {
     initial: { opacity: 0 },
@@ -27,6 +43,9 @@ const ChatList = () => {
       transition: { delay: 0, duration: 0.5 },
     },
   }
+  useEffect(() => {
+    getChatHistoryData()
+  }, [])
 
   return (
     <GradationBackground isDarkMode={isDarkMode}>
@@ -50,12 +69,12 @@ const ChatList = () => {
             zIndex: 1,
           }}
         />
-        {isSuccess && (
+        {chatHistoryData && (
           <motion.div variants={containerVariants} initial={'hidden'} animate={'visible'}>
-            {data?.length == 0 ? (
+            {chatHistoryData?.length == 0 ? (
               '이전 채팅방이 없습니다!'
             ) : (
-              <ChatRoomBubbles chatRoomList={data} isDarkMode={isDarkMode} />
+              <ChatRoomBubbles chatRoomList={chatHistoryData} isDarkMode={isDarkMode} />
             )}
           </motion.div>
         )}
