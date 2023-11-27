@@ -82,13 +82,13 @@ const Card = ({ isDarkMode }: CardProps) => {
     await axiosAPI
       .get('/v1/users/status')
       .then((response) => {
-        if (currentState == response.data.userStatus)
-          // showToast({
-          //   message: '아직 매칭이 성사되지 않았습니다!',
-          //   type: 'info',
-          //   isDarkMode: isDarkMode,
-          // })
-          setCurrentState(response.data.userStatus)
+        // if (currentState == response.data.userStatus)
+        // showToast({
+        //   message: '아직 매칭이 성사되지 않았습니다!',
+        //   type: 'info',
+        //   isDarkMode: isDarkMode,
+        // })
+        setCurrentState(response.data.userStatus)
         response.data.userStatus === 'CHATTING_UNCONNECTED' &&
           setChatroomId(response.data.chattingRoomId)
         response.data.userStatus === 'MATCHING' && setMatchingStartedAt(response.data.startedAt)
