@@ -245,11 +245,11 @@ const RegisterCompany = () => {
         {codeChecked && !isCodeSame && (
           <AlertText
             fontSize={`11px`}
-            fontColor={`${palette.PRIMARY}`}
+            fontColor={`${palette.RED}`}
             padding={'10px'}
             textAlign={'end'}
           >
-            {'인증 코드가 일치하지 않습니다..'}
+            {'인증 코드가 일치하지 않습니다.'}
           </AlertText>
         )}
 
