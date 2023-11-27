@@ -28,7 +28,7 @@ const Chatting = () => {
   const { chatroomId } = useLocation().state
   // const chatroomId = '3'
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
-  const [inputValue, setInputValue] = useState('')
+  // const [inputValue, setInputValue] = useState('')
   const { authTokens } = useAuthStore()
   const messageRef = useRef<HTMLTextAreaElement>(null)
   const messageWrapperRef = useRef<HTMLDivElement>(null)
@@ -120,7 +120,6 @@ const Chatting = () => {
     if (messageWrapperRef.current) {
       messageWrapperRef.current.scrollTop = messageWrapperRef.current.scrollHeight
     }
-    setInputValue('')
   }
   const disconnect = () => {
     if (client.current) client.current.deactivate()
