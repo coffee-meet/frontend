@@ -28,10 +28,8 @@ import { palette } from '@/styles/palette'
 
 type MyProfileData = {
   nickname: string
-  email: string
   profileImageUrl: string
-  reportedCount: number
-  sanctionPeriod: string
+  companyName: string
   department: string
   interests: string[]
 }
@@ -41,10 +39,8 @@ const ProfileDefault = () => {
   const isDarkMode = useThemeStore((store) => store.isDarkMode)
   const [myProfileData, setMyProfileData] = useState<MyProfileData>({
     nickname: '',
-    email: '',
     profileImageUrl: '',
-    reportedCount: 0,
-    sanctionPeriod: '',
+    companyName: '',
     department: '',
     interests: [''],
   })
@@ -135,7 +131,7 @@ const ProfileDefault = () => {
                 </Text>
                 <Divider width={'2px'} height={'16px'} margin={'0 10px'} isDarkMode={isDarkMode} />
                 <Text font={'Body_14'} fontWeight={400} letterSpacing={-1}>
-                  {myProfileData && myProfileData.email}
+                  {myProfileData && myProfileData.companyName}
                 </Text>
               </TextWrapper>
               <TextWrapper
