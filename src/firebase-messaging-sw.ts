@@ -45,6 +45,8 @@
 import 'firebase/messaging'
 
 import firebase from 'firebase'
+
+import { axiosAPI } from '@/apis/axios'
 const firebaseConfig = {
   apiKey: 'AIzaSyBPfx4R0QsrFbS5rMv38dM1B7iPR4bUxt4',
   authDomain: 'coffee-meet-d295d.firebaseapp.com',
@@ -87,6 +89,19 @@ export async function getToken() {
     alert('알림:' + payload.notification.body)
   })
   console.log('token:', token)
+  token && sendWebPushToken(token)
   return token
 }
 getToken()
+const sendWebPushToken = async (token: string) => {
+  await axiosAPI
+    .put('/v1/users/notification/token', {
+      token: token,
+    })
+    .then(() => {
+      console.log('서버에 웹푸시 토큰 전송 완료')
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}

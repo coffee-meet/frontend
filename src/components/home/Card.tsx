@@ -12,7 +12,7 @@ import NormalButton from '@/components/common/Buttons/NormalButton'
 import { FlexBox } from '@/components/common/Flexbox'
 import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
-import useToast from '@/hooks/useToast'
+// import useToast from '@/hooks/useToast'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
 
@@ -38,7 +38,7 @@ const Card = ({ isDarkMode }: CardProps) => {
   const [currentState, setCurrentState] = useState('IDLE')
   const [chatroomId, setChatroomId] = useState('33')
   const navigate = useNavigate()
-  const { showToast } = useToast()
+  // const { showToast } = useToast()
 
   const handleMoveChatting = () => {
     navigate('/chatting', { state: { chatroomId: chatroomId } })
@@ -83,12 +83,12 @@ const Card = ({ isDarkMode }: CardProps) => {
       .get('/v1/users/status')
       .then((response) => {
         if (currentState == response.data.userStatus)
-          showToast({
-            message: '아직 매칭이 성사되지 않았습니다!',
-            type: 'info',
-            isDarkMode: isDarkMode,
-          })
-        setCurrentState(response.data.userStatus)
+          // showToast({
+          //   message: '아직 매칭이 성사되지 않았습니다!',
+          //   type: 'info',
+          //   isDarkMode: isDarkMode,
+          // })
+          setCurrentState(response.data.userStatus)
         response.data.userStatus === 'CHATTING_UNCONNECTED' &&
           setChatroomId(response.data.chattingRoomId)
         response.data.userStatus === 'MATCHING' && setMatchingStartedAt(response.data.startedAt)
