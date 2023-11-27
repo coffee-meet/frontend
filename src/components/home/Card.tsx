@@ -35,7 +35,7 @@ const Card = ({ isDarkMode }: CardProps) => {
   const timerRef = useRef<TimerRefType>(null)
   const [matchingStartedAt, setMatchingStartedAt] = useState('')
   const [isMatching, setIsMatching] = useState(false)
-  const [currentState, setCurrentState] = useState('')
+  const [currentState, setCurrentState] = useState('IDLE')
   const [chatroomId, setChatroomId] = useState('33')
   const navigate = useNavigate()
   // const { showToast } = useToast()
@@ -99,7 +99,7 @@ const Card = ({ isDarkMode }: CardProps) => {
   }
   useEffect(() => {
     getCurrentMatchingState()
-  }, [currentState])
+  })
 
   useEffect(() => {
     if (currentState === 'MATCHING') {
