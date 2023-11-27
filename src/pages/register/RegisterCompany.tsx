@@ -23,18 +23,18 @@ const RegisterCompany = () => {
   const JobList = [
     '경영',
     '영업',
-    '물류/무역',
+    '물류',
     'IT',
     '디자인',
     '전문직',
     '미디어',
-    '생산/제조',
-    '연구/개발',
-    '기획/마케팅',
+    '생산',
+    '연구',
+    '기획',
     '광고',
-    '의약/바이오',
+    '의약',
     '유통',
-    '법률/집행기관',
+    '법률',
   ]
   const navigate = useNavigate()
   const userId = useLocation().state.userId
