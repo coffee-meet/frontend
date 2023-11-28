@@ -202,8 +202,7 @@ const Card = ({ isDarkMode }: CardProps) => {
               <Tip />
             </StyleWaitingBottomWrapper>
           </StyleWaitingWrapper>
-        ) : (currentState && currentState === 'CHATTING_UNCONNECTED') ||
-          (currentState && currentState === 'CHATTING_CONNECTED') ? (
+        ) : currentState && currentState === 'CHATTING_UNCONNECTED' ? (
           <>
             <Text
               font={'Body_16'}
@@ -214,14 +213,9 @@ const Card = ({ isDarkMode }: CardProps) => {
               {'매칭이 완료되었습니다!'}
             </Text>
             <Spacing size={30}></Spacing>
-            <StyleMoveChatButton>
+            <StyleMoveChatButton onClick={handleMoveChatting}>
               <FlexBox gap={20} fullWidth={true}>
-                <Text
-                  font={'Body_16'}
-                  fontWeight={600}
-                  letterSpacing={-1}
-                  onClick={handleMoveChatting}
-                >
+                <Text font={'Body_16'} fontWeight={600} letterSpacing={-1}>
                   {'채팅방으로 이동'}
                 </Text>
                 <IoIosArrowForward size={20} />
@@ -229,7 +223,7 @@ const Card = ({ isDarkMode }: CardProps) => {
             </StyleMoveChatButton>
             <Spacing size={31} />
           </>
-        ) : (
+        ) : currentState && currentState === 'REPORTED' ? (
           <Text
             font={'Body_16'}
             fontWeight={400}
@@ -237,6 +231,15 @@ const Card = ({ isDarkMode }: CardProps) => {
             textColor={`${palette.GRAY400}`}
           >
             {'신고 제제 중인 사용자입니다.'}
+          </Text>
+        ) : (
+          <Text
+            font={'Body_16'}
+            fontWeight={400}
+            letterSpacing={-1}
+            textColor={`${palette.GRAY400}`}
+          >
+            {'서버 에러입니다.'}
           </Text>
         )}
       </StyleCard>
