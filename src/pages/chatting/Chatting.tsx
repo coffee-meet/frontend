@@ -5,7 +5,6 @@ import { BsArrowLeftShort } from 'react-icons/bs'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
-import { ChattingApi } from '@/apis/chatting/chattingApi'
 import { Messages } from '@/apis/chatting/chattingType'
 import ExitIcon from '@/assets/icons/ExitIcon'
 import Send from '@/assets/icons/Send.svg'
@@ -18,7 +17,6 @@ import Spacing from '@/components/common/Spacing'
 import TextArea from '@/components/common/TextArea'
 import MessageArea from '@/components/messageArea'
 import { useModal } from '@/hooks/useModal'
-import useAuthStore from '@/store/AuthStore'
 import useBottomSheetStore from '@/store/BottomSheetStore'
 import { palette } from '@/styles/palette'
 
@@ -26,15 +24,11 @@ const Chatting = () => {
   const { openModal } = useModal()
   const navigate = useNavigate()
   const { chatroomId } = useLocation().state
-  // const chatroomId = '3'
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
-  // const [inputValue, setInputValue] = useState('')
-  const { authTokens } = useAuthStore()
   const messageRef = useRef<HTMLTextAreaElement>(null)
   const messageWrapperRef = useRef<HTMLDivElement>(null)
   const divRef = useRef<HTMLDivElement>(null)
 
-  console.log(authTokens?.accessToken)
   // const { data, isLoading } = useQuery(['messages'], () => getDetailMessages, {
   //   onSuccess: (responseData: Messages[]) => {
   //     setMessages(responseData)
@@ -44,9 +38,9 @@ const Chatting = () => {
 
   const getDetailMessages = async () => {
     try {
-      const response = await ChattingApi.GET_DETAIL_MESSAGES(chatroomId)
+      const response = await axiosAPI.get(`/v1/chatting/rooms/${chatroomId}`)
       console.log(response)
-      setMessages(response)
+      setMessages(response.data)
     } catch (error) {
       console.error('Message fetching error')
     }

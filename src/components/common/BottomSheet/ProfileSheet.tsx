@@ -87,13 +87,17 @@ const ProfileSheet = ({ title, isDarkMode }: ProfileSheetProps) => {
     setBottomSheetState(false)
   }
   const getOpponentUserProfile = async () => {
-    const response = await axiosAPI.get(`/api/v1/users/${userId}`)
-    console.log(response)
-    setOpponentUserProfile(response.data)
+    try {
+      const response = await axiosAPI.get(`/v1/users/${userId}`)
+      console.log(response)
+      setOpponentUserProfile(response.data)
+    } catch (err) {
+      console.log(err)
+    }
   }
   useEffect(() => {
     getOpponentUserProfile()
-  })
+  }, [])
   const slideUp = {
     hidden: { y: '100%', opacity: 0 },
     visible: { y: '0%', opacity: 1, transition: { type: 'spring', damping: 15, stiffness: 100 } },
