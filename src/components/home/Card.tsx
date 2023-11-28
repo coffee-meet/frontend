@@ -213,14 +213,9 @@ const Card = ({ isDarkMode }: CardProps) => {
               {'매칭이 완료되었습니다!'}
             </Text>
             <Spacing size={30}></Spacing>
-            <StyleMoveChatButton>
+            <StyleMoveChatButton onClick={handleMoveChatting}>
               <FlexBox gap={20} fullWidth={true}>
-                <Text
-                  font={'Body_16'}
-                  fontWeight={600}
-                  letterSpacing={-1}
-                  onClick={handleMoveChatting}
-                >
+                <Text font={'Body_16'} fontWeight={600} letterSpacing={-1}>
                   {'채팅방으로 이동'}
                 </Text>
                 <IoIosArrowForward size={20} />
