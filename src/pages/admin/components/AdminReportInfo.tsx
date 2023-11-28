@@ -17,6 +17,16 @@ const AdminReportInfo = ({ selectedReporterNickname }: AdminReportInfoProps) => 
   const { data, isSuccess } = useQuery(['ReportedUserInfo'], AdminReportAPI.GET_REPORT_INFO)
   console.log(isSuccess && data)
 
+  const mockData = {
+    reporterNickname: '박은지',
+    targetedNickname: '유명한',
+    targetedEmail: 'myeonghan@naver.com',
+    reason: '잠수',
+    reasonDetail: '채팅방 내 잠수 기네스북 기록을 세웠어요',
+    reportedCount: 3,
+    createdAt: '2023.11.23 12:00:00',
+  }
+
   return (
     <StyledAdminReportInfoOuterWrapper>
       <AdminPageHeader username={selectedReporterNickname} />
@@ -25,26 +35,26 @@ const AdminReportInfo = ({ selectedReporterNickname }: AdminReportInfoProps) => 
           <AdminReportInfoListRow
             nickname={'신고자'}
             height={84}
-            infoMessage={'박은지'}
+            infoMessage={mockData.reporterNickname}
             isDarkMode={false}
           />
           <AdminReportInfoListRow
             nickname={'일시'}
             height={84}
-            infoMessage={'2023.11.23 12:00:00'}
+            infoMessage={mockData.createdAt}
             isDarkMode={false}
           />
           <AdminReportInfoListRow
             nickname={'신고 사유'}
             height={84}
-            infoMessage={'채팅방 내 잠수'}
+            infoMessage={mockData.reason}
             isDarkMode={false}
           />
 
           <AdminReportInfoListRow
             nickname={'해당 사용자 메일'}
             height={84}
-            infoMessage={'eunji@naver.com'}
+            infoMessage={mockData.targetedEmail}
             isDarkMode={false}
           />
         </StyledReportInfoListWrapper>

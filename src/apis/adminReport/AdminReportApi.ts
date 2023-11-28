@@ -8,6 +8,12 @@ const params: GetReportersListParams = {
   targetedId: '7347',
   chattingRoomId: '1413',
 }
+// interface GetReportInfoParams {
+//   reportId: string
+// }
+// const paramsTwo: GetReportInfoParams = {
+//   reportId: '1',
+// }
 
 const AdminReportAPI = {
   GET_REPORT_LIST: async () => {

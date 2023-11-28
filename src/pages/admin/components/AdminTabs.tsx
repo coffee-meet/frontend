@@ -40,6 +40,7 @@ const AdminTabs = () => {
   }
   const handleReportersSelectUserName = (reporterNickname: string) => {
     setSelectedReporterNickname(reporterNickname)
+    //reporterslist에서 reportId 변수로 수정.
     setActiveTab('reportInfo')
   }
 
