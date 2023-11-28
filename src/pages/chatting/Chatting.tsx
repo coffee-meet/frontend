@@ -24,6 +24,7 @@ const Chatting = () => {
   const { openModal } = useModal()
   const navigate = useNavigate()
   const { chatroomId } = useLocation().state
+  const { chatroomName } = useLocation().state
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
   const messageRef = useRef<HTMLTextAreaElement>(null)
   const messageWrapperRef = useRef<HTMLDivElement>(null)
@@ -141,7 +142,7 @@ const Chatting = () => {
         <PageContainer isDarkMode={false} height={'100%'}>
           <StyleChattingWrapper ref={divRef}>
             <PageHeader
-              title={'Matching Room Name'}
+              title={chatroomName}
               hasBackground={true}
               leftIcon={
                 <BsArrowLeftShort size={32} color={`${palette.GRAY500}`} onClick={navigateHome} />
