@@ -15,10 +15,10 @@ interface AdminReportersListProps {
   onReportSelect: (nickname: string) => void
   selectedReportNickname: string
 }
-interface ReportersListData {
-  reporterUserName: string
-  reportedDate: string
-}
+// interface ReportersListData {
+//   reporterUserName: string
+//   reportedDate: string
+// }
 const AdminReportersList = ({
   onReportSelect,
   selectedReportNickname,
@@ -55,15 +55,32 @@ const AdminReportersList = ({
     })
   }
   const { data, isSuccess } = useQuery(['ReporterUserList'], AdminReportAPI.GET_REPORTERS_LIST)
+  console.log(isSuccess && data)
   const handlePersonReported = (nickname: string) => {
     onReportSelect(nickname)
   }
-  const ReportersDatas = data?.data.reporters
+  // const ReportersDatas = data?.data.reporters
+
+  const mockData = [
+    { reporterUserName: '박은지', reportedDate: '2023.11.23' },
+    { reporterUserName: '유명한', reportedDate: '2021.11.21' },
+    { reporterUserName: '박상민', reportedDate: '2021.11.15' },
+  ]
   return (
     <StyledAdminReportersListContainerOuterWrapper>
       <AdminPageHeader username={selectedReportNickname}></AdminPageHeader>
       <StyledAdminReportersListContainer>
-        {isSuccess && (
+        {mockData.map((data, index) => (
+          <AdminReportersListRow
+            reporterNickname={data.reporterUserName}
+            key={index}
+            height={71}
+            reportedDate={data.reportedDate}
+            isDarkMode={false}
+            onClick={() => handlePersonReported(data.reporterUserName)}
+          />
+        ))}
+        {/* {isSuccess && (
           <>
             {ReportersDatas.map((reporterListData: ReportersListData, index: number) => (
               <AdminReportersListRow
@@ -76,7 +93,7 @@ const AdminReportersList = ({
               />
             ))}
           </>
-        )}
+        )} */}
         <Spacing size={223}></Spacing>
         <StyledButtonsWrapper>
           <NormalButton onClick={handleAccumulationAddBtn} normalButtonType={'admin-accept'}>
