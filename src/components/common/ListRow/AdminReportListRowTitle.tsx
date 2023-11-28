@@ -39,8 +39,8 @@ const AdminReportListRowTitle = ({
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-            marginLeft: '10px',
-            marginRight: '16px',
+            marginLeft: '4px',
+            marginRight: '12px',
           }}
         >
           {chattingRoomName}

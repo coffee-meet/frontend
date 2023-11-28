@@ -35,10 +35,11 @@ const AdminReportListRow = ({
         style={{
           width: '100%',
           textAlign: 'center',
+          marginRight: '20px',
         }}
       >
         <Text
-          font={'Body_14'}
+          font={'Body_16'}
           fontWeight={700}
           letterSpacing={0}
           style={{
@@ -52,7 +53,7 @@ const AdminReportListRow = ({
           {chattingRoomName}
         </Text>
         <Text
-          font={'Body_14'}
+          font={'Body_16'}
           fontWeight={700}
           letterSpacing={0}
           style={{
@@ -66,12 +67,13 @@ const AdminReportListRow = ({
           {reportedNickname}
         </Text>
         <Text
-          font={'Body_14'}
+          font={'Body_16'}
           fontWeight={700}
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.GRAY400 : palette.GRAY400,
             flex: 1,
+            marginLeft: '10px',
           }}
         >
           {reportedDate}
