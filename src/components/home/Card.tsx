@@ -101,7 +101,7 @@ const Card = ({ isDarkMode }: CardProps) => {
   }
   useEffect(() => {
     getCurrentMatchingState()
-  })
+  }, [currentState])
 
   useEffect(() => {
     if (currentState === 'MATCHING') {
