@@ -33,17 +33,29 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
   // const inquiryDatas = data?.data.inquiries
 
   const mockData = [
-    { inquiryRequestUser: '박상민', inquiryRequestDate: '2023.11.22' },
-    { inquiryRequestUser: '박은지', inquiryRequestDate: '2023.11.22' },
-    { inquiryRequestUser: '주다현', inquiryRequestDate: '2023.11.22' },
-    { inquiryRequestUser: '남궁호수', inquiryRequestDate: '2023.11.21' },
-    { inquiryRequestUser: '유명한', inquiryRequestDate: '2023.11.21' },
-    { inquiryRequestUser: '박상민', inquiryRequestDate: '2023.11.17' },
-    { inquiryRequestUser: '남궁호수', inquiryRequestDate: '2023.11.17' },
-    { inquiryRequestUser: '주다현', inquiryRequestDate: '2023.11.17' },
-    { inquiryRequestUser: '박은지', inquiryRequestDate: '2023.11.17' },
-    { inquiryRequestUser: '우창욱', inquiryRequestDate: '2023.11.10' },
-    { inquiryRequestUser: '유명한', inquiryRequestDate: '2023.11.10' },
+    // 실제 예시 response 데이터
+    // createdAt: '2023-11-22 12:54:06.291'
+    {
+      inquiryId: 5732,
+      inquirer: '박상민',
+      title: '제목1',
+      createdAt: '2023-11-22',
+    },
+    {
+      inquiryId: 6155,
+      inquirer: '박은지',
+      title: '제목2',
+      createdAt: '2023-11-22',
+    },
+    { inquirer: '주다현', createdAt: '2023-11-22' },
+    { inquirer: '남궁호수', createdAt: '2023-11-21' },
+    { inquirer: '유명한', createdAt: '2023-11-21' },
+    { inquirer: '박상민', createdAt: '2023-11-17' },
+    { inquirer: '남궁호수', createdAt: '2023-11-17' },
+    { inquirer: '주다현', createdAt: '2023-11-17' },
+    { inquirer: '박은지', createdAt: '2023-11-17' },
+    { inquirer: '우창욱', createdAt: '2023-11-10' },
+    { inquirer: '유명한', createdAt: '2023-11-10' },
   ]
 
   return (
@@ -53,10 +65,10 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
           <AdminApprovalListRow
             key={index}
             height={71}
-            nickname={data.inquiryRequestUser}
-            infoMessage={data.inquiryRequestDate}
+            nickname={data.inquirer}
+            infoMessage={data.createdAt}
             isDarkMode={false}
-            onClick={() => handlePersonInquiry(data.inquiryRequestUser)}
+            onClick={() => handlePersonInquiry(data.inquirer)}
           />
         ))}
         {/* {isSuccess &&

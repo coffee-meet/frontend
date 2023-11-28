@@ -29,6 +29,7 @@ const AdminTabs = () => {
     setActiveTab('approvalInfo')
   }
   const handleInquirySelectUserName = (inquiryNickname: string) => {
+    //inquiryID로 상세정보 조회할 시, 바꿀 부분. props명도 전부 바꾸면 됨.
     setSelectedInquiryNickname(inquiryNickname)
     setActiveTab('inquiryInfo')
   }
