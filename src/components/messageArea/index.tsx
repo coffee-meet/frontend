@@ -14,39 +14,40 @@ const MessageArea = ({ messageData }: MessageProps) => {
     <>
       <FlexBox direction={'column'} gap={20} fullWidth={true}>
         <Spacing size={5} />
-        {messageData.map((message, i) =>
-          //로그인 성공 후 nickname 전역에 저장하면 내 닉네임 불러오기
-          message.nickname == localStorage.getItem('nickname') ? (
-            <StyleChattingBubbleWrapper key={i} isMyChat={true}>
-              <ChattingBubble
-                isMyChat={true}
-                message={message.content}
-                userId={message.userId}
-                userProfile={message.profileImageUrl}
-                time={message.createdAt}
-              />
-            </StyleChattingBubbleWrapper>
-          ) : (
-            <StyleChattingBubbleWrapper key={i} isMyChat={false}>
-              <ChatBubbleListLow
-                fullWidth={true}
-                leftImage={message.profileImageUrl ? message.profileImageUrl : ''}
-                mainText={message.nickname}
-                userId={message.userId}
-                profileImageUrl={message.profileImageUrl ? message.profileImageUrl : ''}
-                subElement={
-                  <ChattingBubble
-                    message={message.content}
-                    userId={message.userId}
-                    userProfile={message.profileImageUrl ? message.profileImageUrl : ''}
-                    time={message.createdAt}
-                  ></ChattingBubble>
-                }
-                rightElement={null}
-              />
-            </StyleChattingBubbleWrapper>
-          ),
-        )}
+        {messageData &&
+          messageData.map((message, i) =>
+            //로그인 성공 후 nickname 전역에 저장하면 내 닉네임 불러오기
+            message.nickname == localStorage.getItem('nickname') ? (
+              <StyleChattingBubbleWrapper key={i} isMyChat={true}>
+                <ChattingBubble
+                  isMyChat={true}
+                  message={message.content}
+                  userId={message.userId}
+                  userProfile={message.profileImageUrl}
+                  time={message.createdAt}
+                />
+              </StyleChattingBubbleWrapper>
+            ) : (
+              <StyleChattingBubbleWrapper key={i} isMyChat={false}>
+                <ChatBubbleListLow
+                  fullWidth={true}
+                  leftImage={message.profileImageUrl ? message.profileImageUrl : ''}
+                  mainText={message.nickname}
+                  userId={message.userId}
+                  profileImageUrl={message.profileImageUrl ? message.profileImageUrl : ''}
+                  subElement={
+                    <ChattingBubble
+                      message={message.content}
+                      userId={message.userId}
+                      userProfile={message.profileImageUrl ? message.profileImageUrl : ''}
+                      time={message.createdAt}
+                    ></ChattingBubble>
+                  }
+                  rightElement={null}
+                />
+              </StyleChattingBubbleWrapper>
+            ),
+          )}
         <Spacing size={0} />
       </FlexBox>
     </>
