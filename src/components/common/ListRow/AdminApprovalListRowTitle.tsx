@@ -5,19 +5,17 @@ import { palette } from '@/styles/palette'
 
 type AdminReportListRowProps = {
   height: number
-  chattingRoomName: string
-  reportedNickname: string
-  reportedDate: string
+  frontName: string
+  backName: string
   isDarkMode: boolean
 
   onClick?: () => void
 }
 
-const AdminReportListRowTitle = ({
+const AdminApprovalListRowTitle = ({
   height,
-  chattingRoomName,
-  reportedNickname,
-  reportedDate,
+  frontName,
+  backName,
   isDarkMode,
   onClick,
 }: AdminReportListRowProps) => {
@@ -39,11 +37,10 @@ const AdminReportListRowTitle = ({
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-            marginLeft: '4px',
-            marginRight: '12px',
+            marginRight: '14px',
           }}
         >
-          {chattingRoomName}
+          {frontName}
         </Text>
         <Text
           font={'Body_16'}
@@ -51,25 +48,14 @@ const AdminReportListRowTitle = ({
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-            margin: '0 10px',
+            marginLeft: '175px',
           }}
         >
-          {reportedNickname}
-        </Text>
-        <Text
-          font={'Body_16'}
-          fontWeight={800}
-          letterSpacing={0}
-          style={{
-            color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-            marginLeft: '16px',
-          }}
-        >
-          {reportedDate}
+          {backName}
         </Text>
       </FlexBox>
     </StyleList>
   )
 }
 
-export default AdminReportListRowTitle
+export default AdminApprovalListRowTitle

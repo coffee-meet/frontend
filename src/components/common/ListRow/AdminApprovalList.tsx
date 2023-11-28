@@ -3,6 +3,7 @@ import styled from '@emotion/styled'
 // import { useQuery } from '@tanstack/react-query'
 // import AdminApprovalAPI from '@/apis/adminApproval/AdminApprovalApi'
 import AdminApprovalListRow from '@/components/common/ListRow/AdminApprovalListRow'
+import AdminApprovalListRowTitle from '@/components/common/ListRow/AdminApprovalListRowTitle'
 import { palette } from '@/styles/palette'
 
 interface AdminApprovalListProps {
@@ -42,17 +43,25 @@ const AdminApprovalList = ({ onApproveSelectUserName }: AdminApprovalListProps) 
   return (
     <AdminApprovalListContainerOuterWrapper>
       <AdminApprovalListContainer>
-        {mockData.map((data, index) => (
-          <AdminApprovalListRow
-            key={index}
-            height={71}
-            nickname={data.approvalRequestUser}
-            infoMessage={data.approvalRequestUserStatus}
-            isDarkMode={false}
-            onClick={() => handlePersonApproval(data.approvalRequestUser)}
-          />
-        ))}
-        {/* {isSuccess &&
+        {
+          <>
+            <AdminApprovalListRowTitle
+              frontName={'승인 요청자'}
+              height={71}
+              isDarkMode={false}
+              backName={'상태'}
+            ></AdminApprovalListRowTitle>
+            {mockData.map((data, index) => (
+              <AdminApprovalListRow
+                key={index}
+                height={71}
+                nickname={data.approvalRequestUser}
+                infoMessage={data.approvalRequestUserStatus}
+                isDarkMode={false}
+                onClick={() => handlePersonApproval(data.approvalRequestUser)}
+              />
+            ))}
+            {/* {isSuccess &&
           approvalDatas.map((approvalListData: ApprovalListData, index: number) => (
             <AdminApprovalListRow
               key={index}
@@ -63,6 +72,8 @@ const AdminApprovalList = ({ onApproveSelectUserName }: AdminApprovalListProps) 
               onClick={() => handlePersonApproval(approvalListData.approvalRequestUser)}
             />
           ))} */}
+          </>
+        }
       </AdminApprovalListContainer>
     </AdminApprovalListContainerOuterWrapper>
   )
