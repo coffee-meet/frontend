@@ -40,7 +40,7 @@ const Chatting = () => {
     try {
       const response = await axiosAPI.get(`/v1/chatting/rooms/${chatroomId}`)
       console.log(response)
-      setMessages(response.data)
+      setMessages(response.data.chats)
     } catch (error) {
       console.error('Message fetching error')
     }
