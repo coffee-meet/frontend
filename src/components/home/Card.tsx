@@ -202,8 +202,7 @@ const Card = ({ isDarkMode }: CardProps) => {
               <Tip />
             </StyleWaitingBottomWrapper>
           </StyleWaitingWrapper>
-        ) : (currentState && currentState === 'CHATTING_UNCONNECTED') ||
-          (currentState && currentState === 'CHATTING_CONNECTED') ? (
+        ) : currentState && currentState === 'CHATTING_UNCONNECTED' ? (
           <>
             <Text
               font={'Body_16'}
