@@ -228,7 +228,7 @@ const Card = ({ isDarkMode }: CardProps) => {
             </StyleMoveChatButton>
             <Spacing size={31} />
           </>
-        ) : (
+        ) : currentState && currentState === 'REPORTED' ? (
           <Text
             font={'Body_16'}
             fontWeight={400}
@@ -236,6 +236,15 @@ const Card = ({ isDarkMode }: CardProps) => {
             textColor={`${palette.GRAY400}`}
           >
             {'신고 제제 중인 사용자입니다.'}
+          </Text>
+        ) : (
+          <Text
+            font={'Body_16'}
+            fontWeight={400}
+            letterSpacing={-1}
+            textColor={`${palette.GRAY400}`}
+          >
+            {'서버 에러입니다.'}
           </Text>
         )}
       </StyleCard>
