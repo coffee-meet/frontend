@@ -38,7 +38,7 @@ const Avatar = ({
     <StyledAvatar
       width={width}
       height={height}
-      imgUrl={!imgUrl ? defaultProfileImage : imgUrl}
+      imgUrl={!imgUrl || imgUrl == 'default_image_url' ? defaultProfileImage : imgUrl}
       shadow={shadow}
       margin={margin}
       border={border}

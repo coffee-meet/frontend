@@ -5,7 +5,6 @@ import { BsArrowLeftShort } from 'react-icons/bs'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
-import { ChattingApi } from '@/apis/chatting/chattingApi'
 import { Messages } from '@/apis/chatting/chattingType'
 import ExitIcon from '@/assets/icons/ExitIcon'
 import Send from '@/assets/icons/Send.svg'
@@ -18,7 +17,6 @@ import Spacing from '@/components/common/Spacing'
 import TextArea from '@/components/common/TextArea'
 import MessageArea from '@/components/messageArea'
 import { useModal } from '@/hooks/useModal'
-import useAuthStore from '@/store/AuthStore'
 import useBottomSheetStore from '@/store/BottomSheetStore'
 import { palette } from '@/styles/palette'
 
@@ -27,13 +25,10 @@ const Chatting = () => {
   const navigate = useNavigate()
   const { chatroomId } = useLocation().state
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
-  const [inputValue, setInputValue] = useState('')
-  const { authTokens } = useAuthStore()
   const messageRef = useRef<HTMLTextAreaElement>(null)
   const messageWrapperRef = useRef<HTMLDivElement>(null)
   const divRef = useRef<HTMLDivElement>(null)
 
-  console.log(authTokens?.accessToken)
   // const { data, isLoading } = useQuery(['messages'], () => getDetailMessages, {
   //   onSuccess: (responseData: Messages[]) => {
   //     setMessages(responseData)
@@ -43,9 +38,9 @@ const Chatting = () => {
 
   const getDetailMessages = async () => {
     try {
-      const response = await ChattingApi.GET_DETAIL_MESSAGES(chatroomId)
+      const response = await axiosAPI.get(`/v1/chatting/rooms/${chatroomId}`)
       console.log(response)
-      setMessages(response)
+      setMessages(response.data)
     } catch (error) {
       console.error('Message fetching error')
     }
@@ -64,7 +59,7 @@ const Chatting = () => {
         console.log(response)
       },
       connectHeaders: {
-        Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjk5MzQ3NjQ5fQ.pc39bNfs2NXsFmkRvOM0JzhAgdvec585fZ5zotPBupWAsFW_DEWcETcdz7VPa9vJ9zzNukO4yUcZo-Gf9sB12Q`,
+        Authorization: `${localStorage.getItem('jwt')}`,
       },
     })
     client.current.activate()
@@ -74,7 +69,7 @@ const Chatting = () => {
     console.log('구독 함수 실행')
     if (client.current) {
       if (!client.current.connected) return
-      client.current.subscribe(`/sub/chatting/rooms/1`, (response) => {
+      client.current.subscribe(`/sub/chatting/rooms/${chatroomId}`, (response) => {
         const JsonBody = JSON.parse(response.body)
         console.log(response.body)
         setMessages((_chatList) => [..._chatList, JsonBody])
@@ -83,7 +78,7 @@ const Chatting = () => {
   }
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    send(inputValue)
+    messageRef.current && send(messageRef.current.value)
   }
   const handleClickExitRoom = () => {
     openModal({
@@ -104,21 +99,21 @@ const Chatting = () => {
     if (client.current) {
       if (!client.current.connected) return
       console.log(message)
+      if (messageRef.current) messageRef.current.value = ''
       client.current.publish({
         destination: '/pub/chatting/messages',
         body: JSON.stringify({
-          roomId: 1,
-          content: inputValue,
+          roomId: chatroomId,
+          content: message,
         }),
         headers: {
-          Authorization: `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiZXhwIjoxNjk5MzQ3NjQ5fQ.pc39bNfs2NXsFmkRvOM0JzhAgdvec585fZ5zotPBupWAsFW_DEWcETcdz7VPa9vJ9zzNukO4yUcZo-Gf9sB12Q`,
+          Authorization: `${localStorage.getItem('jwt')}`,
         },
       })
     }
     if (messageWrapperRef.current) {
       messageWrapperRef.current.scrollTop = messageWrapperRef.current.scrollHeight
     }
-    setInputValue('')
   }
   const disconnect = () => {
     if (client.current) client.current.deactivate()
@@ -163,7 +158,7 @@ const Chatting = () => {
             <StyleTypingFlexBox gap={10}>
               {/* <StyleTextArea width={'321px'} height={'36px'} borderRadius={'10px'} /> */}
               {/* <StyleInput onChange={(e) => setInputValue(e.target.value)} value={inputValue} /> */}
-              <TextArea ref={messageRef} height={35}></TextArea>
+              <TextArea ref={messageRef} height={35} />
               <StyleSubmitButton onClick={(e) => handleSubmit(e)}>
                 <StyleIcon src={Send} />
               </StyleSubmitButton>

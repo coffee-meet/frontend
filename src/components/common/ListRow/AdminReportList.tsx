@@ -75,6 +75,8 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
                 height={71}
                 chattingRoomName={reportListData.chattingRoomName}
                 reportedDate={reportListData.reportedDate}
+                chattingRoomName={reportListData.chattingRoomName}
+                reportedDate={reportListData.reportedDate}
                 isDarkMode={false}
                 onClick={() => handlePersonReported(reportListData.reportedUserName)}
               />

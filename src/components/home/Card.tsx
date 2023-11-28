@@ -12,7 +12,7 @@ import NormalButton from '@/components/common/Buttons/NormalButton'
 import { FlexBox } from '@/components/common/Flexbox'
 import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
-import useToast from '@/hooks/useToast'
+// import useToast from '@/hooks/useToast'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
 
@@ -35,10 +35,10 @@ const Card = ({ isDarkMode }: CardProps) => {
   const timerRef = useRef<TimerRefType>(null)
   const [matchingStartedAt, setMatchingStartedAt] = useState('')
   const [isMatching, setIsMatching] = useState(false)
-  const [currentState, setCurrentState] = useState('IDLE')
+  const [currentState, setCurrentState] = useState('')
   const [chatroomId, setChatroomId] = useState('33')
   const navigate = useNavigate()
-  const { showToast } = useToast()
+  // const { showToast } = useToast()
 
   const handleMoveChatting = () => {
     navigate('/chatting', { state: { chatroomId: chatroomId } })
@@ -82,14 +82,16 @@ const Card = ({ isDarkMode }: CardProps) => {
     await axiosAPI
       .get('/v1/users/status')
       .then((response) => {
-        if (currentState == response.data.userStatus)
-          showToast({
-            message: '아직 매칭이 성사되지 않았습니다!',
-            type: 'info',
-            isDarkMode: isDarkMode,
-          })
+        // if (currentState == response.data.userStatus)
+        // showToast({
+        //   message: '아직 매칭이 성사되지 않았습니다!',
+        //   type: 'info',
+        //   isDarkMode: isDarkMode,
+        // })
         setCurrentState(response.data.userStatus)
         response.data.userStatus === 'CHATTING_UNCONNECTED' &&
+          setChatroomId(response.data.chattingRoomId)
+        response.data.userStatus === 'CHATTING_CONNECTED' &&
           setChatroomId(response.data.chattingRoomId)
         response.data.userStatus === 'MATCHING' && setMatchingStartedAt(response.data.startedAt)
       })
@@ -97,13 +99,16 @@ const Card = ({ isDarkMode }: CardProps) => {
         console.log(err)
       })
   }
+  useEffect(() => {
+    getCurrentMatchingState()
+  }, [currentState])
 
   useEffect(() => {
     if (currentState === 'MATCHING') {
       //startTime에 서버에서 시작시간 받아와 new Date객체 안에 넣은 후 스트링으로 바꿔서 Date.parse한 후 Date.now()에서 뺄 것
       const date = new Date(matchingStartedAt)
       date.setHours(date.getHours() + 9)
-      const startTime = matchingStartedAt.length === 0 ? Date.now() : Date.parse(date.toString())
+      const startTime = !matchingStartedAt ? Date.now() : Date.parse(date.toString())
 
       const updateTimer = () => {
         const elapsedTime = Date.now() - startTime
@@ -123,14 +128,10 @@ const Card = ({ isDarkMode }: CardProps) => {
     }
   }, [isMatching])
 
-  useEffect(() => {
-    getCurrentMatchingState()
-  }, [currentState])
-
   return (
     <AnimatePresence>
       <StyleCard isDarkMode={isDarkMode}>
-        {currentState === 'IDLE' ? (
+        {currentState && currentState === 'IDLE' ? (
           <motion.div
             key={'randomButton'}
             initial={'hidden'}
@@ -144,7 +145,7 @@ const Card = ({ isDarkMode }: CardProps) => {
               onClick={handleMatchingStart}
             />
           </motion.div>
-        ) : currentState === 'MATCHING' ? (
+        ) : currentState && currentState === 'MATCHING' ? (
           <StyleWaitingWrapper
             key={'waiting'}
             initial={'hidden'}
@@ -201,7 +202,8 @@ const Card = ({ isDarkMode }: CardProps) => {
               <Tip />
             </StyleWaitingBottomWrapper>
           </StyleWaitingWrapper>
-        ) : (
+        ) : (currentState && currentState === 'CHATTING_UNCONNECTED') ||
+          (currentState && currentState === 'CHATTING_CONNECTED') ? (
           <>
             <Text
               font={'Body_16'}
@@ -227,6 +229,15 @@ const Card = ({ isDarkMode }: CardProps) => {
             </StyleMoveChatButton>
             <Spacing size={31} />
           </>
+        ) : (
+          <Text
+            font={'Body_16'}
+            fontWeight={400}
+            letterSpacing={-1}
+            textColor={`${palette.GRAY400}`}
+          >
+            {'신고 제제 중인 사용자입니다.'}
+          </Text>
         )}
       </StyleCard>
     </AnimatePresence>
