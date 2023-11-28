@@ -28,6 +28,7 @@ const AdminReportListRowTitle = ({
       style={{
         padding: '0 10px 0px 10px',
         borderBottom: `1px solid ${palette.GRAY300}`,
+        cursor: 'default',
       }}
       onClick={onClick}
     >
