@@ -1,5 +1,14 @@
 import { axiosAPI } from '@/apis/axios'
 
+interface GetReportersListParams {
+  targetedId: string
+  chattingRoomId: string
+}
+const params: GetReportersListParams = {
+  targetedId: '7347',
+  chattingRoomId: '1413',
+}
+
 const AdminReportAPI = {
   GET_REPORT_LIST: async () => {
     const response = await axiosAPI.get(`/v1/reports`)
@@ -8,7 +17,7 @@ const AdminReportAPI = {
     }
   },
   GET_REPORTERS_LIST: async () => {
-    const response = await axiosAPI.get(`/v1/reporters`)
+    const response = await axiosAPI.get(`/v1/reporters`, { params })
 
     return {
       data: response.data,

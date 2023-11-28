@@ -34,6 +34,7 @@ const AdminTabs = () => {
     setActiveTab('inquiryInfo')
   }
   const handleReportSelectUserName = (reportedNickname: string) => {
+    //targetedId, chattingRoomId 중 하나로 변수 바꾸고, 나머지 하나는 추가. (신고 전체 리스트 중 하나 클릭 할 때의 targetedId, chattingRoomId)
     setSelectedReportedNickname(reportedNickname)
     setActiveTab('reportersList')
   }
