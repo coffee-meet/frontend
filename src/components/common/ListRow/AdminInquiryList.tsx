@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import AdminInquiryAPI from '@/apis/adminInquiry/AdminInquiryApi'
 import AdminApprovalListRow from '@/components/common/ListRow/AdminApprovalListRow'
+import AdminInquiryListRowTitle from '@/components/common/ListRow/AdminInquiryListRowTitle'
 import { palette } from '@/styles/palette'
 
 interface AdminInquiryListProps {
@@ -61,16 +62,26 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
   return (
     <AdminInquiryListContainerOuterWrapper>
       <AdminInquiryListContainer>
-        {mockData.map((data, index) => (
-          <AdminApprovalListRow
-            key={index}
-            height={71}
-            nickname={data.inquirer}
-            infoMessage={data.createdAt}
-            isDarkMode={false}
-            onClick={() => handlePersonInquiry(data.inquirer)}
-          />
-        ))}
+        {
+          <>
+            <AdminInquiryListRowTitle
+              frontName={'문의자'}
+              height={71}
+              isDarkMode={false}
+              backName={'문의 일시'}
+            ></AdminInquiryListRowTitle>
+            {mockData.map((data, index) => (
+              <AdminApprovalListRow
+                key={index}
+                height={71}
+                nickname={data.inquirer}
+                infoMessage={data.createdAt}
+                isDarkMode={false}
+                onClick={() => handlePersonInquiry(data.inquirer)}
+              />
+            ))}
+          </>
+        }
         {/* {isSuccess &&
           inquiryDatas.map((inquiryListData: InquiryListData, index: number) => (
             <AdminApprovalListRow
