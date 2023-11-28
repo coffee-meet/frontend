@@ -39,7 +39,8 @@ const AdminReportListRowTitle = ({
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-            marginRight: '14px',
+            marginLeft: '10px',
+            marginRight: '16px',
           }}
         >
           {chattingRoomName}
@@ -61,7 +62,7 @@ const AdminReportListRowTitle = ({
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-            marginLeft: '14px',
+            marginLeft: '16px',
           }}
         >
           {reportedDate}
