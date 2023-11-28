@@ -37,11 +37,12 @@ const Card = ({ isDarkMode }: CardProps) => {
   const [isMatching, setIsMatching] = useState(false)
   const [currentState, setCurrentState] = useState('')
   const [chatroomId, setChatroomId] = useState('33')
+  const [chatroomName, setChatroomName] = useState('')
   const navigate = useNavigate()
   // const { showToast } = useToast()
 
   const handleMoveChatting = () => {
-    navigate('/chatting', { state: { chatroomId: chatroomId } })
+    navigate('/chatting', { state: { chatroomId: chatroomId, chatroomName: chatroomName } })
   }
 
   const handleMatchingStart = async () => {
@@ -89,11 +90,19 @@ const Card = ({ isDarkMode }: CardProps) => {
         //   isDarkMode: isDarkMode,
         // })
         setCurrentState(response.data.userStatus)
-        response.data.userStatus === 'CHATTING_UNCONNECTED' &&
+        if (response.data.userStatus === 'CHATTING_UNCONNECTED') {
           setChatroomId(response.data.chattingRoomId)
-        response.data.userStatus === 'CHATTING_CONNECTED' &&
+          setChatroomName(response.data.chattingRoomName)
+        }
+
+        if (response.data.userStatus === 'CHATTING_CONNECTED') {
           setChatroomId(response.data.chattingRoomId)
-        response.data.userStatus === 'MATCHING' && setMatchingStartedAt(response.data.startedAt)
+          setChatroomName(response.data.chattingRoomName)
+        }
+
+        if (response.data.userStatus === 'MATCHING') {
+          setMatchingStartedAt(response.data.startedAt)
+        }
       })
       .catch((err) => {
         console.log(err)
