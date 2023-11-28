@@ -36,6 +36,7 @@ const AdminReportAPI = {
     }
   },
   POST_REPORT_ADD: async () => {
+    //patch-> post와 동일 (params 동일)
     const response = await axiosAPI.post(
       '/v1/reports/accept/:reportId',
       { decision: 'addReportCount' },
