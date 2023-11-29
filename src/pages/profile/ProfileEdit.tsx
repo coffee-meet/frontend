@@ -115,7 +115,7 @@ const ProfileEdit = () => {
             isDarkMode={false}
             type={'interest'}
             buttonNames={InterestList}
-            maxLength={4}
+            maxLength={3}
           ></SelectorButtonContainer>
           <Spacing size={30} />
           <NormalButton normalButtonType={'form-submit'}>{'프로필 수정'}</NormalButton>

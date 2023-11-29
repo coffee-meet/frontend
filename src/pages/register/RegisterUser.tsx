@@ -207,7 +207,7 @@ const RegisterUser = () => {
           isDarkMode={false}
           type={'interest'}
           buttonNames={InterestList}
-          maxLength={4}
+          maxLength={3}
         ></SelectorButtonContainer>
       </FlexBox>
 
