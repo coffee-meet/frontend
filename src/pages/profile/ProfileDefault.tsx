@@ -45,7 +45,6 @@ const ProfileDefault = () => {
     interests: [''],
   })
   const { openModal } = useModal()
-
   const { showToast } = useToast()
 
   const getProfileData = async () => {
