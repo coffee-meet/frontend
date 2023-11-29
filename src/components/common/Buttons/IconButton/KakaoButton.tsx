@@ -43,6 +43,7 @@ export const StyledButtonText = styled(Text)`
   @media (max-width: 280px) {
     font-size: 16px;
   }
+  color: ${palette.BLACK};
 `
 
 export default KakaoButton
