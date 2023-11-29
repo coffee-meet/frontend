@@ -96,6 +96,11 @@ const Chatting = () => {
   const navigateHome = () => {
     navigate('/')
   }
+  const handleKeyDown = (e: { key: string }) => {
+    if (e.key == 'Enter') {
+      messageRef.current && send(messageRef.current.value)
+    }
+  }
   const send = (message: string) => {
     if (client.current) {
       if (!client.current.connected) return
@@ -159,7 +164,7 @@ const Chatting = () => {
             <StyleTypingFlexBox gap={10}>
               {/* <StyleTextArea width={'321px'} height={'36px'} borderRadius={'10px'} /> */}
               {/* <StyleInput onChange={(e) => setInputValue(e.target.value)} value={inputValue} /> */}
-              <TextArea ref={messageRef} height={35} />
+              <TextArea ref={messageRef} height={35} onKeyDown={handleKeyDown} />
               <StyleSubmitButton onClick={(e) => handleSubmit(e)}>
                 <StyleIcon src={Send} />
               </StyleSubmitButton>
