@@ -43,9 +43,9 @@ const ChattingBubble = ({
 }: ChattingBubbleProps) => {
   const date = new Date(time)
   date.setHours(date.getHours() + 9)
-  const format = date.toLocaleString.toString().slice(-10)
+  const format = date.toLocaleString().toString().slice(-10)
+  const hourAndMinute = format.slice(0, 7)
 
-  const hourAndMinute = format.slice(-10).slice(0, 7)
   return (
     <BubbleContainer
       justify={'flex-start'}

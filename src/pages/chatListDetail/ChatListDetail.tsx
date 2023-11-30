@@ -31,7 +31,7 @@ const ChatListDetail = () => {
     await axiosAPI
       .get(`/v1/chatting/room/histories/${chatroomId}`)
       .then((response) => {
-        setMessages(response.data)
+        setMessages(response.data.chatHistories)
       })
       .catch((err) => console.log(err))
   }

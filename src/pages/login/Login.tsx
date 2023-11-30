@@ -2,14 +2,13 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'
 
+import CafeSvg from '@/assets/images/cafe.svg'
 import { KakaoButton, NaverButton } from '@/components/common/Buttons/IconButton'
 import NormalButton from '@/components/common/Buttons/NormalButton'
-import HeroImage from '@/components/common/HeroImage'
 import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
 import useAuthStore from '@/store/AuthStore'
 import { palette } from '@/styles/palette'
-
 export type Provider = 'NAVER' | 'KAKAO'
 
 export const BASE_URL = import.meta.env.VITE_BASE_URL
@@ -28,15 +27,9 @@ const Login = () => {
 
   return (
     <StyledLoginOuterWrapper>
-      <HeroImage
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flex: 1,
-        }}
-      />
       <StyledLoginContainer>
+        <Spacing size={50} />
+        <img src={CafeSvg} width={250} />
         <Spacing
           size={45}
           css={css`
@@ -46,7 +39,7 @@ const Login = () => {
           `}
         />
         <StyledHeaderText font={'Body_24'} fontWeight={700} letterSpacing={-1}>
-          {'☕️커피밋'}
+          {'COFFEE MEET'}
         </StyledHeaderText>
         <Spacing
           size={30}
@@ -108,7 +101,7 @@ const Login = () => {
 
 const StyledLoginOuterWrapper = styled.div`
   background-color: ${palette.SKY_BLUE};
-  height: 85%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -125,7 +118,7 @@ const StyledOauthWrapper = styled.div`
 const StyledLoginContainer = styled.div`
   flex: 1;
   width: 100%;
-  height: 441px;
+  height: 100%;
   background-color: ${palette.WHITE};
   border-radius: 20px;
   text-align: center;

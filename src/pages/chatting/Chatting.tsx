@@ -17,6 +17,7 @@ import Spacing from '@/components/common/Spacing'
 import TextArea from '@/components/common/TextArea'
 import MessageArea from '@/components/messageArea'
 import { useModal } from '@/hooks/useModal'
+import useToast from '@/hooks/useToast'
 import useBottomSheetStore from '@/store/BottomSheetStore'
 import { palette } from '@/styles/palette'
 
@@ -29,6 +30,7 @@ const Chatting = () => {
   const messageRef = useRef<HTMLTextAreaElement>(null)
   const messageWrapperRef = useRef<HTMLDivElement>(null)
   const divRef = useRef<HTMLDivElement>(null)
+  const { showToast } = useToast()
 
   // const { data, isLoading } = useQuery(['messages'], () => getDetailMessages, {
   //   onSuccess: (responseData: Messages[]) => {
@@ -96,6 +98,11 @@ const Chatting = () => {
   const navigateHome = () => {
     navigate('/')
   }
+  const handleKeyDown = (e: { key: string }) => {
+    if (e.key == 'Enter') {
+      messageRef.current && send(messageRef.current.value)
+    }
+  }
   const send = (message: string) => {
     if (client.current) {
       if (!client.current.connected) return
@@ -119,6 +126,12 @@ const Chatting = () => {
   const disconnect = () => {
     if (client.current) client.current.deactivate()
   }
+  //렌더링 되기 전, 보내기 전  채팅방 터졌는지 안 터졌는지 확인하는 함수
+  const isChattingRoomAlive = async () => {
+    const response = await axiosAPI.get(`/v1/chatting/rooms/${chatroomId}/exist`)
+    if (response.data.isExisted == true) return true
+    else return false
+  }
 
   useEffect(() => {
     if (messageWrapperRef.current !== null)
@@ -126,6 +139,14 @@ const Chatting = () => {
   })
 
   useEffect(() => {
+    if (!isChattingRoomAlive) {
+      showToast({
+        message: '삭제된 채팅방입니다😭. 홈으로 이동합니다!',
+        type: 'warning',
+        isDarkMode: false,
+      })
+      navigate('/')
+    }
     connect()
     return () => disconnect()
   }, [chatroomId])
@@ -159,7 +180,7 @@ const Chatting = () => {
             <StyleTypingFlexBox gap={10}>
               {/* <StyleTextArea width={'321px'} height={'36px'} borderRadius={'10px'} /> */}
               {/* <StyleInput onChange={(e) => setInputValue(e.target.value)} value={inputValue} /> */}
-              <TextArea ref={messageRef} height={35} />
+              <TextArea ref={messageRef} height={35} onKeyDown={handleKeyDown} />
               <StyleSubmitButton onClick={(e) => handleSubmit(e)}>
                 <StyleIcon src={Send} />
               </StyleSubmitButton>
