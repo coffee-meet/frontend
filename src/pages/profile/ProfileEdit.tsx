@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import { useEffect, useRef, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { useRef, useState } from 'react'
 
 import getMyProfileData from '@/apis/profile/getMyProfileData.ts'
 import postMyProfileImage from '@/apis/profile/postMyProfileImage.ts'
@@ -32,19 +33,18 @@ const ProfileEdit = () => {
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
   const [imgSrc, setImgSrc] = useState('')
   const { showToast } = useToast()
-  const [myProfileData, setMyProfileData] = useState({
-    nickname: '',
-    profileImageUrl: '',
-    companyName: '',
-    department: '',
-    interests: [''],
+
+  const { data, error, isLoading, refetch } = useQuery({
+    queryKey: ['myProfileData'],
+    queryFn: getMyProfileData,
   })
 
-  useEffect(() => {
-    getMyProfileData().then((res) => {
-      setMyProfileData(res)
-    })
-  }, [])
+  if (isLoading) {
+    return <div>{'로딩중...'}</div>
+  }
+  if (error) {
+    return <div>{'에러가 발생했습니다.'}</div>
+  }
 
   const handleNicknameValidCheck = (nickname: string) => {
     getNicknameValid(nickname)
@@ -86,6 +86,7 @@ const ProfileEdit = () => {
             type: 'success',
             isDarkMode,
           })
+          refetch()
         })
         .catch(() => {
           showToast({
@@ -141,11 +142,7 @@ const ProfileEdit = () => {
             hasBackground={true}
           />
           <Spacing size={70} />
-          <Avatar
-            width={80}
-            height={80}
-            imgUrl={imgSrc ?? (myProfileData && myProfileData.profileImageUrl)}
-          />
+          <Avatar width={80} height={80} imgUrl={data?.profileImageUrl ?? imgSrc} />
           <Spacing size={20} />
           <label htmlFor={'profile-image-upload'}>
             <ChangeProfileImageLink>{'프로필 사진 변경'}</ChangeProfileImageLink>
