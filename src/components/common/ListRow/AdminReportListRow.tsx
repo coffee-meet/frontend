@@ -6,7 +6,7 @@ import { palette } from '@/styles/palette'
 type AdminReportListRowProps = {
   height: number
   chattingRoomName: string
-  reportedNickname: string
+  targetedNickname: string
   reportedDate: string
   isDarkMode: boolean
 
@@ -16,7 +16,7 @@ type AdminReportListRowProps = {
 const AdminReportListRow = ({
   height,
   chattingRoomName,
-  reportedNickname,
+  targetedNickname,
   reportedDate,
   isDarkMode,
   onClick,
@@ -64,7 +64,7 @@ const AdminReportListRow = ({
             textOverflow: 'ellipsis',
           }}
         >
-          {reportedNickname}
+          {targetedNickname}
         </Text>
         <Text
           font={'Body_16'}
