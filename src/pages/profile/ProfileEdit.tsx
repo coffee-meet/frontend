@@ -1,6 +1,9 @@
 import styled from '@emotion/styled'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
+import getMyProfileData from '@/apis/profile/getMyProfileData.ts'
+import postMyProfileImage from '@/apis/profile/postMyProfileImage.ts'
+import updateMyProfile from '@/apis/profile/updateMyProfile.ts'
 import getNicknameValid from '@/apis/register/getNicknameValid.ts'
 import AlertText from '@/components/common/AlertText'
 import Avatar from '@/components/common/Avatar'
@@ -13,17 +16,35 @@ import PageHeader from '@/components/common/PageHeader'
 import RegisterInput from '@/components/common/RegisterInput'
 import SelectorButtonContainer from '@/components/common/SelectorButtonContainer'
 import Spacing from '@/components/common/Spacing'
+import useToast from '@/hooks/useToast.tsx'
 import { InterestList } from '@/pages/register/RegisterUser.tsx'
+import useInterestStore from '@/store/InterestStore.tsx'
 import useThemeStore from '@/store/ThemeStore.tsx'
 import { palette } from '@/styles/palette.ts'
 import { typo } from '@/styles/typo.ts'
 
 const ProfileEdit = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
+  const { interestList } = useInterestStore()
   const inputRef = useRef<HTMLInputElement>(null)
   let nickname = ''
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false)
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
+  const [imgSrc, setImgSrc] = useState('')
+  const { showToast } = useToast()
+  const [myProfileData, setMyProfileData] = useState({
+    nickname: '',
+    profileImageUrl: '',
+    companyName: '',
+    department: '',
+    interests: [''],
+  })
+
+  useEffect(() => {
+    getMyProfileData().then((res) => {
+      setMyProfileData(res)
+    })
+  }, [])
 
   const handleNicknameValidCheck = (nickname: string) => {
     getNicknameValid(nickname)
@@ -48,6 +69,66 @@ const ProfileEdit = () => {
     }
   }
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader()
+    const file = e.target.files?.[0]
+    reader.onloadend = () => {
+      setImgSrc(reader.result as string)
+    }
+    if (file) {
+      reader.readAsDataURL(file)
+      const formData = new FormData()
+      formData.append('profileImage', file)
+      postMyProfileImage(formData)
+        .then(() => {
+          showToast({
+            message: '프로필 이미지가 수정되었습니다.',
+            type: 'success',
+            isDarkMode,
+          })
+        })
+        .catch(() => {
+          showToast({
+            message: '프로필 이미지 수정에 실패했습니다.',
+            type: 'error',
+            isDarkMode,
+          })
+        })
+    }
+  }
+
+  const handleUpdateProfile = () => {
+    if (doubleChecked === false || nicknameDuplicated === null) {
+      showToast({
+        message: '닉네임 중복검사를 해주세요!',
+        type: 'warning',
+        isDarkMode,
+      })
+      return
+    }
+    if (inputRef.current !== null) {
+      const updateData = {
+        nickname: inputRef.current.value,
+        interests: interestList,
+      }
+      updateMyProfile(updateData)
+        .then(() => {
+          showToast({
+            message: '프로필이 수정되었습니다.',
+            type: 'success',
+            isDarkMode,
+          })
+        })
+        .catch(() => {
+          showToast({
+            message: '프로필 수정에 실패했습니다.',
+            type: 'error',
+            isDarkMode,
+          })
+        })
+    }
+  }
+
   return (
     <GradationBackground isDarkMode={isDarkMode}>
       <Spacing size={50} />
@@ -60,7 +141,11 @@ const ProfileEdit = () => {
             hasBackground={true}
           />
           <Spacing size={70} />
-          <Avatar width={80} height={80} imgUrl={localStorage.getItem('profileImageUrl') || ''} />
+          <Avatar
+            width={80}
+            height={80}
+            imgUrl={imgSrc ?? (myProfileData && myProfileData.profileImageUrl)}
+          />
           <Spacing size={20} />
           <label htmlFor={'profile-image-upload'}>
             <ChangeProfileImageLink>{'프로필 사진 변경'}</ChangeProfileImageLink>
@@ -69,6 +154,7 @@ const ProfileEdit = () => {
             type={'file'}
             id={'profile-image-upload'}
             accept={'image/jpeg, image/jpg, image/png'}
+            onChange={handleImageUpload}
           />
           <Spacing size={30} />
           <FlexBox gap={10}>
@@ -118,7 +204,9 @@ const ProfileEdit = () => {
             maxLength={3}
           ></SelectorButtonContainer>
           <Spacing size={30} />
-          <NormalButton normalButtonType={'form-submit'}>{'프로필 수정'}</NormalButton>
+          <NormalButton normalButtonType={'form-submit'} onClick={handleUpdateProfile}>
+            {'프로필 수정'}
+          </NormalButton>
         </FlexBox>
       </PageContainer>
     </GradationBackground>
