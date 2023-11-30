@@ -154,8 +154,9 @@ const ProfileEdit = () => {
             onChange={handleImageUpload}
           />
           <Spacing size={30} />
+          <SectionLabelText width={390}>{'닉네임'}</SectionLabelText>
           <FlexBox gap={10}>
-            <RegisterInput width={260} placeholder={'닉네임'} ref={inputRef} />
+            <RegisterInput width={240} placeholder={'닉네임'} ref={inputRef} />
             <NormalButton normalButtonType={'nickname-duplicate'} onClick={doubleCheckNickName}>
               {'중복확인'}
             </NormalButton>
@@ -192,7 +193,7 @@ const ProfileEdit = () => {
           </AlertText>
         )}
         <Spacing size={44} />
-        <StyleInterestText>{'관심사'}</StyleInterestText>
+        <SectionLabelText>{'관심사'}</SectionLabelText>
         <FlexBox direction={'column'}>
           <SelectorButtonContainer
             isDarkMode={false}
@@ -213,10 +214,12 @@ const ProfileEdit = () => {
 const StyledPageHeader = styled(PageHeader)`
   padding: 0 18px;
 `
-const StyleInterestText = styled.div`
+export const SectionLabelText = styled.div<{ width?: number }>`
+  width: ${(props) => props.width}px;
   padding: 10px;
   margin-left: 25px;
-  font-size: ${typo.Body_18()};
+  font-size: ${typo.Body_16()};
+  color: ${palette.GRAY400};
 `
 
 const ChangeProfileImageLink = styled.div`
