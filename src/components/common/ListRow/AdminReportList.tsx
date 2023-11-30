@@ -77,7 +77,7 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
               ))
             ) : (
               <StyledNoReportListAlertText>
-                {'현재 신고 리스트가 없습니다!'}
+                {'현재 신고 내역이 없습니다!'}
               </StyledNoReportListAlertText>
             )}
           </>
