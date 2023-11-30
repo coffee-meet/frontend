@@ -22,8 +22,7 @@ import { getToken } from './firebase-messaging-sw.ts'
 
 const App = () => {
   const firebaseMessageToken = async () => {
-    const token = await getToken()
-    console.log('token === ', token)
+    await getToken()
     //추후 서버에 토큰을 저장하는 기능을 여기에 추가
   }
   useEffect(() => {

@@ -20,6 +20,15 @@ const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
   console.log(isSuccess && data)
   const inquiryNickname = selectedInquiryNickname.selectedInquiryNickname
 
+  const mockData = {
+    inquirerId: 4618,
+    inquirerNickname: '유명한',
+    inquirerEmail: 'myeonghan@naver.com',
+    title: '회사인증 문의',
+    content: '회사 인증 부탁드립니다!',
+    createdAt: '2022-03-06 18:32:47.419',
+  }
+
   return (
     <>
       <StyledAdminInquiryInfo>
@@ -27,21 +36,26 @@ const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
 
         <Spacing size={53}></Spacing>
         <StyledTextNameWrapper>
-          <Text font={'Body_24'} fontWeight={900} letterSpacing={-1}>
-            {inquiryNickname}
+          <Text font={'Body_18'} fontWeight={900} letterSpacing={-1}>
+            {`${mockData.title} `}
           </Text>
+          <StyledSecondTextWrapper>
+            <Text textColor={palette.GRAY500} font={'Body_16'} fontWeight={100} letterSpacing={-1}>
+              {`${inquiryNickname} `}
+            </Text>
+          </StyledSecondTextWrapper>
         </StyledTextNameWrapper>
 
         <StyledInquiryContentWrapper>
           <StyledInquiryContent>
             <Text font={'Body_16'} fontWeight={400} letterSpacing={-1}>
-              {'회사 인증 부탁드립니다!'}
+              {mockData.content}
             </Text>
             <StyledInquiryImage src={InquiryImage}></StyledInquiryImage>
           </StyledInquiryContent>
         </StyledInquiryContentWrapper>
         <StyledTextDateWrapper>
-          <Text font={'Body_16'} fontWeight={400} letterSpacing={-1}>
+          <Text textColor={palette.GRAY300} font={'Body_16'} fontWeight={400} letterSpacing={-1}>
             {'2023.11.22'}
           </Text>
         </StyledTextDateWrapper>
@@ -81,6 +95,11 @@ const StyledTextDateWrapper = styled.div`
   padding-left: 310px;
   padding-top: 8px;
   color: ${palette.GRAY400};
+`
+const StyledSecondTextWrapper = styled.div`
+  margin-left: 295px;
+  margin-top: 8px;
+  margin-bottom: 6px;
 `
 
 export default AdminInquiryInfo

@@ -1,5 +1,20 @@
 import { axiosAPI } from '@/apis/axios'
 
+interface GetReportersListParams {
+  targetedId: string
+  chattingRoomId: string
+}
+const params: GetReportersListParams = {
+  targetedId: '7347',
+  chattingRoomId: '1413',
+}
+// interface GetReportInfoParams {
+//   reportId: string
+// }
+// const paramsTwo: GetReportInfoParams = {
+//   reportId: '1',
+// }
+
 const AdminReportAPI = {
   GET_REPORT_LIST: async () => {
     const response = await axiosAPI.get(`/v1/reports`)
@@ -8,7 +23,7 @@ const AdminReportAPI = {
     }
   },
   GET_REPORTERS_LIST: async () => {
-    const response = await axiosAPI.get(`/v1/reporters`)
+    const response = await axiosAPI.get(`/v1/reporters`, { params })
 
     return {
       data: response.data,
@@ -21,6 +36,7 @@ const AdminReportAPI = {
     }
   },
   POST_REPORT_ADD: async () => {
+    //patch-> post와 동일 (params 동일)
     const response = await axiosAPI.post(
       '/v1/reports/accept/:reportId',
       { decision: 'addReportCount' },
