@@ -18,14 +18,14 @@ interface TabProps {
 
 const AdminTabs = () => {
   const [activeTab, setActiveTab] = useState('approval')
-  const [selectedApprovalNickname, setSelectedApprovalNickname] = useState<string>('')
+  const [selectedApprovalId, setSelectedApprovalId] = useState<number>(0)
   const [selectedInquiryNickname, setSelectedInquiryNickname] = useState<string>('')
   const [selectedReportedNickname, setSelectedReportedNickname] = useState<string>('')
   const [selectedReporterNickname, setSelectedReporterNickname] = useState<string>('')
   console.log('신고자 닉네임: ' + selectedReporterNickname)
 
-  const handleApprovalSelectUserName = (approvalNickname: string) => {
-    setSelectedApprovalNickname(approvalNickname)
+  const handleApprovalSelectId = (approvalId: number) => {
+    setSelectedApprovalId(approvalId)
     setActiveTab('approvalInfo')
   }
   const handleInquirySelectUserName = (inquiryNickname: string) => {
@@ -48,9 +48,9 @@ const AdminTabs = () => {
   const renderTabContent = () => {
     switch (activeTab) {
       case 'approval':
-        return <AdminApprovalList onApproveSelectUserName={handleApprovalSelectUserName} />
+        return <AdminApprovalList onApproveSelectId={handleApprovalSelectId} />
       case 'approvalInfo':
-        return <AdminApprovalInfo selectedApprovalNickname={selectedApprovalNickname} />
+        return <AdminApprovalInfo selectedApprovalId={selectedApprovalId} />
       case 'inquiry':
         return <AdminInquiryList onInquirySelectUserName={handleInquirySelectUserName} />
       case 'inquiryInfo':

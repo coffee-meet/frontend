@@ -7,7 +7,7 @@ import AdminApprovalListRowTitle from '@/components/common/ListRow/AdminApproval
 import { palette } from '@/styles/palette'
 
 interface AdminApprovalListProps {
-  onApproveSelectUserName: (nickname: string) => void
+  onApproveSelectId: (certificationId: number) => void
 }
 // interface ApprovalListData {
 //   approvalRequestUser: string
@@ -23,15 +23,15 @@ interface RequestData {
   department: string
 }
 
-const AdminApprovalList = ({ onApproveSelectUserName }: AdminApprovalListProps) => {
+const AdminApprovalList = ({ onApproveSelectId }: AdminApprovalListProps) => {
   // API 요청 코드
   const { data, isSuccess } = useQuery(
     ['ApprovalRequestList'],
     AdminApprovalAPI.GET_APPROVAL_REQUEST_LIST,
   )
 
-  const handlePersonApproval = (nickname: string) => {
-    onApproveSelectUserName(nickname)
+  const handlePersonApproval = (certificationId: number) => {
+    onApproveSelectId(certificationId)
   }
   const approvalDatas = data?.data.contents
 
@@ -63,7 +63,7 @@ const AdminApprovalList = ({ onApproveSelectUserName }: AdminApprovalListProps) 
                   nickname={requestData.nickname}
                   infoMessage={requestData.companyName}
                   isDarkMode={false}
-                  onClick={() => handlePersonApproval(requestData.nickname)}
+                  onClick={() => handlePersonApproval(requestData.certificationId)}
                 />
               ))
             ) : (
