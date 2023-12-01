@@ -110,7 +110,7 @@ const Card = ({ isDarkMode }: CardProps) => {
   }
   useEffect(() => {
     getCurrentMatchingState()
-  })
+  }, [currentState])
 
   useEffect(() => {
     if (currentState === 'MATCHING') {
@@ -135,7 +135,7 @@ const Card = ({ isDarkMode }: CardProps) => {
         timerRef.current.stop()
       }
     }
-  }, [currentState])
+  }, [])
 
   return (
     <AnimatePresence>
