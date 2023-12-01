@@ -128,7 +128,6 @@ const AdminApprovalInfo = ({ selectedApprovalId }: AdminApprovalInfoProps) => {
           {'명함 이미지'}
         </Text>
         <StyledImage src={isSuccess && filteredData.businessCardUrl} alt={'명함 이미지'} />
-        <Spacing size={26} />
 
         <StyledButtonsWrapper>
           <NormalButton onClick={handleAcceptCertificationBtn} normalButtonType={'admin-accept'}>
@@ -170,9 +169,12 @@ const StyledContainer = styled.div`
 const StyledImage = styled.img`
   width: 100%;
   max-width: 100%;
-  height: auto;
-  margin: 20px 0 20px 0;
+  height: 210px;
+  object-fit: contain;
+  padding-top: 23px;
+  padding-bottom: 42px;
 `
+
 const StyledButtonsWrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
