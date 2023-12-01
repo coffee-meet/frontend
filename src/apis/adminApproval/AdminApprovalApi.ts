@@ -32,8 +32,8 @@ const AdminApprovalAPI = {
   },
   // certificationId: string
   // ${certificationId}
-  POST_APPROVAL_ACCEPT: async () => {
-    const response = await axiosAPI.patch(`/v1/admins/certifications/approval`, {
+  POST_APPROVAL_ACCEPT: async (certificationId: string) => {
+    const response = await axiosAPI.patch(`/v1/admins/certifications/${certificationId}/approval`, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -42,9 +42,9 @@ const AdminApprovalAPI = {
   },
   // certificationId: string
   // /${certificationId}
-  POST_APPROVAL_REJECT: async () => {
+  POST_APPROVAL_REJECT: async (certificationId: string) => {
     const response = await axiosAPI.post(
-      `/v1/admins/certifications/rejection`,
+      `/v1/admins/certifications/${certificationId}/rejection`,
       { decision: 'reject' },
       {
         headers: {
