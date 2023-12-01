@@ -142,7 +142,7 @@ const AdminApprovalInfo = ({ selectedApprovalId }: AdminApprovalInfoProps) => {
 const StyledAdminLoginOuterWrapper = styled.div`
   background-color: ${palette.PRIMARY};
   overflow: scroll;
-  height: 662px;
+  height: 591px;
 `
 
 const StyledAdminApproveFormContainer = styled.div`
