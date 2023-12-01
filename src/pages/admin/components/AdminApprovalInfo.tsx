@@ -3,7 +3,6 @@ import { useQuery } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 
 import AdminApprovalAPI from '@/apis/adminApproval/AdminApprovalApi'
-import businessCardExample from '@/assets/images/businessCardExample.jpg'
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import Spacing from '@/components/common/Spacing'
 import { Text } from '@/components/common/Text'
@@ -13,10 +12,18 @@ import { palette } from '@/styles/palette'
 import AdminPageHeader from './AdminPageHeader'
 
 interface AdminApprovalInfoProps {
-  selectedApprovalNickname: string
+  selectedApprovalId: number
+}
+interface RequestData {
+  certificationId: number
+  nickname: string
+  companyName: string
+  companyEmail: string
+  businessCardUrl: string
+  department: string
 }
 
-const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps) => {
+const AdminApprovalInfo = ({ selectedApprovalId }: AdminApprovalInfoProps) => {
   const mutationApprovalRequestAccept = useMutation(AdminApprovalAPI.POST_APPROVAL_ACCEPT, {
     onSuccess: (data) => {
       console.log(data)
@@ -35,11 +42,6 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
     mutationReject.mutate()
   }
 
-  const { data, isSuccess } = useQuery(
-    ['ApprovalRequestUserInfo'],
-    AdminApprovalAPI.GET_APPROVAL_INFO,
-  )
-  console.log(isSuccess && data)
   const { openModal } = useModal()
   const handleAcceptCertificationBtn = () => {
     openModal({
@@ -56,9 +58,19 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
     })
   }
 
+  const { data, isSuccess } = useQuery(
+    ['ApprovalRequestUserInfo'],
+    AdminApprovalAPI.GET_APPROVAL_INFO,
+  )
+  const noFilteredDatas = data?.data.contents
+  const filteredDatas = noFilteredDatas?.filter(
+    (requestData: RequestData) => requestData.certificationId === selectedApprovalId,
+  )
+  const filteredData = filteredDatas?.[0]
+
   return (
     <StyledAdminLoginOuterWrapper>
-      <AdminPageHeader username={selectedApprovalNickname} />
+      <AdminPageHeader username={isSuccess && filteredData.nickname} />
       <StyledAdminApproveFormContainer>
         <Spacing size={10} />
         <StyledContainer>
@@ -72,7 +84,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
               letterSpacing={-0.5}
               textColor={palette.GRAY700}
             >
-              {`myeonghan@naver.com`}
+              {isSuccess && filteredData.companyEmail}
               {/* {`${selectedApprovalNickname}의 이메일, userId를 받을 수 있음 (API 요청)`} */}
             </Text>
           </StyledTextWrapper>
@@ -88,7 +100,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
               letterSpacing={-0.5}
               textColor={palette.GRAY700}
             >
-              {`홍길동 주식회사`}
+              {isSuccess && filteredData.companyName}
               {/* {`${selectedApprovalNickname}의 이메일, userId를 받을 수 있음 (API 요청)`} */}
             </Text>
           </StyledTextWrapper>
@@ -104,7 +116,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
               letterSpacing={-0.5}
               textColor={palette.GRAY700}
             >
-              {`품질경영팀`}
+              {isSuccess && filteredData.department}
               {/* {`${selectedApprovalNickname}의 이메일, userId를 받을 수 있음 (API 요청)`} */}
             </Text>
           </StyledTextWrapper>
@@ -119,7 +131,7 @@ const AdminApprovalInfo = ({ selectedApprovalNickname }: AdminApprovalInfoProps)
         >
           {'명함 이미지'}
         </Text>
-        <StyledImage src={businessCardExample} alt={'명함 이미지'} />
+        <StyledImage src={isSuccess && filteredData.businessCardUrl} alt={'명함 이미지'} />
         <Spacing size={26} />
 
         <StyledButtonsWrapper>

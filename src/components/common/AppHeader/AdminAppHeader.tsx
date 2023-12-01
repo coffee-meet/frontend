@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { IoIosNotifications } from 'react-icons/io'
 
 import { FlexBox } from '@/components/common/Flexbox'
 import { Text } from '@/components/common/Text'
@@ -30,21 +29,6 @@ type AppHeaderProps = {
 const AdminAppHeader = ({ nickname, isDarkMode, height }: AppHeaderProps) => {
   return (
     <StyleAppHeader height={height}>
-      <FlexBox
-        justify={'flex-end'}
-        style={{
-          marginBottom: '26px',
-        }}
-      >
-        <IoIosNotifications
-          size={'24px'}
-          style={{
-            color: isDarkMode ? palette.DARK_WHITE : palette.WHITE,
-            cursor: 'pointer',
-          }}
-          onClick={() => {}}
-        />
-      </FlexBox>
       <FlexBox align={'flex-end'}>
         <Text
           font={'Body_24'}

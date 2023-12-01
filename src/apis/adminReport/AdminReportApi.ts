@@ -17,7 +17,7 @@ const params: GetReportersListParams = {
 
 const AdminReportAPI = {
   GET_REPORT_LIST: async () => {
-    const response = await axiosAPI.get(`/v1/reports`)
+    const response = await axiosAPI.get(`/v1/admins/reports`)
     return {
       data: response.data,
     }

@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { BiLeftArrowAlt } from 'react-icons/bi'
 
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
@@ -12,20 +11,11 @@ const AdminPageHeader = ({ username }: AdminPageHeaderProps) => {
   return (
     <StyledAdminPageHeaderContainerOuterWrapper>
       <StyledAdminPageHeaderContainer>
-        <StyledBackIcon>
-          <BiLeftArrowAlt
-            size={'35px'}
-            style={{
-              color: palette.GRAY600,
-              cursor: 'pointer',
-            }}
-          />
-        </StyledBackIcon>
-        <Text font={'Body_20'} fontWeight={900} letterSpacing={-1}>
-          <StyledUsernameWrapper>{username}</StyledUsernameWrapper>
-        </Text>
-
-        <StyledBackIconWidthRightSpace />
+        <StyledUserNameWrapper>
+          <Text font={'Body_20'} fontWeight={900} letterSpacing={-1}>
+            {username}
+          </Text>
+        </StyledUserNameWrapper>
       </StyledAdminPageHeaderContainer>
     </StyledAdminPageHeaderContainerOuterWrapper>
   )
@@ -45,16 +35,8 @@ const StyledAdminPageHeaderContainer = styled.div`
   padding-top: 10px;
 `
 
-const StyledBackIcon = styled.span`
-  cursor: pointer;
-`
-
-const StyledUsernameWrapper = styled.span`
-  margin: 0;
-`
-
-const StyledBackIconWidthRightSpace = styled.div`
-  width: 40px;
+const StyledUserNameWrapper = styled.div`
+  margin: 0 auto;
 `
 
 export default AdminPageHeader
