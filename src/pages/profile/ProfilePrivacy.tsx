@@ -97,7 +97,6 @@ const ProfilePrivacy = () => {
       return
     }
 
-    formData.append('userId', userId)
     formData.append('companyName', nameRef.current?.value || '')
     formData.append('companyEmail', emailRef.current?.value || '')
     formData.append('department', jobInfo)
