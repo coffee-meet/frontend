@@ -159,7 +159,7 @@ const RegisterCompany = () => {
     //       'Content-Type': 'multipart/form-data',
     //     },
     //   })
-    registerCompanyInfo(formData)
+    registerCompanyInfo(formData, false)
       .then(() => {
         showToast({
           message: '회사 정보 등록 완료! 다시 로그인 해주세요!',

@@ -103,7 +103,7 @@ const ProfilePrivacy = () => {
     formData.append('department', jobInfo)
     formData.append('businessCard', imageFile)
 
-    registerCompanyInfo(formData)
+    registerCompanyInfo(formData, true)
       .then(() => {
         showToast({
           message: '회사 정보 변경 완료!',
