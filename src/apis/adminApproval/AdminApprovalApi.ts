@@ -21,7 +21,6 @@ const GET_APPROVAL_LIST_PARAMS = {
 //   businessCardUrl: string
 //   department: string
 // }
-
 const AdminApprovalAPI = {
   GET_APPROVAL_REQUEST_LIST: async () => {
     const response = await axiosAPI.get(`/v1/admins/certifications/pending`, {
@@ -36,7 +35,6 @@ const AdminApprovalAPI = {
     const response = await axiosAPI.get(`/v1/admins/certifications/pending`, {
       params: GET_APPROVAL_LIST_PARAMS,
     })
-
     return {
       data: response.data,
     }
@@ -44,15 +42,19 @@ const AdminApprovalAPI = {
   // certificationId: string
   // ${certificationId}
   POST_APPROVAL_ACCEPT: async (certificationId: string) => {
-    const response = await axiosAPI.patch(`/v1/admins/certifications/${certificationId}/approval`, {
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await axiosAPI.patch(
+      `/v1/admins/certifications/${certificationId}/${certificationId}/approval`,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    })
+    )
     return response.data
   },
   // certificationId: string
   // /${certificationId}
+
   POST_APPROVAL_REJECT: async (certificationId: string) => {
     const response = await axiosAPI.delete(`/v1/admins/certifications/${certificationId}/rejection`)
     return response.data
