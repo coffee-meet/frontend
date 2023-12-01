@@ -108,7 +108,7 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
 const AdminInquiryListContainerOuterWrapper = styled.div`
   background-color: ${palette.WHITE};
   width: 100%;
-  height: 662px;
+  height: 591px;
 `
 const AdminInquiryListContainer = styled.div`
   background-color: ${palette.WHITE};

@@ -91,11 +91,12 @@ const AdminApprovalList = ({ onApproveSelectId }: AdminApprovalListProps) => {
 const AdminApprovalListContainerOuterWrapper = styled.div`
   background-color: ${palette.WHITE};
   width: 100%;
+  height: 591px;
 `
 const AdminApprovalListContainer = styled.div`
   background-color: ${palette.WHITE};
   overflow: scroll;
-  height: 662px;
+  height: 591px;
   width: 80%;
   margin: auto;
   cursor: pointer;
