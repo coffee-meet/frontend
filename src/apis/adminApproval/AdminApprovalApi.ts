@@ -10,7 +10,7 @@ import { axiosAPI } from '@/apis/axios'
 // }
 const GET_APPROVAL_LIST_PARAMS = {
   offset: '0',
-  size: '10',
+  size: '100',
 }
 
 // interface ApprovalRequestList {
