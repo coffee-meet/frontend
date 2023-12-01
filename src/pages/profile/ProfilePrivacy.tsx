@@ -1,7 +1,9 @@
 import styled from '@emotion/styled'
 import { useRef, useState } from 'react'
 
+import getEmailValid from '@/apis/register/getEmailValid.ts'
 import registerCompanyInfo from '@/apis/register/registerCompanyInfo.ts'
+import sendEmailValidCode from '@/apis/register/sendEmailValidCode.ts'
 import AlertText from '@/components/common/AlertText'
 import BackChevron from '@/components/common/BackChevron'
 import NormalButton from '@/components/common/Buttons/NormalButton'
@@ -34,11 +36,37 @@ const ProfilePrivacy = () => {
   const { showToast } = useToast()
 
   const handleVerifyEmail = async () => {
-    setCodeChecked(true)
+    if (!emailRef.current?.value) {
+      showToast({ message: '이메일을 입력해주세요! ', type: 'warning', isDarkMode })
+      return
+    }
+    if (!userId) {
+      showToast({ message: '로그인이 필요합니다! ', type: 'warning', isDarkMode })
+      return
+    }
+    sendEmailValidCode(emailRef.current.value, userId).catch(() => {
+      showToast({ message: '인증코드 전송에 실패했습니다. ', type: 'error', isDarkMode })
+    })
+    showToast({ message: '인증코드가 전송되었습니다! ', type: 'success', isDarkMode })
   }
 
   const handleVerifyCode = async () => {
-    setIsCodeSame(true)
+    if (!codeRef.current?.value) {
+      showToast({ message: '인증코드를 입력해주세요! ', type: 'warning', isDarkMode })
+      return
+    }
+    if (!userId) {
+      showToast({ message: '로그인이 필요합니다! ', type: 'warning', isDarkMode })
+      return
+    }
+    setCodeChecked(true)
+    getEmailValid(userId, codeRef.current.value)
+      .then(() => {
+        setIsCodeSame(true)
+      })
+      .catch(() => {
+        setIsCodeSame(false)
+      })
   }
 
   const onUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
