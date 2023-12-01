@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import getEmailValid from '@/apis/register/getEmailValid.ts'
 import registerCompanyInfo from '@/apis/register/registerCompanyInfo.ts'
@@ -24,6 +25,7 @@ import { palette } from '@/styles/palette.ts'
 const ProfilePrivacy = () => {
   const { isDarkMode } = useThemeStore()
   const { jobInfo } = useJobStore()
+  const navigate = useNavigate()
   const userId = localStorage.getItem('userId')
   const codeRef = useRef<HTMLInputElement>(null)
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null)
@@ -108,6 +110,7 @@ const ProfilePrivacy = () => {
           type: 'success',
           isDarkMode: false,
         })
+        navigate('/profile')
       })
       .catch(() => {
         showToast({
