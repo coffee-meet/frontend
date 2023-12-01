@@ -24,7 +24,6 @@ interface RequestData {
 }
 
 const AdminApprovalInfo = ({ selectedApprovalId }: AdminApprovalInfoProps) => {
-
   const mutationApprovalRequestAccept = useMutation(AdminApprovalAPI.POST_APPROVAL_ACCEPT)
   const mutationReject = useMutation(AdminApprovalAPI.POST_APPROVAL_REJECT)
 
@@ -143,7 +142,7 @@ const AdminApprovalInfo = ({ selectedApprovalId }: AdminApprovalInfoProps) => {
 const StyledAdminLoginOuterWrapper = styled.div`
   background-color: ${palette.PRIMARY};
   overflow: scroll;
-  height: 662px;
+  height: 591px;
 `
 
 const StyledAdminApproveFormContainer = styled.div`

@@ -120,7 +120,7 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
 const StyledAdminReportListContainer = styled.div`
   background-color: ${palette.WHITE};
   overflow: scroll;
-  height: 662px;
+  height: 591px;
   width: 80%;
   margin: auto;
   cursor: pointer;
