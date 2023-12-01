@@ -22,23 +22,24 @@ import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
 
+export const JobList = [
+  '경영',
+  '영업',
+  '물류',
+  'IT',
+  '디자인',
+  '전문직',
+  '미디어',
+  '생산',
+  '연구',
+  '기획',
+  '광고',
+  '의약',
+  '유통',
+  '법률',
+]
+
 const RegisterCompany = () => {
-  const JobList = [
-    '경영',
-    '영업',
-    '물류',
-    'IT',
-    '디자인',
-    '전문직',
-    '미디어',
-    '생산',
-    '연구',
-    '기획',
-    '광고',
-    '의약',
-    '유통',
-    '법률',
-  ]
   const navigate = useNavigate()
   const userId = useLocation().state.userId
   const companyName = useRef<HTMLInputElement>(null)
@@ -369,7 +370,7 @@ const StyleIcon = styled.button`
   cursor: pointer;
 `
 
-const StyleVerificationEmailButton = styled.button`
+export const StyleVerificationEmailButton = styled.button`
   width: 42px;
   height: 25px;
   background-color: ${palette.TERTIARY};
