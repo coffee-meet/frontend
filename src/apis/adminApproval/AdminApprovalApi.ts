@@ -12,15 +12,6 @@ const GET_APPROVAL_LIST_PARAMS = {
   offset: '0',
   size: '10',
 }
-
-// interface ApprovalRequestList {
-//   certificationId: number
-//   nickname: string
-//   companyName: string
-//   companyEmail: string
-//   businessCardUrl: string
-//   department: string
-// }
 const AdminApprovalAPI = {
   GET_APPROVAL_REQUEST_LIST: async () => {
     const response = await axiosAPI.get(`/v1/admins/certifications/pending`, {
