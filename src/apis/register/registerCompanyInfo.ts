@@ -8,7 +8,7 @@ import { axiosAPI } from '@/apis/axios.ts'
 const registerCompanyInfo = async (body: object, isUpdate: boolean) => {
   try {
     if (isUpdate) {
-      const res = await axiosAPI.post('/v1/certification/users/me/company-info', body, {
+      const res = await axiosAPI.post('/v1/certification/users/me/company-info/update', body, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -17,7 +17,7 @@ const registerCompanyInfo = async (body: object, isUpdate: boolean) => {
         throw new Error('register company info failed!')
       }
     } else {
-      const res = await axiosAPI.post('/v1/certification/users/me/company-info/update', body, {
+      const res = await axiosAPI.post('/v1/certification/users/me/company-info', body, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
