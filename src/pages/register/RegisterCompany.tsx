@@ -5,7 +5,6 @@ import { MdWbSunny } from 'react-icons/md'
 import { MdOutlinePhotoCamera } from 'react-icons/md'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { axiosAPI } from '@/apis/axios'
 import getEmailValid from '@/apis/register/getEmailValid.ts'
 import registerCompanyInfo from '@/apis/register/registerCompanyInfo.ts'
 import sendEmailValidCode from '@/apis/register/sendEmailValidCode.ts'
