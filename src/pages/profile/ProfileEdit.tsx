@@ -205,6 +205,7 @@ const ProfileEdit = () => {
           <NormalButton normalButtonType={'form-submit'} onClick={handleUpdateProfile}>
             {'프로필 수정'}
           </NormalButton>
+          <Spacing size={20} />
         </FlexBox>
       </PageContainer>
     </GradationBackground>

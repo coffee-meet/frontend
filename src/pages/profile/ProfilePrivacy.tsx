@@ -205,6 +205,7 @@ const ProfilePrivacy = () => {
           <NormalButton normalButtonType={'form-submit'} onClick={handleChangeCompanyInfo}>
             {'회사 정보 변경 요청하기'}
           </NormalButton>
+          <Spacing size={20} />
         </FlexBox>
       </PageContainer>
     </GradationBackground>
