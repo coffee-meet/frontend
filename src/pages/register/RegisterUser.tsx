@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
+import getNicknameValid from '@/apis/register/getNicknameValid.ts'
 import AlertText from '@/components/common/AlertText'
 import NormalButton from '@/components/common/Buttons/NormalButton'
 import { FlexBox } from '@/components/common/Flexbox'
@@ -18,22 +19,23 @@ import useThemeStore from '@/store/ThemeStore'
 import { palette } from '@/styles/palette'
 import { typo } from '@/styles/typo'
 
+export const InterestList = [
+  '요리',
+  '맛집',
+  '음악',
+  '연애',
+  '패션',
+  '여행',
+  '운동',
+  '게임',
+  '재테크',
+  '자격증',
+  '외국어',
+  '전자기기',
+  '반려동물',
+]
+
 const RegisterUser = () => {
-  const InterestList = [
-    '요리',
-    '맛집',
-    '음악',
-    '연애',
-    '패션',
-    '여행',
-    '운동',
-    '게임',
-    '재테크',
-    '자격증',
-    '외국어',
-    '전자기기',
-    '반려동물',
-  ]
   const navigate = useNavigate()
   const userId = useLocation().state.userId
 
@@ -45,21 +47,33 @@ const RegisterUser = () => {
   const { showToast } = useToast()
   const isDarkMode = useThemeStore((state) => state.isDarkMode)
 
-  const getNicknameValid = async (nickname: string) => {
-    await axiosAPI
-      .get(`/v1/users/duplicate?nickname=${nickname}`)
-      .then((response) => {
-        if (response.status == 200) {
-          //사용가능한 닉네임일 경우
-          setDoubleChecked(true)
-          setNicknameDuplicated(false)
-        } else {
-          setDoubleChecked(true)
-          setNicknameDuplicated(true)
-        }
+  // const getNicknameValid = async (nickname: string) => {
+  //   await axiosAPI
+  //     .get(`/v1/users/duplicate?nickname=${nickname}`)
+  //     .then((response) => {
+  //       if (response.status == 200) {
+  //         //사용가능한 닉네임일 경우
+  //         setDoubleChecked(true)
+  //         setNicknameDuplicated(false)
+  //       } else {
+  //         setDoubleChecked(true)
+  //         setNicknameDuplicated(true)
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       console.log(err)
+  //       setDoubleChecked(true)
+  //       setNicknameDuplicated(true)
+  //     })
+  // }
+
+  const handleNicknameValidCheck = (nickname: string) => {
+    getNicknameValid(nickname)
+      .then(() => {
+        setDoubleChecked(true)
+        setNicknameDuplicated(false)
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(() => {
         setDoubleChecked(true)
         setNicknameDuplicated(true)
       })
@@ -73,7 +87,7 @@ const RegisterUser = () => {
     if (inputRef.current !== null) {
       nickname = inputRef.current.value
       // doubleCheckMutation.mutate(nickname)
-      getNicknameValid(nickname)
+      handleNicknameValidCheck(nickname)
     }
   }
   const formValidation = () => {
@@ -193,7 +207,7 @@ const RegisterUser = () => {
           isDarkMode={false}
           type={'interest'}
           buttonNames={InterestList}
-          maxLength={4}
+          maxLength={3}
         ></SelectorButtonContainer>
       </FlexBox>
 

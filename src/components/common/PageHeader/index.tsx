@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { useNavigate } from 'react-router-dom'
 
 import { Text } from '@/components/common/Text'
 import { palette } from '@/styles/palette'
@@ -30,9 +31,11 @@ const PageHeader = ({
   hasBackground,
   ...props
 }: PageHeaderProps) => {
+  const navigate = useNavigate()
   return (
     <StyledPageHeader isDarkMode={isDarkMode} hasBackground={hasBackground} {...props}>
       <StyledIcon
+        onClick={() => navigate(-1)}
         style={{
           cursor: 'pointer',
         }}

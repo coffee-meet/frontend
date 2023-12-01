@@ -7,6 +7,7 @@ import { PiIdentificationCardBold } from 'react-icons/pi'
 import { useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
+import KakaoIcon from '@/assets/icons/KakaoIcon.tsx'
 import NaverIcon from '@/assets/icons/NaverIcon'
 import Avatar from '@/components/common/Avatar'
 import BackChevron from '@/components/common/BackChevron'
@@ -31,6 +32,7 @@ type MyProfileData = {
   profileImageUrl: string
   companyName: string
   department: string
+  oAuthProvider: string
   interests: string[]
 }
 
@@ -41,11 +43,11 @@ const ProfileDefault = () => {
     nickname: '',
     profileImageUrl: '',
     companyName: '',
+    oAuthProvider: '',
     department: '',
     interests: [''],
   })
   const { openModal } = useModal()
-
   const { showToast } = useToast()
 
   const getProfileData = async () => {
@@ -215,7 +217,11 @@ const ProfileDefault = () => {
             title={'소셜 로그인 계정'}
             isDarkMode={isDarkMode}
             additionalContent={
-              <NaverIcon width={20} height={20} iconWidth={10} iconHeight={10} borderRadius={4} />
+              myProfileData && myProfileData.oAuthProvider === 'NAVER' ? (
+                <NaverIcon width={20} height={20} iconWidth={10} iconHeight={10} borderRadius={4} />
+              ) : (
+                <KakaoIcon width={20} height={20} iconWidth={10} iconHeight={10} borderRadius={4} />
+              )
             }
           />
           <Divider width={'100%'} height={'1px'} isDarkMode={isDarkMode} margin={'9px 0'} />
