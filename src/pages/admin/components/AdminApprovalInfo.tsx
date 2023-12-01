@@ -24,11 +24,8 @@ interface RequestData {
 }
 
 const AdminApprovalInfo = ({ selectedApprovalId }: AdminApprovalInfoProps) => {
-  const mutationApprovalRequestAccept = useMutation(AdminApprovalAPI.POST_APPROVAL_ACCEPT, {
-    onSuccess: (data) => {
-      console.log(data)
-    },
-  })
+  
+  const mutationApprovalRequestAccept = useMutation(AdminApprovalAPI.POST_APPROVAL_ACCEPT)
   const mutationReject = useMutation(AdminApprovalAPI.POST_APPROVAL_REJECT, {
     onSuccess: (data) => {
       console.log(data)
@@ -36,10 +33,10 @@ const AdminApprovalInfo = ({ selectedApprovalId }: AdminApprovalInfoProps) => {
   })
 
   const onAcceptAdminApproval = () => {
-    mutationApprovalRequestAccept.mutate()
+    mutationApprovalRequestAccept.mutate(`${selectedApprovalId}`)
   }
   const onRejectAdminApproval = () => {
-    mutationReject.mutate()
+    mutationReject.mutate(`${selectedApprovalId}`)
   }
 
   const { openModal } = useModal()
