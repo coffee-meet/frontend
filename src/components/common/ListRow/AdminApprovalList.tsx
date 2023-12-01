@@ -55,17 +55,25 @@ const AdminApprovalList = ({ onApproveSelectUserName }: AdminApprovalListProps) 
               isDarkMode={false}
               backName={'회사명'}
             ></AdminApprovalListRowTitle>
-            {approvalDatas.map((requestData: RequestData, index: number) => (
-              <AdminApprovalListRow
-                key={index}
-                height={71}
-                nickname={requestData.nickname}
-                infoMessage={requestData.companyName}
-                isDarkMode={false}
-                onClick={() => handlePersonApproval(requestData.nickname)}
-              />
-            ))}
-            {/* {isSuccess &&
+            {approvalDatas.length > 0 ? (
+              approvalDatas.map((requestData: RequestData, index: number) => (
+                <AdminApprovalListRow
+                  key={index}
+                  height={71}
+                  nickname={requestData.nickname}
+                  infoMessage={requestData.companyName}
+                  isDarkMode={false}
+                  onClick={() => handlePersonApproval(requestData.nickname)}
+                />
+              ))
+            ) : (
+              <StyledNoRequestUsersAlertText>
+                {'현재 승인 요청자가 없습니다!'}
+              </StyledNoRequestUsersAlertText>
+            )}
+          </>
+        )}
+        {/* {isSuccess &&
           approvalDatas.map((approvalListData: ApprovalListData, index: number) => (
             <AdminApprovalListRow
               key={index}
@@ -76,8 +84,6 @@ const AdminApprovalList = ({ onApproveSelectUserName }: AdminApprovalListProps) 
               onClick={() => handlePersonApproval(approvalListData.approvalRequestUser)}
             />
           ))} */}
-          </>
-        )}
       </AdminApprovalListContainer>
     </AdminApprovalListContainerOuterWrapper>
   )
@@ -93,6 +99,13 @@ const AdminApprovalListContainer = styled.div`
   width: 80%;
   margin: auto;
   cursor: pointer;
+`
+const StyledNoRequestUsersAlertText = styled.div`
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  padding-top: 20px;
+  color: ${palette.GRAY500};
 `
 
 export default AdminApprovalList

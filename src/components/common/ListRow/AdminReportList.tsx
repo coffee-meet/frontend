@@ -63,7 +63,7 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
               reportedNickname={'신고 대상 닉네임'}
               reportedDate={'신고 날짜'}
             ></AdminReportListRowTitle>
-            {reportDatas > 0 ? (
+            {reportDatas.length > 0 ? (
               reportDatas.map((reportData: ReportData, index: number) => (
                 <AdminReportListRow
                   targetedNickname={reportData.targetedNickname}

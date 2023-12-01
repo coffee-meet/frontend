@@ -66,7 +66,7 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
               isDarkMode={false}
               backName={'문의 일시'}
             ></AdminInquiryListRowTitle>
-            {inquiryDatas > 0 ? (
+            {inquiryDatas.length > 0 ? (
               inquiryDatas.map((inquiryData: InquiryData, index: number) => (
                 <AdminApprovalListRow
                   key={index}
