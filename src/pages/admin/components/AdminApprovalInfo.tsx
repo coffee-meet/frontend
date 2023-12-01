@@ -24,6 +24,7 @@ interface RequestData {
 }
 
 const AdminApprovalInfo = ({ selectedApprovalId }: AdminApprovalInfoProps) => {
+
   const mutationApprovalRequestAccept = useMutation(AdminApprovalAPI.POST_APPROVAL_ACCEPT)
   const mutationReject = useMutation(AdminApprovalAPI.POST_APPROVAL_REJECT)
 
