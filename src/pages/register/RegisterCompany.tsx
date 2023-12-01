@@ -6,6 +6,9 @@ import { MdOutlinePhotoCamera } from 'react-icons/md'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { axiosAPI } from '@/apis/axios'
+import getEmailValid from '@/apis/register/getEmailValid.ts'
+import registerCompanyInfo from '@/apis/register/registerCompanyInfo.ts'
+import sendEmailValidCode from '@/apis/register/sendEmailValidCode.ts'
 import AlertText from '@/components/common/AlertText'
 import BackChevron from '@/components/common/BackChevron'
 import NormalButton from '@/components/common/Buttons/NormalButton'
@@ -52,15 +55,24 @@ const RegisterCompany = () => {
 
   const handleClickEmailVerify = async (email: string) => {
     console.log(email)
+    if (!email) {
+      showToast({
+        message: '이메일을 입력해주세요.',
+        type: 'warning',
+        isDarkMode,
+      })
+      return
+    }
     showToast({
       message: '메일로 인증코드가 전송되었습니다.',
       type: 'info',
       isDarkMode,
     })
-    return await axiosAPI.post(`/v1/certification/users/me/company-mail`, {
-      userId: userId,
-      companyEmail: emailRef.current && emailRef.current.value,
-    })
+    // return await axiosAPI.post(`/v1/certification/users/me/company-mail`, {
+    //   userId: userId,
+    //   companyEmail: emailRef.current && emailRef.current.value,
+    // })
+    return await sendEmailValidCode(email, userId)
   }
   const emailVerifyMutation = useMutation((email: string) => handleClickEmailVerify(email), {
     onSuccess: (response) => {
@@ -79,10 +91,19 @@ const RegisterCompany = () => {
   //인증 코드 입력하고 확인 버튼 누르면 실행되는 함수
   const checkEmailCode = async () => {
     setCodeChecked(true)
-    const response = await axiosAPI.post('/v1/certification/users/me/company-mail/verification', {
-      userId: userId,
-      verificationCode: codeRef.current && codeRef.current.value,
-    })
+    // const response = await axiosAPI.post('/v1/certification/users/me/company-mail/verification', {
+    //   userId: userId,
+    //   verificationCode: codeRef.current && codeRef.current.value,
+    // })
+    if (!codeRef.current?.value) {
+      showToast({
+        message: '인증코드를 입력해주세요.',
+        type: 'warning',
+        isDarkMode,
+      })
+      return
+    }
+    const response = await getEmailValid(userId, codeRef.current && codeRef.current.value)
     if (response.status == 200) setIsCodeSame(true)
     else setIsCodeSame(false)
   }
@@ -126,18 +147,19 @@ const RegisterCompany = () => {
       formData.append('businessCard', imgRef.current?.files[0])
     }
 
-    registerCompanyData(formData)
+    registerCompanyData()
   }
 
-  const registerCompanyData = async (body: object) => {
-    console.log(body)
+  const registerCompanyData = () => {
+    console.log(formData)
 
-    await axiosAPI
-      .post('/v1/certification/users/me/company-info', body, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+    // await axiosAPI
+    //   .post('/v1/certification/users/me/company-info', body, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data',
+    //     },
+    //   })
+    registerCompanyInfo(formData)
       .then(() => {
         showToast({
           message: '회사 정보 등록 완료! 다시 로그인 해주세요!',
