@@ -20,6 +20,12 @@ interface InquiryData {
   title?: string
   createdAt: string
 }
+interface InquiryData {
+  inquiryId?: number
+  inquirer: string
+  title?: string
+  createdAt: string
+}
 
 const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) => {
   // API 요청 코드
