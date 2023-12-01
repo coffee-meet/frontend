@@ -22,6 +22,7 @@ import { palette } from '@/styles/palette.ts'
 const ProfilePrivacy = () => {
   const { isDarkMode } = useThemeStore()
   const { jobInfo } = useJobStore()
+  const userId = localStorage.getItem('userId')
   const codeRef = useRef<HTMLInputElement>(null)
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null)
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null)
@@ -53,6 +54,10 @@ const ProfilePrivacy = () => {
   }
 
   const handleChangeCompanyInfo = () => {
+    if (!userId) {
+      showToast({ message: '로그인이 필요합니다! ', type: 'warning', isDarkMode })
+      return
+    }
     if (!codeChecked) {
       showToast({ message: '인증코드가 확인되지 않았습니다! ', type: 'warning', isDarkMode })
       return
@@ -64,7 +69,7 @@ const ProfilePrivacy = () => {
       return
     }
 
-    // formData.append('userId', userId)
+    formData.append('userId', userId)
     formData.append('companyName', nameRef.current?.value || '')
     formData.append('companyEmail', emailRef.current?.value || '')
     formData.append('department', jobInfo)
