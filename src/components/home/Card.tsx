@@ -135,7 +135,7 @@ const Card = ({ isDarkMode }: CardProps) => {
         timerRef.current.stop()
       }
     }
-  }, [])
+  }, [currentState])
 
   return (
     <AnimatePresence>
