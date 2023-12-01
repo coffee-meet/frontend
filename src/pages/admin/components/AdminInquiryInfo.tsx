@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { useQuery } from '@tanstack/react-query'
 
-import AdminApprovalAPI from '@/apis/adminApproval/AdminApprovalApi'
+import AdminInquiryAPI from '@/apis/adminInquiry/AdminInquiryApi'
 import InquiryImage from '@/assets/images/inquiryImage.svg'
 import Spacing from '@/components/common/Spacing'
 // import Spacing from '@/components/common/Spacing'
@@ -15,7 +15,7 @@ interface AdminInquiryInfoProps {
 const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
   const { data, isSuccess } = useQuery(
     ['ApprovalRequestUserInfo'],
-    AdminApprovalAPI.GET_APPROVAL_INFO,
+    AdminInquiryAPI.GET_INQUIRY_INFO,
   )
   console.log(isSuccess && data)
   const inquiryNickname = selectedInquiryNickname.selectedInquiryNickname
