@@ -20,6 +20,12 @@ interface InquiryData {
   title?: string
   createdAt: string
 }
+interface InquiryData {
+  inquiryId?: number
+  inquirer: string
+  title?: string
+  createdAt: string
+}
 
 const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) => {
   // API 요청 코드
@@ -66,7 +72,7 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
               isDarkMode={false}
               backName={'문의 일시'}
             ></AdminInquiryListRowTitle>
-            {inquiryDatas > 0 ? (
+            {inquiryDatas.length > 0 ? (
               inquiryDatas.map((inquiryData: InquiryData, index: number) => (
                 <AdminApprovalListRow
                   key={index}

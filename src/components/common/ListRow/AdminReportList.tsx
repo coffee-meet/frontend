@@ -16,6 +16,13 @@ interface ReportData {
   chattingRoomId: number
   createdAt: string
 }
+interface ReportData {
+  targetedNickname: string
+  chattingRoomName: string
+  targetedId: number
+  chattingRoomId: number
+  createdAt: string
+}
 const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
   const { data, isSuccess } = useQuery(['ReportedUserList'], AdminReportAPI.GET_REPORT_LIST)
   const reportDatas = data?.data.contents
@@ -63,7 +70,7 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
               reportedNickname={'신고 대상 닉네임'}
               reportedDate={'신고 날짜'}
             ></AdminReportListRowTitle>
-            {reportDatas > 0 ? (
+            {reportDatas.length > 0 ? (
               reportDatas.map((reportData: ReportData, index: number) => (
                 <AdminReportListRow
                   targetedNickname={reportData.targetedNickname}
@@ -129,4 +136,5 @@ const StyledNoReportListAlertText = styled.p`
   padding-top: 20px;
   color: ${palette.GRAY500};
 `
+
 export default AdminReportList

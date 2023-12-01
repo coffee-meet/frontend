@@ -48,7 +48,7 @@ const AdminApprovalListRowTitle = ({
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-            marginLeft: '175px',
+            marginLeft: '172px',
           }}
         >
           {backName}
