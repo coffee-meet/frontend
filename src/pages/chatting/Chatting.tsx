@@ -42,7 +42,7 @@ const Chatting = () => {
   const getDetailMessages = async () => {
     try {
       const response = await axiosAPI.get(`/v1/chatting/rooms/${chatroomId}`)
-      console.log(response)
+
       setMessages(response.data.chats)
     } catch (error) {
       console.error('Message fetching error')
@@ -74,7 +74,7 @@ const Chatting = () => {
       if (!client.current.connected) return
       client.current.subscribe(`/sub/chatting/rooms/${chatroomId}`, (response) => {
         const JsonBody = JSON.parse(response.body)
-        console.log(response.body)
+
         setMessages((_chatList) => [..._chatList, JsonBody])
       })
     }
@@ -110,7 +110,7 @@ const Chatting = () => {
   const send = (message: string) => {
     if (client.current) {
       if (!client.current.connected) return
-      console.log(message)
+
       if (messageRef.current) messageRef.current.value = ''
       client.current.publish({
         destination: '/pub/chatting/messages',
