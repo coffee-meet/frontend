@@ -34,7 +34,6 @@ const ProfilePrivacy = () => {
   const emailRef = useRef<HTMLInputElement>(null)
   const [imageSrc, setImageSrc] = useState('')
   const [imageFile, setImageFile] = useState<File>()
-  const formData = new FormData()
   const { showToast } = useToast()
 
   const handleVerifyEmail = async () => {
@@ -96,7 +95,7 @@ const ProfilePrivacy = () => {
       showToast({ message: '명함 이미지를 선택해주세요! ', type: 'warning', isDarkMode })
       return
     }
-
+    const formData = new FormData()
     formData.append('companyName', nameRef.current?.value || '')
     formData.append('companyEmail', emailRef.current?.value || '')
     formData.append('department', jobInfo)
