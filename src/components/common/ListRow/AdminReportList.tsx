@@ -136,4 +136,5 @@ const StyledNoReportListAlertText = styled.p`
   padding-top: 20px;
   color: ${palette.GRAY500};
 `
+
 export default AdminReportList
