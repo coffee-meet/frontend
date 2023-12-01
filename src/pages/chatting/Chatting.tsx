@@ -82,6 +82,7 @@ const Chatting = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     messageRef.current && send(messageRef.current.value)
+    if (messageRef.current) messageRef.current.value = ''
   }
   const handleClickExitRoom = () => {
     openModal({
@@ -98,8 +99,11 @@ const Chatting = () => {
   const navigateHome = () => {
     navigate('/')
   }
-  const handleKeyDown = (e: { key: string }) => {
-    if (e.key == 'Enter') {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.nativeEvent.isComposing) {
+      return
+    }
+    if (event.key == 'Enter') {
       messageRef.current && send(messageRef.current.value)
     }
   }
