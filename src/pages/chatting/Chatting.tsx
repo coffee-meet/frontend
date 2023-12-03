@@ -98,6 +98,7 @@ const Chatting = () => {
     navigateHome()
   }
   const navigateHome = () => {
+    disconnect()
     setTimeout(() => {
       navigate('/')
     }, 3000)
