@@ -35,7 +35,7 @@ const PageHeader = ({
   return (
     <StyledPageHeader isDarkMode={isDarkMode} hasBackground={hasBackground} {...props}>
       <StyledIcon
-        onClick={() => navigate(-1)}
+        onClick={() => navigate('/')}
         style={{
           cursor: 'pointer',
         }}
