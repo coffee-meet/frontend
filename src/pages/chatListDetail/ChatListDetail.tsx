@@ -10,8 +10,8 @@ import { FlexBox } from '@/components/common/Flexbox'
 import GradationBackground from '@/components/common/GradationBackground'
 import PageContainer from '@/components/common/PageContainer'
 import PageHeader from '@/components/common/PageHeader'
+import RegisterInput from '@/components/common/RegisterInput'
 import Spacing from '@/components/common/Spacing'
-import TextArea from '@/components/common/TextArea'
 import MessageArea from '@/components/messageArea'
 import { palette } from '@/styles/palette'
 
@@ -22,7 +22,7 @@ const ChatListDetail = () => {
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
 
   const messageWrapperRef = useRef<HTMLDivElement>(null)
-  const messageRef = useRef<HTMLTextAreaElement>(null)
+  const messageRef = useRef<HTMLInputElement>(null)
   const divRef = useRef<HTMLDivElement>(null)
   const navigateChatList = () => {
     navigate('/chat-list')
@@ -60,12 +60,13 @@ const ChatListDetail = () => {
               {messages && <MessageArea messageData={messages} />}
             </StyleMessageWrapper>
             <StyleTypingFlexBox gap={10}>
-              <TextArea
+              <RegisterInput
                 ref={messageRef}
+                width={250}
                 height={35}
                 placeholder={'대화 불가능한 상태입니다.'}
                 disabled
-              ></TextArea>
+              ></RegisterInput>
               <StyleSubmitButton>
                 <StyleIcon src={Send} />
               </StyleSubmitButton>
