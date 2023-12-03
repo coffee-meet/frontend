@@ -13,8 +13,8 @@ import { FlexBox } from '@/components/common/Flexbox'
 import GradationBackground from '@/components/common/GradationBackground'
 import PageContainer from '@/components/common/PageContainer'
 import PageHeader from '@/components/common/PageHeader'
-import RegisterInput from '@/components/common/RegisterInput'
 import Spacing from '@/components/common/Spacing'
+import TextArea from '@/components/common/TextArea'
 import MessageArea from '@/components/messageArea'
 import { useModal } from '@/hooks/useModal'
 import useToast from '@/hooks/useToast'
@@ -27,7 +27,8 @@ const Chatting = () => {
   const { chatroomId } = useLocation().state
   const { chatroomName } = useLocation().state
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[])
-  const messageRef = useRef<HTMLInputElement>(null)
+  // const messageRef = useRef<HTMLInputElement>(null)
+  const messageRef = useRef<HTMLTextAreaElement>(null)
   const messageWrapperRef = useRef<HTMLDivElement>(null)
   const divRef = useRef<HTMLDivElement>(null)
   const { showToast } = useToast()
@@ -101,16 +102,24 @@ const Chatting = () => {
       navigate('/')
     }, 1000)
   }
-  // const handleKeyDown = (event: React.KeyboardEvent) => {
-  //   if (event.nativeEvent.isComposing) {
-  //     return
-  //   }
-  //   if (event.key == 'Enter') {
-  //     messageRef.current && send(messageRef.current.value)
-  //     return false
-  //   }
-  // }
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.nativeEvent.isComposing) {
+      return
+    }
+    if (event.key == 'Enter') {
+      messageRef.current && send(messageRef.current.value)
+      return false
+    }
+  }
   const send = (message: string) => {
+    if (!isChattingRoomAlive) {
+      showToast({
+        message: '삭제된 채팅방입니다😭. 홈으로 이동합니다!',
+        type: 'warning',
+        isDarkMode: false,
+      })
+      navigateHome()
+    }
     if (client.current) {
       if (!client.current.connected) return
 
@@ -139,9 +148,9 @@ const Chatting = () => {
     if (response.data.isExisted == true) return true
     else return false
   }
-  useEffect(() => {
-    window.location.reload()
-  }, [])
+  // useEffect(() => {
+  //   window.location.reload()
+  // }, [])
   useEffect(() => {
     if (messageWrapperRef.current !== null)
       messageWrapperRef.current.scrollTop = messageWrapperRef.current.scrollHeight
@@ -185,17 +194,15 @@ const Chatting = () => {
             </StyleMessageWrapper>
 
             <StyleTypingFlexBox gap={10}>
-              <form onSubmit={(e) => handleSubmit(e)}>
-                <RegisterInput
-                  ref={messageRef}
-                  placeholder={'메시지를 입력하세요.'}
-                  width={290}
-                  height={35}
-                />
-                <StyleSubmitButton onClick={(e) => handleSubmit(e)}>
-                  <StyleIcon src={Send} />
-                </StyleSubmitButton>
-              </form>
+              <TextArea
+                ref={messageRef}
+                placeholder={'메시지를 입력하세요.'}
+                height={35}
+                onKeyDown={(e) => handleKeyDown(e)}
+              />
+              <StyleSubmitButton onClick={(e) => handleSubmit(e)}>
+                <StyleIcon src={Send} />
+              </StyleSubmitButton>
             </StyleTypingFlexBox>
           </StyleChattingWrapper>
         </PageContainer>
