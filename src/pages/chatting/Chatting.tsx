@@ -97,7 +97,7 @@ const Chatting = () => {
     await axiosAPI.delete(`/v1/chatting/rooms/${chatroomId}`)
     navigateHome()
   }
-  const navigateHome = () => {
+  const navigateHome = async () => {
     disconnect()
     setTimeout(() => navigate('/'), 3000)
   }
