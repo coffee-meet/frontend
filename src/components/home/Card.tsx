@@ -112,7 +112,7 @@ const Card = ({ isDarkMode }: CardProps) => {
   useEffect(() => {
     setTimeout(() => {
       getCurrentMatchingState()
-    }, 1000)
+    }, 100)
   }, [currentState])
 
   useEffect(() => {
