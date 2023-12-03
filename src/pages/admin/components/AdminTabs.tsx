@@ -116,6 +116,7 @@ const StyledTab = styled.div<TabProps>`
   border: 1.5px solid ${palette.GRAY100};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   color: ${(props) => (props.isActive ? palette.GRAY700 : palette.GRAY700)};
+  white-space: nowrap;
 `
 
 export default AdminTabs
