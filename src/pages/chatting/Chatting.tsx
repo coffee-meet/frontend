@@ -98,9 +98,7 @@ const Chatting = () => {
     navigateHome()
   }
   const navigateHome = () => {
-    setTimeout(() => {
-      navigate('/')
-    }, 3000)
+    setTimeout(() => navigate('/'), 3000)
   }
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.nativeEvent.isComposing) {
