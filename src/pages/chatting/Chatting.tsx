@@ -100,7 +100,7 @@ const Chatting = () => {
   const navigateHome = () => {
     setTimeout(() => {
       navigate('/')
-    }, 1000)
+    }, 3000)
   }
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.nativeEvent.isComposing) {
