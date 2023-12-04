@@ -35,13 +35,13 @@ const Home = () => {
       setNickname(localStorage.getItem('nickname') || '')
       setProfileImageUrl(localStorage.getItem('profileImageUrl') || '')
     }
-  }, [nickname])
+  }, [nickname, profileImageUrl])
 
   return (
     <GradationBackground isDarkMode={isDarkMode}>
       <AppHeader
         nickname={localStorage.getItem('nickname') || ''}
-        profileImageUrl={profileImageUrl}
+        profileImageUrl={localStorage.getItem('profileImageUrl') || ''}
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
       />
