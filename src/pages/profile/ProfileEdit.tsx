@@ -122,7 +122,7 @@ const ProfileEdit = () => {
             type: 'success',
             isDarkMode,
           })
-          navigate('/')
+          navigate('/profile')
         })
         .catch(() => {
           showToast({
