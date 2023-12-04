@@ -41,7 +41,7 @@ const Home = () => {
     <GradationBackground isDarkMode={isDarkMode}>
       <AppHeader
         nickname={localStorage.getItem('nickname') || ''}
-        profileImageUrl={profileImageUrl}
+        profileImageUrl={localStorage.getItem('profileImageUrl') || ''}
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
       />
