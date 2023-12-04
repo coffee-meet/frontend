@@ -114,6 +114,7 @@ const ProfileEdit = () => {
       }
       updateMyProfile(updateData)
         .then(() => {
+          inputRef.current && localStorage.setItem('nickname', inputRef.current.value)
           showToast({
             message: '프로필이 수정되었습니다.',
             type: 'success',
