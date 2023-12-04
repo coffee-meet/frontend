@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import { useQuery } from '@tanstack/react-query'
 import { useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import getMyProfileData from '@/apis/profile/getMyProfileData.ts'
 import postMyProfileImage from '@/apis/profile/postMyProfileImage.ts'
@@ -33,6 +34,7 @@ const ProfileEdit = () => {
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
   const [imgSrc, setImgSrc] = useState('')
   const { showToast } = useToast()
+  const navigate = useNavigate()
 
   const { data, error, isLoading, refetch } = useQuery({
     queryKey: ['myProfileData'],
@@ -120,6 +122,7 @@ const ProfileEdit = () => {
             type: 'success',
             isDarkMode,
           })
+          navigate('/profile')
         })
         .catch(() => {
           showToast({
