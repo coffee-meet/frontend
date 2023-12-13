@@ -1,23 +1,24 @@
-import styled from '@emotion/styled'
-import React, { ForwardedRef } from 'react'
+import type { ForwardedRef } from "react";
+import React from "react";
+import styled from "@emotion/styled";
 
 type InputProps = {
-  placeholder?: string
-  placeholderSize?: string
-  placeholderColor?: string
-  padding?: string
-  width?: string
-  height?: string
-  borderColor?: string
-  borderWidth?: string
-  inputTextColor?: string
-  inputTextSize?: string
-  inputBackgroundColor?: string
-  inputTextFontWeight?: number
+  placeholder?: string;
+  placeholderSize?: string;
+  placeholderColor?: string;
+  padding?: string;
+  width?: string;
+  height?: string;
+  borderColor?: string;
+  borderWidth?: string;
+  inputTextColor?: string;
+  inputTextSize?: string;
+  inputBackgroundColor?: string;
+  inputTextFontWeight?: number;
 
-  borderRadius?: string
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
+  borderRadius?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
 const Input = React.forwardRef(
   (
@@ -59,14 +60,14 @@ const Input = React.forwardRef(
           inputTextFontWeight={inputTextFontWeight}
         />
       </StyledInputWrapper>
-    )
+    );
   },
-)
-Input.displayName = 'Input'
+);
+Input.displayName = "Input";
 
 const StyledInputWrapper = styled.div`
   position: relative;
-`
+`;
 
 const StyledInput = styled.input<InputProps>`
   ::placeholder {
@@ -85,6 +86,6 @@ const StyledInput = styled.input<InputProps>`
   padding: ${(props) => props.padding};
   position: relative;
   box-sizing: border-box;
-`
+`;
 
-export default Input
+export default Input;

@@ -1,18 +1,17 @@
-import styled from '@emotion/styled'
-import { useNavigate } from 'react-router-dom'
-
-import { Text } from '@/components/common/Text'
-import { palette } from '@/styles/palette'
+import { useNavigate } from "react-router-dom";
+import styled from "@emotion/styled";
+import { Text } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
 
 type PageHeaderProps = {
-  title: string
-  leftIcon?: React.ReactNode
-  rightIcon?: React.ReactNode
-  isDarkMode?: boolean
-  hasBackground?: boolean
-  onClick?: () => void
-  style?: React.CSSProperties
-}
+  title: string;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  isDarkMode?: boolean;
+  hasBackground?: boolean;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+};
 
 /**
  * @param title - 타이틀
@@ -31,19 +30,23 @@ const PageHeader = ({
   hasBackground,
   ...props
 }: PageHeaderProps) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
-    <StyledPageHeader isDarkMode={isDarkMode} hasBackground={hasBackground} {...props}>
+    <StyledPageHeader
+      isDarkMode={isDarkMode}
+      hasBackground={hasBackground}
+      {...props}
+    >
       <StyledIcon
-        onClick={() => navigate('/')}
+        onClick={() => navigate("/")}
         style={{
-          cursor: 'pointer',
+          cursor: "pointer",
         }}
       >
         {leftIcon}
       </StyledIcon>
       <Text
-        font={'Body_20'}
+        font={"Body_20"}
         fontWeight={600}
         letterSpacing={-1}
         style={{
@@ -60,18 +63,18 @@ const PageHeader = ({
       </Text>
       <StyledIcon
         style={{
-          cursor: 'pointer',
+          cursor: "pointer",
         }}
       >
         {rightIcon}
       </StyledIcon>
     </StyledPageHeader>
-  )
-}
+  );
+};
 
 const StyledPageHeader = styled.div<{
-  isDarkMode?: boolean
-  hasBackground?: boolean
+  isDarkMode?: boolean;
+  hasBackground?: boolean;
 }>`
   max-width: 414px;
   width: 100%;
@@ -85,19 +88,19 @@ const StyledPageHeader = styled.div<{
       isDarkMode
         ? hasBackground
           ? palette.GRAY500
-          : 'none'
+          : "none"
         : hasBackground
         ? palette.GRAY300
-        : 'none'};
+        : "none"};
   background-color: ${({ isDarkMode, hasBackground }) =>
     isDarkMode
       ? hasBackground
         ? `${palette.DARK_BLUE}`
-        : 'transparent'
+        : "transparent"
       : hasBackground
       ? `${palette.GRAY100}`
-      : 'transparent'};
-`
+      : "transparent"};
+`;
 
 const StyledIcon = styled.div`
   width: 38px;
@@ -106,6 +109,6 @@ const StyledIcon = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
-`
+`;
 
-export default PageHeader
+export default PageHeader;

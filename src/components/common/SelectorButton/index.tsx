@@ -1,18 +1,17 @@
-import styled from '@emotion/styled'
-import { useState } from 'react'
-
-import useInterestStore from '@/store/InterestStore'
-import useJobStore from '@/store/JobStore.tsx'
-import { palette } from '@/styles/palette'
+import { useState } from "react";
+import styled from "@emotion/styled";
+import { palette } from "@/styles/palette";
+import useInterestStore from "@/store/InterestStore";
+import useJobStore from "@/store/JobStore.tsx";
 
 type SelectorButtonProps = {
-  isDarkMode: boolean
-  buttonName: string
-  type: 'interest' | 'job'
-  isButtonClicked?: (selected: boolean) => void
-  isButtonSelected?: boolean
-  isMaxLengthReached: boolean
-}
+  isDarkMode: boolean;
+  buttonName: string;
+  type: "interest" | "job";
+  isButtonClicked?: (selected: boolean) => void;
+  isButtonSelected?: boolean;
+  isMaxLengthReached: boolean;
+};
 
 const SelectorButton = ({
   isDarkMode,
@@ -32,54 +31,60 @@ const SelectorButton = ({
         selectedButtonColor: palette.BLUE,
         defaultButtonColor: palette.TERTIARY,
         textColor: palette.WHITE,
-      }
+      };
 
-  const [isButtonSelected, setIsButtonSelected] = useState(propIsButtonSelected)
+  const [isButtonSelected, setIsButtonSelected] = useState(propIsButtonSelected);
   const initialBackgroundColor = isButtonSelected
     ? defaultSettings.selectedButtonColor
-    : defaultSettings.defaultButtonColor
-  const [backgroundColor, setBackgroundColor] = useState(initialBackgroundColor)
-  const [currentTextColor, setCurrentTextColor] = useState(defaultSettings.textColor)
-  const { interestList, setInterestList } = useInterestStore()
-  const { setJobInfo } = useJobStore()
+    : defaultSettings.defaultButtonColor;
+  const [backgroundColor, setBackgroundColor] = useState(initialBackgroundColor);
+  const [currentTextColor, setCurrentTextColor] = useState(defaultSettings.textColor);
+  const { interestList, setInterestList } = useInterestStore();
+  const { setJobInfo } = useJobStore();
 
   const handleButtonClick = () => {
-    const isSelected = backgroundColor !== defaultSettings.selectedButtonColor
+    const isSelected = backgroundColor !== defaultSettings.selectedButtonColor;
 
     if (isMaxLengthReached && !isButtonSelected) {
-      isButtonClicked && isButtonClicked(true)
-      return
+      isButtonClicked && isButtonClicked(true);
+      return;
     }
-    setIsButtonSelected(isSelected)
+    setIsButtonSelected(isSelected);
 
-    if (type === 'interest') {
+    if (type === "interest") {
       if (isSelected) {
-        setInterestList([...interestList, buttonName])
+        setInterestList([...interestList, buttonName]);
       } else {
-        setInterestList(interestList.filter((v) => v != buttonName))
+        setInterestList(interestList.filter((v) => v != buttonName));
       }
     } else {
       if (isSelected) {
-        setJobInfo(buttonName)
+        setJobInfo(buttonName);
       } else {
-        setJobInfo('')
+        setJobInfo("");
       }
     }
     setBackgroundColor(
       isSelected ? defaultSettings.selectedButtonColor : defaultSettings.defaultButtonColor,
-    )
+    );
 
-    console.log(interestList.filter((v) => v != buttonName))
+    console.log(interestList.filter((v) => v != buttonName));
     if (defaultSettings.textColor !== palette.WHITE) {
-      setCurrentTextColor(isSelected ? palette.WHITE : defaultSettings.textColor)
+      setCurrentTextColor(isSelected ? palette.WHITE : defaultSettings.textColor);
     }
-    if (isButtonClicked) isButtonClicked(isSelected)
-    if (type === 'interest') {
-      if (!isSelected) setInterestList(interestList.filter((v) => v != buttonName))
+    if (isButtonClicked) {
+      isButtonClicked(isSelected);
+    }
+    if (type === "interest") {
+      if (!isSelected) {
+        setInterestList(interestList.filter((v) => v != buttonName));
+      }
     } else {
-      if (!isSelected) setJobInfo('')
+      if (!isSelected) {
+        setJobInfo("");
+      }
     }
-  }
+  };
 
   return (
     <StyledButton
@@ -89,12 +94,12 @@ const SelectorButton = ({
     >
       {buttonName}
     </StyledButton>
-  )
-}
+  );
+};
 
 const StyledButton = styled.button<{
-  backgroundColor: string
-  textColor: string
+  backgroundColor: string;
+  textColor: string;
 }>`
   margin: 8px;
   height: 36px;
@@ -115,6 +120,6 @@ const StyledButton = styled.button<{
   display: inline-block;
   vertical-align: middle;
   line-height: 1;
-`
+`;
 
-export default SelectorButton
+export default SelectorButton;

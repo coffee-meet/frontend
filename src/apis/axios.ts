@@ -1,13 +1,13 @@
-import axios from 'axios'
+import axios from "axios";
 
 // import useAuthStore from '@/store/AuthStore'
 
 export const axiosAPI = axios.create({
   baseURL:
-    process.env.NODE_ENV === 'development'
-      ? 'http://localhost:5173'
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:5173"
       : import.meta.env.VITE_BASE_URL,
-})
+});
 
 // Add a request interceptor
 axiosAPI.interceptors.request.use(
@@ -15,15 +15,15 @@ axiosAPI.interceptors.request.use(
     // 요청 바로 직전
     // axios 설정값에 대해 작성합니다.
 
-    config.headers['Authorization'] = `${localStorage.getItem('jwt')}`
+    config.headers["Authorization"] = `${localStorage.getItem("jwt")}`;
 
-    return config
+    return config;
   },
   function (error) {
     // 요청 에러 처리를 작성합니다.
-    return Promise.reject(error)
+    return Promise.reject(error);
   },
-)
+);
 
 // Add a response interceptor
 axiosAPI.interceptors.response.use(
@@ -33,7 +33,7 @@ axiosAPI.interceptors.response.use(
         응답 바로 직전에 대해 작성합니다.
         .then() 으로 이어집니다.
     */
-    return response
+    return response;
   },
 
   function (error) {
@@ -43,11 +43,11 @@ axiosAPI.interceptors.response.use(
         .catch() 으로 이어집니다.
     */
     if (error.response && error.response.status === 401) {
-      return new Promise(() => {}) //이행되지 않은 Promise를 반환하여 Promise Chaining 끊어주기
+      return new Promise(() => {}); //이행되지 않은 Promise를 반환하여 Promise Chaining 끊어주기
     }
-    return Promise.reject(error)
+    return Promise.reject(error);
   },
-)
+);
 
 // Response interceptor
 // function interceptorResponseFulfilled(res: AxiosResponse) {

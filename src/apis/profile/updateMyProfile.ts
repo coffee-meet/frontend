@@ -1,16 +1,16 @@
-import { axiosAPI } from '@/apis/axios.ts'
-import { MyProfileUpdateRequest } from '@/apis/profile/type.ts'
+import { axiosAPI } from "@/apis/axios.ts";
+import type { MyProfileUpdateRequest } from "@/apis/profile/type.ts";
 
 const updateMyProfile = async (data: MyProfileUpdateRequest) => {
   try {
-    const res = await axiosAPI.patch('/v1/users/me', data)
+    const res = await axiosAPI.patch("/v1/users/me", data);
     if (res.status !== 200) {
-      throw new Error('update my profile failed!')
+      throw new Error("update my profile failed!");
     }
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
-export default updateMyProfile
+export default updateMyProfile;

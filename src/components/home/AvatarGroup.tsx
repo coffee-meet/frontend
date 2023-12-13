@@ -1,27 +1,26 @@
-import styled from '@emotion/styled'
-
-import Avatar from '@/components/common/Avatar'
+import styled from "@emotion/styled";
+import Avatar from "@/components/common/Avatar";
 
 const StyledAvatarGroup = styled.div<{ avatarHeight: number }>`
   display: flex;
   align-items: center;
   width: 100%;
   height: ${({ avatarHeight }) => `${avatarHeight}px`};
-`
+`;
 
 const StyledAvatarWrapper = styled.div`
   position: absolute;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-`
+`;
 
 type AvatarGroupProps = {
-  avatarList: string[]
-  avatarWidth?: number
-  avatarHeight?: number
-  style?: React.CSSProperties
-}
+  avatarList: string[];
+  avatarWidth?: number;
+  avatarHeight?: number;
+  style?: React.CSSProperties;
+};
 
 /**
  * @param avatarList: string[] - 아바타 이미지 리스트
@@ -37,7 +36,10 @@ const AvatarGroup = ({
   ...props
 }: AvatarGroupProps) => {
   return (
-    <StyledAvatarGroup avatarHeight={avatarHeight} {...props}>
+    <StyledAvatarGroup
+      avatarHeight={avatarHeight}
+      {...props}
+    >
       {avatarList.map((avatar, index) => {
         return (
           <StyledAvatarWrapper
@@ -50,14 +52,14 @@ const AvatarGroup = ({
               width={avatarWidth}
               height={avatarHeight}
               imgUrl={avatar}
-              margin={'0'}
-              border={'2px solid red'}
+              margin={"0"}
+              border={"2px solid red"}
             />
           </StyledAvatarWrapper>
-        )
+        );
       })}
     </StyledAvatarGroup>
-  )
-}
+  );
+};
 
-export default AvatarGroup
+export default AvatarGroup;

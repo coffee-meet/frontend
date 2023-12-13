@@ -1,14 +1,14 @@
-import { css } from '@emotion/react'
-import emotionReset from 'emotion-reset'
+import { css } from "@emotion/react";
+import emotionReset from "emotion-reset";
+import { media } from "@/styles/theme";
 
-import { media } from '@/styles/theme'
 export const globalStyle = css`
   ${emotionReset}
 
   @font-face {
-    font-family: 'Pretendard-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
-      format('woff');
+    font-family: "Pretendard-Regular";
+    src: url("https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+      format("woff");
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -16,20 +16,20 @@ export const globalStyle = css`
 
   body {
     font-family:
-      'Pretendard',
+      "Pretendard",
       Pretendard,
       -apple-system,
       BlinkMacSystemFont,
       system-ui,
       Roboto,
-      'Helvetica Neue',
-      'Segoe UI',
-      'Apple SD Gothic Neo',
-      'Noto Sans KR',
-      'Malgun Gothic',
-      'Apple Color Emoji',
-      'Segoe UI Emoji',
-      'Segoe UI Symbol',
+      "Helvetica Neue",
+      "Segoe UI",
+      "Apple SD Gothic Neo",
+      "Noto Sans KR",
+      "Malgun Gothic",
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
       sans-serif !important;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
@@ -122,4 +122,4 @@ export const globalStyle = css`
       font-size: 20px;
     }
   }
-`
+`;

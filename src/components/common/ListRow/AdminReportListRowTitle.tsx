@@ -1,17 +1,17 @@
-import { FlexBox } from '@/components/common/Flexbox'
-import { StyleList } from '@/components/common/ListRow/ProfileListRow'
-import { Text } from '@/components/common/Text'
-import { palette } from '@/styles/palette'
+import { FlexBox } from "@/components/common/Flexbox";
+import { StyleList } from "@/components/common/ListRow/ProfileListRow";
+import { Text } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
 
 type AdminReportListRowProps = {
-  height: number
-  chattingRoomName: string
-  reportedNickname: string
-  reportedDate: string
-  isDarkMode: boolean
+  height: number;
+  chattingRoomName: string;
+  reportedNickname: string;
+  reportedDate: string;
+  isDarkMode: boolean;
 
-  onClick?: () => void
-}
+  onClick?: () => void;
+};
 
 const AdminReportListRowTitle = ({
   height,
@@ -26,50 +26,50 @@ const AdminReportListRowTitle = ({
       width={322}
       height={height}
       style={{
-        padding: '0 10px 0px 10px',
+        padding: "0 10px 0px 10px",
         borderBottom: `1px solid ${palette.GRAY300}`,
-        cursor: 'default',
+        cursor: "default",
       }}
       onClick={onClick}
     >
-      <FlexBox justify={'center'}>
+      <FlexBox justify={"center"}>
         <Text
-          font={'Body_16'}
+          font={"Body_16"}
           fontWeight={800}
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-            marginLeft: '4px',
-            marginRight: '12px',
+            marginLeft: "4px",
+            marginRight: "12px",
           }}
         >
           {chattingRoomName}
         </Text>
         <Text
-          font={'Body_16'}
+          font={"Body_16"}
           fontWeight={800}
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-            margin: '0 10px',
+            margin: "0 10px",
           }}
         >
           {reportedNickname}
         </Text>
         <Text
-          font={'Body_16'}
+          font={"Body_16"}
           fontWeight={800}
           letterSpacing={0}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-            marginLeft: '16px',
+            marginLeft: "16px",
           }}
         >
           {reportedDate}
         </Text>
       </FlexBox>
     </StyleList>
-  )
-}
+  );
+};
 
-export default AdminReportListRowTitle
+export default AdminReportListRowTitle;

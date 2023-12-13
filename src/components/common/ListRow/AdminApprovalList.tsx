@@ -1,39 +1,39 @@
-import styled from '@emotion/styled'
-import { useQuery } from '@tanstack/react-query'
-
-import AdminApprovalAPI from '@/apis/adminApproval/AdminApprovalApi'
-import AdminApprovalListRow from '@/components/common/ListRow/AdminApprovalListRow'
-import AdminApprovalListRowTitle from '@/components/common/ListRow/AdminApprovalListRowTitle'
-import { palette } from '@/styles/palette'
+import styled from "@emotion/styled";
+import { useQuery } from "@tanstack/react-query";
+import AdminApprovalAPI from "@/apis/adminApproval/AdminApprovalApi";
+import AdminApprovalListRow from "@/components/common/ListRow/AdminApprovalListRow";
+import AdminApprovalListRowTitle from "@/components/common/ListRow/AdminApprovalListRowTitle";
+import { palette } from "@/styles/palette";
 
 interface AdminApprovalListProps {
-  onApproveSelectId: (certificationId: number) => void
+  onApproveSelectId: (certificationId: number) => void;
 }
+
 // interface ApprovalListData {
 //   approvalRequestUser: string
 //   approvalRequestUserStatus: string
 //   onApproveSelectUserName: (nickname: string) => void
 // }
 interface RequestData {
-  certificationId: number
-  nickname: string
-  companyName: string
-  companyEmail: string
-  businessCardUrl: string
-  department: string
+  certificationId: number;
+  nickname: string;
+  companyName: string;
+  companyEmail: string;
+  businessCardUrl: string;
+  department: string;
 }
 
 const AdminApprovalList = ({ onApproveSelectId }: AdminApprovalListProps) => {
   // API 요청 코드
   const { data, isSuccess } = useQuery(
-    ['ApprovalRequestList'],
+    ["ApprovalRequestList"],
     AdminApprovalAPI.GET_APPROVAL_REQUEST_LIST,
-  )
+  );
 
   const handlePersonApproval = (certificationId: number) => {
-    onApproveSelectId(certificationId)
-  }
-  const approvalDatas = data?.data.contents
+    onApproveSelectId(certificationId);
+  };
+  const approvalDatas = data?.data.contents;
 
   // const mockData = [
   //   { approvalRequestUser: '유명한', approvalRequestUserStatus: '대기 중' },
@@ -50,10 +50,10 @@ const AdminApprovalList = ({ onApproveSelectId }: AdminApprovalListProps) => {
         {isSuccess && (
           <>
             <AdminApprovalListRowTitle
-              frontName={'승인 요청자'}
+              frontName={"승인 요청자"}
               height={71}
               isDarkMode={false}
-              backName={'회사명'}
+              backName={"회사명"}
             ></AdminApprovalListRowTitle>
             {approvalDatas.length > 0 ? (
               approvalDatas.map((requestData: RequestData, index: number) => (
@@ -68,7 +68,7 @@ const AdminApprovalList = ({ onApproveSelectId }: AdminApprovalListProps) => {
               ))
             ) : (
               <StyledNoRequestUsersAlertText>
-                {'현재 승인 요청자가 없습니다!'}
+                {"현재 승인 요청자가 없습니다!"}
               </StyledNoRequestUsersAlertText>
             )}
           </>
@@ -86,13 +86,13 @@ const AdminApprovalList = ({ onApproveSelectId }: AdminApprovalListProps) => {
           ))} */}
       </AdminApprovalListContainer>
     </AdminApprovalListContainerOuterWrapper>
-  )
-}
+  );
+};
 const AdminApprovalListContainerOuterWrapper = styled.div`
   background-color: ${palette.WHITE};
   width: 100%;
   height: 591px;
-`
+`;
 const AdminApprovalListContainer = styled.div`
   background-color: ${palette.WHITE};
   overflow: scroll;
@@ -100,13 +100,13 @@ const AdminApprovalListContainer = styled.div`
   width: 80%;
   margin: auto;
   cursor: pointer;
-`
+`;
 const StyledNoRequestUsersAlertText = styled.div`
   text-align: center;
   font-size: 16px;
   font-weight: 500;
   padding-top: 20px;
   color: ${palette.GRAY500};
-`
+`;
 
-export default AdminApprovalList
+export default AdminApprovalList;

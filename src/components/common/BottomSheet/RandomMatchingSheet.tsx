@@ -1,13 +1,12 @@
-import styled from '@emotion/styled'
-import { AnimatePresence, motion } from 'framer-motion'
-import { MouseEvent, useState } from 'react'
-import { AiOutlineClose } from 'react-icons/ai'
-
-import RandomMatchingJoinButton from '@/components/common/Buttons/IconButton/RandomMatchingJoinButton'
-import { Text } from '@/components/common/Text'
-import { palette } from '@/styles/palette'
-
-import Timer from './Timer'
+import type { MouseEvent } from "react";
+import { useState } from "react";
+import { AiOutlineClose } from "react-icons/ai";
+import styled from "@emotion/styled";
+import { AnimatePresence, motion } from "framer-motion";
+import RandomMatchingJoinButton from "@/components/common/Buttons/IconButton/RandomMatchingJoinButton";
+import { Text } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
+import Timer from "./Timer";
 
 const Background = styled.div`
   width: 100%;
@@ -17,10 +16,10 @@ const Background = styled.div`
   justify-content: center;
   align-items: flex-end;
   position: absolute;
-`
+`;
 
 const BottomContentWrapper = styled(motion.div)<{
-  isDarkMode: boolean
+  isDarkMode: boolean;
 }>`
   width: 100%;
   display: flex;
@@ -29,10 +28,10 @@ const BottomContentWrapper = styled(motion.div)<{
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
-`
+`;
 
 const BottomContentHeader = styled.div<{
-  isDarkMode: boolean
+  isDarkMode: boolean;
 }>`
   width: 100%;
   position: relative;
@@ -44,10 +43,10 @@ const BottomContentHeader = styled.div<{
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   padding: 24px 0;
-`
+`;
 
 const BottomContent = styled.div<{
-  isDarkMode: boolean
+  isDarkMode: boolean;
 }>`
   display: flex;
   flex-direction: column;
@@ -55,14 +54,14 @@ const BottomContent = styled.div<{
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
-`
+`;
 
 type RandomMatchingSheetProps = {
-  title: string
-  isDarkMode: boolean
-  moveToRandomMatching: () => void
-  cancelRandomMatching: () => void
-}
+  title: string;
+  isDarkMode: boolean;
+  moveToRandomMatching: () => void;
+  cancelRandomMatching: () => void;
+};
 
 const RandomMatchingSheet = ({
   title,
@@ -70,50 +69,50 @@ const RandomMatchingSheet = ({
   moveToRandomMatching,
   cancelRandomMatching,
 }: RandomMatchingSheetProps) => {
-  const [isOpen, setIsOpen] = useState(true) // RandomMatchingSheet의 상태
+  const [isOpen, setIsOpen] = useState(true); // RandomMatchingSheet의 상태
 
   const handleWrapperClick = (e: MouseEvent) => {
-    e.stopPropagation()
-  }
+    e.stopPropagation();
+  };
 
   const toggleRandomMatchingSheet = () => {
     // isOpen이 true일 때만 상태를 토글
     if (isOpen) {
-      cancelRandomMatching()
-      setIsOpen(!isOpen)
+      cancelRandomMatching();
+      setIsOpen(!isOpen);
     }
-  }
+  };
 
   const slideUp = {
-    hidden: { y: '100%', opacity: 0 },
-    visible: { y: '22px', opacity: 1, transition: { type: 'spring', damping: 15, stiffness: 100 } },
+    hidden: { y: "100%", opacity: 0 },
+    visible: { y: "22px", opacity: 1, transition: { type: "spring", damping: 15, stiffness: 100 } },
     partiallyVisible: {
-      y: '85%',
+      y: "85%",
       opacity: 1,
-      transition: { type: 'spring', damping: 15, stiffness: 100 },
+      transition: { type: "spring", damping: 15, stiffness: 100 },
     },
-    exit: { y: '100%', opacity: 0, transition: { type: 'spring', damping: 15, stiffness: 100 } },
-  }
+    exit: { y: "100%", opacity: 0, transition: { type: "spring", damping: 15, stiffness: 100 } },
+  };
   return (
     <AnimatePresence>
       <Background onClick={toggleRandomMatchingSheet}>
         <BottomContentWrapper
           isDarkMode={isDarkMode}
           onClick={handleWrapperClick}
-          initial={'hidden'} // 초기 상태
-          animate={isOpen ? 'visible' : 'partiallyVisible'} // 상태에 따른 애니메이션 값 지정
-          exit={'exit'} // 컴포넌트가 unmount될 때 상태
+          initial={"hidden"} // 초기 상태
+          animate={isOpen ? "visible" : "partiallyVisible"} // 상태에 따른 애니메이션 값 지정
+          exit={"exit"} // 컴포넌트가 unmount될 때 상태
           variants={slideUp} // 애니메이션 정의
         >
           <BottomContent isDarkMode={isDarkMode}>
             <BottomContentHeader isDarkMode={isDarkMode}>
               <Text
-                font={'Body_20'}
+                font={"Body_20"}
                 fontWeight={700}
                 letterSpacing={-1}
                 style={{
                   color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
-                  textAlign: 'center',
+                  textAlign: "center",
                   backgroundColor: isDarkMode ? palette.GRAY700 : palette.WHITE,
                   flex: 1,
                 }}
@@ -122,7 +121,7 @@ const RandomMatchingSheet = ({
               </Text>
               <AiOutlineClose
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   right: 17,
                   width: 30,
                   height: 30,
@@ -135,7 +134,7 @@ const RandomMatchingSheet = ({
               totalTime={30000}
               isDarkMode={isDarkMode}
               timeOver={() => {
-                console.log('타이머 종료!')
+                console.log("타이머 종료!");
               }}
             />
             <RandomMatchingJoinButton
@@ -143,7 +142,7 @@ const RandomMatchingSheet = ({
               moveToRandomMatching={moveToRandomMatching}
             />
             <Text
-              font={'Body_12'}
+              font={"Body_12"}
               fontWeight={700}
               letterSpacing={-1}
               style={{
@@ -151,13 +150,13 @@ const RandomMatchingSheet = ({
                 color: isDarkMode ? palette.GRAY300 : palette.GRAY500,
               }}
             >
-              {'현재 매칭에 참가하지 않으면 다음 매칭에 불이익이 있습니다.'}
+              {"현재 매칭에 참가하지 않으면 다음 매칭에 불이익이 있습니다."}
             </Text>
           </BottomContent>
         </BottomContentWrapper>
       </Background>
     </AnimatePresence>
-  )
-}
+  );
+};
 
-export default RandomMatchingSheet
+export default RandomMatchingSheet;

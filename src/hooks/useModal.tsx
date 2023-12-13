@@ -1,15 +1,15 @@
-import Modal from '@/components/common/Modal'
-import useModalStore from '@/store/ModalStore'
+import Modal from "@/components/common/Modal";
+import useModalStore from "@/store/ModalStore";
 
 type ModalConfirmPropsType = {
-  type: 'warn' | 'confirm'
-  okFunc: () => void
-  mainText: string
-  subText?: string
-  acceptText?: string
-  cancelText?: string
-  isDarkMode?: boolean
-}
+  type: "warn" | "confirm";
+  okFunc: () => void;
+  mainText: string;
+  subText?: string;
+  acceptText?: string;
+  cancelText?: string;
+  isDarkMode?: boolean;
+};
 export const useModal = () => {
   const {
     setModalState,
@@ -20,7 +20,7 @@ export const useModal = () => {
     setAcceptText,
     setCancelText,
     setDarkMode,
-  } = useModalStore()
+  } = useModalStore();
 
   const openModal = ({
     mainText,
@@ -31,15 +31,15 @@ export const useModal = () => {
     cancelText,
     isDarkMode,
   }: ModalConfirmPropsType) => {
-    setModalState(true)
-    setType(type)
-    setMainText(mainText)
-    setSubText(subText)
-    setOkFunc(okFunc)
-    setAcceptText(acceptText)
-    setCancelText(cancelText)
-    setDarkMode(isDarkMode)
-  }
+    setModalState(true);
+    setType(type);
+    setMainText(mainText);
+    setSubText(subText);
+    setOkFunc(okFunc);
+    setAcceptText(acceptText);
+    setCancelText(cancelText);
+    setDarkMode(isDarkMode);
+  };
 
-  return { openModal, Modal }
-}
+  return { openModal, Modal };
+};

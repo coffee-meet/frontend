@@ -1,18 +1,17 @@
-import styled from '@emotion/styled'
-import { useState } from 'react'
-
-import { palette } from '@/styles/palette'
+import { useState } from "react";
+import styled from "@emotion/styled";
+import { palette } from "@/styles/palette";
 
 type ToggleButtonProps = {
-  buttonName: string
-  selectedButtonColor: string
-  defaultButtonColor?: string
-  onClick?: () => void
-}
+  buttonName: string;
+  selectedButtonColor: string;
+  defaultButtonColor?: string;
+  onClick?: () => void;
+};
 
 type StyledButtonProps = {
-  backgroundColor: string
-}
+  backgroundColor: string;
+};
 
 const WhiteSelectorButton = ({
   buttonName,
@@ -20,21 +19,26 @@ const WhiteSelectorButton = ({
   defaultButtonColor = palette.TERTIARY,
   onClick,
 }: ToggleButtonProps) => {
-  const [backgroundColor, setBackgroundColor] = useState(defaultButtonColor)
+  const [backgroundColor, setBackgroundColor] = useState(defaultButtonColor);
 
   const handleButtonClick = () => {
     setBackgroundColor((prevColor) =>
       prevColor === defaultButtonColor ? selectedButtonColor : defaultButtonColor,
-    )
-    if (onClick) onClick()
-  }
+    );
+    if (onClick) {
+      onClick();
+    }
+  };
 
   return (
-    <StyledButton backgroundColor={backgroundColor} onClick={handleButtonClick}>
+    <StyledButton
+      backgroundColor={backgroundColor}
+      onClick={handleButtonClick}
+    >
       {buttonName}
     </StyledButton>
-  )
-}
+  );
+};
 
 const StyledButton = styled.button<StyledButtonProps>`
   margin: 0 4px;
@@ -58,6 +62,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   line-height: 1;
   letter-spacing: -1px;
   font-weight: 600;
-`
+`;
 
-export default WhiteSelectorButton
+export default WhiteSelectorButton;

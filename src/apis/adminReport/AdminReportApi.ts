@@ -1,13 +1,14 @@
-import { axiosAPI } from '@/apis/axios'
+import { axiosAPI } from "@/apis/axios";
 
 interface GetReportersListParams {
-  targetedId: string
-  chattingRoomId: string
+  targetedId: string;
+  chattingRoomId: string;
 }
+
 const params: GetReportersListParams = {
-  targetedId: '7347',
-  chattingRoomId: '1413',
-}
+  targetedId: "7347",
+  chattingRoomId: "1413",
+};
 // interface GetReportInfoParams {
 //   reportId: string
 // }
@@ -17,41 +18,41 @@ const params: GetReportersListParams = {
 
 const AdminReportAPI = {
   GET_REPORT_LIST: async () => {
-    const response = await axiosAPI.get(`/v1/admins/reports`)
+    const response = await axiosAPI.get(`/v1/admins/reports`);
     return {
       data: response.data,
-    }
+    };
   },
   GET_REPORTERS_LIST: async () => {
-    const response = await axiosAPI.get(`/v1/reporters`, { params })
+    const response = await axiosAPI.get(`/v1/reporters`, { params });
 
     return {
       data: response.data,
-    }
+    };
   },
   GET_REPORT_INFO: async () => {
-    const response = await axiosAPI.get(`/v1/reports/:reportId`)
+    const response = await axiosAPI.get(`/v1/reports/:reportId`);
     return {
       data: response.data,
-    }
+    };
   },
   POST_REPORT_ADD: async () => {
     //patch-> post와 동일 (params 동일)
     const response = await axiosAPI.post(
-      '/v1/reports/accept/:reportId',
-      { decision: 'addReportCount' },
+      "/v1/reports/accept/:reportId",
+      { decision: "addReportCount" },
       {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       },
-    )
-    return response.data
+    );
+    return response.data;
   },
   POST_REPORT_IGNORE: async () => {
-    const response = await axiosAPI.delete('/v1/reports/reject/:reportId')
-    return response.data
+    const response = await axiosAPI.delete("/v1/reports/reject/:reportId");
+    return response.data;
   },
-}
+};
 
-export default AdminReportAPI
+export default AdminReportAPI;

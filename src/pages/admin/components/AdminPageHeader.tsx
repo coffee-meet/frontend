@@ -1,10 +1,9 @@
-import styled from '@emotion/styled'
-
-import { Text } from '@/components/common/Text'
-import { palette } from '@/styles/palette'
+import styled from "@emotion/styled";
+import { Text } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
 
 interface AdminPageHeaderProps {
-  username: string
+  username: string;
 }
 
 const AdminPageHeader = ({ username }: AdminPageHeaderProps) => {
@@ -12,17 +11,21 @@ const AdminPageHeader = ({ username }: AdminPageHeaderProps) => {
     <StyledAdminPageHeaderContainerOuterWrapper>
       <StyledAdminPageHeaderContainer>
         <StyledUserNameWrapper>
-          <Text font={'Body_20'} fontWeight={900} letterSpacing={-1}>
+          <Text
+            font={"Body_20"}
+            fontWeight={900}
+            letterSpacing={-1}
+          >
             {username}
           </Text>
         </StyledUserNameWrapper>
       </StyledAdminPageHeaderContainer>
     </StyledAdminPageHeaderContainerOuterWrapper>
-  )
-}
+  );
+};
 const StyledAdminPageHeaderContainerOuterWrapper = styled.div`
   background-color: ${palette.WHITE};
-`
+`;
 const StyledAdminPageHeaderContainer = styled.div`
   display: flex;
   align-items: center;
@@ -33,10 +36,10 @@ const StyledAdminPageHeaderContainer = styled.div`
   background-color: ${palette.WHITE};
   border-bottom: 1px solid ${palette.GRAY300};
   padding-top: 10px;
-`
+`;
 
 const StyledUserNameWrapper = styled.div`
   margin: 0 auto;
-`
+`;
 
-export default AdminPageHeader
+export default AdminPageHeader;

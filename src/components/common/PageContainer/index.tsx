@@ -1,7 +1,6 @@
-import styled from '@emotion/styled'
-import { ReactNode } from 'react'
-
-import { palette } from '@/styles/palette'
+import type { ReactNode } from "react";
+import styled from "@emotion/styled";
+import { palette } from "@/styles/palette";
 
 const StyledPageContainer = styled.div<{ height: string; isDarkMode: boolean }>`
   width: 100%;
@@ -13,14 +12,14 @@ const StyledPageContainer = styled.div<{ height: string; isDarkMode: boolean }>`
   flex: 1;
   overflow-y: scroll;
   box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.2);
-`
+`;
 
 type PageContainerProps = {
-  children: ReactNode
-  isDarkMode: boolean
-  height?: string
-  style?: React.CSSProperties
-}
+  children: ReactNode;
+  isDarkMode: boolean;
+  height?: string;
+  style?: React.CSSProperties;
+};
 
 /**
  *
@@ -31,15 +30,19 @@ type PageContainerProps = {
  */
 const PageContainer = ({
   children,
-  height = '77%',
+  height = "77%",
   isDarkMode = false,
   ...props
 }: PageContainerProps) => {
   return (
-    <StyledPageContainer height={height} isDarkMode={isDarkMode} {...props}>
+    <StyledPageContainer
+      height={height}
+      isDarkMode={isDarkMode}
+      {...props}
+    >
       {children}
     </StyledPageContainer>
-  )
-}
+  );
+};
 
-export default PageContainer
+export default PageContainer;

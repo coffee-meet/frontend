@@ -1,40 +1,41 @@
-import styled from '@emotion/styled'
-import { useQuery } from '@tanstack/react-query'
-
-import AdminInquiryAPI from '@/apis/adminInquiry/AdminInquiryApi'
-import AdminApprovalListRow from '@/components/common/ListRow/AdminApprovalListRow'
-import AdminInquiryListRowTitle from '@/components/common/ListRow/AdminInquiryListRowTitle'
-import { palette } from '@/styles/palette'
+import styled from "@emotion/styled";
+import { useQuery } from "@tanstack/react-query";
+import AdminInquiryAPI from "@/apis/adminInquiry/AdminInquiryApi";
+import AdminApprovalListRow from "@/components/common/ListRow/AdminApprovalListRow";
+import AdminInquiryListRowTitle from "@/components/common/ListRow/AdminInquiryListRowTitle";
+import { palette } from "@/styles/palette";
 
 interface AdminInquiryListProps {
-  onInquirySelectUserName: (nickname: string) => void
+  onInquirySelectUserName: (nickname: string) => void;
 }
+
 // interface InquiryListData {
 //   inquiryRequestUser: string
 //   inquiryRequestDate: string
 //   onInquirySelectUserName: (nickname: string) => void
 // }
 interface InquiryData {
-  inquiryId?: number
-  inquirer: string
-  title?: string
-  createdAt: string
+  inquiryId?: number;
+  inquirer: string;
+  title?: string;
+  createdAt: string;
 }
+
 interface InquiryData {
-  inquiryId?: number
-  inquirer: string
-  title?: string
-  createdAt: string
+  inquiryId?: number;
+  inquirer: string;
+  title?: string;
+  createdAt: string;
 }
 
 const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) => {
   // API 요청 코드
-  const { data, isSuccess } = useQuery(['AdminInquiryList'], AdminInquiryAPI.GET_INQUIRY_LIST)
+  const { data, isSuccess } = useQuery(["AdminInquiryList"], AdminInquiryAPI.GET_INQUIRY_LIST);
 
   const handlePersonInquiry = (inquiryNickname: string) => {
-    onInquirySelectUserName(inquiryNickname)
-  }
-  const inquiryDatas = data?.data.contents
+    onInquirySelectUserName(inquiryNickname);
+  };
+  const inquiryDatas = data?.data.contents;
   // const mockData = [
   //   // 실제 예시 response 데이터
   //   // createdAt: '2023-11-22 12:54:06.291'
@@ -67,10 +68,10 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
         {isSuccess && (
           <>
             <AdminInquiryListRowTitle
-              frontName={'문의자'}
+              frontName={"문의자"}
               height={71}
               isDarkMode={false}
-              backName={'문의 일시'}
+              backName={"문의 일시"}
             ></AdminInquiryListRowTitle>
             {inquiryDatas.length > 0 ? (
               inquiryDatas.map((inquiryData: InquiryData, index: number) => (
@@ -85,7 +86,7 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
               ))
             ) : (
               <StyledNoInquiryListAlertText>
-                {'현재 문의 내역이 없습니다!'}
+                {"현재 문의 내역이 없습니다!"}
               </StyledNoInquiryListAlertText>
             )}
           </>
@@ -103,13 +104,13 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
           ))} */}
       </AdminInquiryListContainer>
     </AdminInquiryListContainerOuterWrapper>
-  )
-}
+  );
+};
 const AdminInquiryListContainerOuterWrapper = styled.div`
   background-color: ${palette.WHITE};
   width: 100%;
   height: 591px;
-`
+`;
 const AdminInquiryListContainer = styled.div`
   background-color: ${palette.WHITE};
   overflow: scroll;
@@ -117,13 +118,13 @@ const AdminInquiryListContainer = styled.div`
   width: 80%;
   margin: auto;
   cursor: pointer;
-`
+`;
 const StyledNoInquiryListAlertText = styled.p`
   text-align: center;
   font-size: 16px;
   font-weight: 500;
   padding-top: 20px;
   color: ${palette.GRAY500};
-`
+`;
 
-export default AdminInquiryList
+export default AdminInquiryList;

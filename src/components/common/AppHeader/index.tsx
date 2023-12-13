@@ -1,12 +1,11 @@
-import styled from '@emotion/styled'
-import { BiSolidMoon } from 'react-icons/bi'
-import { RiSunFill } from 'react-icons/ri'
-import { useNavigate } from 'react-router-dom'
-
-import Avatar from '@/components/common/Avatar'
-import { FlexBox } from '@/components/common/Flexbox'
-import { Text } from '@/components/common/Text'
-import { palette } from '@/styles/palette'
+import { BiSolidMoon } from "react-icons/bi";
+import { RiSunFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import styled from "@emotion/styled";
+import Avatar from "@/components/common/Avatar";
+import { FlexBox } from "@/components/common/Flexbox";
+import { Text } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
 
 const StyleAppHeader = styled.div<{ height?: string }>`
   width: 100%;
@@ -16,9 +15,9 @@ const StyleAppHeader = styled.div<{ height?: string }>`
   height: ${({ height }) => height};
   text-align: center;
   padding: 15% 5% 7%;
-`
+`;
 
-const StyledAppHeaderLargeText = styled(Text)<Pick<AppHeaderProps, 'isDarkMode'>>`
+const StyledAppHeaderLargeText = styled(Text)<Pick<AppHeaderProps, "isDarkMode">>`
   font: Body_24;
   font-weight: 600;
   letter-spacing: -0.5;
@@ -28,9 +27,9 @@ const StyledAppHeaderLargeText = styled(Text)<Pick<AppHeaderProps, 'isDarkMode'>
   @media (max-width: 280px) {
     font-size: 1.25rem;
   }
-`
+`;
 
-const StyledAppHeaderSmallText = styled(Text)<Pick<AppHeaderProps, 'isDarkMode'>>`
+const StyledAppHeaderSmallText = styled(Text)<Pick<AppHeaderProps, "isDarkMode">>`
   font: Body_18;
   font-weight: 600;
   letter-spacing: -0.5;
@@ -39,15 +38,15 @@ const StyledAppHeaderSmallText = styled(Text)<Pick<AppHeaderProps, 'isDarkMode'>
   @media (max-width: 280px) {
     font-size: 0.85rem;
   }
-`
+`;
 
 type AppHeaderProps = {
-  nickname: string
-  profileImageUrl: string
-  isDarkMode: boolean
-  height?: string
-  toggleDarkMode: () => void
-}
+  nickname: string;
+  profileImageUrl: string;
+  isDarkMode: boolean;
+  height?: string;
+  toggleDarkMode: () => void;
+};
 
 /**
  * @param nickname - 유저 닉네임
@@ -64,55 +63,55 @@ const AppHeader = ({
   height,
   toggleDarkMode,
 }: AppHeaderProps) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const moveFromAppHeader = (path: string) => {
-    navigate(`/${path}`)
-  }
+    navigate(`/${path}`);
+  };
 
   return (
     <StyleAppHeader height={height}>
       <FlexBox
-        justify={'space-between'}
+        justify={"space-between"}
         style={{
-          marginBottom: '26px',
+          marginBottom: "26px",
         }}
       >
         <Avatar
           width={49}
           height={49}
           imgUrl={profileImageUrl}
-          margin={'0'}
+          margin={"0"}
           style={{
-            cursor: 'pointer',
+            cursor: "pointer",
           }}
           onClick={() => {
-            moveFromAppHeader('profile')
+            moveFromAppHeader("profile");
           }}
         />
         {isDarkMode ? (
           <RiSunFill
-            size={'20px'}
+            size={"20px"}
             style={{
               color: palette.WHITE,
-              cursor: 'pointer',
+              cursor: "pointer",
             }}
             onClick={toggleDarkMode}
           />
         ) : (
           <BiSolidMoon
-            size={'20px'}
+            size={"20px"}
             style={{
               color: palette.DARK_WHITE,
-              cursor: 'pointer',
+              cursor: "pointer",
             }}
             onClick={toggleDarkMode}
           />
         )}
       </FlexBox>
-      <FlexBox align={'flex-end'}>
+      <FlexBox align={"flex-end"}>
         <StyledAppHeaderLargeText
           isDarkMode={isDarkMode}
-          font={'Body_24'}
+          font={"Body_24"}
           fontWeight={600}
           letterSpacing={-0.5}
           style={{
@@ -124,18 +123,18 @@ const AppHeader = ({
         </StyledAppHeaderLargeText>
         <StyledAppHeaderSmallText
           isDarkMode={isDarkMode}
-          font={'Body_18'}
+          font={"Body_18"}
           fontWeight={600}
           letterSpacing={-0.5}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.WHITE,
           }}
         >
-          {'님, 안녕하세요! 오늘도 즐거운 커피밋! ☕️'}
+          {"님, 안녕하세요! 오늘도 즐거운 커피밋! ☕️"}
         </StyledAppHeaderSmallText>
       </FlexBox>
     </StyleAppHeader>
-  )
-}
+  );
+};
 
-export default AppHeader
+export default AppHeader;

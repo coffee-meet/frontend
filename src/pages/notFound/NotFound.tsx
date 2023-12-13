@@ -1,17 +1,16 @@
-import styled from '@emotion/styled'
-import { useNavigate } from 'react-router-dom'
-
-import NotFoundIcon from '@/assets/icons/NotFoundIcon'
-import NormalButton from '@/components/common/Buttons/NormalButton'
-import GradationBackground from '@/components/common/GradationBackground'
-import Spacing from '@/components/common/Spacing'
-import { Text } from '@/components/common/Text'
-import useThemeStore from '@/store/ThemeStore'
-import { palette } from '@/styles/palette'
+import { useNavigate } from "react-router-dom";
+import styled from "@emotion/styled";
+import NormalButton from "@/components/common/Buttons/NormalButton";
+import GradationBackground from "@/components/common/GradationBackground";
+import Spacing from "@/components/common/Spacing";
+import { Text } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
+import useThemeStore from "@/store/ThemeStore";
+import NotFoundIcon from "@/assets/icons/NotFoundIcon";
 
 const NotFoundPage = () => {
-  const isDarkMode = useThemeStore((state) => state.isDarkMode)
-  const navigate = useNavigate()
+  const isDarkMode = useThemeStore((state) => state.isDarkMode);
+  const navigate = useNavigate();
 
   return (
     <StyledNotFoundPage>
@@ -20,35 +19,35 @@ const NotFoundPage = () => {
         <StyledNotFoundPageBackground isDarkMode={isDarkMode}>
           <Spacing size={40} />
           <StyledNotFoundPageHeaderContent
-            font={'Body_72'}
+            font={"Body_72"}
             fontWeight={700}
             letterSpacing={-4}
             isDarkMode={isDarkMode}
           >
-            {'404'}
+            {"404"}
             <Text
-              font={'Body_18'}
+              font={"Body_18"}
               fontWeight={700}
               letterSpacing={-1}
               style={{
-                textAlign: 'center',
+                textAlign: "center",
                 marginTop: 15,
                 color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
               }}
             >
-              {'앗, 현재 페이지를 찾을 수 없어요! 😭'}
+              {"앗, 현재 페이지를 찾을 수 없어요! 😭"}
             </Text>
           </StyledNotFoundPageHeaderContent>
           <StyledNotFoundPageMainContent>
             <StyledNotFoundIconWrapper>
               <NotFoundIcon isDarkMode={isDarkMode} />
               <NormalButton
-                normalButtonType={'form-submit'}
+                normalButtonType={"form-submit"}
                 onClick={() => {
-                  navigate('/')
+                  navigate("/");
                 }}
               >
-                {'홈으로 돌아가기'}
+                {"홈으로 돌아가기"}
               </NormalButton>
             </StyledNotFoundIconWrapper>
             <Spacing size={58.5} />
@@ -56,16 +55,16 @@ const NotFoundPage = () => {
         </StyledNotFoundPageBackground>
       </GradationBackground>
     </StyledNotFoundPage>
-  )
-}
+  );
+};
 
 const StyledNotFoundPage = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 const StyledNotFoundPageBackground = styled.div<{
-  isDarkMode: boolean
+  isDarkMode: boolean;
 }>`
   background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
   height: 100%;
@@ -74,7 +73,7 @@ const StyledNotFoundPageBackground = styled.div<{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`
+`;
 
 const StyledNotFoundPageHeaderContent = styled(Text)<{ isDarkMode: boolean }>`
   text-align: center;
@@ -83,7 +82,7 @@ const StyledNotFoundPageHeaderContent = styled(Text)<{ isDarkMode: boolean }>`
   @media (max-width: 280px) {
     font-size: 4rem;
   }
-`
+`;
 
 const StyledNotFoundPageMainContent = styled.div`
   text-align: center;
@@ -96,7 +95,7 @@ const StyledNotFoundPageMainContent = styled.div`
   @media (max-width: 280px) {
     font-size: 0.875rem;
   }
-`
+`;
 
 const StyledNotFoundIconWrapper = styled.div`
   display: flex;
@@ -104,6 +103,6 @@ const StyledNotFoundIconWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
-export default NotFoundPage
+export default NotFoundPage;

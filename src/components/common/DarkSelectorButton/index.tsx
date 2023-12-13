@@ -1,20 +1,19 @@
-import styled from '@emotion/styled'
-import { useState } from 'react'
-
-import { palette } from '@/styles/palette'
+import { useState } from "react";
+import styled from "@emotion/styled";
+import { palette } from "@/styles/palette";
 
 type ToggleButtonProps = {
-  buttonName: string
-  selectedButtonColor: string
-  defaultButtonColor?: string
-  selectedTextColor: string
-  onClick?: () => void
-}
+  buttonName: string;
+  selectedButtonColor: string;
+  defaultButtonColor?: string;
+  selectedTextColor: string;
+  onClick?: () => void;
+};
 
 type StyledButtonProps = {
-  backgroundColor: string
-  textColor: string
-}
+  backgroundColor: string;
+  textColor: string;
+};
 
 const DarkSelectorButton = ({
   buttonName,
@@ -23,21 +22,23 @@ const DarkSelectorButton = ({
   selectedTextColor = palette.SECONDARY,
   onClick,
 }: ToggleButtonProps) => {
-  const [backgroundColor, setBackgroundColor] = useState(defaultButtonColor)
-  const [textColor, setTextColor] = useState(palette.SECONDARY) // 텍스트 색상에 대한 state
+  const [backgroundColor, setBackgroundColor] = useState(defaultButtonColor);
+  const [textColor, setTextColor] = useState(palette.SECONDARY); // 텍스트 색상에 대한 state
 
   const handleButtonClick = () => {
     setBackgroundColor((prevColor) => {
       if (prevColor === defaultButtonColor) {
-        setTextColor(selectedTextColor)
-        return selectedButtonColor
+        setTextColor(selectedTextColor);
+        return selectedButtonColor;
       } else {
-        setTextColor(palette.SECONDARY)
-        return defaultButtonColor
+        setTextColor(palette.SECONDARY);
+        return defaultButtonColor;
       }
-    })
-    if (onClick) onClick()
-  }
+    });
+    if (onClick) {
+      onClick();
+    }
+  };
 
   return (
     <StyledButton
@@ -47,8 +48,8 @@ const DarkSelectorButton = ({
     >
       {buttonName}
     </StyledButton>
-  )
-}
+  );
+};
 
 const StyledButton = styled.button<StyledButtonProps>`
   margin: 0 4px;
@@ -72,6 +73,6 @@ const StyledButton = styled.button<StyledButtonProps>`
   line-height: 1;
   font-weight: 600;
   letter-spacing: -1px;
-`
+`;
 
-export default DarkSelectorButton
+export default DarkSelectorButton;
