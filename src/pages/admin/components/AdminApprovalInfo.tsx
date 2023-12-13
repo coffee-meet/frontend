@@ -22,8 +22,12 @@ interface RequestData {
 }
 
 const AdminApprovalInfo = ({ selectedApprovalId }: AdminApprovalInfoProps) => {
-  const mutationApprovalRequestAccept = useMutation(AdminApprovalAPI.POST_APPROVAL_ACCEPT);
-  const mutationReject = useMutation(AdminApprovalAPI.POST_APPROVAL_REJECT);
+  const mutationApprovalRequestAccept = useMutation({
+    mutationFn: AdminApprovalAPI.POST_APPROVAL_ACCEPT,
+  });
+  const mutationReject = useMutation({
+    mutationFn: AdminApprovalAPI.POST_APPROVAL_REJECT,
+  });
 
   const onAcceptAdminApproval = () => {
     mutationApprovalRequestAccept.mutate(`${selectedApprovalId}`);
@@ -48,10 +52,10 @@ const AdminApprovalInfo = ({ selectedApprovalId }: AdminApprovalInfoProps) => {
     });
   };
 
-  const { data, isSuccess } = useQuery(
-    ["ApprovalRequestUserInfo"],
-    AdminApprovalAPI.GET_APPROVAL_INFO,
-  );
+  const { data, isSuccess } = useQuery({
+    queryKey: ["ApprovalRequestUserInfo"],
+    queryFn: AdminApprovalAPI.GET_APPROVAL_INFO,
+  });
   const noFilteredDatas = data?.data.contents;
   const filteredDatas = noFilteredDatas?.filter(
     (requestData: RequestData) => requestData.certificationId === selectedApprovalId,

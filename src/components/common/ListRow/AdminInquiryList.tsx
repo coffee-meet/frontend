@@ -30,7 +30,10 @@ interface InquiryData {
 
 const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) => {
   // API 요청 코드
-  const { data, isSuccess } = useQuery(["AdminInquiryList"], AdminInquiryAPI.GET_INQUIRY_LIST);
+  const { data, isSuccess } = useQuery({
+    queryKey: ["AdminInquiryList"],
+    queryFn: AdminInquiryAPI.GET_INQUIRY_LIST,
+  });
 
   const handlePersonInquiry = (inquiryNickname: string) => {
     onInquirySelectUserName(inquiryNickname);

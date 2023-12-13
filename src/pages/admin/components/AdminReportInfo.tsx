@@ -12,7 +12,10 @@ interface AdminReportInfoProps {
 }
 
 const AdminReportInfo = ({ selectedReporterNickname }: AdminReportInfoProps) => {
-  const { data, isSuccess } = useQuery(["ReportedUserInfo"], AdminReportAPI.GET_REPORT_INFO);
+  const { data, isSuccess } = useQuery({
+    queryKey: ["ReportedUserInfo"],
+    queryFn: AdminReportAPI.GET_REPORT_INFO,
+  });
   console.log(isSuccess && data);
 
   const mockData = {

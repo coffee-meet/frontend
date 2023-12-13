@@ -17,7 +17,8 @@ const AdminLogin = () => {
 
   const navigate = useNavigate();
 
-  const mutation = useMutation(AdminLoginAPI.POST_ADMIN_LOGIN, {
+  const mutation = useMutation({
+    mutationFn: AdminLoginAPI.POST_ADMIN_LOGIN,
     onSuccess: () => {
       navigate("/admin");
     },

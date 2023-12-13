@@ -73,7 +73,8 @@ const RegisterCompany = () => {
     // })
     return await sendEmailValidCode(email, userId);
   };
-  const emailVerifyMutation = useMutation((email: string) => handleClickEmailVerify(email), {
+  const emailVerifyMutation = useMutation({
+    mutationFn: (email: string) => handleClickEmailVerify(email),
     onSuccess: (response) => {
       console.log(response);
     },

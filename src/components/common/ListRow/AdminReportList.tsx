@@ -26,7 +26,10 @@ interface ReportData {
 }
 
 const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
-  const { data, isSuccess } = useQuery(["ReportedUserList"], AdminReportAPI.GET_REPORT_LIST);
+  const { data, isSuccess } = useQuery({
+    queryKey: ["ReportedUserList"],
+    queryFn: AdminReportAPI.GET_REPORT_LIST,
+  });
   const reportDatas = data?.data.contents;
   const handlePersonReported = (nickname: string) => {
     onReportSelect(nickname);

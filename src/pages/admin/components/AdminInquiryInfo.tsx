@@ -13,10 +13,10 @@ interface AdminInquiryInfoProps {
 }
 
 const AdminInquiryInfo = (selectedInquiryNickname: AdminInquiryInfoProps) => {
-  const { data, isSuccess } = useQuery(
-    ["ApprovalRequestUserInfo"],
-    AdminInquiryAPI.GET_INQUIRY_INFO,
-  );
+  const { data, isSuccess } = useQuery({
+    queryKey: ["ApprovalRequestUserInfo"],
+    queryFn: AdminInquiryAPI.GET_INQUIRY_INFO,
+  });
   console.log(isSuccess && data);
   const inquiryNickname = selectedInquiryNickname.selectedInquiryNickname;
 

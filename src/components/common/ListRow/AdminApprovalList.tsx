@@ -25,10 +25,10 @@ interface RequestData {
 
 const AdminApprovalList = ({ onApproveSelectId }: AdminApprovalListProps) => {
   // API 요청 코드
-  const { data, isSuccess } = useQuery(
-    ["ApprovalRequestList"],
-    AdminApprovalAPI.GET_APPROVAL_REQUEST_LIST,
-  );
+  const { data, isSuccess } = useQuery({
+    queryKey: ["ApprovalRequestList"],
+    queryFn: AdminApprovalAPI.GET_APPROVAL_REQUEST_LIST,
+  });
 
   const handlePersonApproval = (certificationId: number) => {
     onApproveSelectId(certificationId);

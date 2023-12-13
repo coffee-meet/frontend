@@ -21,16 +21,8 @@ const AdminReportersList = ({
   onReportSelect,
   selectedReportNickname,
 }: AdminReportersListProps) => {
-  const mutationReportAddCount = useMutation(AdminReportAPI.POST_REPORT_ADD, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
-  const mutationReportIgnore = useMutation(AdminReportAPI.POST_REPORT_IGNORE, {
-    onSuccess: (data) => {
-      console.log(data);
-    },
-  });
+  const mutationReportAddCount = useMutation({ mutationFn: AdminReportAPI.POST_REPORT_ADD });
+  const mutationReportIgnore = useMutation({ mutationFn: AdminReportAPI.POST_REPORT_IGNORE });
   const onReportAddCount = () => {
     mutationReportAddCount.mutate();
   };
@@ -52,7 +44,10 @@ const AdminReportersList = ({
       okFunc: onReportIgnore,
     });
   };
-  const { data, isSuccess } = useQuery(["ReporterUserList"], AdminReportAPI.GET_REPORTERS_LIST);
+  const { data, isSuccess } = useQuery({
+    queryKey: ["ReporterUserList"],
+    queryFn: AdminReportAPI.GET_REPORTERS_LIST,
+  });
   console.log(isSuccess && data);
   const handlePersonReported = (nickname: string) => {
     onReportSelect(nickname);
