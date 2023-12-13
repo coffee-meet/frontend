@@ -35,15 +35,6 @@ const AdminApprovalList = ({ onApproveSelectId }: AdminApprovalListProps) => {
   };
   const approvalDatas = data?.data.contents;
 
-  // const mockData = [
-  //   { approvalRequestUser: '유명한', approvalRequestUserStatus: '대기 중' },
-  //   { approvalRequestUser: '박은지', approvalRequestUserStatus: '대기 중' },
-  //   { approvalRequestUser: '주다현', approvalRequestUserStatus: '대기 중' },
-  //   { approvalRequestUser: '남궁호수', approvalRequestUserStatus: '대기 중' },
-  //   { approvalRequestUser: '박상민', approvalRequestUserStatus: '대기 중' },
-  //   { approvalRequestUser: '우창욱', approvalRequestUserStatus: '대기 중' },
-  // ]
-
   return (
     <AdminApprovalListContainerOuterWrapper>
       <AdminApprovalListContainer>

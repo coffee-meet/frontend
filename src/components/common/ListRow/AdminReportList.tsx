@@ -34,34 +34,6 @@ const AdminReportList = ({ onReportSelect }: AdminReportListProps) => {
   const handlePersonReported = (nickname: string) => {
     onReportSelect(nickname);
   };
-  // const ReportDatas = data?.data.reports
-  //실제 response 데이터 예시
-  // {
-  //   "targetedNickname": "유명한",
-  //   "chattingRoomName": "채팅방1",
-  //   "targetedId": 7347,
-  //   "chattingRoomId": 1413,
-  //   "createdAt": "2014-01-04T19:39:52.241736129"
-  // },
-  // {
-  //   "targetedNickname": "박상민",
-  //   "chattingRoomName": "채팅방2",
-  //   "targetedId": 3296,
-  //   "chattingRoomId": 9438,
-  //   "createdAt": "2025-01-17T13:41:40.815311"
-  // }
-  //createdAt 변환 필요. '-' -> '.'으로도 변환
-  // const mockData = [
-  //   { chattingRoomName: '채팅방1', targetedNickname: '유명한', createdAt: '2023.11.23' },
-  //   { chattingRoomName: '채팅방2', targetedNickname: '박상민', createdAt: '2023.11.22' },
-  //   { chattingRoomName: '채팅방3', targetedNickname: '박은지', createdAt: '2023.11.22' },
-  //   { chattingRoomName: '채팅방4', targetedNickname: '주다현', createdAt: '2023.11.15' },
-  //   { chattingRoomName: '채팅5', targetedNickname: '남궁호수', createdAt: '2023.10.29' },
-  //   { chattingRoomName: '채팅방6', targetedNickname: '우창욱', createdAt: '2023.10.26' },
-  //   { chattingRoomName: '채팅방칠', targetedNickname: '유명한', createdAt: '2023.10.26' },
-  //   { chattingRoomName: '채팅방팔', targetedNickname: '박상민', createdAt: '2023.10.26' },
-  //   { chattingRoomName: '채팅방9', targetedNickname: '박은지', createdAt: '2023.10.23' },
-  // ]
 
   return (
     <StyledAdminReportListContainerOuterWrapper>

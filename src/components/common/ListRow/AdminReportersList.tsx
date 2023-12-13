@@ -52,17 +52,12 @@ const AdminReportersList = ({
   const handlePersonReported = (nickname: string) => {
     onReportSelect(nickname);
   };
-  // const ReportersDatas = data?.data.reporters
 
   const mockData = [
     { reporterUserName: "박은지", reportedDate: "2023.11.23" },
     { reporterUserName: "유명한", reportedDate: "2021.11.21" },
     { reporterUserName: "박상민", reportedDate: "2021.11.15" },
   ];
-  // 위 mockData(실제 response)에서 reportIds 추출. -> 신고 처리 시, 해당 reportIds를 body에 담아서 보내야 함.
-  // const reportersReportIds = {
-  //   reportIds: [2530, 5942, 9590, 1726],
-  // }
   return (
     <StyledAdminReportersListContainerOuterWrapper>
       <AdminPageHeader username={selectedReportNickname}></AdminPageHeader>

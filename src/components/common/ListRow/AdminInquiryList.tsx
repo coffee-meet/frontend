@@ -39,31 +39,6 @@ const AdminInquiryList = ({ onInquirySelectUserName }: AdminInquiryListProps) =>
     onInquirySelectUserName(inquiryNickname);
   };
   const inquiryDatas = data?.data.contents;
-  // const mockData = [
-  //   // 실제 예시 response 데이터
-  //   // createdAt: '2023-11-22 12:54:06.291'
-  //   {
-  //     inquiryId: 5732,
-  //     inquirer: '박상민',
-  //     title: '제목1',
-  //     createdAt: '2023.11.22',
-  //   },
-  //   {
-  //     inquiryId: 6155,
-  //     inquirer: '박은지',
-  //     title: '제목2',
-  //     createdAt: '2023.11.22',
-  //   },
-  //   { inquirer: '주다현', createdAt: '2023.11.22' },
-  //   { inquirer: '남궁호수', createdAt: '2023.11.21' },
-  //   { inquirer: '유명한', createdAt: '2023.11.21' },
-  //   { inquirer: '박상민', createdAt: '2023.11.17' },
-  //   { inquirer: '남궁호수', createdAt: '2023.11.17' },
-  //   { inquirer: '주다현', createdAt: '2023.11.17' },
-  //   { inquirer: '박은지', createdAt: '2023.11.17' },
-  //   { inquirer: '우창욱', createdAt: '2023.11.10' },
-  //   { inquirer: '유명한', createdAt: '2023.11.10' },
-  // ]
 
   return (
     <AdminInquiryListContainerOuterWrapper>
