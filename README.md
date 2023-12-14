@@ -89,5 +89,5 @@
 <br>
 ## 🎶 Frontend CI/CD Flow
 
-![image](https://github.com/coffee-meet/frontend/assets/96521594/6011aee1-40fc-4298-9421-bf02ea5ebf10)
+![image](https://github.com/coffee-meet/frontend/assets/96521594/ec881073-5ac3-4054-9f4f-6d93eff105f6)
 
