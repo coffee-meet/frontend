@@ -1,17 +1,16 @@
-import styled from '@emotion/styled'
-import { useEffect, useState } from 'react'
-import { TiDelete } from 'react-icons/ti'
-
-import { palette } from '@/styles/palette'
+import { useEffect, useState } from "react";
+import { TiDelete } from "react-icons/ti";
+import styled from "@emotion/styled";
+import { palette } from "@/styles/palette";
 
 type CustomSelectorButtonProps = {
-  isDarkMode: boolean
-  buttonName: string
-  isButtonClicked: (selected: boolean) => void
-  onRemove: () => void
-  isButtonSelected: boolean
-  isMaxLengthReached: boolean
-}
+  isDarkMode: boolean;
+  buttonName: string;
+  isButtonClicked: (selected: boolean) => void;
+  onRemove: () => void;
+  isButtonSelected: boolean;
+  isMaxLengthReached: boolean;
+};
 
 const CustomSelectorButton = ({
   isDarkMode,
@@ -31,22 +30,24 @@ const CustomSelectorButton = ({
         selectedButtonColor: palette.BLUE,
         defaultButtonColor: palette.TERTIARY,
         textColor: palette.WHITE,
-      }
+      };
 
-  const [isButtonSelected, setIsButtonSelected] = useState(propIsButtonSelected)
+  const [isButtonSelected, setIsButtonSelected] = useState(propIsButtonSelected);
 
   useEffect(() => {
-    setIsButtonSelected(propIsButtonSelected)
-  }, [propIsButtonSelected])
+    setIsButtonSelected(propIsButtonSelected);
+  }, [propIsButtonSelected]);
 
   const handleButtonClick = () => {
     if (isMaxLengthReached && !isButtonSelected) {
-      isButtonClicked && isButtonClicked(true)
-      return
+      isButtonClicked && isButtonClicked(true);
+      return;
     }
-    setIsButtonSelected((prevState) => !prevState)
-    if (isButtonClicked) isButtonClicked(!isButtonSelected)
-  }
+    setIsButtonSelected((prevState) => !prevState);
+    if (isButtonClicked) {
+      isButtonClicked(!isButtonSelected);
+    }
+  };
 
   return (
     <StyledButtonWrapper>
@@ -64,24 +65,24 @@ const CustomSelectorButton = ({
       <StyledRemoveButton onClick={onRemove}>
         <TiDelete
           style={{
-            position: 'relative',
+            position: "relative",
             right: 26,
             top: -15,
             width: 24,
             height: 24,
-            cursor: 'pointer',
+            cursor: "pointer",
             color: isDarkMode ? palette.GRAY300 : palette.BLACK,
           }}
         />
       </StyledRemoveButton>
     </StyledButtonWrapper>
-  )
-}
+  );
+};
 
 const StyledButtonWrapper = styled.div`
   display: flex;
   align-items: center;
-`
+`;
 
 const StyledRemoveButton = styled.button`
   margin-left: 8px;
@@ -91,11 +92,11 @@ const StyledRemoveButton = styled.button`
   &:focus {
     outline: none;
   }
-`
+`;
 
 const StyledButton = styled.button<{
-  backgroundColor: string
-  textColor: string
+  backgroundColor: string;
+  textColor: string;
 }>`
   margin: 8px;
   height: 36px;
@@ -116,6 +117,6 @@ const StyledButton = styled.button<{
   display: inline-block;
   vertical-align: middle;
   line-height: 1;
-`
+`;
 
-export default CustomSelectorButton
+export default CustomSelectorButton;

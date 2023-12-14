@@ -1,13 +1,12 @@
-import styled from '@emotion/styled'
-
-import { palette } from '@/styles/palette'
+import styled from "@emotion/styled";
+import { palette } from "@/styles/palette";
 
 type DividerProps = {
-  width: string
-  height: string
-  margin?: string
-  isDarkMode: boolean
-}
+  width: string;
+  height: string;
+  margin?: string;
+  isDarkMode: boolean;
+};
 
 /**
  * @param width - 너비 (string)
@@ -21,4 +20,4 @@ export const Divider = styled.div<DividerProps>`
   height: ${({ height }) => height};
   margin: ${({ margin }) => margin};
   background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY500 : palette.GRAY100)};
-`
+`;

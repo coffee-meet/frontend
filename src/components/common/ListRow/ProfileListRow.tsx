@@ -1,17 +1,16 @@
-import styled from '@emotion/styled'
-import { ReactNode } from 'react'
-
-import { FlexBox } from '@/components/common/Flexbox'
-import { Text } from '@/components/common/Text'
-import { palette } from '@/styles/palette'
+import type { ReactNode } from "react";
+import styled from "@emotion/styled";
+import { FlexBox } from "@/components/common/Flexbox";
+import { Text } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
 
 type ProfileListRowProps = {
-  firstIcon: ReactNode
-  title: string
-  additionalContent?: ReactNode | string
-  isDarkMode?: boolean
-  moveFromProfileListRow?: () => void
-}
+  firstIcon: ReactNode;
+  title: string;
+  additionalContent?: ReactNode | string;
+  isDarkMode?: boolean;
+  moveFromProfileListRow?: () => void;
+};
 
 /**
  * @param firstIcon - 첫번째 아이콘 (ReactNode)
@@ -28,37 +27,37 @@ const ProfileListRow = ({
   isDarkMode,
   moveFromProfileListRow,
 }: ProfileListRowProps) => {
-  const isAdditionalContentString = typeof additionalContent === 'string'
-  const additionalContentColor = isAdditionalContentString ? palette.GRAY300 : undefined
+  const isAdditionalContentString = typeof additionalContent === "string";
+  const additionalContentColor = isAdditionalContentString ? palette.GRAY300 : undefined;
 
   return (
     <StyleList onClick={moveFromProfileListRow}>
       <StyleIconWrapper
         width={38}
         height={38}
-        borderRadius={'50%'}
+        borderRadius={"50%"}
         backgroundColor={isDarkMode ? palette.DARK_ICON : palette.GRAY100}
         style={{
-          margin: '0 16px 0 0',
+          margin: "0 16px 0 0",
           color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
         }}
       >
         {firstIcon}
       </StyleIconWrapper>
       <Text
-        font={'Body_16'}
+        font={"Body_16"}
         fontWeight={500}
         letterSpacing={-1}
         style={{
           flex: 1,
-          textAlign: 'left',
+          textAlign: "left",
           color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
         }}
       >
         {title}
       </Text>
       <Text
-        font={'Body_12'}
+        font={"Body_12"}
         fontWeight={500}
         letterSpacing={0}
         style={{
@@ -74,25 +73,25 @@ const ProfileListRow = ({
         {additionalContent}
       </Text>
     </StyleList>
-  )
-}
+  );
+};
 
 export const StyleList = styled(FlexBox)<{
-  width?: number
-  height?: number
+  width?: number;
+  height?: number;
 }>`
-  width: ${({ width }) => (width ? `${width}px` : '100%')};
-  height: ${({ height }) => (height ? `${height}px` : '')};
+  width: ${({ width }) => (width ? `${width}px` : "100%")};
+  height: ${({ height }) => (height ? `${height}px` : "")};
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-`
+`;
 
 const StyleIconWrapper = styled.div<{
-  width: number
-  height: number
-  borderRadius?: string
-  backgroundColor: string
+  width: number;
+  height: number;
+  borderRadius?: string;
+  backgroundColor: string;
 }>`
   width: ${({ width }) => width}px;
   height: ${({ height }) => height}px;
@@ -101,6 +100,6 @@ const StyleIconWrapper = styled.div<{
   align-items: center;
   border-radius: ${({ borderRadius }) => borderRadius};
   background-color: ${({ backgroundColor }) => backgroundColor};
-`
+`;
 
-export default ProfileListRow
+export default ProfileListRow;

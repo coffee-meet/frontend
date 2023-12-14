@@ -1,5 +1,4 @@
-import { QueryClient } from '@tanstack/react-query'
-import { QueryCache } from '@tanstack/react-query'
+import { QueryCache, QueryClient } from "@tanstack/react-query";
 
 /**
  * 전역 QueryClientProvider에서 사용되는 QueryClient입니다.
@@ -7,7 +6,6 @@ import { QueryCache } from '@tanstack/react-query'
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      suspense: false,
       refetchOnWindowFocus: false,
       refetchOnMount: false,
     },
@@ -18,4 +16,4 @@ export const queryClient = new QueryClient({
       // window.location.href = '/'
     },
   }),
-})
+});

@@ -1,15 +1,17 @@
-import { Route, Routes } from 'react-router-dom'
-
-import Chatting from '@/pages/chatting/Chatting'
+import { Route, Routes } from "react-router-dom";
+import Chatting from "@/pages/chatting/Chatting";
 
 const ChattingPage = () => {
   return (
     <Routes>
-      <Route path={'/'} element={<Chatting />}>
-        {' '}
+      <Route
+        path={"/"}
+        element={<Chatting />}
+      >
+        {" "}
       </Route>
     </Routes>
-  )
-}
+  );
+};
 
-export default ChattingPage
+export default ChattingPage;

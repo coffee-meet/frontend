@@ -1,11 +1,9 @@
-import 'react-toastify/dist/ReactToastify.css'
-
-import styled from '@emotion/styled'
-import { Outlet } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-
-import Modal from '@/components/common/Modal'
-import { theme } from '@/styles/theme'
+import { Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styled from "@emotion/styled";
+import Modal from "@/components/common/Modal";
+import { theme } from "@/styles/theme";
 
 const Layout = () => {
   return (
@@ -14,8 +12,8 @@ const Layout = () => {
       <Outlet />
       <ToastContainer />
     </MainContainer>
-  )
-}
+  );
+};
 
 const MainContainer = styled.main`
   position: relative;
@@ -23,6 +21,6 @@ const MainContainer = styled.main`
   height: calc(var(--vh, 1vh) * 100);
   margin: 0 auto;
   background-color: ${theme.palette.GRAY200};
-`
+`;
 
-export default Layout
+export default Layout;

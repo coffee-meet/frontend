@@ -1,16 +1,16 @@
-import { FlexBox } from '@/components/common/Flexbox'
-import { StyleList } from '@/components/common/ListRow/ProfileListRow'
-import { Text } from '@/components/common/Text'
-import { palette } from '@/styles/palette'
+import { FlexBox } from "@/components/common/Flexbox";
+import { StyleList } from "@/components/common/ListRow/ProfileListRow";
+import { Text } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
 
 type AdminApprovalListRowProps = {
-  height: number
-  nickname: string
-  infoMessage: string | number
-  isDarkMode: boolean
+  height: number;
+  nickname: string;
+  infoMessage: string | number;
+  isDarkMode: boolean;
 
-  onClick?: () => void
-}
+  onClick?: () => void;
+};
 const AdminApprovalListRow = ({
   height,
   nickname,
@@ -20,22 +20,22 @@ const AdminApprovalListRow = ({
   onClick,
 }: AdminApprovalListRowProps) => {
   const renderInfoMessage = () => {
-    if (typeof infoMessage === 'number') {
+    if (typeof infoMessage === "number") {
       return (
         <FlexBox>
           <Text
-            font={'Caption_11'}
+            font={"Caption_11"}
             fontWeight={900}
             letterSpacing={0}
             style={{
               color: isDarkMode ? palette.GRAY300 : palette.GRAY500,
-              marginRight: '2px',
+              marginRight: "2px",
             }}
           >
-            {'누적 '}
+            {"누적 "}
           </Text>
           <Text
-            font={'Body_16'}
+            font={"Body_16"}
             fontWeight={900}
             letterSpacing={0}
             style={{
@@ -45,22 +45,22 @@ const AdminApprovalListRow = ({
             {infoMessage}
           </Text>
           <Text
-            font={'Caption_11'}
+            font={"Caption_11"}
             fontWeight={900}
             letterSpacing={0}
             style={{
               color: isDarkMode ? palette.GRAY300 : palette.GRAY500,
-              marginLeft: '2px',
+              marginLeft: "2px",
             }}
           >
-            {' 회'}
+            {" 회"}
           </Text>
         </FlexBox>
-      )
+      );
     }
     return (
       <Text
-        font={'Caption_11'}
+        font={"Caption_11"}
         fontWeight={900}
         letterSpacing={0}
         style={{
@@ -69,21 +69,21 @@ const AdminApprovalListRow = ({
       >
         {infoMessage}
       </Text>
-    )
-  }
+    );
+  };
 
   return (
     <StyleList
       width={322}
       height={height}
       style={{
-        padding: '0 20px 0px 20px',
+        padding: "0 20px 0px 20px",
         borderBottom: `1px solid ${palette.GRAY300}`,
       }}
       onClick={onClick}
     >
       <Text
-        font={'Body_16'}
+        font={"Body_16"}
         fontWeight={700}
         letterSpacing={0}
         style={{
@@ -94,7 +94,7 @@ const AdminApprovalListRow = ({
       </Text>
       {renderInfoMessage()}
     </StyleList>
-  )
-}
+  );
+};
 
-export default AdminApprovalListRow
+export default AdminApprovalListRow;

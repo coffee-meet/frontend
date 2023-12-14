@@ -39,6 +39,7 @@
 | <img src="https://avatars.githubusercontent.com/u/96521594?s=300&v=4" width="130" height="130"> | <img src ="https://avatars.githubusercontent.com/u/69716992?v=4" width="130" height="130"> | 
 |                           [주다현](https://github.com/judahhh)                           |                          [홍창기](https://github.com/cheshier)                           
 
+
 <br><br>
 
 ## 💻 Tech Stack
@@ -89,3 +90,4 @@
 ## 🎶 Frontend CI/CD Flow
 
 ![image](https://github.com/coffee-meet/frontend/assets/96521594/6011aee1-40fc-4298-9421-bf02ea5ebf10)
+

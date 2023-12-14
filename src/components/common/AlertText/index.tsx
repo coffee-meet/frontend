@@ -1,12 +1,12 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 
 type AlertTextProps = {
-  fontSize: string
-  fontColor: string
-  children?: React.ReactNode
-  padding?: string
-  textAlign?: string
-}
+  fontSize: string;
+  fontColor: string;
+  children?: React.ReactNode;
+  padding?: string;
+  textAlign?: string;
+};
 
 const AlertText = ({ padding, textAlign, fontSize, fontColor, children }: AlertTextProps) => {
   return (
@@ -20,14 +20,14 @@ const AlertText = ({ padding, textAlign, fontSize, fontColor, children }: AlertT
         {children}
       </StyleAlertText>
     </>
-  )
-}
+  );
+};
 
 const StyleAlertText = styled.div<AlertTextProps>`
   font-size: ${(props) => props.fontSize};
   color: ${(props) => props.fontColor};
   padding: ${(props) => props.padding};
   text-align: ${(props) => props.textAlign};
-`
+`;
 
-export default AlertText
+export default AlertText;

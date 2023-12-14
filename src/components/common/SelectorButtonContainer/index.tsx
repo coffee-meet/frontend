@@ -1,17 +1,17 @@
-import styled from '@emotion/styled'
-import { useState } from 'react'
+import { useState } from "react";
+import styled from "@emotion/styled";
+import AlertText from "@/components/common/AlertText";
+import CountNumber from "@/components/common/CountNumber";
+import CustomSelectorButton from "@/components/common/CustomSelectorButton";
+import SelectorButton from "@/components/common/SelectorButton";
+import { palette } from "@/styles/palette";
 
-import AlertText from '@/components/common/AlertText'
-import CountNumber from '@/components/common/CountNumber'
-import CustomSelectorButton from '@/components/common/CustomSelectorButton'
-import SelectorButton from '@/components/common/SelectorButton'
-import { palette } from '@/styles/palette'
 type SelectorButtonContainerProps = {
-  isDarkMode: boolean
-  type: 'interest' | 'job'
-  buttonNames: string[]
-  maxLength: number
-}
+  isDarkMode: boolean;
+  type: "interest" | "job";
+  buttonNames: string[];
+  maxLength: number;
+};
 
 const SelectorButtonContainer = ({
   isDarkMode,
@@ -19,33 +19,33 @@ const SelectorButtonContainer = ({
   buttonNames,
   maxLength,
 }: SelectorButtonContainerProps) => {
-  const [selectedCount, setSelectedCount] = useState(0)
-  const [showAlert, setShowAlert] = useState(false)
-  const [customButtons, setCustomButtons] = useState<string[]>([])
+  const [selectedCount, setSelectedCount] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const [customButtons, setCustomButtons] = useState<string[]>([]);
 
   const handleButtonSelection = (isSelected: boolean) => {
     if (isSelected) {
       if (selectedCount + 1 > maxLength) {
-        setShowAlert(true)
-        return
+        setShowAlert(true);
+        return;
       } else {
-        setSelectedCount(selectedCount + 1)
+        setSelectedCount(selectedCount + 1);
       }
     } else {
-      setSelectedCount(Math.max(selectedCount - 1, 0))
+      setSelectedCount(Math.max(selectedCount - 1, 0));
     }
 
-    setShowAlert(false)
-  }
+    setShowAlert(false);
+  };
   const handleCustomButtonClick = (isSelected: boolean) => {
-    handleButtonSelection(isSelected)
-  }
+    handleButtonSelection(isSelected);
+  };
 
   const handleCustomButtonRemove = (buttonName: string) => {
-    const updatedCustomButtons = customButtons.filter((name) => name !== buttonName)
-    setCustomButtons(updatedCustomButtons)
-    setSelectedCount(Math.max(selectedCount - 1, 0))
-  }
+    const updatedCustomButtons = customButtons.filter((name) => name !== buttonName);
+    setCustomButtons(updatedCustomButtons);
+    setSelectedCount(Math.max(selectedCount - 1, 0));
+  };
 
   return (
     <ButtonsContainerOuterWrapper>
@@ -74,9 +74,9 @@ const SelectorButtonContainer = ({
         ))}
         {showAlert && (
           <AlertText
-            padding={'10px 0 0 0'}
-            textAlign={'end'}
-            fontSize={'12px'}
+            padding={"10px 0 0 0"}
+            textAlign={"end"}
+            fontSize={"12px"}
             fontColor={palette.RED}
           >
             {`최대 ${maxLength}개까지만 설정할 수 있습니다!`}
@@ -91,12 +91,12 @@ const SelectorButtonContainer = ({
         color={isDarkMode ? palette.GRAY300 : palette.BLACK}
       />
     </ButtonsContainerOuterWrapper>
-  )
-}
+  );
+};
 
 const ButtonsContainerOuterWrapper = styled.div`
   position: relative;
-`
+`;
 
 const ButtonsContainer = styled.div<{ isDarkMode: boolean }>`
   width: 348px;
@@ -108,8 +108,8 @@ const ButtonsContainer = styled.div<{ isDarkMode: boolean }>`
   position: relative;
   background-color: ${(props) => (props.isDarkMode ? palette.GRAY600 : palette.WHITE)};
   border-radius: 10px;
-  border-color: ${(props) => (props.isDarkMode ? 'none' : palette.GRAY200)};
-  border-width: ${(props) => (props.isDarkMode ? 'none' : '1px')};
-`
+  border-color: ${(props) => (props.isDarkMode ? "none" : palette.GRAY200)};
+  border-width: ${(props) => (props.isDarkMode ? "none" : "1px")};
+`;
 
-export default SelectorButtonContainer
+export default SelectorButtonContainer;

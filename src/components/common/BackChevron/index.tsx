@@ -1,7 +1,6 @@
-import styled from '@emotion/styled'
-import { BsChevronLeft } from 'react-icons/bs'
-
-import { palette } from '@/styles/palette'
+import { BsChevronLeft } from "react-icons/bs";
+import styled from "@emotion/styled";
+import { palette } from "@/styles/palette";
 
 const StyleBackChevron = styled.div<BackChevronProps>`
   width: 38px;
@@ -15,10 +14,10 @@ const StyleBackChevron = styled.div<BackChevronProps>`
     isDarkMode
       ? hasBackground
         ? `${palette.GRAY600}`
-        : 'transparent'
+        : "transparent"
       : hasBackground
       ? `${palette.WHITE}`
-      : 'transparent'};
+      : "transparent"};
   border: ${({ hasBackground, isDarkMode }) =>
     isDarkMode
       ? hasBackground
@@ -27,13 +26,13 @@ const StyleBackChevron = styled.div<BackChevronProps>`
       : hasBackground
       ? `1px solid ${palette.GRAY300}`
       : `1px solid ${palette.TERTIARY}`};
-`
+`;
 
 type BackChevronProps = {
-  hasBackground?: boolean
-  isDarkMode?: boolean
-  prevClick?: () => void
-}
+  hasBackground?: boolean;
+  isDarkMode?: boolean;
+  prevClick?: () => void;
+};
 
 /**
  * @param hasBackground - (Optional) 배경색 여부
@@ -43,7 +42,11 @@ type BackChevronProps = {
 
 const BackChevron = ({ hasBackground, isDarkMode, prevClick }: BackChevronProps) => {
   return (
-    <StyleBackChevron hasBackground={hasBackground} isDarkMode={isDarkMode} onClick={prevClick}>
+    <StyleBackChevron
+      hasBackground={hasBackground}
+      isDarkMode={isDarkMode}
+      onClick={prevClick}
+    >
       <BsChevronLeft
         size={20}
         style={{
@@ -57,7 +60,7 @@ const BackChevron = ({ hasBackground, isDarkMode, prevClick }: BackChevronProps)
         }}
       />
     </StyleBackChevron>
-  )
-}
+  );
+};
 
-export default BackChevron
+export default BackChevron;

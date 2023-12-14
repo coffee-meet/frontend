@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
@@ -21,7 +21,7 @@ jobs:
         id: cache
         uses: actions/cache@v3
         with:
-        # cache의 대상을 정합니다. npm에서 의존성이 설치되는 디렉터리인 node_modules를 대상으로 합니다.
+          # cache의 대상을 정합니다. npm에서 의존성이 설치되는 디렉터리인 node_modules를 대상으로 합니다.
           path: '**/node_modules'
           # cache를 무효화하를 결정하는 기준은 의존성이 변경되면 함께 변경되는 파일인 package-lock.json을 기준으로 합니다.
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
@@ -41,7 +41,7 @@ jobs:
 
       - name: S3 Deploy
         run: aws s3 sync ./dist s3://coffee-meet-frontend-s3/ --acl bucket-owner-full-control # 현재 build된 폴더에 접근 후 s3 버킷인 coffee-meet-frontend-s3에 파일 업로드
-        env: 
+        env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}

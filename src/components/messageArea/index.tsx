@@ -1,24 +1,31 @@
-import styled from '@emotion/styled'
-
-import { Messages } from '@/apis/chatting/chattingType'
-import ChatBubbleListLow from '@/components/chatBubbleListLow'
-import ChattingBubble from '@/components/common/chattingBubble'
-import { FlexBox } from '@/components/common/Flexbox'
-import Spacing from '@/components/common/Spacing'
+import styled from "@emotion/styled";
+import type { Messages } from "@/apis/chatting/chattingType";
+import { FlexBox } from "@/components/common/Flexbox";
+import Spacing from "@/components/common/Spacing";
+import ChattingBubble from "@/components/common/chattingBubble";
+import ChatBubbleListLow from "@/components/chatBubbleListLow";
 
 interface MessageProps {
-  messageData: Messages[]
+  messageData: Messages[];
 }
+
 const MessageArea = ({ messageData }: MessageProps) => {
   return (
     <>
-      <FlexBox direction={'column'} gap={20} fullWidth={true}>
+      <FlexBox
+        direction={"column"}
+        gap={20}
+        fullWidth={true}
+      >
         <Spacing size={5} />
         {messageData &&
           messageData.map((message, i) =>
             //로그인 성공 후 nickname 전역에 저장하면 내 닉네임 불러오기
-            message.nickname == localStorage.getItem('nickname') ? (
-              <StyleChattingBubbleWrapper key={i} isMyChat={true}>
+            message.nickname == localStorage.getItem("nickname") ? (
+              <StyleChattingBubbleWrapper
+                key={i}
+                isMyChat={true}
+              >
                 <ChattingBubble
                   isMyChat={true}
                   message={message.content}
@@ -28,18 +35,21 @@ const MessageArea = ({ messageData }: MessageProps) => {
                 />
               </StyleChattingBubbleWrapper>
             ) : (
-              <StyleChattingBubbleWrapper key={i} isMyChat={false}>
+              <StyleChattingBubbleWrapper
+                key={i}
+                isMyChat={false}
+              >
                 <ChatBubbleListLow
                   fullWidth={true}
-                  leftImage={message.profileImageUrl ? message.profileImageUrl : ''}
+                  leftImage={message.profileImageUrl ? message.profileImageUrl : ""}
                   mainText={message.nickname}
                   userId={message.userId}
-                  profileImageUrl={message.profileImageUrl ? message.profileImageUrl : ''}
+                  profileImageUrl={message.profileImageUrl ? message.profileImageUrl : ""}
                   subElement={
                     <ChattingBubble
                       message={message.content}
                       userId={message.userId}
-                      userProfile={message.profileImageUrl ? message.profileImageUrl : ''}
+                      userProfile={message.profileImageUrl ? message.profileImageUrl : ""}
                       time={message.createdAt}
                     ></ChattingBubble>
                   }
@@ -51,13 +61,13 @@ const MessageArea = ({ messageData }: MessageProps) => {
         <Spacing size={0} />
       </FlexBox>
     </>
-  )
-}
+  );
+};
 
 const StyleChattingBubbleWrapper = styled.div<{ isMyChat: boolean }>`
   width: 97%;
-  margin-left: ${(props) => (props.isMyChat ? '' : '15px')};
-  /* padding-left: ${(props) => props.isMyChat && '10%'};
-  padding-right: ${(props) => !props.isMyChat && '10%'}; */
-`
-export default MessageArea
+  margin-left: ${(props) => (props.isMyChat ? "" : "15px")};
+  /* padding-left: ${(props) => props.isMyChat && "10%"};
+  padding-right: ${(props) => !props.isMyChat && "10%"}; */
+`;
+export default MessageArea;

@@ -1,13 +1,13 @@
-import styled from '@emotion/styled'
-import { HTMLAttributes, ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode } from "react";
+import styled from "@emotion/styled";
 
 export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement> {
-  direction?: 'row' | 'column'
-  justify?: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around'
-  align?: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch'
-  gap?: number
-  fullWidth?: boolean
-  children: ReactNode
+  direction?: "row" | "column";
+  justify?: "flex-start" | "flex-end" | "center" | "space-between" | "space-around";
+  align?: "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
+  gap?: number;
+  fullWidth?: boolean;
+  children: ReactNode;
 }
 
 /**
@@ -20,9 +20,9 @@ export interface FlexBoxProps extends HTMLAttributes<HTMLDivElement> {
  */
 
 export const FlexBox = ({
-  direction = 'row',
-  justify = 'center',
-  align = 'center',
+  direction = "row",
+  justify = "center",
+  align = "center",
   gap = 0,
   fullWidth = false,
   children,
@@ -39,8 +39,8 @@ export const FlexBox = ({
     >
       {children}
     </StyledFlexBox>
-  )
-}
+  );
+};
 
 const StyledFlexBox = styled.div<FlexBoxProps>`
   display: flex;
@@ -48,5 +48,5 @@ const StyledFlexBox = styled.div<FlexBoxProps>`
   justify-content: ${(props) => props.justify};
   align-items: ${(props) => props.align};
   gap: ${(props) => props.gap}px;
-  width: ${(props) => (props.fullWidth ? '100%' : 'auto')};
-`
+  width: ${(props) => (props.fullWidth ? "100%" : "auto")};
+`;

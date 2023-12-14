@@ -1,4 +1,4 @@
-import { axiosAPI } from '@/apis/axios'
+import { axiosAPI } from "@/apis/axios";
 
 // interface ApprovalRequestList {
 //   certificationId: number
@@ -9,9 +9,9 @@ import { axiosAPI } from '@/apis/axios'
 //   department: string
 // }
 const GET_APPROVAL_LIST_PARAMS = {
-  offset: '0',
-  size: '100',
-}
+  offset: "0",
+  size: "100",
+};
 
 // interface ApprovalRequestList {
 //   certificationId: number
@@ -25,37 +25,39 @@ const AdminApprovalAPI = {
   GET_APPROVAL_REQUEST_LIST: async () => {
     const response = await axiosAPI.get(`/v1/admins/certifications/pending`, {
       params: GET_APPROVAL_LIST_PARAMS,
-    })
+    });
 
     return {
       data: response.data,
-    }
+    };
   },
   GET_APPROVAL_INFO: async () => {
     const response = await axiosAPI.get(`/v1/admins/certifications/pending`, {
       params: GET_APPROVAL_LIST_PARAMS,
-    })
+    });
     return {
       data: response.data,
-    }
+    };
   },
   // certificationId: string
   // ${certificationId}
   POST_APPROVAL_ACCEPT: async (certificationId: string) => {
     const response = await axiosAPI.patch(`/v1/admins/certifications/${certificationId}/approval`, {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-    })
-    return response.data
+    });
+    return response.data;
   },
   // certificationId: string
   // /${certificationId}
 
   POST_APPROVAL_REJECT: async (certificationId: string) => {
-    const response = await axiosAPI.delete(`/v1/admins/certifications/${certificationId}/rejection`)
-    return response.data
+    const response = await axiosAPI.delete(
+      `/v1/admins/certifications/${certificationId}/rejection`,
+    );
+    return response.data;
   },
-}
+};
 
-export default AdminApprovalAPI
+export default AdminApprovalAPI;

@@ -1,7 +1,6 @@
-import styled from '@emotion/styled'
-import { useNavigate } from 'react-router-dom'
-
-import ChatRoomBubble from './ChatRoomBubble'
+import { useNavigate } from "react-router-dom";
+import styled from "@emotion/styled";
+import ChatRoomBubble from "./ChatRoomBubble";
 
 const StyledChatRoomBubbleWrapper = styled.div`
   display: grid;
@@ -18,22 +17,22 @@ const StyledChatRoomBubbleWrapper = styled.div`
     grid-template-columns: 1fr;
     padding: 30% 5% 5%;
   }
-`
-const ChatRoomBubbleWrapper = styled.span``
+`;
+const ChatRoomBubbleWrapper = styled.span``;
 type ChatRoom = {
-  roomId: number
-  roomName: string
-  users: string[]
-  createdAt: string
-}
+  roomId: number;
+  roomName: string;
+  users: string[];
+  createdAt: string;
+};
 
 type ChatRoomBubblesProps = {
-  chatRoomList: ChatRoom[]
-  isDarkMode: boolean
-}
+  chatRoomList: ChatRoom[];
+  isDarkMode: boolean;
+};
 
 const ChatRoomBubbles = ({ chatRoomList, isDarkMode }: ChatRoomBubblesProps) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <StyledChatRoomBubbleWrapper>
       {chatRoomList.map((chatRoom, idx) => {
@@ -41,7 +40,7 @@ const ChatRoomBubbles = ({ chatRoomList, isDarkMode }: ChatRoomBubblesProps) => 
           <ChatRoomBubbleWrapper
             key={idx}
             onClick={() => {
-              navigate('/chat-list-detail', { state: { chatroomId: chatRoom.roomId } })
+              navigate("/chat-list-detail", { state: { chatroomId: chatRoom.roomId } });
             }}
           >
             <ChatRoomBubble
@@ -51,10 +50,10 @@ const ChatRoomBubbles = ({ chatRoomList, isDarkMode }: ChatRoomBubblesProps) => 
               isDarkMode={isDarkMode}
             />
           </ChatRoomBubbleWrapper>
-        )
+        );
       })}
     </StyledChatRoomBubbleWrapper>
-  )
-}
+  );
+};
 
-export default ChatRoomBubbles
+export default ChatRoomBubbles;

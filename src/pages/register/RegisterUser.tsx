@@ -1,51 +1,49 @@
-import styled from '@emotion/styled'
-import { useMutation } from '@tanstack/react-query'
-import { useRef, useState } from 'react'
-import { MdWbSunny } from 'react-icons/md'
-import { useNavigate } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
-
-import { axiosAPI } from '@/apis/axios'
-import getNicknameValid from '@/apis/register/getNicknameValid.ts'
-import AlertText from '@/components/common/AlertText'
-import NormalButton from '@/components/common/Buttons/NormalButton'
-import { FlexBox } from '@/components/common/Flexbox'
-import RegisterInput from '@/components/common/RegisterInput'
-import SelectorButtonContainer from '@/components/common/SelectorButtonContainer'
-import Spacing from '@/components/common/Spacing'
-import useToast from '@/hooks/useToast'
-import useInterestStore from '@/store/InterestStore'
-import useThemeStore from '@/store/ThemeStore'
-import { palette } from '@/styles/palette'
-import { typo } from '@/styles/typo'
+import { useRef, useState } from "react";
+import { MdWbSunny } from "react-icons/md";
+import { useLocation, useNavigate } from "react-router-dom";
+import styled from "@emotion/styled";
+import { useMutation } from "@tanstack/react-query";
+import { axiosAPI } from "@/apis/axios";
+import getNicknameValid from "@/apis/register/getNicknameValid.ts";
+import AlertText from "@/components/common/AlertText";
+import NormalButton from "@/components/common/Buttons/NormalButton";
+import { FlexBox } from "@/components/common/Flexbox";
+import RegisterInput from "@/components/common/RegisterInput";
+import SelectorButtonContainer from "@/components/common/SelectorButtonContainer";
+import Spacing from "@/components/common/Spacing";
+import useToast from "@/hooks/useToast";
+import { palette } from "@/styles/palette";
+import { typo } from "@/styles/typo";
+import useInterestStore from "@/store/InterestStore";
+import useThemeStore from "@/store/ThemeStore";
 
 export const InterestList = [
-  '요리',
-  '맛집',
-  '음악',
-  '연애',
-  '패션',
-  '여행',
-  '운동',
-  '게임',
-  '재테크',
-  '자격증',
-  '외국어',
-  '전자기기',
-  '반려동물',
-]
+  "요리",
+  "맛집",
+  "음악",
+  "연애",
+  "패션",
+  "여행",
+  "운동",
+  "게임",
+  "재테크",
+  "자격증",
+  "외국어",
+  "전자기기",
+  "반려동물",
+];
 
 const RegisterUser = () => {
-  const navigate = useNavigate()
-  const userId = useLocation().state.userId
+  const navigate = useNavigate();
+  const userId = useLocation().state.userId;
 
-  const inputRef = useRef<HTMLInputElement>(null)
-  const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false)
-  const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null)
-  let nickname = ''
-  const { interestList } = useInterestStore()
-  const { showToast } = useToast()
-  const isDarkMode = useThemeStore((state) => state.isDarkMode)
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false);
+  const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null);
+  let nickname = "";
+  const { interestList } = useInterestStore();
+  const { showToast } = useToast();
+  const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
   // const getNicknameValid = async (nickname: string) => {
   //   await axiosAPI
@@ -70,94 +68,102 @@ const RegisterUser = () => {
   const handleNicknameValidCheck = (nickname: string) => {
     getNicknameValid(nickname)
       .then(() => {
-        setDoubleChecked(true)
-        setNicknameDuplicated(false)
+        setDoubleChecked(true);
+        setNicknameDuplicated(false);
       })
       .catch(() => {
-        setDoubleChecked(true)
-        setNicknameDuplicated(true)
-      })
-  }
+        setDoubleChecked(true);
+        setNicknameDuplicated(true);
+      });
+  };
 
   const doubleCheckNickName = async () => {
     if (inputRef.current !== null && inputRef.current.value.length == 0) {
-      setDoubleChecked(null)
-      return
+      setDoubleChecked(null);
+      return;
     }
     if (inputRef.current !== null) {
-      nickname = inputRef.current.value
+      nickname = inputRef.current.value;
       // doubleCheckMutation.mutate(nickname)
-      handleNicknameValidCheck(nickname)
+      handleNicknameValidCheck(nickname);
     }
-  }
+  };
   const formValidation = () => {
-    console.log(doubleChecked)
+    console.log(doubleChecked);
     if (inputRef.current !== null && inputRef.current.value.length === 0) {
       showToast({
-        message: '닉네임을 입력하세요!',
-        type: 'warning',
+        message: "닉네임을 입력하세요!",
+        type: "warning",
         isDarkMode,
-      })
-      return false
+      });
+      return false;
     } else if (!doubleChecked) {
       showToast({
-        message: '중복검사를 해주세요!',
-        type: 'warning',
+        message: "중복검사를 해주세요!",
+        type: "warning",
         isDarkMode,
-      })
-      return false
+      });
+      return false;
     } else if (nicknameDuplicated) {
       showToast({
-        message: '사용할 수 없는 닉네임입니다.',
-        type: 'warning',
+        message: "사용할 수 없는 닉네임입니다.",
+        type: "warning",
         isDarkMode,
-      })
-      return false
+      });
+      return false;
     } else {
-      return true
+      return true;
     }
-  }
+  };
   const submitUserProfileData = () => {
     if (formValidation()) {
-      console.log(nickname, interestList)
+      console.log(nickname, interestList);
       if (doubleChecked && inputRef.current !== null && interestList.length > 0) {
         const body = {
           userId: userId,
           nickname: inputRef.current.value,
           keywords: interestList,
-        }
-        console.log(body)
-        registerMutation.mutate(body)
+        };
+        console.log(body);
+        registerMutation.mutate(body);
       }
     }
-  }
+  };
   const registerPost = async (body: object) => {
-    return await axiosAPI.post('/v1/users/sign-up', body)
-  }
+    return await axiosAPI.post("/v1/users/sign-up", body);
+  };
 
-  const registerMutation = useMutation((body: object) => registerPost(body), {
+  const registerMutation = useMutation({
+    mutationFn: (body: object) => registerPost(body),
     onSuccess: () => {
       showToast({
-        message: '닉네임, 관심사 정보 등록을 완료했습니다!',
-        type: 'success',
+        message: "닉네임, 관심사 정보 등록을 완료했습니다!",
+        type: "success",
         isDarkMode,
-      })
+      });
 
-      navigate('/register/company', { state: { userId: userId } })
+      navigate("/register/company", { state: { userId: userId } });
     },
     onError: (err) => {
-      console.log(err)
+      console.log(err);
     },
-  })
+  });
   return (
     <StyleRegisterWrapper>
       <StyleRegisterHeader>
         <Spacing size={64} />
-        <FlexBox gap={10} fullWidth={true} justify={'space-around'}>
+        <FlexBox
+          gap={10}
+          fullWidth={true}
+          justify={"space-around"}
+        >
           <span></span>
-          <StyleHeaderText>{'프로필 등록'} </StyleHeaderText>
+          <StyleHeaderText>{"프로필 등록"} </StyleHeaderText>
           <StyleIcon>
-            <MdWbSunny size={20} color={palette.TERTIARY} />
+            <MdWbSunny
+              size={20}
+              color={palette.TERTIARY}
+            />
           </StyleIcon>
         </FlexBox>
         <Spacing size={11} />
@@ -165,86 +171,96 @@ const RegisterUser = () => {
       </StyleRegisterHeader>
       <Spacing size={73} />
       <FlexBox gap={16}>
-        <RegisterInput width={260} placeholder={'닉네임'} ref={inputRef} />
-        <NormalButton normalButtonType={'nickname-duplicate'} onClick={doubleCheckNickName}>
-          {'중복확인'}
+        <RegisterInput
+          width={260}
+          placeholder={"닉네임"}
+          ref={inputRef}
+        />
+        <NormalButton
+          normalButtonType={"nickname-duplicate"}
+          onClick={doubleCheckNickName}
+        >
+          {"중복확인"}
         </NormalButton>
       </FlexBox>
       {nicknameDuplicated === null && doubleChecked === null && (
         <AlertText
-          padding={'10px'}
-          textAlign={'end'}
+          padding={"10px"}
+          textAlign={"end"}
           fontSize={`11px`}
           fontColor={`${palette.RED}`}
         >
-          {'닉네임 중복검사를 해주세요!'}
+          {"닉네임 중복검사를 해주세요!"}
         </AlertText>
       )}
       {nicknameDuplicated === false && doubleChecked && (
         <AlertText
-          padding={'10px'}
-          textAlign={'end'}
+          padding={"10px"}
+          textAlign={"end"}
           fontSize={`11px`}
           fontColor={`${palette.PRIMARY}`}
         >
-          {'사용 가능한 닉네임입니다.'}
+          {"사용 가능한 닉네임입니다."}
         </AlertText>
       )}
       {nicknameDuplicated === true && doubleChecked && (
         <AlertText
-          padding={'10px'}
-          textAlign={'end'}
+          padding={"10px"}
+          textAlign={"end"}
           fontSize={`11px`}
           fontColor={`${palette.RED}`}
         >
-          {'이미 사용 중인 닉네임입니다.'}
+          {"이미 사용 중인 닉네임입니다."}
         </AlertText>
       )}
       <Spacing size={44} />
-      <StyleInterestText>{'관심사'}</StyleInterestText>
-      <FlexBox direction={'column'}>
+      <StyleInterestText>{"관심사"}</StyleInterestText>
+      <FlexBox direction={"column"}>
         <SelectorButtonContainer
           isDarkMode={false}
-          type={'interest'}
+          type={"interest"}
           buttonNames={InterestList}
           maxLength={3}
         ></SelectorButtonContainer>
       </FlexBox>
 
       <StyleSubmitButtonWrapper>
-        <NormalButton normalButtonType={'form-submit'} onClick={submitUserProfileData}>
-          {'다음'}
+        <NormalButton
+          normalButtonType={"form-submit"}
+          onClick={submitUserProfileData}
+        >
+          {"다음"}
         </NormalButton>
       </StyleSubmitButtonWrapper>
     </StyleRegisterWrapper>
-  )
-}
+  );
+};
 const StyleRegisterWrapper = styled.div`
   background-color: ${palette.GRAY100};
   height: 100%;
-`
-const StyleRegisterHeader = styled.div``
+`;
+const StyleRegisterHeader = styled.div``;
 const StyleHeaderText = styled.span`
   font-size: ${typo.Body_24()};
-`
+`;
 const StyleDivider = styled.hr`
   height: 1px;
   background-color: ${palette.GRAY200};
   border: 0;
-`
+`;
 const StyleInterestText = styled.div`
   padding: 10px;
   margin-left: 25px;
   font-size: ${typo.Body_18()};
-`
+`;
 const StyleSubmitButtonWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
   position: absolute;
   bottom: 22px;
-`
+`;
 const StyleIcon = styled.button`
   cursor: pointer;
-`
-export default RegisterUser
+`;
+export default RegisterUser;

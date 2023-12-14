@@ -1,8 +1,8 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
+import AdminTabs from "@/pages/admin/components/AdminTabs";
+import AdminAppHeader from "@/components/common/AppHeader/AdminAppHeader";
+import { palette } from "@/styles/palette";
 
-import AdminAppHeader from '@/components/common/AppHeader/AdminAppHeader'
-import AdminTabs from '@/pages/admin/components/AdminTabs'
-import { palette } from '@/styles/palette'
 const AdminMain = () => {
   //msw 테스트 코드
   // fetch('/admin/reports/2')
@@ -16,13 +16,16 @@ const AdminMain = () => {
   //   .catch((error) => console.error('fetch 오류 발생.', error))
   return (
     <StyledAdminMainOuterWrapper>
-      <AdminAppHeader isDarkMode={false} nickname={'홍길동'} />
+      <AdminAppHeader
+        isDarkMode={false}
+        nickname={"홍길동"}
+      />
       <AdminTabs />
     </StyledAdminMainOuterWrapper>
-  )
-}
+  );
+};
 
 const StyledAdminMainOuterWrapper = styled.div`
   background-color: ${palette.PRIMARY};
-`
-export default AdminMain
+`;
+export default AdminMain;
