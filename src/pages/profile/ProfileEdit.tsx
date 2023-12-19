@@ -6,17 +6,16 @@ import getMyProfileData from "@/apis/profile/getMyProfileData.ts";
 import postMyProfileImage from "@/apis/profile/postMyProfileImage.ts";
 import updateMyProfile from "@/apis/profile/updateMyProfile.ts";
 import getNicknameValid from "@/apis/register/getNicknameValid.ts";
-import { InterestList } from "@/pages/register/RegisterUser.tsx";
 import AlertText from "@/components/common/AlertText";
 import Avatar from "@/components/common/Avatar";
 import BackChevron from "@/components/common/BackChevron";
 import NormalButton from "@/components/common/Buttons/NormalButton";
 import { FlexBox } from "@/components/common/Flexbox";
 import GradationBackground from "@/components/common/GradationBackground";
+import MultiSelector from "@/components/common/MultiSelector";
 import PageContainer from "@/components/common/PageContainer";
 import PageHeader from "@/components/common/PageHeader";
 import RegisterInput from "@/components/common/RegisterInput";
-import SelectorButtonContainer from "@/components/common/SelectorButtonContainer";
 import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast.tsx";
 import { palette } from "@/styles/palette.ts";
@@ -218,12 +217,11 @@ const ProfileEdit = () => {
         <Spacing size={44} />
         <SectionLabelText>{"관심사"}</SectionLabelText>
         <FlexBox direction={"column"}>
-          <SelectorButtonContainer
-            isDarkMode={false}
-            type={"interest"}
-            buttonNames={InterestList}
-            maxLength={3}
-          ></SelectorButtonContainer>
+          <MultiSelector
+            isDarkMode={isDarkMode}
+            itemList={interestList}
+            maxCount={3}
+          />
           <Spacing size={30} />
           <NormalButton
             normalButtonType={"form-submit"}
