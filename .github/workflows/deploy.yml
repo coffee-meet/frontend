@@ -40,7 +40,7 @@ jobs:
         run: npm run build
 
       - name: S3 Deploy
-        run: aws s3 sync ./dist s3://coffee-meet-frontend-s3/ --acl bucket-owner-full-control # 현재 build된 폴더에 접근 후 s3 버킷인 coffee-meet-frontend-s3에 파일 업로드
+        run: aws s3 sync ./dist s3://coffeemeetbucket/ --acl bucket-owner-full-control # 현재 build된 폴더에 접근 후 s3 버킷인 coffee-meet-frontend-s3에 파일 업로드
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
