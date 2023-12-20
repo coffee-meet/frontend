@@ -1,25 +1,25 @@
-import { ReactNode } from 'react'
-import { toast } from 'react-toastify'
+import type { ReactNode } from "react";
+import { toast } from "react-toastify";
 
-type ToastType = 'success' | 'error' | 'info' | 'warning'
+type ToastType = "success" | "error" | "info" | "warning";
 
 type ToastProps = {
-  message: string | ReactNode
-  type: ToastType
-  isDarkMode: boolean
-}
+  message: string | ReactNode;
+  type: ToastType;
+  isDarkMode: boolean;
+};
 
 export const useToast = () => {
   const showToast = ({ message, type, isDarkMode }: ToastProps) => {
     toast(message, {
-      position: 'top-center',
+      position: "top-center",
       draggable: true,
-      theme: isDarkMode ? 'dark' : 'light',
+      theme: isDarkMode ? "dark" : "light",
       type,
-    })
-  }
+    });
+  };
 
-  return { showToast }
-}
+  return { showToast };
+};
 
-export default useToast
+export default useToast;

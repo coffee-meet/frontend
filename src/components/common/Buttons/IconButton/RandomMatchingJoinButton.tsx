@@ -1,27 +1,25 @@
-import { BiChevronRight } from 'react-icons/bi'
-
-import { Text, TextWrapper } from '@/components/common/Text'
-
-import { StyledIconButtonWrapper, StyledIconWrapper } from '.'
+import { BiChevronRight } from "react-icons/bi";
+import { Text, TextWrapper } from "@/components/common/Text";
+import { StyledIconButtonWrapper, StyledIconWrapper } from ".";
 
 type RandomMatchingJoinButtonProps = {
-  isDarkMode: boolean
-  moveToRandomMatching: () => void
-}
+  isDarkMode: boolean;
+  moveToRandomMatching: () => void;
+};
 
 const RandomMatchingJoinButton = ({
   isDarkMode,
   moveToRandomMatching,
 }: RandomMatchingJoinButtonProps) => {
-  const setButtonType = isDarkMode ? 'random-matching-join-dark' : 'random-matching-join'
+  const setButtonType = isDarkMode ? "random-matching-join-dark" : "random-matching-join";
 
   return (
     <StyledIconButtonWrapper
       iconButtonType={setButtonType}
       style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
       }}
       onClick={moveToRandomMatching}
     >
@@ -31,20 +29,20 @@ const RandomMatchingJoinButton = ({
         }}
       >
         <Text
-          font={'Body_16'}
+          font={"Body_16"}
           fontWeight={500}
           letterSpacing={-2}
           style={{
-            width: '100%',
-            textAlign: 'right',
+            width: "100%",
+            textAlign: "right",
           }}
         >
-          {'매칭방에 접속해주세요!'}
+          {"매칭방에 접속해주세요!"}
         </Text>
       </TextWrapper>
       <StyledIconWrapper
         style={{
-          margin: '18px 5px 18px 40px',
+          margin: "18px 5px 18px 40px",
         }}
       >
         <BiChevronRight
@@ -55,7 +53,7 @@ const RandomMatchingJoinButton = ({
         />
       </StyledIconWrapper>
     </StyledIconButtonWrapper>
-  )
-}
+  );
+};
 
-export default RandomMatchingJoinButton
+export default RandomMatchingJoinButton;

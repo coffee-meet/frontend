@@ -1,12 +1,14 @@
-import { Route, Routes } from 'react-router-dom'
-
-import AdminMain from '@/pages/admin/AdminMain'
+import { Route, Routes } from "react-router-dom";
+import AdminMain from "@/pages/admin/AdminMain";
 
 const AdminPage = () => {
   return (
     <Routes>
-      <Route path={'/'} element={<AdminMain />}></Route>
+      <Route
+        path={"/"}
+        element={<AdminMain />}
+      ></Route>
     </Routes>
-  )
-}
-export default AdminPage
+  );
+};
+export default AdminPage;

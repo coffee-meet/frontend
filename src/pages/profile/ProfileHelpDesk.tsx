@@ -1,76 +1,96 @@
-import styled from '@emotion/styled'
-import { useRef } from 'react'
-import { useNavigate } from 'react-router-dom'
-
-import postMyInquiry from '@/apis/profile/postMyInquiry.ts'
-import inquiryImage from '@/assets/images/inquiryImage.svg'
-import Avatar from '@/components/common/Avatar'
-import BackChevron from '@/components/common/BackChevron'
-import NormalButton from '@/components/common/Buttons/NormalButton'
-import { FlexBox } from '@/components/common/Flexbox'
-import GradationBackground from '@/components/common/GradationBackground'
-import PageContainer from '@/components/common/PageContainer'
-import PageHeader from '@/components/common/PageHeader'
-import Spacing from '@/components/common/Spacing'
-import useToast from '@/hooks/useToast.tsx'
-import useThemeStore from '@/store/ThemeStore.tsx'
+import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "@emotion/styled";
+import postMyInquiry from "@/apis/profile/postMyInquiry.ts";
+import Avatar from "@/components/common/Avatar";
+import BackChevron from "@/components/common/BackChevron";
+import NormalButton from "@/components/common/Buttons/NormalButton";
+import { FlexBox } from "@/components/common/Flexbox";
+import GradationBackground from "@/components/common/GradationBackground";
+import PageContainer from "@/components/common/PageContainer";
+import PageHeader from "@/components/common/PageHeader";
+import Spacing from "@/components/common/Spacing";
+import useToast from "@/hooks/useToast.tsx";
+import useThemeStore from "@/store/ThemeStore.tsx";
+import inquiryImage from "@/assets/images/inquiryImage.svg";
 
 const ProfileHelpDesk = () => {
-  const { isDarkMode } = useThemeStore()
-  const navigate = useNavigate()
-  const { showToast } = useToast()
-  const inputRef = useRef<HTMLInputElement>(null)
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const { isDarkMode } = useThemeStore();
+  const navigate = useNavigate();
+  const { showToast } = useToast();
+  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handlePostInquiry = () => {
     if (!inputRef.current?.value) {
-      alert('제목을 입력해주세요')
-      return
+      alert("제목을 입력해주세요");
+      return;
     }
     if (!textareaRef.current?.value) {
-      alert('내용을 입력해주세요')
-      return
+      alert("내용을 입력해주세요");
+      return;
     }
     postMyInquiry(inputRef.current.value, textareaRef.current.value)
       .then(() => {
-        showToast({ message: '불편사항이 접수되었습니다.', type: 'success', isDarkMode })
-        navigate('/profile')
+        showToast({ message: "불편사항이 접수되었습니다.", type: "success", isDarkMode });
+        navigate("/profile");
       })
       .catch(() => {
-        showToast({ message: '불편사항 접수에 실패했습니다.', type: 'error', isDarkMode })
-      })
-  }
+        showToast({ message: "불편사항 접수에 실패했습니다.", type: "error", isDarkMode });
+      });
+  };
   return (
     <GradationBackground isDarkMode={isDarkMode}>
       <Spacing size={50} />
-      <PageContainer isDarkMode={isDarkMode} height={'80%'}>
-        <FlexBox direction={'column'}>
+      <PageContainer
+        isDarkMode={isDarkMode}
+        height={"80%"}
+      >
+        <FlexBox direction={"column"}>
           <StyledPageHeader
-            title={'불편사항 접수'}
-            leftIcon={<BackChevron hasBackground={true} isDarkMode={isDarkMode} />}
+            title={"불편사항 접수"}
+            leftIcon={
+              <BackChevron
+                hasBackground={true}
+                isDarkMode={isDarkMode}
+              />
+            }
             isDarkMode={isDarkMode}
             hasBackground={true}
           />
           <Spacing size={48} />
-          <Avatar width={110} height={110} imgUrl={inquiryImage} />
+          <Avatar
+            width={110}
+            height={110}
+            imgUrl={inquiryImage}
+          />
           <Spacing size={20} />
-          <InquiryTitleInput placeholder={'제목을 입력해주세요'} ref={inputRef} />
+          <InquiryTitleInput
+            placeholder={"제목을 입력해주세요"}
+            ref={inputRef}
+          />
           <Spacing size={20} />
-          <InquiryContentInput placeholder={'불편사항을 입력해주세요'} ref={textareaRef} />
+          <InquiryContentInput
+            placeholder={"불편사항을 입력해주세요"}
+            ref={textareaRef}
+          />
           <Spacing size={40} />
-          <NormalButton normalButtonType={'form-submit'} onClick={handlePostInquiry}>
-            {'불편사항 제출하기'}
+          <NormalButton
+            normalButtonType={"form-submit"}
+            onClick={handlePostInquiry}
+          >
+            {"불편사항 제출하기"}
           </NormalButton>
           <Spacing size={20} />
         </FlexBox>
       </PageContainer>
     </GradationBackground>
-  )
-}
+  );
+};
 
 const StyledPageHeader = styled(PageHeader)`
   padding: 0 18px;
-`
+`;
 
 const InquiryTitleInput = styled.input`
   width: 260px;
@@ -85,7 +105,7 @@ const InquiryTitleInput = styled.input`
   &::placeholder {
     color: #bdbdbd;
   }
-`
+`;
 
 const InquiryContentInput = styled.textarea`
   width: 260px;
@@ -100,6 +120,6 @@ const InquiryContentInput = styled.textarea`
   &::placeholder {
     color: #bdbdbd;
   }
-`
+`;
 
-export default ProfileHelpDesk
+export default ProfileHelpDesk;

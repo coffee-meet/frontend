@@ -1,35 +1,38 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { KakaoButton, NaverButton } from "@/components/common/Buttons/IconButton";
+import NormalButton from "@/components/common/Buttons/NormalButton";
+import Spacing from "@/components/common/Spacing";
+import { Text } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
+import useAuthStore from "@/store/AuthStore";
+import CafeSvg from "@/assets/images/cafe.svg";
 
-import CafeSvg from '@/assets/images/cafe.svg'
-import { KakaoButton, NaverButton } from '@/components/common/Buttons/IconButton'
-import NormalButton from '@/components/common/Buttons/NormalButton'
-import Spacing from '@/components/common/Spacing'
-import { Text } from '@/components/common/Text'
-import useAuthStore from '@/store/AuthStore'
-import { palette } from '@/styles/palette'
-export type Provider = 'NAVER' | 'KAKAO'
+export type Provider = "NAVER" | "KAKAO";
 
-export const BASE_URL = import.meta.env.VITE_BASE_URL
+export const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 const Login = () => {
-  const navigate = useNavigate()
-  const setProvider = useAuthStore((state) => state.setProvider)
+  const navigate = useNavigate();
+  const setProvider = useAuthStore((state) => state.setProvider);
 
   const handleMoveToAuthProvider = async (provider: Provider) => {
-    window.location.assign(`${BASE_URL}/v1/oauth2.0/${provider}`)
-    setProvider(provider)
-  }
+    window.location.assign(`${BASE_URL}/v1/oauth2.0/${provider}`);
+    setProvider(provider);
+  };
   const handleMoveToAdminLogin = () => {
-    navigate('/admin-login')
-  }
+    navigate("/admin-login");
+  };
 
   return (
     <StyledLoginOuterWrapper>
       <StyledLoginContainer>
         <Spacing size={50} />
-        <img src={CafeSvg} width={250} />
+        <img
+          src={CafeSvg}
+          width={250}
+        />
         <Spacing
           size={45}
           css={css`
@@ -38,8 +41,12 @@ const Login = () => {
             }
           `}
         />
-        <StyledHeaderText font={'Body_24'} fontWeight={700} letterSpacing={-1}>
-          {'COFFEE MEET'}
+        <StyledHeaderText
+          font={"Body_24"}
+          fontWeight={700}
+          letterSpacing={-1}
+        >
+          {"COFFEE MEET"}
         </StyledHeaderText>
         <Spacing
           size={30}
@@ -50,10 +57,14 @@ const Login = () => {
           `}
         />
         <StyledAdminLoginBtn onClick={handleMoveToAdminLogin}>
-          <NormalButton normalButtonType={'nickname-duplicate'}>{'관리자 로그인'}</NormalButton>
+          <NormalButton normalButtonType={"nickname-duplicate"}>{"관리자 로그인"}</NormalButton>
         </StyledAdminLoginBtn>
-        <StyledSubText font={'Body_16'} fontWeight={500} letterSpacing={-1}>
-          {'회사의 경계를 넘어, '}
+        <StyledSubText
+          font={"Body_16"}
+          fontWeight={500}
+          letterSpacing={-1}
+        >
+          {"회사의 경계를 넘어, "}
         </StyledSubText>
         <Spacing
           size={10}
@@ -63,8 +74,12 @@ const Login = () => {
             }
           `}
         />
-        <StyledSubText font={'Body_16'} fontWeight={500} letterSpacing={-1}>
-          {' 새로운 대화의 세계를 탐험하세요!'}
+        <StyledSubText
+          font={"Body_16"}
+          fontWeight={500}
+          letterSpacing={-1}
+        >
+          {" 새로운 대화의 세계를 탐험하세요!"}
         </StyledSubText>
         <Spacing
           size={50}
@@ -77,7 +92,7 @@ const Login = () => {
         <StyledOauthWrapper>
           <NaverButton
             moveToOAuthProvider={() => {
-              handleMoveToAuthProvider('NAVER')
+              handleMoveToAuthProvider("NAVER");
             }}
           />
           <Spacing
@@ -90,14 +105,14 @@ const Login = () => {
           />
           <KakaoButton
             moveToOAuthProvider={() => {
-              handleMoveToAuthProvider('KAKAO')
+              handleMoveToAuthProvider("KAKAO");
             }}
           />
         </StyledOauthWrapper>
       </StyledLoginContainer>
     </StyledLoginOuterWrapper>
-  )
-}
+  );
+};
 
 const StyledLoginOuterWrapper = styled.div`
   background-color: ${palette.SKY_BLUE};
@@ -106,14 +121,14 @@ const StyledLoginOuterWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const StyledOauthWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-`
+`;
 
 const StyledLoginContainer = styled.div`
   flex: 1;
@@ -123,22 +138,22 @@ const StyledLoginContainer = styled.div`
   border-radius: 20px;
   text-align: center;
   padding-bottom: 10%;
-`
+`;
 
 const StyledHeaderText = styled(Text)`
   @media (max-width: 280px) {
     font-size: 24px;
   }
-`
+`;
 
 const StyledSubText = styled(Text)`
   @media (max-width: 280px) {
     font-size: 14px;
   }
-`
+`;
 const StyledAdminLoginBtn = styled.div`
   position: absolute;
   cursor: pointer;
   opacity: 0;
-`
-export default Login
+`;
+export default Login;

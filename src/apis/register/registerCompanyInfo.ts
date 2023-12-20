@@ -1,4 +1,4 @@
-import { axiosAPI } from '@/apis/axios.ts'
+import { axiosAPI } from "@/apis/axios.ts";
 
 /**
  * 회사 정보 등록 / 변경
@@ -8,28 +8,28 @@ import { axiosAPI } from '@/apis/axios.ts'
 const registerCompanyInfo = async (body: object, isUpdate: boolean) => {
   try {
     if (isUpdate) {
-      const res = await axiosAPI.post('/v1/certification/users/me/company-info/update', body, {
+      const res = await axiosAPI.post("/v1/certification/users/me/company-info/update", body, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
-      })
+      });
       if (res.status !== 200) {
-        throw new Error('register company info failed!')
+        throw new Error("register company info failed!");
       }
     } else {
-      const res = await axiosAPI.post('/v1/certification/users/me/company-info', body, {
+      const res = await axiosAPI.post("/v1/certification/users/me/company-info", body, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
-      })
+      });
       if (res.status !== 200) {
-        throw new Error('update company info failed!')
+        throw new Error("update company info failed!");
       }
     }
   } catch (err) {
-    console.log(err)
-    throw err
+    console.log(err);
+    throw err;
   }
-}
+};
 
-export default registerCompanyInfo
+export default registerCompanyInfo;

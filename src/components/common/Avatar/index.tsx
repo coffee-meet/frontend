@@ -1,17 +1,18 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
+import defaultProfileImage from "@/assets/images/defaultProfileImage.png";
 
-import defaultProfileImage from '@/assets/images/defaultProfileImage.png' // 이미지 import
+// 이미지 import
 
 type AvatarProps = {
-  width: number | string
-  height: number | string
-  imgUrl: string
-  margin?: string
-  onClick?: () => void
-  border?: string
-  shadow?: boolean
-  style?: React.CSSProperties
-}
+  width: number | string;
+  height: number | string;
+  imgUrl: string;
+  margin?: string;
+  onClick?: () => void;
+  border?: string;
+  shadow?: boolean;
+  style?: React.CSSProperties;
+};
 
 /**
  * `Avatar` component for displaying profile images.
@@ -28,7 +29,7 @@ const Avatar = ({
   width,
   height,
   imgUrl,
-  margin = '0',
+  margin = "0",
   onClick,
   border,
   shadow = false,
@@ -38,36 +39,36 @@ const Avatar = ({
     <StyledAvatar
       width={width}
       height={height}
-      imgUrl={!imgUrl || imgUrl == 'default_image_url' ? defaultProfileImage : imgUrl}
+      imgUrl={!imgUrl || imgUrl == "default_image_url" ? defaultProfileImage : imgUrl}
       shadow={shadow}
       margin={margin}
       border={border}
       onClick={onClick}
       {...props}
     />
-  )
-}
+  );
+};
 
 const StyledAvatar = styled.div<AvatarProps>`
-  width: ${(props) => (typeof props.width === 'number' ? `${props.width}px` : props.width)};
-  height: ${(props) => (typeof props.height === 'number' ? `${props.height}px` : props.height)};
+  width: ${(props) => (typeof props.width === "number" ? `${props.width}px` : props.width)};
+  height: ${(props) => (typeof props.height === "number" ? `${props.height}px` : props.height)};
   background-image: url(${(props) => props.imgUrl});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   border-radius: 50%; // 원 형태로 만들기 위함
   margin: ${(props) => `${props.margin}px`};
-  border: ${(props) => (props.border ? props.border : 'none')};
-  box-shadow: ${(props) => (props.shadow ? '0px 0px 10px rgba(0, 0, 0, 0.25)' : 'none')};
+  border: ${(props) => (props.border ? props.border : "none")};
+  box-shadow: ${(props) => (props.shadow ? "0px 0px 10px rgba(0, 0, 0, 0.25)" : "none")};
   cursor: pointer;
   @media (max-width: 280px) {
     width: ${(props) =>
-      typeof props.width === 'number' ? `${props.width * 0.95}px` : `calc(${props.width} * 0.95)`};
+      typeof props.width === "number" ? `${props.width * 0.95}px` : `calc(${props.width} * 0.95)`};
     height: ${(props) =>
-      typeof props.height === 'number'
+      typeof props.height === "number"
         ? `${props.height * 0.95}px`
         : `calc(${props.height} * 0.95)`};
   }
-`
+`;
 
-export default Avatar
+export default Avatar;

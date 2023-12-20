@@ -1,18 +1,18 @@
-import styled from '@emotion/styled'
+import styled from "@emotion/styled";
 
 type CountNumberProps = {
-  currentLength: number
-  maxLength: number
-  color: string
-  right?: number
-  top?: number
-}
+  currentLength: number;
+  maxLength: number;
+  color: string;
+  right?: number;
+  top?: number;
+};
 
 type StyleCountNumberProps = {
-  color: string
-  right?: number
-  top?: number
-}
+  color: string;
+  right?: number;
+  top?: number;
+};
 
 const CountNumber = ({
   top,
@@ -29,8 +29,8 @@ const CountNumber = ({
         top={top}
       >{`${currentLength}/${maxLength}`}</StyleCountNumber>
     </div>
-  )
-}
+  );
+};
 
 const StyleCountNumber = styled.span<StyleCountNumberProps>`
   position: relative;
@@ -39,6 +39,6 @@ const StyleCountNumber = styled.span<StyleCountNumberProps>`
   bottom: 3px;
   font-size: 12px;
   color: ${(props) => props.color};
-`
+`;
 
-export default CountNumber
+export default CountNumber;

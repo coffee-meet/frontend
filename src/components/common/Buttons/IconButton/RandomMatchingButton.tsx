@@ -1,17 +1,15 @@
-import { BiChevronRight } from 'react-icons/bi'
-import { PiTimerBold } from 'react-icons/pi'
-
-import { Text, TextWrapper } from '@/components/common/Text'
-import { palette } from '@/styles/palette'
-
+import { BiChevronRight } from "react-icons/bi";
+import { PiTimerBold } from "react-icons/pi";
+import { Text, TextWrapper } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
 // import { getTimeDelta } from '@/utils/getTimeStamp'
-import { StyledIconButtonWrapper, StyledIconWrapper } from '.'
+import { StyledIconButtonWrapper, StyledIconWrapper } from ".";
 
 type RandomMatchingButtonProps = {
-  date?: string
-  isDarkMode: boolean
-  onClick: () => void
-}
+  date?: string;
+  isDarkMode: boolean;
+  onClick: () => void;
+};
 
 /**
  *
@@ -21,26 +19,26 @@ type RandomMatchingButtonProps = {
  */
 
 const RandomMatchingButton = ({ isDarkMode, onClick }: RandomMatchingButtonProps) => {
-  const setButtonType = isDarkMode ? 'random-matching-dark' : 'random-matching'
+  const setButtonType = isDarkMode ? "random-matching-dark" : "random-matching";
 
   return (
     <StyledIconButtonWrapper
       iconButtonType={setButtonType}
       style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
       }}
       onClick={onClick}
     >
       <StyledIconWrapper
         backgroundColor={palette.GRAY100}
-        borderRadius={'50%'}
+        borderRadius={"50%"}
         style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          margin: '18px 20px 18px 12px',
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "18px 20px 18px 12px",
         }}
       >
         <PiTimerBold
@@ -56,18 +54,23 @@ const RandomMatchingButton = ({ isDarkMode, onClick }: RandomMatchingButtonProps
           flex: 1,
         }}
       >
-        <Text font={'Body_18'} fontWeight={500} letterSpacing={-2} style={{ marginBottom: 4 }}>
-          {'랜덤매칭 시작하기'}
+        <Text
+          font={"Body_18"}
+          fontWeight={500}
+          letterSpacing={-2}
+          style={{ marginBottom: 4 }}
+        >
+          {"랜덤매칭 시작하기"}
         </Text>
         <Text
-          font={'Body_10'}
+          font={"Body_10"}
           fontWeight={500}
           letterSpacing={-0.5}
           style={{
             color: palette.WHITE,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           {/* {'마지막 채팅: '} {`${getTimeDelta(date)}`} */}
@@ -75,7 +78,7 @@ const RandomMatchingButton = ({ isDarkMode, onClick }: RandomMatchingButtonProps
       </TextWrapper>
       <StyledIconWrapper
         style={{
-          margin: '18px 5px 18px 0px',
+          margin: "18px 5px 18px 0px",
         }}
       >
         <BiChevronRight
@@ -86,7 +89,7 @@ const RandomMatchingButton = ({ isDarkMode, onClick }: RandomMatchingButtonProps
         />
       </StyledIconWrapper>
     </StyledIconButtonWrapper>
-  )
-}
+  );
+};
 
-export default RandomMatchingButton
+export default RandomMatchingButton;

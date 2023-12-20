@@ -1,9 +1,9 @@
-import '@emotion/react'
+import "@emotion/react";
+import { type TypeOfPalette, type TypeOfTypo } from "./theme";
 
-import { type TypeOfPalette, type TypeOfTypo } from './theme'
-declare module '@emotion/react' {
+declare module "@emotion/react" {
   export interface Theme {
-    palette: TypeOfPalette
-    typo: TypeOfTypo
+    palette: TypeOfPalette;
+    typo: TypeOfTypo;
   }
 }

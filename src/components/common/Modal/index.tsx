@@ -1,19 +1,17 @@
-import styled from '@emotion/styled'
-import { motion } from 'framer-motion'
-import { AnimatePresence } from 'framer-motion'
-
-import ExclamationIcon from '@/assets/icons/Exclamation.svg'
-import WarningIcon from '@/assets/icons/Warning.svg'
-import NormalButton from '@/components/common/Buttons/NormalButton'
-import { Text } from '@/components/common/Text'
-import useModalStore from '@/store/ModalStore'
-import { palette } from '@/styles/palette'
+import styled from "@emotion/styled";
+import { AnimatePresence, motion } from "framer-motion";
+import NormalButton from "@/components/common/Buttons/NormalButton";
+import { Text } from "@/components/common/Text";
+import { palette } from "@/styles/palette";
+import useModalStore from "@/store/ModalStore";
+import ExclamationIcon from "@/assets/icons/Exclamation.svg";
+import WarningIcon from "@/assets/icons/Warning.svg";
 
 const wrapperVariants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1 },
   exit: { opacity: 0 },
-}
+};
 
 const modalVariants = {
   hidden: {
@@ -21,7 +19,7 @@ const modalVariants = {
     opacity: 0,
     transition: {
       duration: 0.5,
-      type: 'spring',
+      type: "spring",
       damping: 25,
       stiffness: 500,
     },
@@ -31,7 +29,7 @@ const modalVariants = {
     opacity: 1,
     transition: {
       duration: 0.5,
-      type: 'spring',
+      type: "spring",
       damping: 25,
       stiffness: 500,
     },
@@ -41,12 +39,12 @@ const modalVariants = {
     opacity: 0,
     transition: {
       duration: 0.5,
-      type: 'spring',
+      type: "spring",
       damping: 25,
       stiffness: 500,
     },
   },
-}
+};
 
 const Modal = () => {
   const {
@@ -59,46 +57,46 @@ const Modal = () => {
     acceptText,
     cancelText,
     isDarkMode,
-  } = useModalStore()
+  } = useModalStore();
   const OkAndClose = () => {
-    okFunc()
-    handleCloseModal()
-  }
+    okFunc();
+    handleCloseModal();
+  };
   const handleCloseModal = () => {
-    setModalState(false)
-  }
+    setModalState(false);
+  };
 
   const handleModalClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    event.stopPropagation()
-  }
+    event.stopPropagation();
+  };
 
   return (
     <AnimatePresence>
       {modalState ? (
         <StyledModalWrapper
           variants={wrapperVariants}
-          initial={'hidden'}
-          animate={'visible'}
-          exit={'exit'}
+          initial={"hidden"}
+          animate={"visible"}
+          exit={"exit"}
           onClick={handleCloseModal}
         >
           <StyledModal
             variants={modalVariants}
-            initial={'hidden'}
-            animate={'visible'}
-            exit={'exit'}
+            initial={"hidden"}
+            animate={"visible"}
+            exit={"exit"}
             type={type}
             onClick={handleModalClick}
             isDarkMode={isDarkMode}
           >
-            {type == 'confirm' ? (
+            {type == "confirm" ? (
               <StyledIcon src={ExclamationIcon} />
             ) : (
               <StyledIcon src={WarningIcon} />
             )}
 
             <StyledMainText
-              font={'Body_20'}
+              font={"Body_20"}
               fontWeight={900}
               letterSpacing={-2}
               subTrue={subText == undefined ? false : true}
@@ -107,7 +105,7 @@ const Modal = () => {
               {mainText}
             </StyledMainText>
             <StyledSubText
-              font={'Body_12'}
+              font={"Body_12"}
               fontWeight={900}
               letterSpacing={-1}
               type={type}
@@ -115,49 +113,49 @@ const Modal = () => {
             >
               {subText}
             </StyledSubText>
-            {type === 'confirm' ? (
+            {type === "confirm" ? (
               <StyledButtonWrapper>
                 <NormalButton
-                  normalButtonType={'modal-accept'}
+                  normalButtonType={"modal-accept"}
                   style={{ margin: 10 }}
                   onClick={OkAndClose}
                 >
-                  {'확인'}
+                  {"확인"}
                 </NormalButton>
                 <NormalButton
-                  normalButtonType={'modal-deny'}
+                  normalButtonType={"modal-deny"}
                   style={{ margin: 10 }}
                   onClick={handleCloseModal}
                 >
-                  {'취소'}
+                  {"취소"}
                 </NormalButton>
               </StyledButtonWrapper>
             ) : (
               <StyledButtonWrapper>
                 <StyledWarningAcceptButton
-                  normalButtonType={'warning-accept'}
+                  normalButtonType={"warning-accept"}
                   style={{ margin: 10 }}
                   onClick={OkAndClose}
                 >
-                  {acceptText ? acceptText : '예, 나가겠습니다.'}
+                  {acceptText ? acceptText : "예, 나가겠습니다."}
                 </StyledWarningAcceptButton>
                 <StyledWarningAcceptButton
-                  normalButtonType={'warning-deny'}
+                  normalButtonType={"warning-deny"}
                   style={{ margin: 10 }}
                   onClick={handleCloseModal}
                 >
-                  {cancelText ? cancelText : '아니오, 돌아가겠습니다.'}
+                  {cancelText ? cancelText : "아니오, 돌아가겠습니다."}
                 </StyledWarningAcceptButton>
               </StyledButtonWrapper>
             )}
           </StyledModal>
         </StyledModalWrapper>
       ) : (
-        ''
+        ""
       )}
     </AnimatePresence>
-  )
-}
+  );
+};
 
 const StyledModalWrapper = styled(motion.div)`
   z-index: 999;
@@ -171,10 +169,10 @@ const StyledModalWrapper = styled(motion.div)`
   left: 0;
   right: 0;
   bottom: 0;
-`
+`;
 const StyledModal = styled(motion.div)<{ type: string; isDarkMode?: boolean }>`
   max-width: 344px;
-  height: ${({ type }) => (type == 'warn' ? '195.6px' : '246px')};
+  height: ${({ type }) => (type == "warn" ? "195.6px" : "246px")};
   z-index: 1;
   position: absolute;
   background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY700 : palette.WHITE)};
@@ -184,23 +182,23 @@ const StyledModal = styled(motion.div)<{ type: string; isDarkMode?: boolean }>`
   @media (max-width: 280px) {
     max-width: 260px;
   }
-`
+`;
 
 const StyledIcon = styled.img`
   margin: 22px;
-`
+`;
 
 const StyledButtonWrapper = styled.span`
   justify-content: center;
   margin: 10px;
   display: flex;
-`
+`;
 const StyledMainText = styled(Text)<{ subTrue: boolean; isDarkMode?: boolean }>`
   color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.BLACK)};
   text-align: center;
-  margin-top: ${({ subTrue }) => (subTrue ? '' : '10px')};
-  margin-bottom: ${({ subTrue }) => (subTrue ? '20px' : '30px')};
-`
+  margin-top: ${({ subTrue }) => (subTrue ? "" : "10px")};
+  margin-bottom: ${({ subTrue }) => (subTrue ? "20px" : "30px")};
+`;
 const StyledSubText = styled(Text)<{ type: string; isDarkMode?: boolean }>`
   color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.GRAY500)};
   text-align: center;
@@ -208,12 +206,12 @@ const StyledSubText = styled(Text)<{ type: string; isDarkMode?: boolean }>`
   @media (max-width: 280px) {
     font-size: 10.5px;
   }
-`
+`;
 
 const StyledWarningAcceptButton = styled(NormalButton)`
   @media (max-width: 280px) {
     font-size: 10px;
   }
-`
+`;
 
-export default Modal
+export default Modal;

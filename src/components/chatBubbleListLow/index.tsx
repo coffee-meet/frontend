@@ -1,24 +1,23 @@
-import styled from '@emotion/styled'
-import { type ComponentProps, type ReactNode } from 'react'
+import { type ComponentProps, type ReactNode } from "react";
+import styled from "@emotion/styled";
+import Avatar from "@/components/common/Avatar";
+import { ChattingText } from "@/components/common/ChattingText";
+import { type KeyOfPalette, type KeyOfTypo } from "@/styles/theme";
+import useBottomSheetStore from "@/store/BottomSheetStore";
+import defaultProfileImage from "@/assets/images/defaultProfileImage.png";
 
-import defaultProfileImage from '@/assets/images/defaultProfileImage.png'
-import Avatar from '@/components/common/Avatar'
-import { ChattingText } from '@/components/common/ChattingText'
-import useBottomSheetStore from '@/store/BottomSheetStore'
-import { type KeyOfPalette, type KeyOfTypo } from '@/styles/theme'
-
-interface ListRowProps extends ComponentProps<'div'> {
-  rightElement: ReactNode
-  userId: string
-  profileImageUrl: string
-  leftImage?: string | undefined
-  mainText: ReactNode
-  textTypo?: KeyOfTypo
-  textColor?: KeyOfPalette
-  imageGap?: number
-  gap?: number
-  subElement?: ReactNode
-  fullWidth?: boolean
+interface ListRowProps extends ComponentProps<"div"> {
+  rightElement: ReactNode;
+  userId: string;
+  profileImageUrl: string;
+  leftImage?: string | undefined;
+  mainText: ReactNode;
+  textTypo?: KeyOfTypo;
+  textColor?: KeyOfPalette;
+  imageGap?: number;
+  gap?: number;
+  subElement?: ReactNode;
+  fullWidth?: boolean;
 }
 
 /**
@@ -39,51 +38,67 @@ const ChatBubbleListLow = ({
   profileImageUrl,
   leftImage = defaultProfileImage,
   mainText,
-  textTypo = 'Body_12',
-  textColor = 'GRAY500',
+  textTypo = "Body_12",
+  textColor = "GRAY500",
   gap = 4,
   imageGap = 5,
   subElement,
   fullWidth = true,
   ...props
 }: ListRowProps) => {
-  const { setBottomSheetState, setUserId } = useBottomSheetStore()
+  const { setBottomSheetState, setUserId } = useBottomSheetStore();
   const handleBottomSheet = () => {
-    setBottomSheetState(true)
-    setUserId(userId)
-  }
+    setBottomSheetState(true);
+    setUserId(userId);
+  };
   return (
     <>
-      <MainFlexBox fullWidth={fullWidth} {...props}>
+      <MainFlexBox
+        fullWidth={fullWidth}
+        {...props}
+      >
         <SubFlexBox gap={imageGap}>
           <StyleAvatarWrapper onClick={handleBottomSheet}>
-            {leftImage ? <Avatar width={35} height={35} imgUrl={leftImage} margin={'0'} /> : ''}
+            {leftImage ? (
+              <Avatar
+                width={35}
+                height={35}
+                imgUrl={leftImage}
+                margin={"0"}
+              />
+            ) : (
+              ""
+            )}
           </StyleAvatarWrapper>
           <TextFlexBox gap={gap}>
-            <StyledText text={mainText} typo={textTypo} color={textColor} />
+            <StyledText
+              text={mainText}
+              typo={textTypo}
+              color={textColor}
+            />
             {subElement && subElement}
           </TextFlexBox>
         </SubFlexBox>
         {rightElement}
       </MainFlexBox>
     </>
-  )
-}
+  );
+};
 
 const MainFlexBox = styled.div<{ fullWidth: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: ${({ fullWidth }) => (fullWidth ? '100%' : undefined)};
-`
+  width: ${({ fullWidth }) => (fullWidth ? "100%" : undefined)};
+`;
 
 const SubFlexBox = styled.div<{ gap: number }>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: ${({ gap }) => `${gap}px`};
-`
-const StyleAvatarWrapper = styled.span``
+`;
+const StyleAvatarWrapper = styled.span``;
 const TextFlexBox = styled.div<{ gap: number }>`
   display: flex;
   flex-direction: column;
@@ -91,7 +106,7 @@ const TextFlexBox = styled.div<{ gap: number }>`
   gap: ${({ gap }) => `${gap}px`};
   align-items: flex-start;
   width: 330px;
-`
+`;
 
 const StyledText = ({
   text,
@@ -99,20 +114,24 @@ const StyledText = ({
   color,
   ...props
 }: {
-  text: ReactNode
-  typo: KeyOfTypo
-  color: KeyOfPalette
-} & ComponentProps<'div'>) => {
+  text: ReactNode;
+  typo: KeyOfTypo;
+  color: KeyOfPalette;
+} & ComponentProps<"div">) => {
   return (
     <>
-      {typeof text === 'string' ? (
-        <ChattingText typo={typo} color={color} {...props}>
+      {typeof text === "string" ? (
+        <ChattingText
+          typo={typo}
+          color={color}
+          {...props}
+        >
           {text}
         </ChattingText>
       ) : (
         <div {...props}>{text}</div>
       )}
     </>
-  )
-}
-export default ChatBubbleListLow
+  );
+};
+export default ChatBubbleListLow;

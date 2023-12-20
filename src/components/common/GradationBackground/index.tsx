@@ -1,22 +1,21 @@
-import styled from '@emotion/styled'
-
-import { palette } from '@/styles/palette'
+import styled from "@emotion/styled";
+import { palette } from "@/styles/palette";
 
 type GradationBackgroundProps = {
-  children: React.ReactNode
-  isDarkMode: boolean
-}
+  children: React.ReactNode;
+  isDarkMode: boolean;
+};
 
 /**
  * @param children - 렌더링 할 하위 컴포넌트
  * @param isDarkMode - 다크모드 여부
  */
 const GradationBackground = ({ children, isDarkMode }: GradationBackgroundProps) => {
-  return <StyledGradationBackground isDarkMode={isDarkMode}>{children}</StyledGradationBackground>
-}
+  return <StyledGradationBackground isDarkMode={isDarkMode}>{children}</StyledGradationBackground>;
+};
 
 const StyledGradationBackground = styled.div<{
-  isDarkMode: boolean
+  isDarkMode: boolean;
 }>`
   width: 100%;
   height: 100%;
@@ -26,6 +25,6 @@ const StyledGradationBackground = styled.div<{
       : `linear-gradient(139deg, ${palette.PRIMARY} 23.32%, ${palette.GRADIENT} 61.26%)`};
   display: flex;
   flex-direction: column;
-`
+`;
 
-export default GradationBackground
+export default GradationBackground;

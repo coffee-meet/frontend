@@ -1,9 +1,8 @@
-import { css } from '@emotion/react'
-import styled from '@emotion/styled'
-
-import { palette } from '@/styles/palette'
-import { KeyOfTypo } from '@/styles/theme'
-import { typo } from '@/styles/typo'
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { palette } from "@/styles/palette";
+import type { KeyOfTypo } from "@/styles/theme";
+import { typo } from "@/styles/typo";
 
 /**
  * @param display: (기본값: flex)
@@ -13,26 +12,26 @@ import { typo } from '@/styles/typo'
  */
 
 export const TextWrapper = styled.div<{
-  isDarkMode?: boolean
+  isDarkMode?: boolean;
 }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.WHITE)};
-`
+`;
 
 export const Text = styled.div<{
-  font: KeyOfTypo
-  fontWeight: number
-  letterSpacing: number
-  textColor?: string
+  font: KeyOfTypo;
+  fontWeight: number;
+  letterSpacing: number;
+  textColor?: string;
 }>`
   ${({ font, fontWeight, letterSpacing, textColor }) => {
-    const fontFunc = typo[font]
+    const fontFunc = typo[font];
     return css`
       ${fontFunc(fontWeight, letterSpacing)}
       color: ${textColor};
-    `
+    `;
   }}
-`
+`;
