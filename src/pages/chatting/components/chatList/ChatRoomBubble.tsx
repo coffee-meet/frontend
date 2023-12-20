@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { timer } from "d3";
+import AvatarGroup from "@/pages/home/components/AvatarGroup.tsx";
 import Spacing from "@/components/common/Spacing";
 import { Text, TextWrapper } from "@/components/common/Text";
-import AvatarGroup from "@/components/home/AvatarGroup";
 import { palette } from "@/styles/palette";
 
 type ChatRoomBubbleProps = {
