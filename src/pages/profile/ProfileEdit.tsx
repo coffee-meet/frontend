@@ -82,6 +82,7 @@ const ProfileEdit = () => {
       postMyProfileImage(formData)
         .then(() => {
           imgSrc && localStorage.setItem("profileImageUrl", imgSrc);
+
           showToast({
             message: "프로필 이미지가 수정되었습니다.",
             type: "success",
