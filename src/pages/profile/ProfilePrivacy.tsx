@@ -5,21 +5,22 @@ import getEmailValid from "@/apis/register/getEmailValid.ts";
 import registerCompanyInfo from "@/apis/register/registerCompanyInfo.ts";
 import sendEmailValidCode from "@/apis/register/sendEmailValidCode.ts";
 import { SectionLabelText } from "@/pages/profile/ProfileEdit.tsx";
-import { JobList, StyleVerificationEmailButton } from "@/pages/register/RegisterCompany.tsx";
+import { StyleVerificationEmailButton } from "@/pages/register/RegisterCompany.tsx";
 import AlertText from "@/components/common/AlertText";
 import BackChevron from "@/components/common/BackChevron";
 import NormalButton from "@/components/common/Buttons/NormalButton";
 import { FlexBox } from "@/components/common/Flexbox";
 import GradationBackground from "@/components/common/GradationBackground";
+import MultiSelector from "@/components/common/MultiSelector";
 import PageContainer from "@/components/common/PageContainer";
 import PageHeader from "@/components/common/PageHeader";
 import RegisterInput from "@/components/common/RegisterInput";
-import SelectorButtonContainer from "@/components/common/SelectorButtonContainer";
 import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast.tsx";
 import { palette } from "@/styles/palette.ts";
 import useJobStore from "@/store/JobStore.tsx";
 import useThemeStore from "@/store/ThemeStore.tsx";
+import { JobList } from "../../constants";
 
 const ProfilePrivacy = () => {
   const { isDarkMode } = useThemeStore();
@@ -198,12 +199,11 @@ const ProfilePrivacy = () => {
           )}
           <Spacing size={20} />
           <SectionLabelText width={390}>{"직무정보"}</SectionLabelText>
-          <SelectorButtonContainer
-            isDarkMode={false}
-            type={"job"}
-            buttonNames={JobList}
-            maxLength={1}
-          ></SelectorButtonContainer>
+          <MultiSelector
+            isDarkMode={isDarkMode}
+            itemList={JobList}
+            maxCount={1}
+          />
           <Spacing size={20} />
           <SectionLabelText width={390}>{"명함"}</SectionLabelText>
           <label htmlFor={"card-image-upload"}>

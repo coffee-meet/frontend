@@ -8,30 +8,14 @@ import getNicknameValid from "@/apis/register/getNicknameValid.ts";
 import AlertText from "@/components/common/AlertText";
 import NormalButton from "@/components/common/Buttons/NormalButton";
 import { FlexBox } from "@/components/common/Flexbox";
+import MultiSelector from "@/components/common/MultiSelector";
 import RegisterInput from "@/components/common/RegisterInput";
-import SelectorButtonContainer from "@/components/common/SelectorButtonContainer";
 import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
 import useInterestStore from "@/store/InterestStore";
 import useThemeStore from "@/store/ThemeStore";
-
-export const InterestList = [
-  "요리",
-  "맛집",
-  "음악",
-  "연애",
-  "패션",
-  "여행",
-  "운동",
-  "게임",
-  "재테크",
-  "자격증",
-  "외국어",
-  "전자기기",
-  "반려동물",
-];
 
 const RegisterUser = () => {
   const navigate = useNavigate();
@@ -216,12 +200,11 @@ const RegisterUser = () => {
       <Spacing size={44} />
       <StyleInterestText>{"관심사"}</StyleInterestText>
       <FlexBox direction={"column"}>
-        <SelectorButtonContainer
-          isDarkMode={false}
-          type={"interest"}
-          buttonNames={InterestList}
-          maxLength={3}
-        ></SelectorButtonContainer>
+        <MultiSelector
+          isDarkMode={isDarkMode}
+          itemList={interestList}
+          maxCount={3}
+        />
       </FlexBox>
 
       <StyleSubmitButtonWrapper>

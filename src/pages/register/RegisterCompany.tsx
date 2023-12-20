@@ -11,31 +11,15 @@ import AlertText from "@/components/common/AlertText";
 import BackChevron from "@/components/common/BackChevron";
 import NormalButton from "@/components/common/Buttons/NormalButton";
 import { FlexBox } from "@/components/common/Flexbox";
+import MultiSelector from "@/components/common/MultiSelector";
 import RegisterInput from "@/components/common/RegisterInput";
-import SelectorButtonContainer from "@/components/common/SelectorButtonContainer";
 import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
 import useJobStore from "@/store/JobStore.tsx";
 import useThemeStore from "@/store/ThemeStore";
-
-export const JobList = [
-  "경영",
-  "영업",
-  "물류",
-  "IT",
-  "디자인",
-  "전문직",
-  "미디어",
-  "생산",
-  "연구",
-  "기획",
-  "광고",
-  "의약",
-  "유통",
-  "법률",
-];
+import { JobList } from "../../constants";
 
 const RegisterCompany = () => {
   const navigate = useNavigate();
@@ -307,12 +291,11 @@ const RegisterCompany = () => {
         <Spacing size={13} />
         <StyleInterestText>{"직무정보"}</StyleInterestText>
         <FlexBox direction={"column"}>
-          <SelectorButtonContainer
-            isDarkMode={false}
-            type={"job"}
-            buttonNames={JobList}
-            maxLength={1}
-          ></SelectorButtonContainer>
+          <MultiSelector
+            isDarkMode={isDarkMode}
+            itemList={JobList}
+            maxCount={1}
+          />
         </FlexBox>
         <Spacing size={10} />
 
