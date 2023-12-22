@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { MdOutlinePhotoCamera, MdWbSunny } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -28,7 +28,6 @@ const RegisterCompany = () => {
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const userId = useLocation().state.userId;
-  const codeRef = useRef<HTMLInputElement>(null);
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
   const [uploadedURL, setUploadedURL] = useState("");
@@ -68,8 +67,8 @@ const RegisterCompany = () => {
   };
 
   //인증 코드 입력하고 확인 버튼 누르면 실행되는 함수
-  const checkCodeValid = async () => {
-    if (!codeRef.current?.value) {
+  const checkCodeValid = async (code: string) => {
+    if (!code) {
       showToast({
         message: "인증코드를 입력해주세요.",
         type: "warning",
@@ -78,7 +77,7 @@ const RegisterCompany = () => {
       return;
     }
     setCodeChecked(true);
-    const response = await getEmailValid(userId, codeRef.current && codeRef.current.value);
+    const response = await getEmailValid(userId, code);
     if (response.status == 200) {
       setIsCodeSame(true);
     } else {
@@ -93,19 +92,21 @@ const RegisterCompany = () => {
         type: "warning",
         isDarkMode,
       });
-      return;
+      return false;
     } else if (!isCodeSame) {
       showToast({
         message: "인증코드가 일치하지 않습니다. ",
         type: "warning",
         isDarkMode,
       });
-      return;
+      return false;
     }
   };
 
   const handleSubmitCompanyInfo = (data: CompanyInfoStateType) => {
-    handleCheckEmailCertification();
+    if (!handleCheckEmailCertification()) {
+      return;
+    }
     const formData = new FormData();
     formData.append("userId", userId);
     formData.append("companyName", data.companyName);
@@ -219,11 +220,15 @@ const RegisterCompany = () => {
               position: "relative",
             }}
           >
-            <StyleCodeInput
+            <RegisterInput
+              width={343}
               placeholder={"인증코드 6자리 입력"}
-              ref={codeRef}
+              label={"certCode"}
+              register={companyInfoForm.register}
             />
-            <StyleVerificationEmailButton onClick={checkCodeValid}>
+            <StyleVerificationEmailButton
+              onClick={() => checkCodeValid(companyInfoForm.getValues("certCode"))}
+            >
               {"확인"}
             </StyleVerificationEmailButton>
           </FlexBox>
@@ -372,18 +377,6 @@ const StyleText = styled.div`
 `;
 const StyleIcon = styled.button`
   cursor: pointer;
-`;
-
-const StyleCodeInput = styled.input`
-  width: 348px;
-  height: 46px;
-  background-color: ${palette.WHITE};
-  border: 1px solid ${palette.GRAY200};
-  border-radius: 10px;
-  font-size: ${typo.Body_14()};
-  padding-left: 18px;
-  padding-right: 18px;
-  color: ${palette.GRAY400};
 `;
 
 export const StyleVerificationEmailButton = styled.button`
