@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
+import ProfileCompanyEdit from "@/pages/profile/ProfileCompanyEdit";
 import ProfileDefault from "@/pages/profile/ProfileDefault";
 import ProfileEdit from "@/pages/profile/ProfileEdit";
 import ProfileHelpDesk from "@/pages/profile/ProfileHelpDesk";
-import ProfilePrivacy from "@/pages/profile/ProfilePrivacy";
 
 const ProfilePage = () => {
   return (
@@ -18,7 +18,7 @@ const ProfilePage = () => {
       ></Route>
       <Route
         path={"/privacy"}
-        element={<ProfilePrivacy />}
+        element={<ProfileCompanyEdit />}
       ></Route>
       <Route
         path={"/help-desk"}

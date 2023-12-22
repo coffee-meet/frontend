@@ -18,13 +18,11 @@ import RegisterInput from "@/components/common/RegisterInput";
 import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast.tsx";
 import { palette } from "@/styles/palette.ts";
-import useJobStore from "@/store/JobStore.tsx";
 import useThemeStore from "@/store/ThemeStore.tsx";
 import { JobList } from "../../constants";
 
-const ProfilePrivacy = () => {
+const ProfileCompanyEdit = () => {
   const { isDarkMode } = useThemeStore();
-  const { jobInfo } = useJobStore();
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
   const codeRef = useRef<HTMLInputElement>(null);
@@ -277,4 +275,4 @@ const CardImageFallback = styled.div`
   cursor: pointer;
 `;
 
-export default ProfilePrivacy;
+export default ProfileCompanyEdit;
