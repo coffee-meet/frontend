@@ -11,7 +11,6 @@ interface InputProps extends ComponentProps<"input"> {
   height?: number;
   placeholder: string;
   type?: string;
-  ref?: React.ForwardedRef<HTMLInputElement>;
   label?: Path<CompanyInfoStateType>;
   register?: UseFormRegister<CompanyInfoStateType>;
 }
@@ -25,8 +24,7 @@ interface InputProps extends ComponentProps<"input"> {
  * @param label : input react-hook-form label
  * @param register : input react-hook-form register
  * @param props : input other props
- * @description : 정보 등록 및 수정 페이지에서 활용하는 Input 컴포넌트입니다. form 구성 시 ref 또는 register, label를 props로 전달해주세요.
- * @description : ref를 전달하거나, register와 label을 함께 전달해주세요.
+ * @description : 정보 등록 및 수정 페이지에서 활용하는 Input 컴포넌트입니다. form 구성 시 register, label를 props로 전달해주세요.
  * @returns
  */
 const RegisterInput = forwardRef<HTMLInputElement, InputProps>(function Input({
@@ -34,7 +32,6 @@ const RegisterInput = forwardRef<HTMLInputElement, InputProps>(function Input({
   height = 46,
   placeholder,
   type = "text",
-  ref,
   label,
   register,
   ...props
@@ -46,7 +43,7 @@ const RegisterInput = forwardRef<HTMLInputElement, InputProps>(function Input({
         heightProps={height}
         placeholder={placeholder}
         type={type}
-        {...(register && label ? register(label) : { ref })}
+        {...(register && label ? register(label) : {})}
         {...props}
       />
     </StyleInputWrapper>
