@@ -1,6 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import type { CompanyInfoStateType } from "@/schemas/companyInfo.ts";
+import { CompanyInfoSchema } from "@/schemas/companyInfo.ts";
 import styled from "@emotion/styled";
+import { zodResolver } from "@hookform/resolvers/zod";
 import getEmailValid from "@/apis/register/getEmailValid.ts";
 import registerCompanyInfo from "@/apis/register/registerCompanyInfo.ts";
 import sendEmailValidCode from "@/apis/register/sendEmailValidCode.ts";
@@ -25,17 +29,18 @@ const ProfileCompanyEdit = () => {
   const { isDarkMode } = useThemeStore();
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
-  const codeRef = useRef<HTMLInputElement>(null);
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const [imageSrc, setImageSrc] = useState("");
-  const [imageFile, setImageFile] = useState<File>();
+  const [uploadedURL, setUploadedURL] = useState("");
   const { showToast } = useToast();
 
-  const handleVerifyEmail = async () => {
-    if (!emailRef.current?.value) {
+  const companyInfoForm = useForm<CompanyInfoStateType>({
+    resolver: zodResolver(CompanyInfoSchema),
+  });
+  const cardPreview = companyInfoForm.watch("businessCard");
+
+  const handleVerifyEmail = async (email: string) => {
+    if (!email) {
       showToast({ message: "이메일을 입력해주세요! ", type: "warning", isDarkMode });
       return;
     }
@@ -43,12 +48,12 @@ const ProfileCompanyEdit = () => {
       showToast({ message: "로그인이 필요합니다! ", type: "warning", isDarkMode });
       return;
     }
-    sendEmailValidCode(emailRef.current.value, userId);
     showToast({ message: "인증코드가 전송되었습니다! ", type: "success", isDarkMode });
+    return await sendEmailValidCode(email, userId);
   };
 
-  const handleVerifyCode = async () => {
-    if (!codeRef.current?.value) {
+  const handleVerifyCode = async (code: string) => {
+    if (!code) {
       showToast({ message: "인증코드를 입력해주세요! ", type: "warning", isDarkMode });
       return;
     }
@@ -57,28 +62,22 @@ const ProfileCompanyEdit = () => {
       return;
     }
     setCodeChecked(true);
-    getEmailValid(userId, codeRef.current.value)
-      .then(() => {
-        setIsCodeSame(true);
-      })
-      .catch(() => {
-        setIsCodeSame(false);
-      });
-  };
-
-  const onUploadImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
-    const file = event.target.files?.[0];
-    reader.onloadend = () => {
-      setImageSrc(reader.result as string);
-    };
-    if (file) {
-      reader.readAsDataURL(file);
-      setImageFile(file);
+    const response = await getEmailValid(userId, code);
+    if (response.status == 200) {
+      setIsCodeSame(true);
+    } else {
+      setIsCodeSame(false);
     }
   };
 
-  const handleChangeCompanyInfo = () => {
+  useEffect(() => {
+    if (cardPreview && cardPreview.length > 0) {
+      const url = URL.createObjectURL(cardPreview[0]);
+      setUploadedURL(url);
+    }
+  }, [cardPreview]);
+
+  const handleChangeCompanyInfo = (data: CompanyInfoStateType) => {
     if (!userId) {
       showToast({ message: "로그인이 필요합니다! ", type: "warning", isDarkMode });
       return;
@@ -86,18 +85,16 @@ const ProfileCompanyEdit = () => {
     if (!codeChecked) {
       showToast({ message: "인증코드가 확인되지 않았습니다! ", type: "warning", isDarkMode });
       return;
-    } else if (!isCodeSame) {
+    }
+    if (!isCodeSame) {
       showToast({ message: "인증코드가 일치하지 않습니다! ", type: "warning", isDarkMode });
-      return;
-    } else if (!imageFile) {
-      showToast({ message: "명함 이미지를 선택해주세요! ", type: "warning", isDarkMode });
       return;
     }
     const formData = new FormData();
-    formData.append("companyName", nameRef.current?.value || "");
-    formData.append("companyEmail", emailRef.current?.value || "");
-    formData.append("department", jobInfo);
-    formData.append("businessCard", imageFile);
+    formData.append("companyName", data.companyName);
+    formData.append("companyEmail", data.companyEmail);
+    formData.append("department", data.department[0]);
+    formData.append("businessCard", data.businessCard[0]);
 
     registerCompanyInfo(formData, true)
       .then(() => {
@@ -137,99 +134,167 @@ const ProfileCompanyEdit = () => {
             hasBackground={true}
           />
           <Spacing size={20} />
-          <SectionLabelText width={390}>{"회사 이름"}</SectionLabelText>
-          <RegisterInput
-            width={343}
-            placeholder={"회사 이름"}
-            ref={nameRef}
-          />
-          <Spacing size={20} />
-          <SectionLabelText width={390}>{"이메일"}</SectionLabelText>
-          <FlexBox gap={10}>
-            <RegisterInput
-              width={260}
-              placeholder={"회사 이메일"}
-              ref={emailRef}
-            />
-            <NormalButton
-              normalButtonType={"email-certify"}
-              onClick={handleVerifyEmail}
-            >
-              {"이메일 인증"}
-            </NormalButton>
-          </FlexBox>
-          <Spacing size={16} />
-          <FlexBox
-            gap={16}
-            style={{
-              position: "relative",
-            }}
-          >
+          <form onSubmit={companyInfoForm.handleSubmit(handleChangeCompanyInfo)}>
+            <SectionLabelText width={390}>{"회사 이름"}</SectionLabelText>
             <RegisterInput
               width={343}
-              placeholder={"인증코드 6자리 입력"}
-              ref={codeRef}
+              placeholder={"회사 이름"}
+              label={"companyName"}
+              register={companyInfoForm.register}
             />
-            <StyleVerificationEmailButton onClick={handleVerifyCode}>
-              {"확인"}
-            </StyleVerificationEmailButton>
-          </FlexBox>
-          <Spacing size={10} />
-          {codeChecked && isCodeSame && (
-            <AlertText
-              fontSize={`11px`}
-              fontColor={`${palette.PRIMARY}`}
-              padding={"10px"}
-              textAlign={"end"}
-            >
-              {"인증 코드가 확인되었습니다."}
-            </AlertText>
-          )}
-          {codeChecked && !isCodeSame && (
-            <AlertText
-              fontSize={`11px`}
-              fontColor={`${palette.RED}`}
-              padding={"10px"}
-              textAlign={"end"}
-            >
-              {"인증 코드가 일치하지 않습니다."}
-            </AlertText>
-          )}
-          <Spacing size={20} />
-          <SectionLabelText width={390}>{"직무정보"}</SectionLabelText>
-          <MultiSelector
-            isDarkMode={isDarkMode}
-            itemList={JobList}
-            maxCount={1}
-          />
-          <Spacing size={20} />
-          <SectionLabelText width={390}>{"명함"}</SectionLabelText>
-          <label htmlFor={"card-image-upload"}>
-            {/*<StyleImageCard src={imageSrc || businessCardExample} alt={'명함 이미지'} />*/}
-            {imageSrc ? (
-              <StyleImageCard
-                src={imageSrc}
-                alt={"명함 이미지"}
+            <div>
+              {companyInfoForm.formState.errors.companyName && (
+                <AlertText
+                  fontSize={`11px`}
+                  fontColor={`${palette.RED}`}
+                  padding={"10px"}
+                  textAlign={"end"}
+                >
+                  {companyInfoForm.formState.errors.companyName.message}
+                </AlertText>
+              )}
+            </div>
+            <Spacing size={20} />
+            <SectionLabelText width={390}>{"이메일"}</SectionLabelText>
+            <FlexBox gap={10}>
+              <RegisterInput
+                width={260}
+                placeholder={"회사 이메일"}
+                label={"companyEmail"}
+                register={companyInfoForm.register}
               />
-            ) : (
-              <CardImageFallback>
-                <div>{"명함 이미지를 선택해주세요."}</div>
-              </CardImageFallback>
+              <NormalButton
+                normalButtonType={"email-certify"}
+                onClick={() => handleVerifyEmail(companyInfoForm.getValues("companyEmail"))}
+              >
+                {"이메일 인증"}
+              </NormalButton>
+            </FlexBox>
+            <div>
+              {companyInfoForm.formState.errors.companyEmail && (
+                <AlertText
+                  fontSize={`11px`}
+                  fontColor={`${palette.RED}`}
+                  padding={"10px"}
+                  textAlign={"end"}
+                >
+                  {companyInfoForm.formState.errors.companyEmail.message}
+                </AlertText>
+              )}
+            </div>
+            <Spacing size={16} />
+            <FlexBox
+              gap={16}
+              style={{
+                position: "relative",
+              }}
+            >
+              <RegisterInput
+                width={343}
+                placeholder={"인증코드 6자리 입력"}
+                label={"certCode"}
+                register={companyInfoForm.register}
+              />
+              <StyleVerificationEmailButton
+                onClick={() => handleVerifyCode(companyInfoForm.getValues("certCode"))}
+              >
+                {"확인"}
+              </StyleVerificationEmailButton>
+            </FlexBox>
+            <Spacing size={10} />
+            {codeChecked && isCodeSame && (
+              <AlertText
+                fontSize={`11px`}
+                fontColor={`${palette.PRIMARY}`}
+                padding={"10px"}
+                textAlign={"end"}
+              >
+                {"인증 코드가 확인되었습니다."}
+              </AlertText>
             )}
-          </label>
-          <CardImageInput
-            type={"file"}
-            id={"card-image-upload"}
-            accept={"image/jpeg, image/jpg, image/png"}
-            onChange={onUploadImage}
-          />
-          <Spacing size={25} />
-          <NormalButton
-            normalButtonType={"form-submit"}
-            onClick={handleChangeCompanyInfo}
-          >
-            {"회사 정보 변경 요청하기"}
-          </NormalButton>
+            {codeChecked && !isCodeSame && (
+              <AlertText
+                fontSize={`11px`}
+                fontColor={`${palette.RED}`}
+                padding={"10px"}
+                textAlign={"end"}
+              >
+                {"인증 코드가 일치하지 않습니다."}
+              </AlertText>
+            )}
+            <Spacing size={20} />
+            <FlexBox
+              gap={10}
+              direction={"column"}
+            >
+              <SectionLabelText width={390}>{"직무정보"}</SectionLabelText>
+              <Controller
+                name={"department"}
+                control={companyInfoForm.control}
+                render={({ field }) => (
+                  <MultiSelector
+                    isDarkMode={isDarkMode}
+                    itemList={JobList}
+                    maxCount={1}
+                    onValueChange={field.onChange}
+                  />
+                )}
+              />
+              <div>
+                {companyInfoForm.formState.errors.department && (
+                  <AlertText
+                    fontSize={`11px`}
+                    fontColor={`${palette.RED}`}
+                    padding={"10px"}
+                    textAlign={"end"}
+                  >
+                    {companyInfoForm.formState.errors.department.message}
+                  </AlertText>
+                )}
+              </div>
+            </FlexBox>
+            <Spacing size={20} />
+            <FlexBox
+              gap={10}
+              direction={"column"}
+            >
+              <SectionLabelText width={390}>{"명함"}</SectionLabelText>
+              <label htmlFor={"card-image-upload"}>
+                {uploadedURL ? (
+                  <StyleImageCard
+                    src={uploadedURL}
+                    alt={"명함 이미지"}
+                  />
+                ) : (
+                  <CardImageFallback>
+                    <div>{"명함 이미지를 선택해주세요."}</div>
+                  </CardImageFallback>
+                )}
+              </label>
+              <CardImageInput
+                type={"file"}
+                id={"card-image-upload"}
+                accept={"image/jpeg, image/jpg, image/png"}
+                {...companyInfoForm.register("businessCard")}
+              />
+              <div>
+                {companyInfoForm.formState.errors.businessCard && (
+                  <AlertText
+                    fontSize={`11px`}
+                    fontColor={`${palette.RED}`}
+                    padding={"10px"}
+                    textAlign={"end"}
+                  >
+                    {companyInfoForm.formState.errors.businessCard.message?.toString()}
+                  </AlertText>
+                )}
+              </div>
+              <NormalButton normalButtonType={"form-submit"}>
+                {"회사 정보 변경 요청하기"}
+              </NormalButton>
+            </FlexBox>
+            <Spacing size={25} />
+          </form>
           <Spacing size={20} />
         </FlexBox>
       </PageContainer>
