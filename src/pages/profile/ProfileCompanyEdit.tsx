@@ -19,7 +19,7 @@ import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast.tsx";
 import { palette } from "@/styles/palette.ts";
 import useThemeStore from "@/store/ThemeStore.tsx";
-import { JobList } from "../../constants";
+import { JobList } from "@/constants/index.ts";
 
 const ProfileCompanyEdit = () => {
   const { isDarkMode } = useThemeStore();
