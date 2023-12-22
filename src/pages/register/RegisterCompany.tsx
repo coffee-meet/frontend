@@ -28,7 +28,6 @@ const RegisterCompany = () => {
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const userId = useLocation().state.userId;
-  const emailRef = useRef<HTMLInputElement>(null);
   const codeRef = useRef<HTMLInputElement>(null);
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
@@ -64,8 +63,8 @@ const RegisterCompany = () => {
   };
 
   //이메일 인증 버튼 누르면 실행되는 함수
-  const handleEmailCertification = () => {
-    emailRef.current && handleClickEmailVerify(emailRef.current.value);
+  const handleEmailCertification = (email: string) => {
+    email && handleClickEmailVerify(email);
   };
 
   //인증 코드 입력하고 확인 버튼 누르면 실행되는 함수
@@ -195,7 +194,7 @@ const RegisterCompany = () => {
               />
               <NormalButton
                 normalButtonType={"email-certify"}
-                onClick={() => handleEmailCertification()}
+                onClick={() => handleEmailCertification(companyInfoForm.getValues("companyEmail"))}
               >
                 {"이메일 인증"}
               </NormalButton>
