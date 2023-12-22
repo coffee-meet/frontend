@@ -17,7 +17,7 @@ const ProfilePage = () => {
         element={<ProfileEdit />}
       ></Route>
       <Route
-        path={"/privacy"}
+        path={"/company-edit"}
         element={<ProfileCompanyEdit />}
       ></Route>
       <Route
