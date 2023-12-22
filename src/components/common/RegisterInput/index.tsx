@@ -1,5 +1,7 @@
 import type { ComponentProps } from "react";
 import { forwardRef } from "react";
+import type { Path, UseFormRegister } from "react-hook-form";
+import type { CompanyInfoStateType } from "@/schemas/companyInfo.ts";
 import styled from "@emotion/styled";
 import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
@@ -9,20 +11,27 @@ interface InputProps extends ComponentProps<"input"> {
   height?: number;
   placeholder: string;
   type?: string;
+  label: Path<CompanyInfoStateType>;
+  register: UseFormRegister<CompanyInfoStateType>;
 }
 
-const RegisterInput = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { width, height = 46, type = "text", placeholder, ...props }: InputProps,
-  inputRef,
-) {
+const RegisterInput = forwardRef<HTMLInputElement, InputProps>(function Input({
+  width,
+  height = 46,
+  type = "text",
+  placeholder,
+  label,
+  register,
+  ...props
+}: InputProps) {
   return (
     <StyleInputWrapper>
       <StyleInput
         widthProps={width}
         heightProps={height}
-        ref={inputRef}
         placeholder={placeholder}
         type={type}
+        {...register(label)}
         {...props}
       />
     </StyleInputWrapper>
