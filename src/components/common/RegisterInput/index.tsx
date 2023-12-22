@@ -46,8 +46,7 @@ const RegisterInput = forwardRef<HTMLInputElement, InputProps>(function Input({
         heightProps={height}
         placeholder={placeholder}
         type={type}
-        {...(register && label ? register(label) : {})}
-        ref={ref}
+        {...(register && label ? register(label) : { ref })}
         {...props}
       />
     </StyleInputWrapper>
