@@ -13,6 +13,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@hookform/resolvers": "^3.3.2",
     "@stomp/stompjs": "^7.0.0",
     "@tanstack/react-query": "^5.13.4",
     "@types/stompjs": "^2.3.7",
