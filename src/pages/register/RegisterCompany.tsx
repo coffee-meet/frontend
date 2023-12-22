@@ -223,7 +223,7 @@ const RegisterCompany = () => {
               placeholder={"인증코드 6자리 입력"}
               ref={codeRef}
             />
-            <StyleVerificationEmailButton onClick={() => checkCodeValid()}>
+            <StyleVerificationEmailButton onClick={checkCodeValid}>
               {"확인"}
             </StyleVerificationEmailButton>
           </FlexBox>
