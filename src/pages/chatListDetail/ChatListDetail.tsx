@@ -4,13 +4,13 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { axiosAPI } from "@/apis/axios";
 import type { Messages } from "@/apis/chatting/chattingType";
+import MessageArea from "@/pages/chatting/components/messageArea";
 import { FlexBox } from "@/components/common/Flexbox";
 import GradationBackground from "@/components/common/GradationBackground";
 import PageContainer from "@/components/common/PageContainer";
 import PageHeader from "@/components/common/PageHeader";
 import RegisterInput from "@/components/common/RegisterInput";
 import Spacing from "@/components/common/Spacing";
-import MessageArea from "@/components/messageArea";
 import { palette } from "@/styles/palette";
 import Send from "@/assets/icons/Send.svg";
 

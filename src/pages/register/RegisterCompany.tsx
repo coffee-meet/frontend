@@ -1,9 +1,12 @@
-import type { RefObject } from "react";
-import { useRef, useState } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { MdOutlinePhotoCamera, MdWbSunny } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
+import type { CompanyInfoStateType } from "@/schemas/companyInfo.ts";
+import { CompanyInfoSchema } from "@/schemas/companyInfo.ts";
 import styled from "@emotion/styled";
-import { useMutation } from "@tanstack/react-query";
+import { zodResolver } from "@hookform/resolvers/zod";
 import getEmailValid from "@/apis/register/getEmailValid.ts";
 import registerCompanyInfo from "@/apis/register/registerCompanyInfo.ts";
 import sendEmailValidCode from "@/apis/register/sendEmailValidCode.ts";
@@ -17,27 +20,31 @@ import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
-import useJobStore from "@/store/JobStore.tsx";
 import useThemeStore from "@/store/ThemeStore";
-import { JobList } from "../../constants";
+import { JobList } from "@/constants/index.ts";
 
 const RegisterCompany = () => {
   const navigate = useNavigate();
-  const userId = useLocation().state.userId;
-  const companyName = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const codeRef = useRef<HTMLInputElement>(null);
-  const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
-  const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
-  const { jobInfo } = useJobStore();
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
-  const formData = new FormData();
-  const imgRef = useRef<HTMLInputElement>(null) as RefObject<HTMLInputElement>;
+  const userId = useLocation().state.userId;
+  const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
+  const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
   const [uploadedURL, setUploadedURL] = useState("");
 
+  const companyInfoForm = useForm<CompanyInfoStateType>({
+    resolver: zodResolver(CompanyInfoSchema),
+  });
+  const cardPreview = companyInfoForm.watch("businessCard");
+
+  useEffect(() => {
+    if (cardPreview && cardPreview.length > 0) {
+      const url = URL.createObjectURL(cardPreview[0]);
+      setUploadedURL(url);
+    }
+  }, [cardPreview]);
+
   const handleClickEmailVerify = async (email: string) => {
-    console.log(email);
     if (!email) {
       showToast({
         message: "이메일을 입력해주세요.",
@@ -51,35 +58,17 @@ const RegisterCompany = () => {
       type: "info",
       isDarkMode,
     });
-    // return await axiosAPI.post(`/v1/certification/users/me/company-mail`, {
-    //   userId: userId,
-    //   companyEmail: emailRef.current && emailRef.current.value,
-    // })
     return await sendEmailValidCode(email, userId);
   };
-  const emailVerifyMutation = useMutation({
-    mutationFn: (email: string) => handleClickEmailVerify(email),
-    onSuccess: (response) => {
-      console.log(response);
-    },
-    onError: (err) => {
-      console.log(err);
-    },
-  });
 
   //이메일 인증 버튼 누르면 실행되는 함수
-  const handleEmailCertification = async () => {
-    emailRef.current && emailVerifyMutation.mutate(emailRef.current.value);
+  const handleEmailCertification = (email: string) => {
+    email && handleClickEmailVerify(email);
   };
 
   //인증 코드 입력하고 확인 버튼 누르면 실행되는 함수
-  const checkEmailCode = async () => {
-    setCodeChecked(true);
-    // const response = await axiosAPI.post('/v1/certification/users/me/company-mail/verification', {
-    //   userId: userId,
-    //   verificationCode: codeRef.current && codeRef.current.value,
-    // })
-    if (!codeRef.current?.value) {
+  const checkCodeValid = async (code: string) => {
+    if (!code) {
       showToast({
         message: "인증코드를 입력해주세요.",
         type: "warning",
@@ -87,7 +76,8 @@ const RegisterCompany = () => {
       });
       return;
     }
-    const response = await getEmailValid(userId, codeRef.current && codeRef.current.value);
+    setCodeChecked(true);
+    const response = await getEmailValid(userId, code);
     if (response.status == 200) {
       setIsCodeSame(true);
     } else {
@@ -95,57 +85,35 @@ const RegisterCompany = () => {
     }
   };
 
-  const submitUserCompanyData = () => {
-    //다 체크 됐나 확인하고
+  const handleCheckEmailCertification = () => {
     if (!codeChecked) {
       showToast({
         message: "인증코드가 확인되지 않았습니다. ",
         type: "warning",
         isDarkMode,
       });
-      return;
+      return false;
     } else if (!isCodeSame) {
       showToast({
         message: "인증코드가 일치하지 않습니다. ",
         type: "warning",
         isDarkMode,
       });
-      return;
-    } else if (companyName.current && companyName.current.value.length === 0) {
-      showToast({
-        message: "회사명을 입력해주세요.",
-        type: "warning",
-        isDarkMode,
-      });
-      return;
-    } else if (imgRef.current && !imgRef.current?.files) {
-      showToast({
-        message: "명함을 업로드 해주세요!",
-        type: "warning",
-        isDarkMode,
-      });
-      return;
+      return false;
     }
-    formData.append("userId", userId);
-    companyName.current && formData.append("companyName", companyName.current.value);
-    emailRef.current && formData.append("companyEmail", emailRef.current.value);
-    formData.append("department", jobInfo);
-    if (imgRef.current && imgRef.current?.files) {
-      formData.append("businessCard", imgRef.current?.files[0]);
-    }
-
-    registerCompanyData();
   };
 
-  const registerCompanyData = () => {
-    console.log(formData);
+  const handleSubmitCompanyInfo = (data: CompanyInfoStateType) => {
+    if (!handleCheckEmailCertification()) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("companyName", data.companyName);
+    formData.append("companyEmail", data.companyEmail);
+    formData.append("department", data.department[0]);
+    formData.append("businessCard", data.businessCard[0]);
 
-    // await axiosAPI
-    //   .post('/v1/certification/users/me/company-info', body, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //   })
     registerCompanyInfo(formData, false)
       .then(() => {
         showToast({
@@ -162,37 +130,6 @@ const RegisterCompany = () => {
           isDarkMode: false,
         });
       });
-  };
-  // const registerCompanyMutation = useMutation((body: object) => registerCompanyData(body), {
-  //   onSuccess: (response) => {
-  //     console.log(response)
-  //     navigate('/')
-  //   },
-  //   onError: () => {
-  //     showToast({
-  //       message: '회사 정보 등록에 실패했습니다.',
-  //       type: 'error',
-  //       isDarkMode: false,
-  //     })
-  //   },
-  // })
-  const handleImageChange = () => {
-    if (imgRef.current && imgRef.current?.files) {
-      if (!imgRef.current.files[0]) {
-        return;
-      }
-      console.log(imgRef.current?.files[0]);
-      formData.append("businessCard", imgRef.current?.files[0]);
-      console.log(formData);
-      const url = URL.createObjectURL(imgRef.current?.files[0]);
-      setUploadedURL(url);
-    }
-  };
-  const handleClickUpload = () => {
-    if (!imgRef.current) {
-      return;
-    }
-    imgRef.current.click();
   };
 
   return (
@@ -220,144 +157,199 @@ const RegisterCompany = () => {
             />
           </StyleIcon>
         </FlexBox>
-        {/* <Spacing size={11} /> */}
         <StyleDivider />
       </StyleRegisterHeader>
       <Spacing size={13} />
-      <StyleDataWrapper>
-        <FlexBox
-          gap={16}
-          direction={"column"}
-        >
-          <FlexBox gap={16}>
-            <RegisterInput
-              width={350}
-              placeholder={"회사 명"}
-              ref={companyName}
-            />
-          </FlexBox>
-          <FlexBox gap={16}>
-            <RegisterInput
-              width={260}
-              placeholder={"회사 이메일"}
-              ref={emailRef}
-            />
-            <NormalButton
-              normalButtonType={"email-certify"}
-              onClick={() => handleEmailCertification()}
-            >
-              {"이메일 인증"}
-            </NormalButton>
-          </FlexBox>
-        </FlexBox>
-        <Spacing size={16} />
-        <FlexBox
-          gap={16}
-          style={{
-            position: "relative",
-          }}
-        >
-          <RegisterInput
-            width={348}
-            placeholder={"인증코드 6자리 입력"}
-            ref={codeRef}
-          />
-          <StyleVerificationEmailButton onClick={() => checkEmailCode()}>
-            {"확인"}
-          </StyleVerificationEmailButton>
-        </FlexBox>
-        <Spacing size={10} />
-        {codeChecked && isCodeSame && (
-          <AlertText
-            fontSize={`11px`}
-            fontColor={`${palette.PRIMARY}`}
-            padding={"10px"}
-            textAlign={"end"}
+      <form onSubmit={companyInfoForm.handleSubmit(handleSubmitCompanyInfo)}>
+        <StyleDataWrapper>
+          <FlexBox
+            gap={16}
+            direction={"column"}
           >
-            {"인증 코드가 확인되었습니다."}
-          </AlertText>
-        )}
-        {codeChecked && !isCodeSame && (
-          <AlertText
-            fontSize={`11px`}
-            fontColor={`${palette.RED}`}
-            padding={"10px"}
-            textAlign={"end"}
-          >
-            {"인증 코드가 일치하지 않습니다."}
-          </AlertText>
-        )}
-
-        <Spacing size={13} />
-        <StyleInterestText>{"직무정보"}</StyleInterestText>
-        <FlexBox direction={"column"}>
-          <MultiSelector
-            isDarkMode={isDarkMode}
-            itemList={JobList}
-            maxCount={1}
-          />
-        </FlexBox>
-        <Spacing size={10} />
-
-        <FlexBox
-          gap={0}
-          direction={"column"}
-        >
-          <StyleText> {"명함을 업로드 해주세요!"}</StyleText>
-          <StyleImageCard onClick={handleClickUpload}>
-            {uploadedURL ? (
-              <img
-                src={uploadedURL}
-                alt={"사용자가 업로드 한 이미지"}
-                style={{ width: "auto", height: "100%" }}
+            <FlexBox gap={16}>
+              <RegisterInput
+                width={350}
+                placeholder={"회사 명"}
+                label={"companyName"}
+                register={companyInfoForm.register}
               />
-            ) : (
-              <MdOutlinePhotoCamera size={50} />
-            )}
+            </FlexBox>
+            <div>
+              {companyInfoForm.formState.errors.companyName && (
+                <AlertText
+                  fontSize={`11px`}
+                  fontColor={`${palette.RED}`}
+                  padding={"10px"}
+                  textAlign={"end"}
+                >
+                  {companyInfoForm.formState.errors.companyName.message}
+                </AlertText>
+              )}
+            </div>
+            <FlexBox gap={16}>
+              <RegisterInput
+                width={260}
+                placeholder={"회사 이메일"}
+                label={"companyEmail"}
+                register={companyInfoForm.register}
+              />
+              <NormalButton
+                normalButtonType={"email-certify"}
+                onClick={() => handleEmailCertification(companyInfoForm.getValues("companyEmail"))}
+              >
+                {"이메일 인증"}
+              </NormalButton>
+            </FlexBox>
+            <div>
+              {companyInfoForm.formState.errors.companyEmail && (
+                <AlertText
+                  fontSize={`11px`}
+                  fontColor={`${palette.RED}`}
+                  padding={"10px"}
+                  textAlign={"end"}
+                >
+                  {companyInfoForm.formState.errors.companyEmail.message}
+                </AlertText>
+              )}
+            </div>
+          </FlexBox>
+          <Spacing size={16} />
+          <FlexBox
+            gap={16}
+            style={{
+              position: "relative",
+            }}
+          >
+            <RegisterInput
+              width={343}
+              placeholder={"인증코드 6자리 입력"}
+              label={"certCode"}
+              register={companyInfoForm.register}
+            />
+            <StyleVerificationEmailButton
+              onClick={() => checkCodeValid(companyInfoForm.getValues("certCode"))}
+            >
+              {"확인"}
+            </StyleVerificationEmailButton>
+          </FlexBox>
+          <Spacing size={10} />
+          {codeChecked && isCodeSame && (
+            <AlertText
+              fontSize={`11px`}
+              fontColor={`${palette.PRIMARY}`}
+              padding={"10px"}
+              textAlign={"end"}
+            >
+              {"인증 코드가 확인되었습니다."}
+            </AlertText>
+          )}
+          {codeChecked && !isCodeSame && (
+            <AlertText
+              fontSize={`11px`}
+              fontColor={`${palette.RED}`}
+              padding={"10px"}
+              textAlign={"end"}
+            >
+              {"인증 코드가 일치하지 않습니다."}
+            </AlertText>
+          )}
+
+          <Spacing size={13} />
+          <StyleInterestText>{"직무정보"}</StyleInterestText>
+          <FlexBox direction={"column"}>
+            <Controller
+              name={"department"}
+              control={companyInfoForm.control}
+              render={({ field }) => (
+                <MultiSelector
+                  isDarkMode={isDarkMode}
+                  itemList={JobList}
+                  maxCount={1}
+                  onValueChange={field.onChange}
+                />
+              )}
+            />
+            <div>
+              {companyInfoForm.formState.errors.department && (
+                <AlertText
+                  fontSize={`11px`}
+                  fontColor={`${palette.RED}`}
+                  padding={"10px"}
+                  textAlign={"end"}
+                >
+                  {companyInfoForm.formState.errors.department.message}
+                </AlertText>
+              )}
+            </div>
+          </FlexBox>
+          <Spacing size={10} />
+
+          <FlexBox
+            gap={0}
+            direction={"column"}
+          >
+            <StyleText> {"명함을 업로드 해주세요!"}</StyleText>
+            <label htmlFor={"business-card-input"}>
+              <StyleImageCard>
+                {uploadedURL ? (
+                  <img
+                    src={uploadedURL}
+                    alt={"사용자가 업로드 한 이미지"}
+                    style={{ width: "auto", height: "100%" }}
+                  />
+                ) : (
+                  <MdOutlinePhotoCamera size={50} />
+                )}
+              </StyleImageCard>
+            </label>
             <input
+              id={"business-card-input"}
               type={"file"}
               accept={"image/jpg, image/jpeg, image/png"}
-              multiple
-              ref={imgRef}
-              onChange={handleImageChange}
               style={{ display: "none" }}
+              {...companyInfoForm.register("businessCard")}
             />
-          </StyleImageCard>
-        </FlexBox>
-      </StyleDataWrapper>
-      <Spacing size={20} />
-      <StyleSubmitButtonWrapper>
-        <NormalButton
-          normalButtonType={"form-submit"}
-          onClick={submitUserCompanyData}
-        >
-          {"등록 완료"}
-        </NormalButton>
-      </StyleSubmitButtonWrapper>
-      <Spacing size={20} />
+            <div>
+              {companyInfoForm.formState.errors.businessCard && (
+                <AlertText
+                  fontSize={`11px`}
+                  fontColor={`${palette.RED}`}
+                  padding={"10px"}
+                  textAlign={"end"}
+                >
+                  {companyInfoForm.formState.errors.businessCard.message?.toString()}
+                </AlertText>
+              )}
+            </div>
+          </FlexBox>
+        </StyleDataWrapper>
+        <Spacing size={20} />
+        <StyleSubmitButtonWrapper>
+          <NormalButton normalButtonType={"form-submit"}>{"등록 완료"}</NormalButton>
+        </StyleSubmitButtonWrapper>
+        <Spacing size={20} />
+      </form>
     </StyleRegisterWrapper>
   );
 };
+
 const StyleRegisterWrapper = styled.div`
   background-color: ${palette.GRAY100};
   height: 100%;
   overflow: scroll;
 `;
 const StyleDataWrapper = styled.div``;
-const StyleImageCard = styled.button`
+const StyleImageCard = styled.div`
   width: 250px;
   height: 150px;
   background: ${palette.WHITE};
   border: 1px dashed ${palette.GRAY600};
   border-radius: 10px;
   display: flex;
+  cursor: pointer;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  /* @media (max-width: 786px) {
-    width: 90vw;
-    height: 50vh;
-  } */
 `;
 const StyleRegisterHeader = styled.div``;
 const StyleHeaderText = styled.span`

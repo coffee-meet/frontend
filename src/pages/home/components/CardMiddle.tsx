@@ -1,9 +1,9 @@
 import { PulseLoader } from "react-spinners";
 import styled from "@emotion/styled";
+import NormalButton from "@/components/common/Buttons/NormalButton";
+import Spacing from "@/components/common/Spacing";
+import { Text } from "@/components/common/Text";
 import { palette } from "@/styles/palette";
-import NormalButton from "../common/Buttons/NormalButton";
-import Spacing from "../common/Spacing";
-import { Text } from "../common/Text";
 
 const StyledWatingMidWrapper = styled.div`
   flex: 1;

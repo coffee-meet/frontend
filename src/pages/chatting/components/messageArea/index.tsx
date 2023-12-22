@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import type { Messages } from "@/apis/chatting/chattingType";
+import ChatBubbleListLow from "@/pages/chatting/components/chatBubbleListLow";
 import { FlexBox } from "@/components/common/Flexbox";
 import Spacing from "@/components/common/Spacing";
 import ChattingBubble from "@/components/common/chattingBubble";
-import ChatBubbleListLow from "@/components/chatBubbleListLow";
 
 interface MessageProps {
   messageData: Messages[];

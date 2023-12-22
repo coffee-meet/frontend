@@ -16,6 +16,7 @@ import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
 import useInterestStore from "@/store/InterestStore";
 import useThemeStore from "@/store/ThemeStore";
+import { InterestList } from "@/constants/index.ts";
 
 const RegisterUser = () => {
   const navigate = useNavigate();
@@ -202,7 +203,7 @@ const RegisterUser = () => {
       <FlexBox direction={"column"}>
         <MultiSelector
           isDarkMode={isDarkMode}
-          itemList={interestList}
+          itemList={InterestList}
           maxCount={3}
         />
       </FlexBox>

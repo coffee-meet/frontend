@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Card from "@/pages/home/components/Card.tsx";
 import AppHeader from "@/components/common/AppHeader";
 import { ParticularTopicButton } from "@/components/common/Buttons/IconButton";
 import GradationBackground from "@/components/common/GradationBackground";
 import NavigationBar from "@/components/common/NavigationBar";
 import PageContainer from "@/components/common/PageContainer";
 import { Text } from "@/components/common/Text";
-import Card from "@/components/home/Card";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
 import useAuthStore from "@/store/AuthStore.tsx";
