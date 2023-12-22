@@ -219,7 +219,10 @@ const RegisterCompany = () => {
               position: "relative",
             }}
           >
-            <StyleCodeInput placeholder={"인증코드 6자리 입력"} />
+            <StyleCodeInput
+              placeholder={"인증코드 6자리 입력"}
+              ref={codeRef}
+            />
             <StyleVerificationEmailButton onClick={() => checkCodeValid()}>
               {"확인"}
             </StyleVerificationEmailButton>
