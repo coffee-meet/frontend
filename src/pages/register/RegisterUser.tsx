@@ -1,7 +1,11 @@
 import { useRef, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { MdWbSunny } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
+import type { UserInfoStateType } from "@/schemas/userInfo";
+import { UserInfoSchema } from "@/schemas/userInfo";
 import styled from "@emotion/styled";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { axiosAPI } from "@/apis/axios";
 import getNicknameValid from "@/apis/register/getNicknameValid.ts";
@@ -30,25 +34,9 @@ const RegisterUser = () => {
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
-  // const getNicknameValid = async (nickname: string) => {
-  //   await axiosAPI
-  //     .get(`/v1/users/duplicate?nickname=${nickname}`)
-  //     .then((response) => {
-  //       if (response.status == 200) {
-  //         //사용가능한 닉네임일 경우
-  //         setDoubleChecked(true)
-  //         setNicknameDuplicated(false)
-  //       } else {
-  //         setDoubleChecked(true)
-  //         setNicknameDuplicated(true)
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //       setDoubleChecked(true)
-  //       setNicknameDuplicated(true)
-  //     })
-  // }
+  const userInfoForm = useForm<UserInfoStateType>({
+    resolver: zodResolver(UserInfoSchema),
+  });
 
   const handleNicknameValidCheck = (nickname: string) => {
     getNicknameValid(nickname)
@@ -155,67 +143,76 @@ const RegisterUser = () => {
         <StyleDivider />
       </StyleRegisterHeader>
       <Spacing size={73} />
-      <FlexBox gap={16}>
-        <RegisterInput
-          width={260}
-          placeholder={"닉네임"}
-          ref={inputRef}
-        />
-        <NormalButton
-          normalButtonType={"nickname-duplicate"}
-          onClick={doubleCheckNickName}
-        >
-          {"중복확인"}
-        </NormalButton>
-      </FlexBox>
-      {nicknameDuplicated === null && doubleChecked === null && (
-        <AlertText
-          padding={"10px"}
-          textAlign={"end"}
-          fontSize={`11px`}
-          fontColor={`${palette.RED}`}
-        >
-          {"닉네임 중복검사를 해주세요!"}
-        </AlertText>
-      )}
-      {nicknameDuplicated === false && doubleChecked && (
-        <AlertText
-          padding={"10px"}
-          textAlign={"end"}
-          fontSize={`11px`}
-          fontColor={`${palette.PRIMARY}`}
-        >
-          {"사용 가능한 닉네임입니다."}
-        </AlertText>
-      )}
-      {nicknameDuplicated === true && doubleChecked && (
-        <AlertText
-          padding={"10px"}
-          textAlign={"end"}
-          fontSize={`11px`}
-          fontColor={`${palette.RED}`}
-        >
-          {"이미 사용 중인 닉네임입니다."}
-        </AlertText>
-      )}
-      <Spacing size={44} />
-      <StyleInterestText>{"관심사"}</StyleInterestText>
-      <FlexBox direction={"column"}>
-        <MultiSelector
-          isDarkMode={isDarkMode}
-          itemList={InterestList}
-          maxCount={3}
-        />
-      </FlexBox>
-
-      <StyleSubmitButtonWrapper>
-        <NormalButton
-          normalButtonType={"form-submit"}
-          onClick={submitUserProfileData}
-        >
-          {"다음"}
-        </NormalButton>
-      </StyleSubmitButtonWrapper>
+      <form onSubmit={userInfoForm.handleSubmit(submitUserProfileData)}>
+        <FlexBox gap={16}>
+          <Controller
+            name={"nickname"}
+            control={userInfoForm.control}
+            render={() => (
+              <RegisterInput
+                width={260}
+                placeholder={"닉네임"}
+                ref={inputRef}
+              />
+            )}
+          />
+          <NormalButton
+            normalButtonType={"nickname-duplicate"}
+            onClick={doubleCheckNickName}
+          >
+            {"중복확인"}
+          </NormalButton>
+        </FlexBox>
+        {nicknameDuplicated === null && doubleChecked === null && (
+          <AlertText
+            padding={"10px"}
+            textAlign={"end"}
+            fontSize={`11px`}
+            fontColor={`${palette.RED}`}
+          >
+            {"닉네임 중복검사를 해주세요!"}
+          </AlertText>
+        )}
+        {nicknameDuplicated === false && doubleChecked && (
+          <AlertText
+            padding={"10px"}
+            textAlign={"end"}
+            fontSize={`11px`}
+            fontColor={`${palette.PRIMARY}`}
+          >
+            {"사용 가능한 닉네임입니다."}
+          </AlertText>
+        )}
+        {nicknameDuplicated === true && doubleChecked && (
+          <AlertText
+            padding={"10px"}
+            textAlign={"end"}
+            fontSize={`11px`}
+            fontColor={`${palette.RED}`}
+          >
+            {"이미 사용 중인 닉네임입니다."}
+          </AlertText>
+        )}
+        <Spacing size={44} />
+        <StyleInterestText>{"관심사"}</StyleInterestText>
+        <FlexBox direction={"column"}>
+          <Controller
+            name={"interest"}
+            control={userInfoForm.control}
+            render={({ field }) => (
+              <MultiSelector
+                isDarkMode={isDarkMode}
+                itemList={InterestList}
+                maxCount={3}
+                onValueChange={field.onChange}
+              />
+            )}
+          />
+        </FlexBox>
+        <StyleSubmitButtonWrapper>
+          <NormalButton normalButtonType={"form-submit"}>{"다음"}</NormalButton>
+        </StyleSubmitButtonWrapper>
+      </form>
     </StyleRegisterWrapper>
   );
 };
