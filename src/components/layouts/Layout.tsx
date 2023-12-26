@@ -18,7 +18,7 @@ const Layout = () => {
 const MainContainer = styled.main`
   position: relative;
   max-width: 414px;
-  height: calc(var(--vh, 1vh) * 100);
+  height: 100dvh;
   margin: 0 auto;
   background-color: ${theme.palette.GRAY200};
 `;
