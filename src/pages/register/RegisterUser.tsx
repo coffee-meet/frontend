@@ -1,7 +1,11 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { MdWbSunny } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
+import type { UserInfoStateType } from "@/schemas/userInfo";
+import { UserInfoSchema } from "@/schemas/userInfo";
 import styled from "@emotion/styled";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { axiosAPI } from "@/apis/axios";
 import getNicknameValid from "@/apis/register/getNicknameValid.ts";
@@ -14,7 +18,6 @@ import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
-import useInterestStore from "@/store/InterestStore";
 import useThemeStore from "@/store/ThemeStore";
 import { InterestList } from "@/constants/index.ts";
 
@@ -22,33 +25,14 @@ const RegisterUser = () => {
   const navigate = useNavigate();
   const userId = useLocation().state.userId;
 
-  const inputRef = useRef<HTMLInputElement>(null);
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false);
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null);
-  let nickname = "";
-  const { interestList } = useInterestStore();
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
-  // const getNicknameValid = async (nickname: string) => {
-  //   await axiosAPI
-  //     .get(`/v1/users/duplicate?nickname=${nickname}`)
-  //     .then((response) => {
-  //       if (response.status == 200) {
-  //         //사용가능한 닉네임일 경우
-  //         setDoubleChecked(true)
-  //         setNicknameDuplicated(false)
-  //       } else {
-  //         setDoubleChecked(true)
-  //         setNicknameDuplicated(true)
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.log(err)
-  //       setDoubleChecked(true)
-  //       setNicknameDuplicated(true)
-  //     })
-  // }
+  const userInfoForm = useForm<UserInfoStateType>({
+    resolver: zodResolver(UserInfoSchema),
+  });
 
   const handleNicknameValidCheck = (nickname: string) => {
     getNicknameValid(nickname)
@@ -62,20 +46,16 @@ const RegisterUser = () => {
       });
   };
 
-  const doubleCheckNickName = async () => {
-    if (inputRef.current !== null && inputRef.current.value.length == 0) {
+  const doubleCheckNickName = async (nickName: string) => {
+    if (nickName.length == 0) {
       setDoubleChecked(null);
       return;
     }
-    if (inputRef.current !== null) {
-      nickname = inputRef.current.value;
-      // doubleCheckMutation.mutate(nickname)
-      handleNicknameValidCheck(nickname);
-    }
+    handleNicknameValidCheck(nickName);
   };
-  const formValidation = () => {
-    console.log(doubleChecked);
-    if (inputRef.current !== null && inputRef.current.value.length === 0) {
+
+  const formValidation = (nickName: string) => {
+    if (nickName.length === 0) {
       showToast({
         message: "닉네임을 입력하세요!",
         type: "warning",
@@ -100,18 +80,15 @@ const RegisterUser = () => {
       return true;
     }
   };
-  const submitUserProfileData = () => {
-    if (formValidation()) {
-      console.log(nickname, interestList);
-      if (doubleChecked && inputRef.current !== null && interestList.length > 0) {
-        const body = {
-          userId: userId,
-          nickname: inputRef.current.value,
-          keywords: interestList,
-        };
-        console.log(body);
-        registerMutation.mutate(body);
-      }
+  const submitUserProfileData = (data: UserInfoStateType) => {
+    console.log(data);
+    if (formValidation(data.nickname)) {
+      const body = {
+        userId: userId,
+        nickname: data.nickname,
+        keywords: data.interest,
+      };
+      registerMutation.mutate(body);
     }
   };
   const registerPost = async (body: object) => {
@@ -155,67 +132,76 @@ const RegisterUser = () => {
         <StyleDivider />
       </StyleRegisterHeader>
       <Spacing size={73} />
-      <FlexBox gap={16}>
-        <RegisterInput
-          width={260}
-          placeholder={"닉네임"}
-          ref={inputRef}
-        />
-        <NormalButton
-          normalButtonType={"nickname-duplicate"}
-          onClick={doubleCheckNickName}
-        >
-          {"중복확인"}
-        </NormalButton>
-      </FlexBox>
-      {nicknameDuplicated === null && doubleChecked === null && (
-        <AlertText
-          padding={"10px"}
-          textAlign={"end"}
-          fontSize={`11px`}
-          fontColor={`${palette.RED}`}
-        >
-          {"닉네임 중복검사를 해주세요!"}
-        </AlertText>
-      )}
-      {nicknameDuplicated === false && doubleChecked && (
-        <AlertText
-          padding={"10px"}
-          textAlign={"end"}
-          fontSize={`11px`}
-          fontColor={`${palette.PRIMARY}`}
-        >
-          {"사용 가능한 닉네임입니다."}
-        </AlertText>
-      )}
-      {nicknameDuplicated === true && doubleChecked && (
-        <AlertText
-          padding={"10px"}
-          textAlign={"end"}
-          fontSize={`11px`}
-          fontColor={`${palette.RED}`}
-        >
-          {"이미 사용 중인 닉네임입니다."}
-        </AlertText>
-      )}
-      <Spacing size={44} />
-      <StyleInterestText>{"관심사"}</StyleInterestText>
-      <FlexBox direction={"column"}>
-        <MultiSelector
-          isDarkMode={isDarkMode}
-          itemList={InterestList}
-          maxCount={3}
-        />
-      </FlexBox>
-
-      <StyleSubmitButtonWrapper>
-        <NormalButton
-          normalButtonType={"form-submit"}
-          onClick={submitUserProfileData}
-        >
-          {"다음"}
-        </NormalButton>
-      </StyleSubmitButtonWrapper>
+      <form onSubmit={userInfoForm.handleSubmit(submitUserProfileData)}>
+        <FlexBox gap={16}>
+          <Controller
+            name={"nickname"}
+            control={userInfoForm.control}
+            render={({ field }) => (
+              <RegisterInput
+                width={260}
+                placeholder={"닉네임"}
+                onChange={field.onChange}
+              />
+            )}
+          />
+          <NormalButton
+            normalButtonType={"nickname-duplicate"}
+            onClick={() => doubleCheckNickName(userInfoForm.getValues("nickname"))}
+          >
+            {"중복확인"}
+          </NormalButton>
+        </FlexBox>
+        {nicknameDuplicated === null && doubleChecked === null && (
+          <AlertText
+            padding={"10px"}
+            textAlign={"end"}
+            fontSize={`11px`}
+            fontColor={`${palette.RED}`}
+          >
+            {"닉네임 중복검사를 해주세요!"}
+          </AlertText>
+        )}
+        {nicknameDuplicated === false && doubleChecked && (
+          <AlertText
+            padding={"10px"}
+            textAlign={"end"}
+            fontSize={`11px`}
+            fontColor={`${palette.PRIMARY}`}
+          >
+            {"사용 가능한 닉네임입니다."}
+          </AlertText>
+        )}
+        {nicknameDuplicated === true && doubleChecked && (
+          <AlertText
+            padding={"10px"}
+            textAlign={"end"}
+            fontSize={`11px`}
+            fontColor={`${palette.RED}`}
+          >
+            {"이미 사용 중인 닉네임입니다."}
+          </AlertText>
+        )}
+        <Spacing size={44} />
+        <StyleInterestText>{"관심사"}</StyleInterestText>
+        <FlexBox direction={"column"}>
+          <Controller
+            name={"interest"}
+            control={userInfoForm.control}
+            render={({ field }) => (
+              <MultiSelector
+                isDarkMode={isDarkMode}
+                itemList={InterestList}
+                maxCount={3}
+                onValueChange={field.onChange}
+              />
+            )}
+          />
+        </FlexBox>
+        <StyleSubmitButtonWrapper>
+          <NormalButton normalButtonType={"form-submit"}>{"다음"}</NormalButton>
+        </StyleSubmitButtonWrapper>
+      </form>
     </StyleRegisterWrapper>
   );
 };
