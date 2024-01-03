@@ -30,6 +30,12 @@
       "@/components/*": [
         "src/components/*"
       ],
+      "@/constants/*": [
+        "src/constants/*"
+      ],
+      "@/schemas/*": [
+        "src/schemas/*"
+      ],
       "@/utils/*": [
         "src/utils/*"
       ],

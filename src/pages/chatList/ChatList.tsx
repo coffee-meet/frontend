@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { axiosAPI } from "@/apis/axios";
+import ChatRoomBubbles from "@/pages/chatting/components/chatList/ChatRoomBubbles.tsx";
 import BackChevron from "@/components/common/BackChevron";
 import GradationBackground from "@/components/common/GradationBackground";
 import NavigationBar from "@/components/common/NavigationBar";
 import PageContainer from "@/components/common/PageContainer";
 import PageHeader from "@/components/common/PageHeader";
 import Spacing from "@/components/common/Spacing";
-import ChatRoomBubbles from "@/components/chatList/ChatRoomBubbles";
 import useThemeStore from "@/store/ThemeStore";
 
 type ChatHistoryType = {

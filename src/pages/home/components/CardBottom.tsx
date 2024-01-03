@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
+import { Text } from "@/components/common/Text";
 import { palette } from "@/styles/palette";
-import { Text } from "../common/Text";
 
 const StyledBottomHeader = styled.div<{
   isDarkMode: boolean;
