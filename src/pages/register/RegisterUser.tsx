@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { MdWbSunny } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -18,7 +18,6 @@ import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
-import useInterestStore from "@/store/InterestStore";
 import useThemeStore from "@/store/ThemeStore";
 import { InterestList } from "@/constants/index.ts";
 
@@ -26,11 +25,8 @@ const RegisterUser = () => {
   const navigate = useNavigate();
   const userId = useLocation().state.userId;
 
-  const inputRef = useRef<HTMLInputElement>(null);
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false);
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null);
-  let nickname = "";
-  const { interestList } = useInterestStore();
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
@@ -50,20 +46,16 @@ const RegisterUser = () => {
       });
   };
 
-  const doubleCheckNickName = async () => {
-    if (inputRef.current !== null && inputRef.current.value.length == 0) {
+  const doubleCheckNickName = async (nickName: string) => {
+    if (nickName.length == 0) {
       setDoubleChecked(null);
       return;
     }
-    if (inputRef.current !== null) {
-      nickname = inputRef.current.value;
-      // doubleCheckMutation.mutate(nickname)
-      handleNicknameValidCheck(nickname);
-    }
+    handleNicknameValidCheck(nickName);
   };
-  const formValidation = () => {
-    console.log(doubleChecked);
-    if (inputRef.current !== null && inputRef.current.value.length === 0) {
+
+  const formValidation = (nickName: string) => {
+    if (nickName.length === 0) {
       showToast({
         message: "닉네임을 입력하세요!",
         type: "warning",
@@ -88,18 +80,15 @@ const RegisterUser = () => {
       return true;
     }
   };
-  const submitUserProfileData = () => {
-    if (formValidation()) {
-      console.log(nickname, interestList);
-      if (doubleChecked && inputRef.current !== null && interestList.length > 0) {
-        const body = {
-          userId: userId,
-          nickname: inputRef.current.value,
-          keywords: interestList,
-        };
-        console.log(body);
-        registerMutation.mutate(body);
-      }
+  const submitUserProfileData = (data: UserInfoStateType) => {
+    console.log(data);
+    if (formValidation(data.nickname)) {
+      const body = {
+        userId: userId,
+        nickname: data.nickname,
+        keywords: data.interest,
+      };
+      registerMutation.mutate(body);
     }
   };
   const registerPost = async (body: object) => {
@@ -148,17 +137,17 @@ const RegisterUser = () => {
           <Controller
             name={"nickname"}
             control={userInfoForm.control}
-            render={() => (
+            render={({ field }) => (
               <RegisterInput
                 width={260}
                 placeholder={"닉네임"}
-                ref={inputRef}
+                onChange={field.onChange}
               />
             )}
           />
           <NormalButton
             normalButtonType={"nickname-duplicate"}
-            onClick={doubleCheckNickName}
+            onClick={() => doubleCheckNickName(userInfoForm.getValues("nickname"))}
           >
             {"중복확인"}
           </NormalButton>
