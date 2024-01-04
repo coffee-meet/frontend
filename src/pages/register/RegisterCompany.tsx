@@ -101,6 +101,7 @@ const RegisterCompany = () => {
       });
       return false;
     }
+    return true;
   };
 
   const handleSubmitCompanyInfo = (data: CompanyInfoStateType) => {
