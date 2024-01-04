@@ -29,6 +29,7 @@ const RegisterCompany = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
+
   const userInfo: UserInfoType = useLocation().state;
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
