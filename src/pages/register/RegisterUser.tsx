@@ -6,8 +6,6 @@ import type { UserInfoStateType } from "@/schemas/userInfo";
 import { UserInfoSchema } from "@/schemas/userInfo";
 import styled from "@emotion/styled";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { axiosAPI } from "@/apis/axios";
 import getNicknameValid from "@/apis/register/getNicknameValid.ts";
 import AlertText from "@/components/common/AlertText";
 import NormalButton from "@/components/common/Buttons/NormalButton";
@@ -81,35 +79,16 @@ const RegisterUser = () => {
     }
   };
   const submitUserProfileData = (data: UserInfoStateType) => {
-    console.log(data);
     if (formValidation(data.nickname)) {
-      const body = {
+      const userInfo = {
         userId: userId,
         nickname: data.nickname,
         keywords: data.interest,
       };
-      registerMutation.mutate(body);
+      navigate("/register/company", { state: { userInfo } });
     }
   };
-  const registerPost = async (body: object) => {
-    return await axiosAPI.post("/v1/users/sign-up", body);
-  };
 
-  const registerMutation = useMutation({
-    mutationFn: (body: object) => registerPost(body),
-    onSuccess: () => {
-      showToast({
-        message: "닉네임, 관심사 정보 등록을 완료했습니다!",
-        type: "success",
-        isDarkMode,
-      });
-
-      navigate("/register/company", { state: { userId: userId } });
-    },
-    onError: (err) => {
-      console.log(err);
-    },
-  });
   return (
     <StyleRegisterWrapper>
       <StyleRegisterHeader>

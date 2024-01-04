@@ -9,6 +9,8 @@ import styled from "@emotion/styled";
 import { zodResolver } from "@hookform/resolvers/zod";
 import getEmailValid from "@/apis/register/getEmailValid.ts";
 import registerCompanyInfo from "@/apis/register/registerCompanyInfo.ts";
+import type { UserInfoType } from "@/apis/register/registerUserInfo.ts";
+import { registerUserInfo } from "@/apis/register/registerUserInfo.ts";
 import sendEmailValidCode from "@/apis/register/sendEmailValidCode.ts";
 import AlertText from "@/components/common/AlertText";
 import BackChevron from "@/components/common/BackChevron";
@@ -27,7 +29,8 @@ const RegisterCompany = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
-  const userId = useLocation().state.userId;
+
+  const userInfo: UserInfoType = useLocation().state;
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
   const [uploadedURL, setUploadedURL] = useState("");
@@ -58,7 +61,7 @@ const RegisterCompany = () => {
       type: "info",
       isDarkMode,
     });
-    return await sendEmailValidCode(email, userId);
+    return await sendEmailValidCode(email, userInfo.userId);
   };
 
   //이메일 인증 버튼 누르면 실행되는 함수
@@ -77,7 +80,7 @@ const RegisterCompany = () => {
       return;
     }
     setCodeChecked(true);
-    const response = await getEmailValid(userId, code);
+    const response = await getEmailValid(userInfo.userId, code);
     if (response.status == 200) {
       setIsCodeSame(true);
     } else {
@@ -104,33 +107,34 @@ const RegisterCompany = () => {
     return true;
   };
 
-  const handleSubmitCompanyInfo = (data: CompanyInfoStateType) => {
+  const handleCompleteSignupProcess = async (data: CompanyInfoStateType) => {
     if (!handleCheckEmailCertification()) {
       return;
     }
+
     const formData = new FormData();
-    formData.append("userId", userId);
+    formData.append("userId", userInfo.userId);
     formData.append("companyName", data.companyName);
     formData.append("companyEmail", data.companyEmail);
     formData.append("department", data.department[0]);
     formData.append("businessCard", data.businessCard[0]);
 
-    registerCompanyInfo(formData, false)
-      .then(() => {
-        showToast({
-          message: "회사 정보 등록 완료! 다시 로그인 해주세요!",
-          type: "success",
-          isDarkMode: false,
-        });
-        navigate("/login");
-      })
-      .catch(() => {
-        showToast({
-          message: "회사 정보 등록에 실패했습니다.",
-          type: "error",
-          isDarkMode: false,
-        });
+    try {
+      await registerUserInfo(userInfo);
+      await registerCompanyInfo(formData, false);
+      showToast({
+        message: "회원 가입 완료! 다시 로그인 해주세요!",
+        type: "success",
+        isDarkMode: false,
       });
+      navigate("/login");
+    } catch (error) {
+      showToast({
+        message: "회원 가입에 실패했습니다.",
+        type: "error",
+        isDarkMode: false,
+      });
+    }
   };
 
   return (
@@ -161,7 +165,7 @@ const RegisterCompany = () => {
         <StyleDivider />
       </StyleRegisterHeader>
       <Spacing size={13} />
-      <form onSubmit={companyInfoForm.handleSubmit(handleSubmitCompanyInfo)}>
+      <form onSubmit={companyInfoForm.handleSubmit(handleCompleteSignupProcess)}>
         <StyleDataWrapper>
           <FlexBox
             gap={16}
