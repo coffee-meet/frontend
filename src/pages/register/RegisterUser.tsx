@@ -85,7 +85,7 @@ const RegisterUser = () => {
         nickname: data.nickname,
         keywords: data.interest,
       };
-      navigate("/register/company", { state: { userInfo } });
+      navigate("/register/company", { state: { ...userInfo } });
     }
   };
 
