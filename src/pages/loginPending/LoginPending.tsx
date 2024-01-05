@@ -32,7 +32,7 @@ const LoginPending = () => {
           res.data;
 
         if (!isRegistered) {
-          navigate("/register/user", { state: { userId } });
+          navigate("/register/user", { state: { userId: userId } });
         }
 
         if (isRegistered) {
@@ -46,7 +46,7 @@ const LoginPending = () => {
             refreshToken: refreshToken,
           });
           navigate("/", {
-            state: { userId, nickname, profileImageUrl },
+            state: { userId: userId, nickname: nickname, profileImageUrl: profileImageUrl },
           });
         }
       })
