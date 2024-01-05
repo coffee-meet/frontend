@@ -24,7 +24,7 @@ const Home = () => {
   useEffect(() => {
     if (!authTokens) {
       showToast({
-        message: "로그인이 필요한 서비스입니다.",
+        message: "로그인이 필요한 서비스입니다!",
         type: "warning",
         isDarkMode,
       });
