@@ -198,7 +198,10 @@ const RegisterCompany = () => {
               />
               <NormalButton
                 normalButtonType={"email-certify"}
-                onClick={() => handleEmailCertification(companyInfoForm.getValues("companyEmail"))}
+                onClick={(event) => {
+                  event.preventDefault();
+                  handleEmailCertification(companyInfoForm.getValues("companyEmail"));
+                }}
               >
                 {"이메일 인증"}
               </NormalButton>
@@ -229,7 +232,10 @@ const RegisterCompany = () => {
               {...companyInfoForm.register("certCode")}
             />
             <StyleVerificationEmailButton
-              onClick={() => checkCodeValid(companyInfoForm.getValues("certCode"))}
+              onClick={(event) => {
+                event.preventDefault();
+                checkCodeValid(companyInfoForm.getValues("certCode"));
+              }}
             >
               {"확인"}
             </StyleVerificationEmailButton>
