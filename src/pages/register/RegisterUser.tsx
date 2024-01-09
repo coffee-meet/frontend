@@ -113,16 +113,10 @@ const RegisterUser = () => {
       <Spacing size={73} />
       <form onSubmit={userInfoForm.handleSubmit(submitUserProfileData)}>
         <FlexBox gap={16}>
-          <Controller
-            name={"nickname"}
-            control={userInfoForm.control}
-            render={({ field }) => (
-              <RegisterInput
-                width={260}
-                placeholder={"닉네임"}
-                onChange={field.onChange}
-              />
-            )}
+          <RegisterInput
+            width={260}
+            placeholder={"닉네임"}
+            {...userInfoForm.register("nickname")}
           />
           <NormalButton
             normalButtonType={"nickname-duplicate"}
