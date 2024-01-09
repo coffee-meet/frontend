@@ -175,8 +175,7 @@ const RegisterCompany = () => {
               <RegisterInput
                 width={350}
                 placeholder={"회사 명"}
-                label={"companyName"}
-                register={companyInfoForm.register}
+                {...companyInfoForm.register("companyName")}
               />
             </FlexBox>
             <div>
@@ -195,8 +194,7 @@ const RegisterCompany = () => {
               <RegisterInput
                 width={260}
                 placeholder={"회사 이메일"}
-                label={"companyEmail"}
-                register={companyInfoForm.register}
+                {...companyInfoForm.register("companyEmail")}
               />
               <NormalButton
                 normalButtonType={"email-certify"}
@@ -228,8 +226,7 @@ const RegisterCompany = () => {
             <RegisterInput
               width={343}
               placeholder={"인증코드 6자리 입력"}
-              label={"certCode"}
-              register={companyInfoForm.register}
+              {...companyInfoForm.register("certCode")}
             />
             <StyleVerificationEmailButton
               onClick={() => checkCodeValid(companyInfoForm.getValues("certCode"))}
