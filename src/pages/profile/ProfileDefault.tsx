@@ -213,7 +213,7 @@ const ProfileDefault = () => {
             isDarkMode={isDarkMode}
             additionalContent={<BiChevronRight size={20} />}
             moveFromProfileListRow={() => {
-              navigate("/profile/privacy");
+              navigate("/profile/company-edit");
             }}
           />
           <Divider
