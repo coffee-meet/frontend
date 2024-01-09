@@ -63,14 +63,20 @@ const ProfileDefault = () => {
     openModal({
       mainText: "로그아웃 하시겠습니까?",
       subText: "로그아웃 시 로그인 화면으로 이동합니다.",
-      okFunc: () => {
-        // TODO: 명령형 -> 선언형 로직으로 변경
-        localStorage.setItem("jwt", "");
-        localStorage.removeItem("userId");
-        localStorage.removeItem("nickname");
-        localStorage.removeItem("profileImageUrl");
-        useAuthStore.persist.clearStorage();
-        navigate("/login");
+      okFunc: async () => {
+        await axiosAPI
+          .post("/v1/auth/logout")
+          .then(() => {
+            localStorage.setItem("jwt", "");
+            localStorage.removeItem("userId");
+            localStorage.removeItem("nickname");
+            localStorage.removeItem("profileImageUrl");
+            useAuthStore.persist.clearStorage();
+            navigate("/login");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       },
       type: "warn",
       acceptText: "네, 로그아웃 하겠습니다.",
