@@ -8,7 +8,7 @@ export const CompanyInfoSchema = z.object({
     .string()
     .min(1, { message: "회사 이메일을 입력해주세요." })
     .email({ message: "이메일 형식이어야 합니다." }),
-  department: z.array(z.string().min(1, { message: "부서를 선택해주세요." })),
+  department: z.array(z.string()).min(1, { message: "부서를 선택해주세요." }),
   certCode: z.string().min(1, { message: "인증 코드를 입력해주세요." }),
   businessCard: z
     .any()
