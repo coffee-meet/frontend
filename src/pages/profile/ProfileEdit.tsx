@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import type { UserInfoStateType } from "@/schemas/userInfo";
@@ -24,16 +24,12 @@ import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast.tsx";
 import { palette } from "@/styles/palette.ts";
 import { typo } from "@/styles/typo.ts";
-import useInterestStore from "@/store/InterestStore.tsx";
 import useThemeStore from "@/store/ThemeStore.tsx";
 import { InterestList } from "@/constants/index.ts";
 
 const ProfileEdit = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
-  const { interestList } = useInterestStore();
-  const inputRef = useRef<HTMLInputElement>(null);
-  let nickname = "";
-  const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false);
+
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null);
   const [imgSrc, setImgSrc] = useState("");
   const { showToast } = useToast();
@@ -54,27 +50,22 @@ const ProfileEdit = () => {
     return <div>{"에러가 발생했습니다."}</div>;
   }
 
-  const handleNicknameValidCheck = (nickname: string) => {
+  const checkNicknameDuplicated = (nickname: string) => {
+    if (nickname.length === 0) {
+      showToast({
+        message: "닉네임을 입력하세요!",
+        type: "warning",
+        isDarkMode,
+      });
+      return;
+    }
     getNicknameValid(nickname)
       .then(() => {
-        setDoubleChecked(true);
         setNicknameDuplicated(false);
       })
       .catch(() => {
-        setDoubleChecked(true);
         setNicknameDuplicated(true);
       });
-  };
-
-  const doubleCheckNickName = async () => {
-    if (inputRef.current !== null && inputRef.current.value.length == 0) {
-      setDoubleChecked(null);
-      return;
-    }
-    if (inputRef.current !== null) {
-      nickname = inputRef.current.value;
-      handleNicknameValidCheck(nickname);
-    }
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,8 +99,8 @@ const ProfileEdit = () => {
     }
   };
 
-  const handleUpdateProfile = () => {
-    if (doubleChecked === false || nicknameDuplicated === null) {
+  const handleUpdateProfile = (data: UserInfoStateType) => {
+    if (nicknameDuplicated) {
       showToast({
         message: "닉네임 중복검사를 해주세요!",
         type: "warning",
@@ -117,29 +108,27 @@ const ProfileEdit = () => {
       });
       return;
     }
-    if (inputRef.current !== null) {
-      const updateData = {
-        nickname: inputRef.current.value,
-        interests: interestList,
-      };
-      updateMyProfile(updateData)
-        .then(() => {
-          inputRef.current && localStorage.setItem("nickname", inputRef.current.value);
-          showToast({
-            message: "프로필이 수정되었습니다.",
-            type: "success",
-            isDarkMode,
-          });
-          navigate("/profile");
-        })
-        .catch(() => {
-          showToast({
-            message: "프로필 수정에 실패했습니다.",
-            type: "error",
-            isDarkMode,
-          });
+
+    const updateData = {
+      nickname: data.nickname,
+      interests: data.interest,
+    };
+    updateMyProfile(updateData)
+      .then(() => {
+        showToast({
+          message: "프로필이 수정되었습니다.",
+          type: "success",
+          isDarkMode,
         });
-    }
+        navigate("/profile");
+      })
+      .catch(() => {
+        showToast({
+          message: "프로필 수정에 실패했습니다.",
+          type: "error",
+          isDarkMode,
+        });
+      });
   };
 
   return (
@@ -181,37 +170,23 @@ const ProfileEdit = () => {
           <form onSubmit={userInfoForm.handleSubmit(handleUpdateProfile)}>
             <SectionLabelText width={390}>{"닉네임"}</SectionLabelText>
             <FlexBox gap={10}>
-              <Controller
-                name={"nickname"}
-                control={userInfoForm.control}
-                render={({ field }) => (
-                  <RegisterInput
-                    width={240}
-                    placeholder={"닉네임"}
-                    onChange={field.onChange}
-                    value={field.value}
-                  />
-                )}
+              <RegisterInput
+                width={240}
+                placeholder={"닉네임"}
+                {...userInfoForm.register("nickname")}
               />
               <NormalButton
                 normalButtonType={"nickname-duplicate"}
-                onClick={doubleCheckNickName}
+                onClick={(event) => {
+                  event.preventDefault();
+                  checkNicknameDuplicated(userInfoForm.getValues("nickname") ?? "");
+                }}
               >
                 {"중복확인"}
               </NormalButton>
             </FlexBox>
 
-            {nicknameDuplicated === null && doubleChecked === null && (
-              <AlertText
-                padding={"10px"}
-                textAlign={"end"}
-                fontSize={`11px`}
-                fontColor={`${palette.RED}`}
-              >
-                {"닉네임 중복검사를 해주세요!"}
-              </AlertText>
-            )}
-            {nicknameDuplicated === false && doubleChecked && (
+            {nicknameDuplicated === false && (
               <AlertText
                 padding={"10px"}
                 textAlign={"end"}
@@ -221,7 +196,8 @@ const ProfileEdit = () => {
                 {"사용 가능한 닉네임입니다."}
               </AlertText>
             )}
-            {nicknameDuplicated === true && doubleChecked && (
+
+            {nicknameDuplicated === true && (
               <AlertText
                 padding={"10px"}
                 textAlign={"end"}
@@ -229,6 +205,17 @@ const ProfileEdit = () => {
                 fontColor={`${palette.RED}`}
               >
                 {"이미 사용 중인 닉네임입니다."}
+              </AlertText>
+            )}
+
+            {userInfoForm.formState.errors.nickname && (
+              <AlertText
+                padding={"10px"}
+                textAlign={"end"}
+                fontSize={`11px`}
+                fontColor={`${palette.RED}`}
+              >
+                {userInfoForm.formState.errors.nickname.message}
               </AlertText>
             )}
             <Spacing size={44} />
