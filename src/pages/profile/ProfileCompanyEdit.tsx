@@ -139,8 +139,7 @@ const ProfileCompanyEdit = () => {
             <RegisterInput
               width={343}
               placeholder={"회사 이름"}
-              label={"companyName"}
-              register={companyInfoForm.register}
+              {...companyInfoForm.register("companyName")}
             />
             <div>
               {companyInfoForm.formState.errors.companyName && (
@@ -160,8 +159,7 @@ const ProfileCompanyEdit = () => {
               <RegisterInput
                 width={260}
                 placeholder={"회사 이메일"}
-                label={"companyEmail"}
-                register={companyInfoForm.register}
+                {...companyInfoForm.register("companyEmail")}
               />
               <NormalButton
                 normalButtonType={"email-certify"}
@@ -192,8 +190,7 @@ const ProfileCompanyEdit = () => {
               <RegisterInput
                 width={343}
                 placeholder={"인증코드 6자리 입력"}
-                label={"certCode"}
-                register={companyInfoForm.register}
+                {...companyInfoForm.register("certCode")}
               />
               <StyleVerificationEmailButton
                 onClick={() => handleVerifyCode(companyInfoForm.getValues("certCode"))}
