@@ -120,7 +120,10 @@ const RegisterUser = () => {
           />
           <NormalButton
             normalButtonType={"nickname-duplicate"}
-            onClick={() => doubleCheckNickName(userInfoForm.getValues("nickname"))}
+            onClick={(event) => {
+              event.preventDefault();
+              doubleCheckNickName(userInfoForm.getValues("nickname"));
+            }}
           >
             {"중복확인"}
           </NormalButton>
