@@ -122,7 +122,7 @@ const AppHeader = ({ isAuth, isDarkMode, height, toggleDarkMode }: AppHeaderProp
       <FlexBox align={"flex-end"}>
         <StyledAppHeaderLargeText
           isDarkMode={isDarkMode}
-          font={"Body_22"}
+          font={"Body_20"}
           fontWeight={600}
           letterSpacing={-0.5}
           style={{
@@ -132,7 +132,7 @@ const AppHeader = ({ isAuth, isDarkMode, height, toggleDarkMode }: AppHeaderProp
             overflow: "hidden",
             whiteSpace: "nowrap",
             wordBreak: "break-all",
-            width: "25%",
+            maxWidth: "27%",
           }}
         >
           {nickname}
