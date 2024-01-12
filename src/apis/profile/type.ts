@@ -9,4 +9,5 @@ export type MyProfileData = {
   companyName: string;
   department: string;
   interests: string[];
+  oAuthProvider: string;
 };
