@@ -56,7 +56,10 @@
       ],
       "@/store/*": [
         "src/store/*"
-      ]
+      ],
+      "@/libs/*": [
+        "src/libs/*"
+      ],
     }
   },
   "include": [
