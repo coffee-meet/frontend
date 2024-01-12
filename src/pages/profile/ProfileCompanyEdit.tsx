@@ -5,6 +5,8 @@ import type { CompanyInfoStateType } from "@/schemas/companyInfo.ts";
 import { CompanyInfoSchema } from "@/schemas/companyInfo.ts";
 import styled from "@emotion/styled";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
+import type { MyProfileData } from "@/apis/profile/type.ts";
 import getEmailValid from "@/apis/register/getEmailValid.ts";
 import registerCompanyInfo from "@/apis/register/registerCompanyInfo.ts";
 import sendEmailValidCode from "@/apis/register/sendEmailValidCode.ts";
@@ -39,6 +41,9 @@ const ProfileCompanyEdit = () => {
     resolver: zodResolver(CompanyInfoSchema),
   });
   const cardPreview = companyInfoForm.watch("businessCard");
+
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData<MyProfileData>(["myProfileData"]);
 
   const handleVerifyEmail = async (email: string) => {
     if (!email) {
@@ -140,6 +145,7 @@ const ProfileCompanyEdit = () => {
             <RegisterInput
               width={343}
               placeholder={"회사 이름"}
+              defaultValue={data?.companyName}
               {...companyInfoForm.register("companyName")}
             />
             <div>
@@ -240,6 +246,7 @@ const ProfileCompanyEdit = () => {
                     isDarkMode={isDarkMode}
                     itemList={JobList}
                     maxCount={1}
+                    defaultSelectedList={[data?.department?.toString() ?? ""]}
                     onValueChange={field.onChange}
                   />
                 )}
