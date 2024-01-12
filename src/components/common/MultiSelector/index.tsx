@@ -39,7 +39,7 @@ const MultiSelector = ({
 
   return (
     <MultiSelectorContainer>
-      <ItemContainer>
+      <ItemContainer isDarkMode={isDarkMode}>
         {itemList.map((name, idx) => (
           <StyledItem
             key={idx}
@@ -67,13 +67,13 @@ const MultiSelectorContainer = styled.div`
   width: 348px;
 `;
 
-const ItemContainer = styled.div`
+const ItemContainer = styled.div<{ isDarkMode: boolean }>`
   position: relative;
   width: 100%;
   margin-bottom: 8px;
   min-height: 160px;
   border-radius: 10px;
-  background-color: ${palette.WHITE};
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY600 : palette.WHITE)};
 `;
 
 const ItemCountContainer = styled.span<{ isDarkMode: boolean }>`
@@ -101,7 +101,8 @@ const StyledItem = styled.button<{ isDarkMode: boolean; isSelected: boolean }>`
       : props.isSelected
       ? palette.BLUE
       : palette.TERTIARY};
-  color: ${(props) => (props.isDarkMode ? palette.SECONDARY : palette.WHITE)};
+  color: ${(props) =>
+    props.isDarkMode ? (props.isSelected ? palette.WHITE : palette.SECONDARY) : palette.WHITE};
   transition: background-color 0.3s;
   &:hover {
     opacity: 0.9;
