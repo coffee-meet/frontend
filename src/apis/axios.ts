@@ -1,14 +1,7 @@
 import axios from "axios";
+import useAuthStore from "@/store/AuthStore.tsx";
 
-type AuthStoreState = {
-  authTokens: {
-    accessToken: string;
-    refreshToken: string;
-  };
-  userId: number;
-};
-
-const { state }: { state: AuthStoreState } = JSON.parse(localStorage.getItem("auth-store") || "{}");
+const tokens = useAuthStore.getState().authTokens;
 
 export const axiosAPI = axios.create({
   baseURL:
@@ -16,7 +9,7 @@ export const axiosAPI = axios.create({
       ? "http://localhost:5173"
       : import.meta.env.VITE_BASE_URL,
   headers: {
-    Authorization: `${state.authTokens.accessToken}`,
+    Authorization: `${tokens?.accessToken}`,
   },
 });
 
