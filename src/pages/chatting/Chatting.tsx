@@ -17,6 +17,7 @@ import TextArea from "@/components/common/TextArea";
 import { useModal } from "@/hooks/useModal";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
+import useAuthStore from "@/store/AuthStore.tsx";
 import useBottomSheetStore from "@/store/BottomSheetStore";
 import ExitIcon from "@/assets/icons/ExitIcon";
 import Send from "@/assets/icons/Send.svg";
@@ -24,6 +25,7 @@ import Send from "@/assets/icons/Send.svg";
 const Chatting = () => {
   const { openModal } = useModal();
   const navigate = useNavigate();
+  const authStore = useAuthStore();
   const { chatroomId } = useLocation().state;
   const { chatroomName } = useLocation().state;
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[]);
@@ -63,7 +65,7 @@ const Chatting = () => {
         console.log(response);
       },
       connectHeaders: {
-        Authorization: `${localStorage.getItem("jwt")}`,
+        Authorization: `${authStore.authTokens?.accessToken}`,
       },
     });
     client.current.activate();
@@ -138,7 +140,7 @@ const Chatting = () => {
           content: message,
         }),
         headers: {
-          Authorization: `${localStorage.getItem("jwt")}`,
+          Authorization: `${authStore.authTokens?.accessToken}`,
         },
       });
     }

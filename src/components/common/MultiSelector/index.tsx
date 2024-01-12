@@ -6,6 +6,7 @@ type MultiSelectorProps = {
   isDarkMode: boolean;
   itemList: string[];
   maxCount: number;
+  defaultSelectedList?: string[];
   onValueChange?: (value: string[]) => void;
 };
 
@@ -13,10 +14,18 @@ const MultiSelector = ({
   isDarkMode,
   itemList,
   maxCount = 0,
+  defaultSelectedList,
   onValueChange,
 }: MultiSelectorProps) => {
   const [selectedList, setSelectedList] = useState<string[]>([]);
   const [selectedCount, setSelectedCount] = useState(0);
+
+  useEffect(() => {
+    if (defaultSelectedList) {
+      setSelectedList(defaultSelectedList);
+      setSelectedCount(defaultSelectedList.length);
+    }
+  }, []);
 
   useEffect(() => {
     onValueChange?.(selectedList);
