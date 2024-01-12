@@ -163,7 +163,7 @@ const ProfileEdit = () => {
             <FlexBox gap={10}>
               <RegisterInput
                 width={240}
-                placeholder={"닉네임"}
+                placeholder={"닉네임 (10자 제한)"}
                 {...userInfoForm.register("nickname")}
               />
               <NormalButton
