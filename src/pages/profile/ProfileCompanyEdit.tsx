@@ -22,13 +22,14 @@ import RegisterInput from "@/components/common/RegisterInput";
 import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast.tsx";
 import { palette } from "@/styles/palette.ts";
+import useAuthStore from "@/store/AuthStore.tsx";
 import useThemeStore from "@/store/ThemeStore.tsx";
 import { JobList } from "@/constants/index.ts";
 
 const ProfileCompanyEdit = () => {
   const { isDarkMode } = useThemeStore();
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
+  const userId = useAuthStore((state) => state.userId);
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
   const [uploadedURL, setUploadedURL] = useState("");
@@ -49,7 +50,7 @@ const ProfileCompanyEdit = () => {
       return;
     }
     showToast({ message: "인증코드가 전송되었습니다! ", type: "success", isDarkMode });
-    return await sendEmailValidCode(email, userId);
+    return await sendEmailValidCode(email, userId.toString());
   };
 
   const handleVerifyCode = async (code: string) => {
@@ -62,7 +63,7 @@ const ProfileCompanyEdit = () => {
       return;
     }
     setCodeChecked(true);
-    const response = await getEmailValid(userId, code);
+    const response = await getEmailValid(userId.toString(), code);
     if (response.status == 200) {
       setIsCodeSame(true);
     } else {

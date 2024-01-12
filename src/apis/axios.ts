@@ -1,6 +1,5 @@
 import axios from "axios";
-
-// import useAuthStore from '@/store/AuthStore'
+import useAuthStore from "@/store/AuthStore.tsx";
 
 export const axiosAPI = axios.create({
   baseURL:
@@ -12,15 +11,11 @@ export const axiosAPI = axios.create({
 // Add a request interceptor
 axiosAPI.interceptors.request.use(
   function (config) {
-    // 요청 바로 직전
-    // axios 설정값에 대해 작성합니다.
-
-    config.headers["Authorization"] = `${localStorage.getItem("jwt")}`;
+    config.headers["Authorization"] = `${useAuthStore().authTokens?.accessToken}`;
 
     return config;
   },
   function (error) {
-    // 요청 에러 처리를 작성합니다.
     return Promise.reject(error);
   },
 );
@@ -48,20 +43,3 @@ axiosAPI.interceptors.response.use(
     return Promise.reject(error);
   },
 );
-
-// Response interceptor
-// function interceptorResponseFulfilled(res: AxiosResponse) {
-//   if (200 <= res.status && res.status < 300) {
-//     return res
-//   }
-
-//   return Promise.reject(res)
-// }
-
-// function interceptorResponseRejected(error: AxiosError<ApiErrorScheme>) {
-//   if (error.response?.data?.message) {
-//     return Promise.reject(new ApiException(error.response.data, error.response.status))
-//   }
-// }
-
-// axiosAPI.interceptors.response.use(interceptorResponseFulfilled, interceptorResponseRejected)

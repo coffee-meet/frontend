@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
+import { useQueryClient } from "@tanstack/react-query";
 import type { Messages } from "@/apis/chatting/chattingType";
+import type { MyProfileData } from "@/apis/profile/type.ts";
 import ChatBubbleListLow from "@/pages/chatting/components/chatBubbleListLow";
 import { FlexBox } from "@/components/common/Flexbox";
 import Spacing from "@/components/common/Spacing";
@@ -10,6 +12,8 @@ interface MessageProps {
 }
 
 const MessageArea = ({ messageData }: MessageProps) => {
+  const queryClient = useQueryClient();
+  const nickname = queryClient.getQueryData<MyProfileData>(["myProfileData"])?.nickname;
   return (
     <>
       <FlexBox
@@ -21,7 +25,7 @@ const MessageArea = ({ messageData }: MessageProps) => {
         {messageData &&
           messageData.map((message, i) =>
             //로그인 성공 후 nickname 전역에 저장하면 내 닉네임 불러오기
-            message.nickname == localStorage.getItem("nickname") ? (
+            message.nickname == nickname ? (
               <StyleChattingBubbleWrapper
                 key={i}
                 isMyChat={true}

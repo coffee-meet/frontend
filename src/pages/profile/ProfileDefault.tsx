@@ -54,10 +54,6 @@ const ProfileDefault = () => {
         await axiosAPI
           .post("/v1/auth/logout")
           .then(() => {
-            localStorage.setItem("jwt", "");
-            localStorage.removeItem("userId");
-            localStorage.removeItem("nickname");
-            localStorage.removeItem("profileImageUrl");
             useAuthStore.persist.clearStorage();
             navigate("/login");
           })
