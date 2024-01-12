@@ -115,7 +115,7 @@ const RegisterUser = () => {
         <FlexBox gap={16}>
           <RegisterInput
             width={260}
-            placeholder={"닉네임"}
+            placeholder={"닉네임 (10자 제한)"}
             {...userInfoForm.register("nickname")}
           />
           <NormalButton

@@ -2,6 +2,8 @@ import { BiSolidMoon } from "react-icons/bi";
 import { RiSunFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
+import { useQuery } from "@tanstack/react-query";
+import getMyProfileData from "@/apis/profile/getMyProfileData.ts";
 import Avatar from "@/components/common/Avatar";
 import { FlexBox } from "@/components/common/Flexbox";
 import { Text } from "@/components/common/Text";
@@ -41,32 +43,41 @@ const StyledAppHeaderSmallText = styled(Text)<Pick<AppHeaderProps, "isDarkMode">
 `;
 
 type AppHeaderProps = {
-  nickname: string;
-  profileImageUrl: string;
+  isAuth: boolean;
   isDarkMode: boolean;
   height?: string;
   toggleDarkMode: () => void;
 };
 
 /**
- * @param nickname - 유저 닉네임
- * @param profileImageUrl - 유저 프로필 이미지 URL
+ * @param isAuth - 인증 여부
  * @param isDarkMode - 다크모드 여부
  * @param height - 컴포넌트 높이
  * @param toggleDarkMode - 다크모드 토글 함수
  */
 
-const AppHeader = ({
-  nickname,
-  profileImageUrl,
-  isDarkMode,
-  height,
-  toggleDarkMode,
-}: AppHeaderProps) => {
+const AppHeader = ({ isAuth, isDarkMode, height, toggleDarkMode }: AppHeaderProps) => {
   const navigate = useNavigate();
   const moveFromAppHeader = (path: string) => {
     navigate(`/${path}`);
   };
+
+  const { data, isError, isPending } = useQuery({
+    queryKey: ["myProfileData"],
+    queryFn: getMyProfileData,
+    staleTime: Infinity,
+    enabled: isAuth,
+  });
+
+  if (isPending) {
+    return <div>{"로딩중..."}</div>; // TODO: 로딩 컴포넌트로 대체
+  }
+
+  if (isError) {
+    return <div>{"에러가 발생했습니다."}</div>;
+  }
+
+  const { nickname, profileImageUrl } = data;
 
   return (
     <StyleAppHeader height={height}>
@@ -111,19 +122,24 @@ const AppHeader = ({
       <FlexBox align={"flex-end"}>
         <StyledAppHeaderLargeText
           isDarkMode={isDarkMode}
-          font={"Body_24"}
+          font={"Body_20"}
           fontWeight={600}
           letterSpacing={-0.5}
           style={{
             color: isDarkMode ? palette.DARK_WHITE : palette.WHITE,
             marginRight: 5,
+            textOverflow: "ellipsis",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            wordBreak: "break-all",
+            maxWidth: "27%",
           }}
         >
           {nickname}
         </StyledAppHeaderLargeText>
         <StyledAppHeaderSmallText
           isDarkMode={isDarkMode}
-          font={"Body_18"}
+          font={"Body_16"}
           fontWeight={600}
           letterSpacing={-0.5}
           style={{

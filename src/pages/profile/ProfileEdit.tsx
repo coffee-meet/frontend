@@ -5,8 +5,7 @@ import type { UserInfoStateType } from "@/schemas/userInfo";
 import { UserInfoSchema } from "@/schemas/userInfo";
 import styled from "@emotion/styled";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
-import getMyProfileData from "@/apis/profile/getMyProfileData.ts";
+import { useQueryClient } from "@tanstack/react-query";
 import postMyProfileImage from "@/apis/profile/postMyProfileImage.ts";
 import updateMyProfile from "@/apis/profile/updateMyProfile.ts";
 import getNicknameValid from "@/apis/register/getNicknameValid.ts";
@@ -31,24 +30,15 @@ const ProfileEdit = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
 
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null);
-  const [imgSrc, setImgSrc] = useState("");
+  const [imgSrc, setImgSrc] = useState("default_image_url");
   const { showToast } = useToast();
   const navigate = useNavigate();
   const userInfoForm = useForm<UserInfoStateType>({
     resolver: zodResolver(UserInfoSchema),
   });
+  const queryClient = useQueryClient();
 
-  const { data, error, isLoading, refetch } = useQuery({
-    queryKey: ["myProfileData"],
-    queryFn: getMyProfileData,
-  });
-
-  if (isLoading) {
-    return <div>{"로딩중..."}</div>;
-  }
-  if (error) {
-    return <div>{"에러가 발생했습니다."}</div>;
-  }
+  // const data = queryClient.getQueryData(["myProfileData"]);
 
   const checkNicknameDuplicated = (nickname: string) => {
     if (nickname.length === 0) {
@@ -87,7 +77,7 @@ const ProfileEdit = () => {
             type: "success",
             isDarkMode,
           });
-          refetch();
+          queryClient.invalidateQueries({ queryKey: ["myProfileData"] });
         })
         .catch(() => {
           showToast({
@@ -120,6 +110,7 @@ const ProfileEdit = () => {
           type: "success",
           isDarkMode,
         });
+        queryClient.invalidateQueries({ queryKey: ["myProfileData"] });
         navigate("/profile");
       })
       .catch(() => {
@@ -154,7 +145,7 @@ const ProfileEdit = () => {
           <Avatar
             width={80}
             height={80}
-            imgUrl={data?.profileImageUrl ?? imgSrc}
+            imgUrl={imgSrc}
           />
           <Spacing size={20} />
           <label htmlFor={"profile-image-upload"}>
@@ -172,7 +163,7 @@ const ProfileEdit = () => {
             <FlexBox gap={10}>
               <RegisterInput
                 width={240}
-                placeholder={"닉네임"}
+                placeholder={"닉네임 (10자 제한)"}
                 {...userInfoForm.register("nickname")}
               />
               <NormalButton

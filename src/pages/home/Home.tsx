@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "@/pages/home/components/Card.tsx";
 import AppHeader from "@/components/common/AppHeader";
@@ -13,8 +13,6 @@ import useAuthStore from "@/store/AuthStore.tsx";
 import useThemeStore from "@/store/ThemeStore";
 
 const Home = () => {
-  const [nickname, setNickname] = useState("");
-  const [profileImageUrl, setProfileImageUrl] = useState("");
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
   const { authTokens } = useAuthStore();
@@ -30,17 +28,12 @@ const Home = () => {
       });
       navigate("/login");
     }
-    if (authTokens) {
-      setNickname(localStorage.getItem("nickname") || "");
-      setProfileImageUrl(localStorage.getItem("profileImageUrl") || "");
-    }
-  }, [nickname, profileImageUrl]);
+  }, []);
 
   return (
     <GradationBackground isDarkMode={isDarkMode}>
       <AppHeader
-        nickname={localStorage.getItem("nickname") || ""}
-        profileImageUrl={localStorage.getItem("profileImageUrl") || ""}
+        isAuth={!!authTokens?.accessToken}
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
       />
