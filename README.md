@@ -37,7 +37,7 @@
 |                                          Frontend                                          |                                          Frontend                                           |   
 |:-----------------------------------------------------------------------------------------:|:------------------------------------------------------------------------------------------:|
 | <img src="https://avatars.githubusercontent.com/u/96521594?s=300&v=4" width="130" height="130"> | <img src ="https://avatars.githubusercontent.com/u/69716992?v=4" width="130" height="130"> | 
-|                           [주다현](https://github.com/judahhh)                           |                          [홍창기](https://github.com/cheshier)                           
+|                           [주다현](https://github.com/judahhh)                           |                          [홍창기](https://github.com/sscoderati)                           
 
 
 <br><br>
@@ -87,6 +87,7 @@
 ![image](https://github.com/coffee-meet/frontend/assets/96521594/be3698db-57a9-418d-8f9e-fabfaf4d7e6d)
 
 <br>
+
 ## 🎶 Frontend CI/CD Flow
 
 ![image](https://github.com/coffee-meet/frontend/assets/96521594/ec881073-5ac3-4054-9f4f-6d93eff105f6)
