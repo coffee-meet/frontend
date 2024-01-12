@@ -3,10 +3,10 @@ import { BiBuildings, BiChevronRight, BiPencil } from "react-icons/bi";
 import { MdOutlineRecordVoiceOver } from "react-icons/md";
 import { PiIdentificationCardBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { getMyProfileDataOptions } from "@/libs/react-query/options/getMyProfileData.ts";
 import styled from "@emotion/styled";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { axiosAPI } from "@/apis/axios";
-import type { MyProfileData } from "@/apis/profile/type.ts";
 import Avatar from "@/components/common/Avatar";
 import BackChevron from "@/components/common/BackChevron";
 import { InterestButton } from "@/components/common/Buttons/IconButton";
@@ -32,18 +32,19 @@ const ProfileDefault = () => {
   const isDarkMode = useThemeStore((store) => store.isDarkMode);
   const { openModal } = useModal();
   const { showToast } = useToast();
-  const queryClient = useQueryClient();
 
-  const data = queryClient.getQueryData<MyProfileData>(["myProfileData"]);
+  const { data, isError, error } = useQuery({
+    ...getMyProfileDataOptions,
+  });
 
-  if (!data) {
+  if (isError) {
+    console.log(error);
     showToast({
-      message: "필요한 정보를 불러오지 못했습니다! 다시 로그인해주세요!",
-      type: "warning",
+      message: "프로필 정보를 불러오는데 실패했습니다.",
+      type: "error",
       isDarkMode,
     });
     navigate("/login");
-    return null;
   }
 
   const handleLogout = () => {
@@ -102,7 +103,7 @@ const ProfileDefault = () => {
             <Avatar
               width={49}
               height={49}
-              imgUrl={data.profileImageUrl}
+              imgUrl={data?.profileImageUrl || "default_image_url"}
             />
             <StyledProfilePrimaryInfoTextWrapper>
               <TextWrapper
@@ -118,7 +119,7 @@ const ProfileDefault = () => {
                   fontWeight={600}
                   letterSpacing={-1}
                 >
-                  {data.nickname}
+                  {data?.nickname}
                 </Text>
                 <Divider
                   width={"2px"}
@@ -131,7 +132,7 @@ const ProfileDefault = () => {
                   fontWeight={400}
                   letterSpacing={-1}
                 >
-                  {data.companyName}
+                  {data?.companyName}
                 </Text>
               </TextWrapper>
               <TextWrapper
@@ -146,7 +147,7 @@ const ProfileDefault = () => {
                   fontWeight={600}
                   letterSpacing={-1}
                 >
-                  {data.department}
+                  {data?.department}
                 </Text>
               </TextWrapper>
             </StyledProfilePrimaryInfoTextWrapper>
@@ -164,7 +165,7 @@ const ProfileDefault = () => {
         <Spacing size={17.5} />
         <InterestButton
           nickName={"나"}
-          interests={data.interests}
+          interests={data?.interests || []}
           isDarkMode={isDarkMode}
         />
         <Spacing size={28.5} />
@@ -232,7 +233,7 @@ const ProfileDefault = () => {
             title={"소셜 로그인 계정"}
             isDarkMode={isDarkMode}
             additionalContent={
-              data.oAuthProvider === "NAVER" ? (
+              data?.oAuthProvider === "NAVER" ? (
                 <NaverIcon
                   width={20}
                   height={20}
