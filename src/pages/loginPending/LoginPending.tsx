@@ -21,6 +21,7 @@ const LoginPending = () => {
   const [searchParams] = useSearchParams();
   const authCode = searchParams.get("code");
   const setToken = useAuthStore((state) => state.setAuthTokens);
+  const setUserId = useAuthStore((state) => state.setUserId);
   const provider = useAuthStore((state) => state.provider);
 
   const { showToast } = useToast();
@@ -28,26 +29,19 @@ const LoginPending = () => {
     await axiosAPI
       .get<LoginResponse>(`/v1/users/login/${provider}?authCode=${authCode}`)
       .then((res) => {
-        const { userId, accessToken, refreshToken, isRegistered, nickname, profileImageUrl } =
-          res.data;
+        const { userId, accessToken, refreshToken, isRegistered } = res.data;
 
         if (!isRegistered) {
           navigate("/register/user", { state: { userId: userId } });
         }
 
         if (isRegistered) {
-          localStorage.setItem("jwt", accessToken);
-          // TODO: 아래 3개의 정보는 추후 AuthStore에서 관리?
-          localStorage.setItem("userId", userId.toString());
-          localStorage.setItem("nickname", nickname);
-          localStorage.setItem("profileImageUrl", profileImageUrl);
           setToken({
             accessToken: accessToken,
             refreshToken: refreshToken,
           });
-          navigate("/", {
-            state: { userId: userId, nickname: nickname, profileImageUrl: profileImageUrl },
-          });
+          setUserId(userId);
+          navigate("/", { replace: true });
         }
       })
       .catch((error) => {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { MdWbSunny } from "react-icons/md";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import type { UserInfoStateType } from "@/schemas/userInfo";
 import { UserInfoSchema } from "@/schemas/userInfo";
 import styled from "@emotion/styled";
@@ -16,12 +16,13 @@ import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
+import useAuthStore from "@/store/AuthStore.tsx";
 import useThemeStore from "@/store/ThemeStore";
 import { InterestList } from "@/constants/index.ts";
 
 const RegisterUser = () => {
   const navigate = useNavigate();
-  const userId = useLocation().state.userId;
+  const userId = useAuthStore((state) => state.userId);
 
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false);
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null);

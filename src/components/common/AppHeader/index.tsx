@@ -1,13 +1,15 @@
 import { BiSolidMoon } from "react-icons/bi";
 import { RiSunFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
+import { getMyProfileDataOptions } from "@/libs/react-query/options/getMyProfileData.ts";
 import styled from "@emotion/styled";
 import { useQuery } from "@tanstack/react-query";
-import getMyProfileData from "@/apis/profile/getMyProfileData.ts";
 import Avatar from "@/components/common/Avatar";
 import { FlexBox } from "@/components/common/Flexbox";
 import { Text } from "@/components/common/Text";
+import useToast from "@/hooks/useToast.tsx";
 import { palette } from "@/styles/palette";
+import useAuthStore from "@/store/AuthStore.tsx";
 
 const StyleAppHeader = styled.div<{ height?: string }>`
   width: 100%;
@@ -58,13 +60,13 @@ type AppHeaderProps = {
 
 const AppHeader = ({ isAuth, isDarkMode, height, toggleDarkMode }: AppHeaderProps) => {
   const navigate = useNavigate();
+  const { showToast } = useToast();
   const moveFromAppHeader = (path: string) => {
     navigate(`/${path}`);
   };
 
-  const { data, isError, isPending } = useQuery({
-    queryKey: ["myProfileData"],
-    queryFn: getMyProfileData,
+  const { data, isError, isPending, error } = useQuery({
+    ...getMyProfileDataOptions,
     staleTime: Infinity,
     enabled: isAuth,
   });
@@ -74,10 +76,15 @@ const AppHeader = ({ isAuth, isDarkMode, height, toggleDarkMode }: AppHeaderProp
   }
 
   if (isError) {
-    return <div>{"에러가 발생했습니다."}</div>;
+    console.log(error);
+    showToast({
+      message: "프로필 정보를 불러오는데 실패했습니다.",
+      type: "error",
+      isDarkMode,
+    });
+    useAuthStore.persist.clearStorage();
+    navigate("/login");
   }
-
-  const { nickname, profileImageUrl } = data;
 
   return (
     <StyleAppHeader height={height}>
@@ -90,7 +97,7 @@ const AppHeader = ({ isAuth, isDarkMode, height, toggleDarkMode }: AppHeaderProp
         <Avatar
           width={49}
           height={49}
-          imgUrl={profileImageUrl}
+          imgUrl={data?.profileImageUrl || "default_image_url"}
           margin={"0"}
           style={{
             cursor: "pointer",
@@ -135,7 +142,7 @@ const AppHeader = ({ isAuth, isDarkMode, height, toggleDarkMode }: AppHeaderProp
             maxWidth: "27%",
           }}
         >
-          {nickname}
+          {data?.nickname}
         </StyledAppHeaderLargeText>
         <StyledAppHeaderSmallText
           isDarkMode={isDarkMode}

@@ -5,6 +5,8 @@ import type { CompanyInfoStateType } from "@/schemas/companyInfo.ts";
 import { CompanyInfoSchema } from "@/schemas/companyInfo.ts";
 import styled from "@emotion/styled";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useQueryClient } from "@tanstack/react-query";
+import type { MyProfileData } from "@/apis/profile/type.ts";
 import getEmailValid from "@/apis/register/getEmailValid.ts";
 import registerCompanyInfo from "@/apis/register/registerCompanyInfo.ts";
 import sendEmailValidCode from "@/apis/register/sendEmailValidCode.ts";
@@ -22,13 +24,14 @@ import RegisterInput from "@/components/common/RegisterInput";
 import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast.tsx";
 import { palette } from "@/styles/palette.ts";
+import useAuthStore from "@/store/AuthStore.tsx";
 import useThemeStore from "@/store/ThemeStore.tsx";
 import { JobList } from "@/constants/index.ts";
 
 const ProfileCompanyEdit = () => {
   const { isDarkMode } = useThemeStore();
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
+  const userId = useAuthStore((state) => state.userId);
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
   const [uploadedURL, setUploadedURL] = useState("");
@@ -38,6 +41,9 @@ const ProfileCompanyEdit = () => {
     resolver: zodResolver(CompanyInfoSchema),
   });
   const cardPreview = companyInfoForm.watch("businessCard");
+
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData<MyProfileData>(["myProfileData"]);
 
   const handleVerifyEmail = async (email: string) => {
     if (!email) {
@@ -49,7 +55,7 @@ const ProfileCompanyEdit = () => {
       return;
     }
     showToast({ message: "인증코드가 전송되었습니다! ", type: "success", isDarkMode });
-    return await sendEmailValidCode(email, userId);
+    return await sendEmailValidCode(email, userId.toString());
   };
 
   const handleVerifyCode = async (code: string) => {
@@ -62,7 +68,7 @@ const ProfileCompanyEdit = () => {
       return;
     }
     setCodeChecked(true);
-    const response = await getEmailValid(userId, code);
+    const response = await getEmailValid(userId.toString(), code);
     if (response.status == 200) {
       setIsCodeSame(true);
     } else {
@@ -139,6 +145,7 @@ const ProfileCompanyEdit = () => {
             <RegisterInput
               width={343}
               placeholder={"회사 이름"}
+              defaultValue={data?.companyName}
               {...companyInfoForm.register("companyName")}
             />
             <div>
@@ -239,6 +246,7 @@ const ProfileCompanyEdit = () => {
                     isDarkMode={isDarkMode}
                     itemList={JobList}
                     maxCount={1}
+                    defaultSelectedList={[data?.department?.toString() ?? ""]}
                     onValueChange={field.onChange}
                   />
                 )}
