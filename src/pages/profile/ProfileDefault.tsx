@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { BiBuildings, BiChevronRight, BiPencil } from "react-icons/bi";
 import { MdOutlineRecordVoiceOver } from "react-icons/md";
 import { PiIdentificationCardBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
+import { useQueryClient } from "@tanstack/react-query";
 import { axiosAPI } from "@/apis/axios";
+import type { MyProfileData } from "@/apis/profile/type.ts";
 import Avatar from "@/components/common/Avatar";
 import BackChevron from "@/components/common/BackChevron";
 import { InterestButton } from "@/components/common/Buttons/IconButton";
@@ -26,39 +27,25 @@ import useThemeStore from "@/store/ThemeStore";
 import KakaoIcon from "@/assets/icons/KakaoIcon.tsx";
 import NaverIcon from "@/assets/icons/NaverIcon";
 
-type MyProfileData = {
-  nickname: string;
-  profileImageUrl: string;
-  companyName: string;
-  department: string;
-  oAuthProvider: string;
-  interests: string[];
-};
-
 const ProfileDefault = () => {
   const navigate = useNavigate();
   const isDarkMode = useThemeStore((store) => store.isDarkMode);
-  const [myProfileData, setMyProfileData] = useState<MyProfileData>({
-    nickname: "",
-    profileImageUrl: "",
-    companyName: "",
-    oAuthProvider: "",
-    department: "",
-    interests: [""],
-  });
   const { openModal } = useModal();
   const { showToast } = useToast();
+  const queryClient = useQueryClient();
 
-  const getProfileData = async () => {
-    await axiosAPI
-      .get("/v1/users/me")
-      .then((response) => {
-        setMyProfileData(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const data = queryClient.getQueryData<MyProfileData>(["myProfileData"]);
+
+  if (!data) {
+    showToast({
+      message: "필요한 정보를 불러오지 못했습니다! 다시 로그인해주세요!",
+      type: "warning",
+      isDarkMode,
+    });
+    navigate("/login");
+    return null;
+  }
+
   const handleLogout = () => {
     openModal({
       mainText: "로그아웃 하시겠습니까?",
@@ -98,9 +85,6 @@ const ProfileDefault = () => {
       isDarkMode,
     });
   };
-  useEffect(() => {
-    getProfileData();
-  }, []);
 
   return (
     <GradationBackground isDarkMode={isDarkMode}>
@@ -122,7 +106,7 @@ const ProfileDefault = () => {
             <Avatar
               width={49}
               height={49}
-              imgUrl={myProfileData && myProfileData.profileImageUrl}
+              imgUrl={data.profileImageUrl}
             />
             <StyledProfilePrimaryInfoTextWrapper>
               <TextWrapper
@@ -138,7 +122,7 @@ const ProfileDefault = () => {
                   fontWeight={600}
                   letterSpacing={-1}
                 >
-                  {myProfileData && myProfileData.nickname}
+                  {data.nickname}
                 </Text>
                 <Divider
                   width={"2px"}
@@ -151,7 +135,7 @@ const ProfileDefault = () => {
                   fontWeight={400}
                   letterSpacing={-1}
                 >
-                  {myProfileData && myProfileData.companyName}
+                  {data.companyName}
                 </Text>
               </TextWrapper>
               <TextWrapper
@@ -166,7 +150,7 @@ const ProfileDefault = () => {
                   fontWeight={600}
                   letterSpacing={-1}
                 >
-                  {myProfileData && myProfileData.department}
+                  {data.department}
                 </Text>
               </TextWrapper>
             </StyledProfilePrimaryInfoTextWrapper>
@@ -184,7 +168,7 @@ const ProfileDefault = () => {
         <Spacing size={17.5} />
         <InterestButton
           nickName={"나"}
-          interests={myProfileData && myProfileData.interests}
+          interests={data.interests}
           isDarkMode={isDarkMode}
         />
         <Spacing size={28.5} />
@@ -252,7 +236,7 @@ const ProfileDefault = () => {
             title={"소셜 로그인 계정"}
             isDarkMode={isDarkMode}
             additionalContent={
-              myProfileData && myProfileData.oAuthProvider === "NAVER" ? (
+              data.oAuthProvider === "NAVER" ? (
                 <NaverIcon
                   width={20}
                   height={20}
