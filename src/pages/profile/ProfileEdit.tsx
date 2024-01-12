@@ -69,13 +69,14 @@ const ProfileEdit = () => {
       const formData = new FormData();
       formData.append("profileImage", file);
       postMyProfileImage(formData)
-        .then(() => {
+        .then(async () => {
           showToast({
             message: "프로필 이미지가 수정되었습니다.",
             type: "success",
             isDarkMode,
           });
-          queryClient.invalidateQueries({ queryKey: ["myProfileData"] });
+          await queryClient.invalidateQueries({ queryKey: ["myProfileData"] });
+          await queryClient.refetchQueries({ queryKey: ["myProfileData"] });
         })
         .catch(() => {
           showToast({
@@ -102,13 +103,14 @@ const ProfileEdit = () => {
       interests: data.interest,
     };
     updateMyProfile(updateData)
-      .then(() => {
+      .then(async () => {
         showToast({
           message: "프로필이 수정되었습니다.",
           type: "success",
           isDarkMode,
         });
-        queryClient.invalidateQueries({ queryKey: ["myProfileData"] });
+        await queryClient.invalidateQueries({ queryKey: ["myProfileData"] });
+        await queryClient.refetchQueries({ queryKey: ["myProfileData"] });
         navigate("/profile");
       })
       .catch(() => {
