@@ -25,6 +25,7 @@ import Send from "@/assets/icons/Send.svg";
 const Chatting = () => {
   const { openModal } = useModal();
   const navigate = useNavigate();
+  const authStore = useAuthStore();
   const { chatroomId } = useLocation().state;
   const { chatroomName } = useLocation().state;
   const [messages, setMessages] = useState<Messages[] | []>([] as Messages[]);
@@ -64,7 +65,7 @@ const Chatting = () => {
         console.log(response);
       },
       connectHeaders: {
-        Authorization: `${useAuthStore().authTokens?.accessToken}`,
+        Authorization: `${authStore.authTokens?.accessToken}`,
       },
     });
     client.current.activate();
@@ -139,7 +140,7 @@ const Chatting = () => {
           content: message,
         }),
         headers: {
-          Authorization: `${useAuthStore().authTokens?.accessToken}`,
+          Authorization: `${authStore.authTokens?.accessToken}`,
         },
       });
     }

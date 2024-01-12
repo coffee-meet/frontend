@@ -1,5 +1,14 @@
 import axios from "axios";
-import useAuthStore from "@/store/AuthStore.tsx";
+
+type AuthStoreState = {
+  authTokens: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  userId: number;
+};
+
+const { state }: { state: AuthStoreState } = JSON.parse(localStorage.getItem("auth-store") || "{}");
 
 export const axiosAPI = axios.create({
   baseURL:
@@ -11,7 +20,7 @@ export const axiosAPI = axios.create({
 // Add a request interceptor
 axiosAPI.interceptors.request.use(
   function (config) {
-    config.headers["Authorization"] = `${useAuthStore().authTokens?.accessToken}`;
+    config.headers["Authorization"] = `${state.authTokens.accessToken}`;
 
     return config;
   },
