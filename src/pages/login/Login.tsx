@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { KakaoButton, NaverButton } from "@/components/common/Buttons/IconButton";
+import { KakaoButton } from "@/components/common/Buttons/IconButton";
 import NormalButton from "@/components/common/Buttons/NormalButton";
 import Spacing from "@/components/common/Spacing";
 import { Text } from "@/components/common/Text";
@@ -91,19 +91,20 @@ const Login = () => {
           `}
         />
         <StyledOauthWrapper>
-          <NaverButton
-            moveToOAuthProvider={() => {
-              handleMoveToAuthProvider("NAVER");
-            }}
-          />
-          <Spacing
-            size={16}
-            css={css`
-              @media (max-width: 375px) {
-                height: ${16 * 0.75}px;
-              }
-            `}
-          />
+          {/* 네이버 로그인 승인 될 때까지 버튼 은닉 */}
+          {/*<NaverButton*/}
+          {/*  moveToOAuthProvider={() => {*/}
+          {/*    handleMoveToAuthProvider("NAVER");*/}
+          {/*  }}*/}
+          {/*/>*/}
+          {/*<Spacing*/}
+          {/*  size={16}*/}
+          {/*  css={css`*/}
+          {/*    @media (max-width: 375px) {*/}
+          {/*      height: ${16 * 0.75}px;*/}
+          {/*    }*/}
+          {/*  `}*/}
+          {/*/>*/}
           <KakaoButton
             moveToOAuthProvider={() => {
               handleMoveToAuthProvider("KAKAO");
