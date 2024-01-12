@@ -35,6 +35,7 @@ const ProfileDefault = () => {
 
   const { data, isError, error } = useQuery({
     ...getMyProfileDataOptions,
+    staleTime: Infinity,
   });
 
   if (isError) {
@@ -44,6 +45,7 @@ const ProfileDefault = () => {
       type: "error",
       isDarkMode,
     });
+    useAuthStore.persist.clearStorage();
     navigate("/login");
   }
 
