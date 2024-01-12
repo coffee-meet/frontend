@@ -187,7 +187,7 @@ const ProfileDefault = () => {
           fontWeight={600}
           letterSpacing={-1}
           style={{
-            color: isDarkMode ? palette.DARK_WHITE : palette.WHITE,
+            color: isDarkMode ? palette.DARK_WHITE : palette.BLACK,
           }}
         >
           {"개인 및 어플리케이션 정보"}
