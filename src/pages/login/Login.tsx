@@ -31,6 +31,7 @@ const Login = () => {
         <Spacing size={50} />
         <img
           src={CafeSvg}
+          alt={"coffee-meet-logo"}
           width={250}
         />
         <Spacing
