@@ -7,6 +7,7 @@ import styled from "@emotion/styled";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
 import postMyProfileImage from "@/apis/profile/postMyProfileImage.ts";
+import type { MyProfileData } from "@/apis/profile/type.ts";
 import updateMyProfile from "@/apis/profile/updateMyProfile.ts";
 import getNicknameValid from "@/apis/register/getNicknameValid.ts";
 import AlertText from "@/components/common/AlertText";
@@ -38,7 +39,7 @@ const ProfileEdit = () => {
   });
   const queryClient = useQueryClient();
 
-  // const data = queryClient.getQueryData(["myProfileData"]);
+  const data = queryClient.getQueryData<MyProfileData>(["myProfileData"]);
 
   const checkNicknameDuplicated = (nickname: string) => {
     if (nickname.length === 0) {
@@ -145,7 +146,7 @@ const ProfileEdit = () => {
           <Avatar
             width={80}
             height={80}
-            imgUrl={imgSrc}
+            imgUrl={data?.profileImageUrl ?? imgSrc}
           />
           <Spacing size={20} />
           <label htmlFor={"profile-image-upload"}>
@@ -164,6 +165,7 @@ const ProfileEdit = () => {
               <RegisterInput
                 width={240}
                 placeholder={"닉네임 (10자 제한)"}
+                defaultValue={data?.nickname}
                 {...userInfoForm.register("nickname")}
               />
               <NormalButton
@@ -220,6 +222,7 @@ const ProfileEdit = () => {
                     isDarkMode={isDarkMode}
                     itemList={InterestList}
                     maxCount={3}
+                    defaultSelectedList={data?.interests}
                     onValueChange={field.onChange}
                   />
                 )}
