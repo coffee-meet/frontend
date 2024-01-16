@@ -9,7 +9,8 @@ import { FlexBox } from "@/components/common/Flexbox";
 import { Text } from "@/components/common/Text";
 import useToast from "@/hooks/useToast.tsx";
 import { palette } from "@/styles/palette";
-import useAuthStore from "@/store/AuthStore.tsx";
+
+// import useAuthStore from "@/store/AuthStore.tsx";
 
 const StyleAppHeader = styled.div<{ height?: string }>`
   width: 100%;
@@ -82,7 +83,7 @@ const AppHeader = ({ isAuth, isDarkMode, height, toggleDarkMode }: AppHeaderProp
       type: "error",
       isDarkMode,
     });
-    useAuthStore.persist.clearStorage();
+    // useAuthStore.persist.clearStorage();
     navigate("/login");
   }
 
