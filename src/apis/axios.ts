@@ -1,8 +1,6 @@
 import axios from "axios";
 import useAuthStore from "@/store/AuthStore.tsx";
 
-const tokens = useAuthStore.getState().authTokens;
-
 export const axiosAPI = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
@@ -15,7 +13,8 @@ export const axiosAPI = axios.create({
 
 axiosAPI.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = `${tokens?.accessToken}`;
+    console.log(useAuthStore.getState().authTokens?.accessToken);
+    config.headers.Authorization = `${useAuthStore.getState().authTokens?.accessToken}`;
     return config;
   },
   (error) => {
