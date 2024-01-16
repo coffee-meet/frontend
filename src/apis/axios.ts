@@ -8,9 +8,19 @@ export const axiosAPI = axios.create({
     process.env.NODE_ENV === "development"
       ? "http://localhost:5173"
       : import.meta.env.VITE_BASE_URL,
-  headers: {
-    Authorization: `${tokens?.accessToken}`,
-  },
+  // headers: {
+  //   Authorization: `${tokens?.accessToken}`,
+  // },
 });
+
+axiosAPI.interceptors.request.use(
+  (config) => {
+    config.headers.Authorization = `${tokens?.accessToken}`;
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 
 // TODO: axiosAPI.interceptors.response.use()를 사용하여 refreshToken이 만료되었을 때, accessToken을 재발급 받는 로직을 구현해야 합니다.
