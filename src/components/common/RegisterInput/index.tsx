@@ -9,6 +9,7 @@ interface InputProps extends ComponentProps<"input"> {
   height?: number;
   placeholder: string;
   type?: string;
+  isDarkMode: boolean;
 }
 
 /**
@@ -21,7 +22,7 @@ interface InputProps extends ComponentProps<"input"> {
  * @returns
  */
 const RegisterInput = forwardRef<HTMLInputElement, InputProps>(
-  ({ width, height, placeholder, type, ...props }, ref) => {
+  ({ width, height, placeholder, type, isDarkMode, ...props }, ref) => {
     return (
       <StyleInputWrapper>
         <StyleInput
@@ -29,6 +30,7 @@ const RegisterInput = forwardRef<HTMLInputElement, InputProps>(
           heightProps={height}
           placeholder={placeholder}
           type={type}
+          isDarkMode={isDarkMode}
           {...props}
           ref={ref}
         />
@@ -45,10 +47,10 @@ const StyleInputWrapper = styled.span`
   align-items: center;
   /* width: 100%; */
 `;
-const StyleInput = styled.input<{ widthProps?: number; heightProps?: number }>`
-  background-color: ${palette.WHITE};
+const StyleInput = styled.input<{ widthProps?: number; heightProps?: number; isDarkMode: boolean }>`
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY600 : palette.WHITE)};
   height: ${({ heightProps }) => (heightProps ? `${heightProps}px` : "46px")};
-  border: 1px solid ${palette.GRAY200};
+  border: 1px solid ${({ isDarkMode }) => (isDarkMode ? palette.GRAY600 : palette.GRAY200)};
   border-radius: 10px;
   width: ${({ widthProps }) => (widthProps ? `${widthProps}px` : "100%")};
   font-size: ${typo.Body_14()};
