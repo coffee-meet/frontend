@@ -13,11 +13,12 @@ interface InputProps extends ComponentProps<"input"> {
 }
 
 /**
- * @param width : input width
- * @param height : input height
- * @param placeholder : input placeholder
- * @param type : input type
- * @param props : input other props
+ * @param width : number 너비
+ * @param height : number 높이
+ * @param placeholder : string 빈 값일 때 보여줄 텍스트
+ * @param type : string input 타입
+ * @param props : string 기타 props
+ * @param isDarkMode : boolean 다크모드 여부
  * @description : 정보 등록 및 수정 페이지에서 활용하는 Input 컴포넌트입니다. form 구성 시 {...register("label")}를 prop으로 전달해주세요.
  * @returns
  */
