@@ -30,6 +30,7 @@ const LoginPending = () => {
       .get<LoginResponse>(`/v1/users/login/${provider}?authCode=${authCode}`)
       .then((res) => {
         const { userId, accessToken, refreshToken, isRegistered } = res.data;
+        setUserId(userId);
 
         if (!isRegistered) {
           navigate("/register/user", { state: { userId: userId } });
@@ -40,7 +41,6 @@ const LoginPending = () => {
             accessToken: accessToken,
             refreshToken: refreshToken,
           });
-          setUserId(userId);
           navigate("/", { replace: true });
         }
       })
