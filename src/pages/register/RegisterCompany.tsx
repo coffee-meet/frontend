@@ -22,6 +22,7 @@ import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
+import useAuthStore from "@/store/AuthStore.tsx";
 import useThemeStore from "@/store/ThemeStore";
 import { JobList } from "@/constants/index.ts";
 
@@ -29,6 +30,7 @@ const RegisterCompany = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
+  const userId = useAuthStore((state) => state.userId);
   const userInfo: UserInfoType = useLocation().state;
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
@@ -112,7 +114,7 @@ const RegisterCompany = () => {
     }
 
     const formData = new FormData();
-    formData.append("userId", userInfo.userId);
+    formData.append("userId", userId.toString());
     formData.append("companyName", data.companyName);
     formData.append("companyEmail", data.companyEmail);
     formData.append("department", data.department[0]);

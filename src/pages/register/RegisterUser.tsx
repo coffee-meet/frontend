@@ -16,13 +16,11 @@ import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
-import useAuthStore from "@/store/AuthStore.tsx";
 import useThemeStore from "@/store/ThemeStore";
 import { InterestList } from "@/constants/index.ts";
 
 const RegisterUser = () => {
   const navigate = useNavigate();
-  const userId = useAuthStore((state) => state.userId);
 
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false);
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null);
@@ -82,7 +80,6 @@ const RegisterUser = () => {
   const submitUserProfileData = (data: UserInfoStateType) => {
     if (formValidation(data.nickname)) {
       const userInfo = {
-        userId: userId,
         nickname: data.nickname,
         keywords: data.interest,
       };

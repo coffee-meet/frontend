@@ -32,7 +32,7 @@ const LoginPending = () => {
         const { userId, accessToken, refreshToken, isRegistered } = res.data;
 
         if (!isRegistered) {
-          navigate("/register/user", { state: { userId: userId } });
+          navigate("/register/user");
         }
 
         if (isRegistered) {
