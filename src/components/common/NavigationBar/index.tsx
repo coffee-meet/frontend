@@ -1,11 +1,14 @@
 import { IoChatbox } from "react-icons/io5";
 import { MdHome } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { getMyProfileDataOptions } from "@/libs/react-query/options/getMyProfileData.ts";
 import styled from "@emotion/styled";
+import { useQuery } from "@tanstack/react-query";
 import Avatar from "@/components/common/Avatar";
 import { FlexBox } from "@/components/common/Flexbox";
 import { Text } from "@/components/common/Text";
 import { palette } from "@/styles/palette";
+import useAuthStore from "@/store/AuthStore.tsx";
 import defaultProfileImage from "@/assets/images/defaultProfileImage.png";
 
 type NavigationBarProps = {
@@ -14,6 +17,11 @@ type NavigationBarProps = {
 
 const NavigationBar = ({ isDarkMode }: NavigationBarProps) => {
   const navigate = useNavigate();
+  const { data } = useQuery({
+    ...getMyProfileDataOptions,
+    enabled: useAuthStore.getState().authTokens?.accessToken !== null,
+  });
+
   const moveFromNavigationBar = (path: string) => {
     navigate(`/${path}`);
   };
@@ -74,7 +82,7 @@ const NavigationBar = ({ isDarkMode }: NavigationBarProps) => {
               <Avatar
                 width={30}
                 height={30}
-                imgUrl={defaultProfileImage}
+                imgUrl={data?.profileImageUrl ?? defaultProfileImage}
                 margin={"0"}
               />
             </StyledProfileImageWrapper>
