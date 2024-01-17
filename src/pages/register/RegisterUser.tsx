@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { MdWbSunny } from "react-icons/md";
+import { BiSolidMoon } from "react-icons/bi";
+import { RiSunFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import type { UserInfoStateType } from "@/schemas/userInfo";
 import { UserInfoSchema } from "@/schemas/userInfo";
@@ -26,6 +27,7 @@ const RegisterUser = () => {
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null);
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
+  const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
 
   const userInfoForm = useForm<UserInfoStateType>({
     resolver: zodResolver(UserInfoSchema),
@@ -88,19 +90,34 @@ const RegisterUser = () => {
   };
 
   return (
-    <StyleRegisterWrapper>
+    <StyleRegisterWrapper isDarkMode={isDarkMode}>
       <StyleRegisterHeader>
         <Spacing size={64} />
         <FlexBox
           fullWidth={true}
           justify={"flex-end"}
         >
-          <StyleHeaderText>{"프로필 등록"} </StyleHeaderText>
+          <StyleHeaderText isDarkMode={isDarkMode}>{"프로필 등록"} </StyleHeaderText>
           <StyleIcon>
-            <MdWbSunny
-              size={20}
-              color={palette.TERTIARY}
-            />
+            {isDarkMode ? (
+              <RiSunFill
+                size={"20px"}
+                style={{
+                  color: palette.TERTIARY,
+                  cursor: "pointer",
+                }}
+                onClick={toggleDarkMode}
+              />
+            ) : (
+              <BiSolidMoon
+                size={"20px"}
+                style={{
+                  color: palette.TERTIARY,
+                  cursor: "pointer",
+                }}
+                onClick={toggleDarkMode}
+              />
+            )}
           </StyleIcon>
         </FlexBox>
         <Spacing size={11} />
@@ -108,9 +125,10 @@ const RegisterUser = () => {
       </StyleRegisterHeader>
       <Spacing size={73} />
       <form onSubmit={userInfoForm.handleSubmit(submitUserProfileData)}>
-        <FlexBox gap={16}>
+        <StyleSectionText isDarkMode={isDarkMode}>{"닉네임"}</StyleSectionText>
+        <FlexBox gap={10}>
           <RegisterInput
-            width={260}
+            width={240}
             placeholder={"닉네임 (10자 제한)"}
             {...userInfoForm.register("nickname")}
           />
@@ -155,7 +173,7 @@ const RegisterUser = () => {
           </AlertText>
         )}
         <Spacing size={44} />
-        <StyleInterestText>{"관심사"}</StyleInterestText>
+        <StyleSectionText isDarkMode={isDarkMode}>{"관심사"}</StyleSectionText>
         <FlexBox direction={"column"}>
           <Controller
             name={"interest"}
@@ -177,24 +195,26 @@ const RegisterUser = () => {
     </StyleRegisterWrapper>
   );
 };
-const StyleRegisterWrapper = styled.div`
-  background-color: ${palette.GRAY100};
+const StyleRegisterWrapper = styled.div<{ isDarkMode: boolean }>`
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_BLUE : palette.GRAY100)};
   height: 100%;
 `;
 const StyleRegisterHeader = styled.div``;
-const StyleHeaderText = styled.span`
+const StyleHeaderText = styled.span<{ isDarkMode: boolean }>`
   margin: 0 auto;
   font-size: ${typo.Body_24()};
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.BLACK)};
 `;
 const StyleDivider = styled.hr`
   height: 1px;
   background-color: ${palette.GRAY200};
   border: 0;
 `;
-const StyleInterestText = styled.div`
+const StyleSectionText = styled.div<{ isDarkMode: boolean }>`
   padding: 10px;
   margin-left: 25px;
   font-size: ${typo.Body_18()};
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.BLACK)};
 `;
 const StyleSubmitButtonWrapper = styled.div`
   display: flex;
