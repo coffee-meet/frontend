@@ -92,11 +92,9 @@ const RegisterUser = () => {
       <StyleRegisterHeader>
         <Spacing size={64} />
         <FlexBox
-          gap={10}
           fullWidth={true}
-          justify={"space-around"}
+          justify={"flex-end"}
         >
-          <span></span>
           <StyleHeaderText>{"프로필 등록"} </StyleHeaderText>
           <StyleIcon>
             <MdWbSunny
@@ -185,6 +183,7 @@ const StyleRegisterWrapper = styled.div`
 `;
 const StyleRegisterHeader = styled.div``;
 const StyleHeaderText = styled.span`
+  margin: 0 auto;
   font-size: ${typo.Body_24()};
 `;
 const StyleDivider = styled.hr`
@@ -206,5 +205,7 @@ const StyleSubmitButtonWrapper = styled.div`
 `;
 const StyleIcon = styled.button`
   cursor: pointer;
+  position: absolute;
+  margin-right: 40px;
 `;
 export default RegisterUser;
