@@ -106,7 +106,7 @@ const StyledItem = styled.button<{ isDarkMode: boolean; isSelected: boolean }>`
     props.isDarkMode
       ? props.isSelected
         ? palette.SECONDARY
-        : palette.WHITE
+        : palette.GRAY900
       : props.isSelected
       ? palette.BLUE
       : palette.TERTIARY};
