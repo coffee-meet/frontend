@@ -33,7 +33,7 @@ const LoginPending = () => {
         setUserId(userId);
 
         if (!isRegistered) {
-          navigate("/register/user", { state: { userId: userId } });
+          navigate("/register/user");
         }
 
         if (isRegistered) {

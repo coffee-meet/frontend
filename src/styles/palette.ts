@@ -16,6 +16,8 @@ export const palette = {
   YELLOW: "#FEE500",
   BLUE: "#004BFF",
   DARK_ICON: "#4F5965",
+  GRAY900: "#1C1F25",
+  GRAY800: "#2A2E35",
   GRAY700: "#313741",
   GRAY600: "#33363B",
   GRAY500: "#717580",

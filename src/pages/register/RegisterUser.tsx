@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { MdWbSunny } from "react-icons/md";
+import { BiSolidMoon } from "react-icons/bi";
+import { RiSunFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import type { UserInfoStateType } from "@/schemas/userInfo";
 import { UserInfoSchema } from "@/schemas/userInfo";
@@ -16,18 +17,17 @@ import Spacing from "@/components/common/Spacing";
 import useToast from "@/hooks/useToast";
 import { palette } from "@/styles/palette";
 import { typo } from "@/styles/typo";
-import useAuthStore from "@/store/AuthStore.tsx";
 import useThemeStore from "@/store/ThemeStore";
 import { InterestList } from "@/constants/index.ts";
 
 const RegisterUser = () => {
   const navigate = useNavigate();
-  const userId = useAuthStore((state) => state.userId);
 
   const [doubleChecked, setDoubleChecked] = useState<null | boolean>(false);
   const [nicknameDuplicated, setNicknameDuplicated] = useState<null | boolean>(null);
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
+  const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
 
   const userInfoForm = useForm<UserInfoStateType>({
     resolver: zodResolver(UserInfoSchema),
@@ -82,7 +82,6 @@ const RegisterUser = () => {
   const submitUserProfileData = (data: UserInfoStateType) => {
     if (formValidation(data.nickname)) {
       const userInfo = {
-        userId: userId,
         nickname: data.nickname,
         keywords: data.interest,
       };
@@ -91,36 +90,51 @@ const RegisterUser = () => {
   };
 
   return (
-    <StyleRegisterWrapper>
+    <StyleRegisterWrapper isDarkMode={isDarkMode}>
       <StyleRegisterHeader>
         <Spacing size={64} />
         <FlexBox
-          gap={10}
           fullWidth={true}
-          justify={"space-around"}
+          justify={"flex-end"}
         >
-          <span></span>
-          <StyleHeaderText>{"프로필 등록"} </StyleHeaderText>
+          <StyleHeaderText isDarkMode={isDarkMode}>{"프로필 등록"} </StyleHeaderText>
           <StyleIcon>
-            <MdWbSunny
-              size={20}
-              color={palette.TERTIARY}
-            />
+            {isDarkMode ? (
+              <RiSunFill
+                size={"20px"}
+                style={{
+                  color: palette.TERTIARY,
+                  cursor: "pointer",
+                }}
+                onClick={toggleDarkMode}
+              />
+            ) : (
+              <BiSolidMoon
+                size={"20px"}
+                style={{
+                  color: palette.TERTIARY,
+                  cursor: "pointer",
+                }}
+                onClick={toggleDarkMode}
+              />
+            )}
           </StyleIcon>
         </FlexBox>
         <Spacing size={11} />
-        <StyleDivider />
+        <StyleDivider isDarkMode={isDarkMode} />
       </StyleRegisterHeader>
       <Spacing size={73} />
       <form onSubmit={userInfoForm.handleSubmit(submitUserProfileData)}>
-        <FlexBox gap={16}>
+        <StyleSectionText isDarkMode={isDarkMode}>{"닉네임"}</StyleSectionText>
+        <FlexBox gap={10}>
           <RegisterInput
-            width={260}
+            width={240}
             placeholder={"닉네임 (10자 제한)"}
+            isDarkMode={isDarkMode}
             {...userInfoForm.register("nickname")}
           />
           <NormalButton
-            normalButtonType={"nickname-duplicate"}
+            normalButtonType={isDarkMode ? "nickname-duplicate-dark" : "nickname-duplicate"}
             onClick={(event) => {
               event.preventDefault();
               doubleCheckNickName(userInfoForm.getValues("nickname"));
@@ -160,7 +174,7 @@ const RegisterUser = () => {
           </AlertText>
         )}
         <Spacing size={44} />
-        <StyleInterestText>{"관심사"}</StyleInterestText>
+        <StyleSectionText isDarkMode={isDarkMode}>{"관심사"}</StyleSectionText>
         <FlexBox direction={"column"}>
           <Controller
             name={"interest"}
@@ -182,23 +196,26 @@ const RegisterUser = () => {
     </StyleRegisterWrapper>
   );
 };
-const StyleRegisterWrapper = styled.div`
-  background-color: ${palette.GRAY100};
+const StyleRegisterWrapper = styled.div<{ isDarkMode: boolean }>`
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_BLUE : palette.GRAY100)};
   height: 100%;
 `;
 const StyleRegisterHeader = styled.div``;
-const StyleHeaderText = styled.span`
+const StyleHeaderText = styled.span<{ isDarkMode: boolean }>`
+  margin: 0 auto;
   font-size: ${typo.Body_24()};
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.BLACK)};
 `;
-const StyleDivider = styled.hr`
+const StyleDivider = styled.hr<{ isDarkMode: boolean }>`
   height: 1px;
-  background-color: ${palette.GRAY200};
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY600 : palette.GRAY200)};
   border: 0;
 `;
-const StyleInterestText = styled.div`
+const StyleSectionText = styled.div<{ isDarkMode: boolean }>`
   padding: 10px;
   margin-left: 25px;
   font-size: ${typo.Body_18()};
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.BLACK)};
 `;
 const StyleSubmitButtonWrapper = styled.div`
   display: flex;
@@ -209,5 +226,7 @@ const StyleSubmitButtonWrapper = styled.div`
 `;
 const StyleIcon = styled.button`
   cursor: pointer;
+  position: absolute;
+  margin-right: 40px;
 `;
 export default RegisterUser;

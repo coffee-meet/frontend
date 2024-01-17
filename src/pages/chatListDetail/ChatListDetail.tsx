@@ -66,6 +66,7 @@ const ChatListDetail = () => {
                 ref={messageRef}
                 width={250}
                 height={35}
+                isDarkMode={false}
                 placeholder={"대화 불가능한 상태입니다."}
                 disabled
               ></RegisterInput>
