@@ -130,10 +130,11 @@ const RegisterUser = () => {
           <RegisterInput
             width={240}
             placeholder={"닉네임 (10자 제한)"}
+            isDarkMode={isDarkMode}
             {...userInfoForm.register("nickname")}
           />
           <NormalButton
-            normalButtonType={"nickname-duplicate"}
+            normalButtonType={isDarkMode ? "nickname-duplicate-dark" : "nickname-duplicate"}
             onClick={(event) => {
               event.preventDefault();
               doubleCheckNickName(userInfoForm.getValues("nickname"));
