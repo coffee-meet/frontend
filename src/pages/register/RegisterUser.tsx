@@ -121,7 +121,7 @@ const RegisterUser = () => {
           </StyleIcon>
         </FlexBox>
         <Spacing size={11} />
-        <StyleDivider />
+        <StyleDivider isDarkMode={isDarkMode} />
       </StyleRegisterHeader>
       <Spacing size={73} />
       <form onSubmit={userInfoForm.handleSubmit(submitUserProfileData)}>
@@ -206,9 +206,9 @@ const StyleHeaderText = styled.span<{ isDarkMode: boolean }>`
   font-size: ${typo.Body_24()};
   color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.BLACK)};
 `;
-const StyleDivider = styled.hr`
+const StyleDivider = styled.hr<{ isDarkMode: boolean }>`
   height: 1px;
-  background-color: ${palette.GRAY200};
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY600 : palette.GRAY200)};
   border: 0;
 `;
 const StyleSectionText = styled.div<{ isDarkMode: boolean }>`
