@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { MdOutlinePhotoCamera, MdWbSunny } from "react-icons/md";
+import { BiSolidMoon } from "react-icons/bi";
+import { MdOutlinePhotoCamera } from "react-icons/md";
+import { RiSunFill } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { CompanyInfoStateType } from "@/schemas/companyInfo.ts";
 import { CompanyInfoSchema } from "@/schemas/companyInfo.ts";
@@ -30,6 +32,7 @@ const RegisterCompany = () => {
   const navigate = useNavigate();
   const { showToast } = useToast();
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
+  const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
   const userId = useAuthStore((state) => state.userId);
   const userInfo: UserInfoType = useLocation().state;
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
@@ -139,7 +142,7 @@ const RegisterCompany = () => {
   };
 
   return (
-    <StyleRegisterWrapper>
+    <StyleRegisterWrapper isDarkMode={isDarkMode}>
       <StyleRegisterHeader>
         <Spacing size={64} />
         <FlexBox
@@ -150,20 +153,36 @@ const RegisterCompany = () => {
           <StyleIcon>
             <BackChevron
               hasBackground={true}
+              isDarkMode={isDarkMode}
               prevClick={() => {
                 navigate("/register/user");
               }}
             />
           </StyleIcon>
-          <StyleHeaderText>{"회사 인증"}</StyleHeaderText>
+          <StyleHeaderText isDarkMode={isDarkMode}>{"회사 인증"}</StyleHeaderText>
           <StyleIcon>
-            <MdWbSunny
-              size={20}
-              color={palette.TERTIARY}
-            />
+            {isDarkMode ? (
+              <RiSunFill
+                size={"20px"}
+                style={{
+                  color: palette.TERTIARY,
+                  cursor: "pointer",
+                }}
+                onClick={toggleDarkMode}
+              />
+            ) : (
+              <BiSolidMoon
+                size={"20px"}
+                style={{
+                  color: palette.TERTIARY,
+                  cursor: "pointer",
+                }}
+                onClick={toggleDarkMode}
+              />
+            )}
           </StyleIcon>
         </FlexBox>
-        <StyleDivider />
+        <StyleDivider isDarkMode={isDarkMode} />
       </StyleRegisterHeader>
       <Spacing size={13} />
       <form onSubmit={companyInfoForm.handleSubmit(handleCompleteSignupProcess)}>
@@ -174,8 +193,9 @@ const RegisterCompany = () => {
           >
             <FlexBox gap={16}>
               <RegisterInput
-                width={350}
+                width={310}
                 placeholder={"회사 명"}
+                isDarkMode={isDarkMode}
                 {...companyInfoForm.register("companyName")}
               />
             </FlexBox>
@@ -193,12 +213,13 @@ const RegisterCompany = () => {
             </div>
             <FlexBox gap={16}>
               <RegisterInput
-                width={260}
+                width={220}
                 placeholder={"회사 이메일"}
+                isDarkMode={isDarkMode}
                 {...companyInfoForm.register("companyEmail")}
               />
               <NormalButton
-                normalButtonType={"email-certify"}
+                normalButtonType={isDarkMode ? "email-certify-dark" : "email-certify"}
                 onClick={(event) => {
                   event.preventDefault();
                   handleEmailCertification(companyInfoForm.getValues("companyEmail"));
@@ -228,8 +249,9 @@ const RegisterCompany = () => {
             }}
           >
             <RegisterInput
-              width={343}
+              width={313}
               placeholder={"인증코드 6자리 입력"}
+              isDarkMode={isDarkMode}
               {...companyInfoForm.register("certCode")}
             />
             <StyleVerificationEmailButton
@@ -264,7 +286,7 @@ const RegisterCompany = () => {
           )}
 
           <Spacing size={13} />
-          <StyleInterestText>{"직무정보"}</StyleInterestText>
+          <StyleSectionText isDarkMode={isDarkMode}>{"직무정보"}</StyleSectionText>
           <FlexBox direction={"column"}>
             <Controller
               name={"department"}
@@ -297,9 +319,9 @@ const RegisterCompany = () => {
             gap={0}
             direction={"column"}
           >
-            <StyleText> {"명함을 업로드 해주세요!"}</StyleText>
+            <StyleText isDarkMode={isDarkMode}> {"명함을 업로드 해주세요!"}</StyleText>
             <label htmlFor={"business-card-input"}>
-              <StyleImageCard>
+              <StyleImageCard isDarkMode={isDarkMode}>
                 {uploadedURL ? (
                   <img
                     src={uploadedURL}
@@ -342,16 +364,16 @@ const RegisterCompany = () => {
   );
 };
 
-const StyleRegisterWrapper = styled.div`
-  background-color: ${palette.GRAY100};
+const StyleRegisterWrapper = styled.div<{ isDarkMode: boolean }>`
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_BLUE : palette.GRAY100)};
   height: 100%;
   overflow: scroll;
 `;
 const StyleDataWrapper = styled.div``;
-const StyleImageCard = styled.div`
+const StyleImageCard = styled.div<{ isDarkMode: boolean }>`
   width: 250px;
   height: 150px;
-  background: ${palette.WHITE};
+  background: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY600 : palette.WHITE)};
   border: 1px dashed ${palette.GRAY600};
   border-radius: 10px;
   display: flex;
@@ -361,18 +383,20 @@ const StyleImageCard = styled.div`
   align-items: center;
 `;
 const StyleRegisterHeader = styled.div``;
-const StyleHeaderText = styled.span`
+const StyleHeaderText = styled.span<{ isDarkMode: boolean }>`
   font-size: ${typo.Body_24()};
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.BLACK)};
 `;
-const StyleDivider = styled.hr`
+const StyleDivider = styled.hr<{ isDarkMode: boolean }>`
   height: 1px;
-  background-color: ${palette.GRAY200};
+  background-color: ${({ isDarkMode }) => (isDarkMode ? palette.GRAY600 : palette.GRAY200)};
   border: 0;
 `;
-const StyleInterestText = styled.div`
+const StyleSectionText = styled.div<{ isDarkMode: boolean }>`
   padding: 10px;
   margin-left: 25px;
   font-size: ${typo.Body_18()};
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.BLACK)};
 `;
 const StyleSubmitButtonWrapper = styled.div`
   display: flex;
@@ -380,9 +404,10 @@ const StyleSubmitButtonWrapper = styled.div`
   justify-content: center;
   position: relative;
 `;
-const StyleText = styled.div`
+const StyleText = styled.div<{ isDarkMode: boolean }>`
   font-size: ${typo.Body_12()};
   margin: 10px;
+  color: ${({ isDarkMode }) => (isDarkMode ? palette.DARK_WHITE : palette.BLACK)};
 `;
 const StyleIcon = styled.button`
   cursor: pointer;
@@ -393,7 +418,7 @@ export const StyleVerificationEmailButton = styled.button`
   height: 25px;
   background-color: ${palette.TERTIARY};
   position: absolute;
-  right: 30px;
+  right: 45px;
   color: ${palette.WHITE};
   border-radius: 10px;
   font-size: 12px;
