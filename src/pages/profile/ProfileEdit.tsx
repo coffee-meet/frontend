@@ -37,8 +37,8 @@ const ProfileEdit = () => {
   const userInfoForm = useForm<UserInfoStateType>({
     resolver: zodResolver(UserInfoSchema),
   });
-  const queryClient = useQueryClient();
 
+  const queryClient = useQueryClient();
   const data = queryClient.getQueryData<MyProfileData>(["myProfileData"]);
 
   const checkNicknameDuplicated = (nickname: string) => {
@@ -76,7 +76,6 @@ const ProfileEdit = () => {
             type: "success",
             isDarkMode,
           });
-          await queryClient.invalidateQueries({ queryKey: ["myProfileData"] });
           await queryClient.refetchQueries({ queryKey: ["myProfileData"] });
         })
         .catch(() => {
@@ -110,7 +109,6 @@ const ProfileEdit = () => {
           type: "success",
           isDarkMode,
         });
-        await queryClient.invalidateQueries({ queryKey: ["myProfileData"] });
         await queryClient.refetchQueries({ queryKey: ["myProfileData"] });
         navigate("/profile");
       })
@@ -146,7 +144,7 @@ const ProfileEdit = () => {
           <Avatar
             width={80}
             height={80}
-            imgUrl={data?.profileImageUrl ?? imgSrc}
+            imgUrl={imgSrc === "default_image_url" ? data!.profileImageUrl : imgSrc}
           />
           <Spacing size={20} />
           <label htmlFor={"profile-image-upload"}>
