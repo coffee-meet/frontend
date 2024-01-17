@@ -166,6 +166,7 @@ const ProfileEdit = () => {
                 width={240}
                 placeholder={"닉네임 (10자 제한)"}
                 defaultValue={data?.nickname}
+                isDarkMode={isDarkMode}
                 {...userInfoForm.register("nickname")}
               />
               <NormalButton
