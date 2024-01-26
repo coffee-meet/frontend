@@ -34,7 +34,7 @@ const RegisterCompany = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
   const userId = useAuthStore((state) => state.userId);
-  const userInfo: UserInfoType = useLocation().state;
+  const userInfo: Omit<UserInfoType, "userId"> = useLocation().state;
   const [isCodeSame, setIsCodeSame] = useState<null | boolean>(null);
   const [codeChecked, setCodeChecked] = useState<null | boolean>(null);
   const [uploadedURL, setUploadedURL] = useState("");
@@ -124,7 +124,7 @@ const RegisterCompany = () => {
     formData.append("businessCard", data.businessCard[0]);
 
     try {
-      await registerUserInfo(userInfo);
+      await registerUserInfo({ userId: userId.toString(), ...userInfo });
       await registerCompanyInfo(formData, false);
       showToast({
         message: "회원 가입 완료! 다시 로그인 해주세요!",
