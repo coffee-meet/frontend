@@ -65,7 +65,7 @@ const RegisterCompany = () => {
       type: "info",
       isDarkMode,
     });
-    return await sendEmailValidCode(email, userInfo.userId);
+    return await sendEmailValidCode(email, userId.toString());
   };
 
   //이메일 인증 버튼 누르면 실행되는 함수
@@ -84,7 +84,7 @@ const RegisterCompany = () => {
       return;
     }
     setCodeChecked(true);
-    const response = await getEmailValid(userInfo.userId, code);
+    const response = await getEmailValid(userId.toString(), code);
     if (response.status == 200) {
       setIsCodeSame(true);
     } else {
