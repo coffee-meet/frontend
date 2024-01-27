@@ -75,8 +75,16 @@ const ProfileDefault = () => {
     openModal({
       mainText: "계정을 삭제하시겠습니까?",
       subText: "계정을 삭제하시면 모든 정보가 삭제되며 복구할 수 없습니다.",
-      okFunc: () => {
-        navigate("/login");
+      okFunc: async () => {
+        await axiosAPI
+          .post("/v1/auth/delete")
+          .then(() => {
+            useAuthStore.persist.clearStorage();
+            navigate("/login");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       },
       type: "warn",
       acceptText: "네, 삭제하겠습니다.",
