@@ -47,24 +47,24 @@ const ProfileCompanyEdit = () => {
 
   const handleVerifyEmail = async (email: string) => {
     if (!email) {
-      showToast({ message: "이메일을 입력해주세요! ", type: "warning", isDarkMode });
+      showToast({ message: "이메일을 입력해주세요! ", type: "warning" });
       return;
     }
     if (!userId) {
-      showToast({ message: "로그인이 필요합니다! ", type: "warning", isDarkMode });
+      showToast({ message: "로그인이 필요합니다! ", type: "warning" });
       return;
     }
-    showToast({ message: "인증코드가 전송되었습니다! ", type: "success", isDarkMode });
+    showToast({ message: "인증코드가 전송되었습니다! ", type: "success" });
     return await sendEmailValidCode(email, userId.toString());
   };
 
   const handleVerifyCode = async (code: string) => {
     if (!code) {
-      showToast({ message: "인증코드를 입력해주세요! ", type: "warning", isDarkMode });
+      showToast({ message: "인증코드를 입력해주세요! ", type: "warning" });
       return;
     }
     if (!userId) {
-      showToast({ message: "로그인이 필요합니다! ", type: "warning", isDarkMode });
+      showToast({ message: "로그인이 필요합니다! ", type: "warning" });
       return;
     }
     setCodeChecked(true);
@@ -85,15 +85,15 @@ const ProfileCompanyEdit = () => {
 
   const handleChangeCompanyInfo = (data: CompanyInfoStateType) => {
     if (!userId) {
-      showToast({ message: "로그인이 필요합니다! ", type: "warning", isDarkMode });
+      showToast({ message: "로그인이 필요합니다! ", type: "warning" });
       return;
     }
     if (!codeChecked) {
-      showToast({ message: "인증코드가 확인되지 않았습니다! ", type: "warning", isDarkMode });
+      showToast({ message: "인증코드가 확인되지 않았습니다! ", type: "warning" });
       return;
     }
     if (!isCodeSame) {
-      showToast({ message: "인증코드가 일치하지 않습니다! ", type: "warning", isDarkMode });
+      showToast({ message: "인증코드가 일치하지 않습니다! ", type: "warning" });
       return;
     }
     const formData = new FormData();
@@ -107,7 +107,6 @@ const ProfileCompanyEdit = () => {
         showToast({
           message: "회사 정보 변경 완료!",
           type: "success",
-          isDarkMode: false,
         });
         navigate("/profile");
       })
@@ -115,7 +114,6 @@ const ProfileCompanyEdit = () => {
         showToast({
           message: "회사 정보 변경에 실패했습니다.",
           type: "error",
-          isDarkMode: false,
         });
       });
   };

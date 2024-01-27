@@ -43,7 +43,6 @@ const ProfileDefault = () => {
     showToast({
       message: "프로필 정보를 불러오는데 실패했습니다.",
       type: "error",
-      isDarkMode,
     });
     useAuthStore.persist.clearStorage();
     navigate("/login");
@@ -228,7 +227,6 @@ const ProfileDefault = () => {
               showToast({
                 message: "아직 준비중인 기능입니다!",
                 type: "info",
-                isDarkMode,
               });
             }}
           />

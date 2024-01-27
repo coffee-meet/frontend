@@ -49,7 +49,6 @@ const LoginPending = () => {
         showToast({
           message: "로그인에 실패했습니다.",
           type: "error",
-          isDarkMode: false,
         });
         navigate("/login");
       });

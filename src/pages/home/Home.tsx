@@ -24,7 +24,6 @@ const Home = () => {
       showToast({
         message: "로그인이 필요한 서비스입니다!",
         type: "warning",
-        isDarkMode,
       });
       navigate("/login");
     }
@@ -73,7 +72,6 @@ const Home = () => {
             showToast({
               message: "아직 준비중인 기능입니다!",
               type: "info",
-              isDarkMode,
             });
           }}
         />
