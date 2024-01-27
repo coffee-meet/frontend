@@ -172,6 +172,7 @@ const Card = ({ isDarkMode }: CardProps) => {
                   display: "flex",
                   justifyContent: "center",
                   textAlign: "center",
+                  color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
                 }}
               >
                 {formatTime(time)}
@@ -193,6 +194,7 @@ const Card = ({ isDarkMode }: CardProps) => {
                   display: "flex",
                   justifyContent: "center",
                   textAlign: "center",
+                  color: isDarkMode ? `${palette.DARK_WHITE}` : `${palette.DARK_BLUE}`,
                 }}
               >
                 {"매칭 중"}&nbsp;&nbsp;&nbsp;

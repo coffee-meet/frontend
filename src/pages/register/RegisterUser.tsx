@@ -58,21 +58,18 @@ const RegisterUser = () => {
       showToast({
         message: "닉네임을 입력하세요!",
         type: "warning",
-        isDarkMode,
       });
       return false;
     } else if (!doubleChecked) {
       showToast({
         message: "중복검사를 해주세요!",
         type: "warning",
-        isDarkMode,
       });
       return false;
     } else if (nicknameDuplicated) {
       showToast({
         message: "사용할 수 없는 닉네임입니다.",
         type: "warning",
-        isDarkMode,
       });
       return false;
     } else {

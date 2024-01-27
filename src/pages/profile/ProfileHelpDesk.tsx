@@ -32,11 +32,11 @@ const ProfileHelpDesk = () => {
     }
     postMyInquiry(inputRef.current.value, textareaRef.current.value)
       .then(() => {
-        showToast({ message: "불편사항이 접수되었습니다.", type: "success", isDarkMode });
+        showToast({ message: "불편사항이 접수되었습니다.", type: "success" });
         navigate("/profile");
       })
       .catch(() => {
-        showToast({ message: "불편사항 접수에 실패했습니다.", type: "error", isDarkMode });
+        showToast({ message: "불편사항 접수에 실패했습니다.", type: "error" });
       });
   };
   return (

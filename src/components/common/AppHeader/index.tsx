@@ -80,7 +80,6 @@ const AppHeader = ({ isAuth, isDarkMode, height, toggleDarkMode }: AppHeaderProp
     showToast({
       message: "프로필 정보를 불러오는데 실패했습니다.",
       type: "error",
-      isDarkMode,
     });
     useAuthStore.persist.clearStorage();
     navigate("/login");

@@ -46,7 +46,6 @@ const ProfileEdit = () => {
       showToast({
         message: "닉네임을 입력하세요!",
         type: "warning",
-        isDarkMode,
       });
       return;
     }
@@ -74,7 +73,6 @@ const ProfileEdit = () => {
           showToast({
             message: "프로필 이미지가 수정되었습니다.",
             type: "success",
-            isDarkMode,
           });
           await queryClient.refetchQueries({ queryKey: ["myProfileData"] });
         })
@@ -82,7 +80,6 @@ const ProfileEdit = () => {
           showToast({
             message: "프로필 이미지 수정에 실패했습니다.",
             type: "error",
-            isDarkMode,
           });
         });
     }
@@ -93,7 +90,6 @@ const ProfileEdit = () => {
       showToast({
         message: "닉네임 중복검사를 해주세요!",
         type: "warning",
-        isDarkMode,
       });
       return;
     }
@@ -107,7 +103,6 @@ const ProfileEdit = () => {
         showToast({
           message: "프로필이 수정되었습니다.",
           type: "success",
-          isDarkMode,
         });
         await queryClient.refetchQueries({ queryKey: ["myProfileData"] });
         navigate("/profile");
@@ -116,7 +111,6 @@ const ProfileEdit = () => {
         showToast({
           message: "프로필 수정에 실패했습니다.",
           type: "error",
-          isDarkMode,
         });
       });
   };
