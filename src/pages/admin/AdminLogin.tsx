@@ -26,7 +26,6 @@ const AdminLogin = () => {
       showToast({
         message: "올바른 id, password를 입력해주세요!",
         type: "warning",
-        isDarkMode: false,
       });
     },
   });

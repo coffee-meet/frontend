@@ -56,14 +56,12 @@ const RegisterCompany = () => {
       showToast({
         message: "이메일을 입력해주세요.",
         type: "warning",
-        isDarkMode,
       });
       return;
     }
     showToast({
       message: "메일로 인증코드가 전송되었습니다.",
       type: "info",
-      isDarkMode,
     });
     return await sendEmailValidCode(email, userId.toString());
   };
@@ -79,7 +77,6 @@ const RegisterCompany = () => {
       showToast({
         message: "인증코드를 입력해주세요.",
         type: "warning",
-        isDarkMode,
       });
       return;
     }
@@ -97,14 +94,12 @@ const RegisterCompany = () => {
       showToast({
         message: "인증코드가 확인되지 않았습니다. ",
         type: "warning",
-        isDarkMode,
       });
       return false;
     } else if (!isCodeSame) {
       showToast({
         message: "인증코드가 일치하지 않습니다. ",
         type: "warning",
-        isDarkMode,
       });
       return false;
     }
@@ -129,14 +124,12 @@ const RegisterCompany = () => {
       showToast({
         message: "회원 가입 완료! 다시 로그인 해주세요!",
         type: "success",
-        isDarkMode: false,
       });
       navigate("/login");
     } catch (error) {
       showToast({
         message: "회원 가입에 실패했습니다.",
         type: "error",
-        isDarkMode: false,
       });
     }
   };

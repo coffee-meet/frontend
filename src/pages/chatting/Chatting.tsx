@@ -121,7 +121,6 @@ const Chatting = () => {
       showToast({
         message: "삭제된 채팅방입니다😭. 홈으로 이동합니다!",
         type: "warning",
-        isDarkMode: false,
       });
       navigateHome();
     }
@@ -176,7 +175,6 @@ const Chatting = () => {
       showToast({
         message: "삭제된 채팅방입니다😭. 홈으로 이동합니다!",
         type: "warning",
-        isDarkMode: false,
       });
       navigateHome();
     }
