@@ -1,6 +1,8 @@
 import axios from "axios";
 import useAuthStore from "@/store/AuthStore.tsx";
 
+axios.defaults.withCredentials = true;
+
 export const axiosAPI = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
